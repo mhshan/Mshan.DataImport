@@ -1,0 +1,86 @@
+2018/2/23 11:02:43  Application_UnhandledException
+尝试加载 Oracle 客户端库时引发 BadImageFormatException。如果在安装 32 位 Oracle 客户端组件的情况下以 64 位模式运行，将出现此问题。
+   在 System.Data.OracleClient.OCI.DetermineClientVersion()
+   在 System.Data.OracleClient.OracleInternalConnection.OpenOnLocalTransaction(String userName, String password, String serverName, Boolean integratedSecurity, Boolean unicode, Boolean omitOracleConnectionName)
+   在 System.Data.OracleClient.OracleInternalConnection..ctor(OracleConnectionString connectionOptions)
+   在 System.Data.OracleClient.OracleConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   在 System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   在 System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   在 System.Data.OracleClient.OracleConnection.Open()
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Open(String connectionString) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 281
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Open() 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 254
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.get_DbConnection() 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 54
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Fill(DataTable dt, String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.Method.cs:行号 415
+   在 Mshan.Utilities.DbUtilities.DbHelper.Fill(String connectionString, String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\DbHelper.Method.cs:行号 220
+   在 Mshan.Utilities.DbUtilities.DbHelper.Fill(String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\DbHelper.Method.cs:行号 203
+   在 Mshan.Document.Database.OracleDocument.GetAllUserTable() 位置 F:\Testing\Mshan.DataImport\Mshan.Document.Database\OracleDocument.cs:行号 44
+   在 Mshan.Document.WinFormDatabase.Form1.Process() 位置 F:\Testing\Mshan.DataImport\Mshan.Document.WinFormDatabase\Form1.cs:行号 41
+   在 System.Threading.ThreadHelper.ThreadStart_Context(Object state)
+   在 System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   在 System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   在 System.Threading.ThreadHelper.ThreadStart()
+2018/6/6 10:36:50  Application_ThreadException
+ORA-12170: TNS: 连接超时
+
+   在 System.Data.OracleClient.OracleException.Check(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleInternalConnection.OpenOnLocalTransaction(String userName, String password, String serverName, Boolean integratedSecurity, Boolean unicode, Boolean omitOracleConnectionName)
+   在 System.Data.OracleClient.OracleInternalConnection..ctor(OracleConnectionString connectionOptions)
+   在 System.Data.OracleClient.OracleConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   在 System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   在 System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   在 System.Data.OracleClient.OracleConnection.Open()
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Open(String connectionString) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 281
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Open() 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 254
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.get_DbConnection() 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 54
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Fill(DataTable dt, String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.Method.cs:行号 415
+   在 Mshan.Utilities.DbUtilities.DbHelper.Fill(String connectionString, String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\DbHelper.Method.cs:行号 220
+   在 Mshan.Utilities.DbUtilities.DbHelper.Fill(String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\DbHelper.Method.cs:行号 203
+   在 Mshan.Document.Database.OracleDocument.GetTablesByUser(String user) 位置 F:\Testing\Mshan.DataImport\Mshan.Document.Database\OracleDocument.cs:行号 40
+   在 Mshan.Document.WinFormDatabase.Form1.btnSearchTable_Click(Object sender, EventArgs e) 位置 F:\Testing\Mshan.DataImport\Mshan.Document.WinFormDatabase\Form1.cs:行号 325
+   在 System.Windows.Forms.Control.OnClick(EventArgs e)
+   在 System.Windows.Forms.Button.OnClick(EventArgs e)
+   在 System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   在 System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   在 System.Windows.Forms.Control.WndProc(Message& m)
+   在 System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   在 System.Windows.Forms.Button.WndProc(Message& m)
+   在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+2018/6/6 10:37:20  Application_ThreadException
+ORA-12560: TNS: 协议适配器错误
+
+   在 System.Data.OracleClient.OracleException.Check(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleInternalConnection.OpenOnLocalTransaction(String userName, String password, String serverName, Boolean integratedSecurity, Boolean unicode, Boolean omitOracleConnectionName)
+   在 System.Data.OracleClient.OracleInternalConnection..ctor(OracleConnectionString connectionOptions)
+   在 System.Data.OracleClient.OracleConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   在 System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   在 System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   在 System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   在 System.Data.OracleClient.OracleConnection.Open()
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Open(String connectionString) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 281
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Open() 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 254
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.get_DbConnection() 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.cs:行号 54
+   在 Mshan.Utilities.DbUtilities.BaseDbHelper.Fill(DataTable dt, String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\BaseDbHelper.Method.cs:行号 415
+   在 Mshan.Utilities.DbUtilities.DbHelper.Fill(String connectionString, String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\DbHelper.Method.cs:行号 220
+   在 Mshan.Utilities.DbUtilities.DbHelper.Fill(String commandText, IDbDataParameter[] dbParameters, CommandType commandType) 位置 F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\DbHelper.Method.cs:行号 203
+   在 Mshan.Document.Database.OracleDocument.GetTablesByUser(String user) 位置 F:\Testing\Mshan.DataImport\Mshan.Document.Database\OracleDocument.cs:行号 40
+   在 Mshan.Document.WinFormDatabase.Form1.btnSearchTable_Click(Object sender, EventArgs e) 位置 F:\Testing\Mshan.DataImport\Mshan.Document.WinFormDatabase\Form1.cs:行号 325
+   在 System.Windows.Forms.Control.OnClick(EventArgs e)
+   在 System.Windows.Forms.Button.OnClick(EventArgs e)
+   在 System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   在 System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   在 System.Windows.Forms.Control.WndProc(Message& m)
+   在 System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   在 System.Windows.Forms.Button.WndProc(Message& m)
+   在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)

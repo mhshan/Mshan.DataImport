@@ -1,0 +1,8 @@
+F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\bin\Debug\Mshan.Utilities.DbUtilities.dll
+F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\bin\Debug\Mshan.Utilities.DbUtilities.pdb
+F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\obj\Debug\Mshan.Utilities.DbUtilities.dll
+F:\Testing\Mshan.DataImport\Mshan.Utilities.DbUtilities\obj\Debug\Mshan.Utilities.DbUtilities.pdb
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\bin\Debug\Mshan.Utilities.DbUtilities.dll
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\bin\Debug\Mshan.Utilities.DbUtilities.pdb
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Debug\Mshan.Utilities.DbUtilities.dll
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Debug\Mshan.Utilities.DbUtilities.pdb

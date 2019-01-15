@@ -1,0 +1,20146 @@
+
+  CREATE TABLE "CCENSE"."ALERT_LEVEL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CODE" NUMBER NOT NULL ENABLE, 
+	"NAME" VARCHAR2(8) NOT NULL ENABLE, 
+	"VALIDITY" NUMBER NOT NULL ENABLE, 
+	"ALERTTO" NUMBER NOT NULL ENABLE, 
+	"MEMO" VARCHAR2(8), 
+	"ICON" VARCHAR2(30), 
+	 CONSTRAINT "PK_ALERT_LEVEL" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_ALERT_LEVEL" UNIQUE ("CODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table alert_level is '报警消息级别表'
+/
+comment on column alert_level.id is '主键，累加1'
+/
+comment on column alert_level.code is '消息级别代码：1-紧急；2-重要；3-次要；4-一般'
+/
+comment on column alert_level.name is '消息级别名称'
+/
+comment on column alert_level.validity is '消息自动失效时长。计量单位：小时'
+/
+comment on column alert_level.alertto is '报警去向 0-不报警；1-界面报警；2-email；4-短信(3:1,2;5:1,4;6:2,4;7:1,2,4)'
+/
+comment on column alert_level.memo is '备注，备用字段'
+/
+comment on column alert_level.icon is '图标路径'
+/
+
+
+  CREATE TABLE "CCENSE"."ALERT_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"OPERATORID" NUMBER NOT NULL ENABLE, 
+	"BEGINTIME" DATE NOT NULL ENABLE, 
+	"ENDTIME" DATE NOT NULL ENABLE, 
+	"ALTERTYPE" NUMBER NOT NULL ENABLE, 
+	"RESULTS" NUMBER NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(300) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ALERT_LOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table alert_log is '报警消息日志表'
+/
+comment on column alert_log.id is 'id，主键，自动产生'
+/
+comment on column alert_log.createdate is '日志创建时间'
+/
+comment on column alert_log.operatorid is '操作职员'
+/
+comment on column alert_log.begintime is '事件开始时间'
+/
+comment on column alert_log.endtime is '事件结束时间'
+/
+comment on column alert_log.altertype is '报警类型'
+/
+comment on column alert_log.results is '事件返回结果'
+/
+comment on column alert_log.description is '事件返回信息'
+/
+comment on column alert_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ALERT_MESSAGE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TITLE" VARCHAR2(30) NOT NULL ENABLE, 
+	"MESSAGE" VARCHAR2(500) NOT NULL ENABLE, 
+	"TYPEID" NUMBER(*,0) NOT NULL ENABLE, 
+	"SHOWING" NUMBER(*,0) NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"EMPID" NUMBER(*,0) NOT NULL ENABLE, 
+	"BALANCEDATE" DATE, 
+	"CREATOR" VARCHAR2(20), 
+	"MSGLEVEL" NUMBER, 
+	"STATE" NUMBER, 
+	"INVALIDDATE" DATE, 
+	"MESSAGECODE" VARCHAR2(12), 
+	"STATIONID" NUMBER, 
+	"TERMID" NUMBER, 
+	"MEMO" VARCHAR2(50), 
+	"CANCELDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ALERT_MESSATE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table alert_message is '报警信息表'
+/
+comment on column alert_message.id is '主键，累加1'
+/
+comment on column alert_message.title is '消息标题'
+/
+comment on column alert_message.message is '消息内容'
+/
+comment on column alert_message.typeid is '消息类别'
+/
+comment on column alert_message.showing is '是否界面显示 0:不显示 1:显示'
+/
+comment on column alert_message.createdate is '消息创建的时间'
+/
+comment on column alert_message.empid is '手工取消信息的职员'
+/
+comment on column alert_message.balancedate is '平衡日期'
+/
+comment on column alert_message.creator is '消息创建者'
+/
+comment on column alert_message.msglevel is '消息级别:1;2;3;4;'
+/
+comment on column alert_message.state is '消息状态:1-有效；0-过期；-1自动取消；-2手工取消'
+/
+comment on column alert_message.invaliddate is '消息自动失效时间'
+/
+comment on column alert_message.messagecode is '系统消息编码，由公司统一编制'
+/
+comment on column alert_message.stationid is '工作站编码：工作站消息用'
+/
+comment on column alert_message.termid is '终端编码：终端消息用'
+/
+comment on column alert_message.memo is '备注'
+/
+comment on column alert_message.canceldate is '消息被取消显示时间'
+/
+comment on column alert_message.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ALERT_MESSAGE_HISTORY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TITLE" VARCHAR2(30) NOT NULL ENABLE, 
+	"MESSAGE" VARCHAR2(500) NOT NULL ENABLE, 
+	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"SHOWING" NUMBER NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"BALANCEDATE" DATE, 
+	"CREATOR" VARCHAR2(20), 
+	"MSGLEVEL" NUMBER, 
+	"STATE" NUMBER, 
+	"INVALIDDATE" DATE, 
+	"MESSAGECODE" VARCHAR2(12), 
+	"STATIONID" NUMBER, 
+	"TERMID" NUMBER, 
+	"MEMO" VARCHAR2(50), 
+	"CANCELDATE" DATE, 
+	"BACKUPDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "UK_ALERT_MESSAGE_HISTORY" UNIQUE ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table alert_message_history is '报警信息历史表'
+/
+comment on column alert_message_history.id is '主键，累加1'
+/
+comment on column alert_message_history.title is '消息标题'
+/
+comment on column alert_message_history.message is '消息内容'
+/
+comment on column alert_message_history.typeid is '消息类别'
+/
+comment on column alert_message_history.showing is '是否界面显示 0:不显示 1:显示'
+/
+comment on column alert_message_history.createdate is '消息创建的时间'
+/
+comment on column alert_message_history.empid is '职员编码：平衡帐用'
+/
+comment on column alert_message_history.balancedate is '平衡日期'
+/
+comment on column alert_message_history.creator is '消息创建者'
+/
+comment on column alert_message_history.msglevel is '消息级别:1;2;3;4;'
+/
+comment on column alert_message_history.state is '消息状态:1-有效；0-过期；-1自动取消；-2手工取消'
+/
+comment on column alert_message_history.invaliddate is '消息自动失效日期'
+/
+comment on column alert_message_history.messagecode is '系统消息编码，由公司统一编制'
+/
+comment on column alert_message_history.stationid is '工作站编码：工作站消息用'
+/
+comment on column alert_message_history.termid is '终端编码：终端消息用'
+/
+comment on column alert_message_history.memo is '备注'
+/
+comment on column alert_message_history.canceldate is '消息取消时间'
+/
+comment on column alert_message_history.backupdate is '数据备份日期'
+/
+comment on column alert_message_history.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ALERT_TERM_EXTERNAL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PORT" VARCHAR2(30), 
+	"TERMADDR" VARCHAR2(16), 
+	"AUTHCODE" VARCHAR2(16), 
+	"AUTHCODEFACT" VARCHAR2(16) NOT NULL ENABLE, 
+	"AUTHTIME" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"STATE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MEMO" VARCHAR2(20), 
+	"VER" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ALERT_EXTERNAL" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_TERM_EXTERNAL" UNIQUE ("POSCODE", "AUTHCODE", "AUTHCODEFACT")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table alert_term_external is '非法终端表'
+/
+comment on column alert_term_external.id is '主键，累加1'
+/
+comment on column alert_term_external.poscode is '终端编号'
+/
+comment on column alert_term_external.port is '通讯端口。填comx或192.168.0.11：5033'
+/
+comment on column alert_term_external.termaddr is '终端的物理地址'
+/
+comment on column alert_term_external.authcode is '合法终端的认证码'
+/
+comment on column alert_term_external.authcodefact is '实际的认证码（非法终端的认证码）'
+/
+comment on column alert_term_external.authtime is '认证时间'
+/
+comment on column alert_term_external.createdate is '记录形成时间，入库时间'
+/
+comment on column alert_term_external.state is '记录状态，预留'
+/
+comment on column alert_term_external.memo is '备注'
+/
+comment on column alert_term_external.ver is '记录版本。每次更新加1'
+/
+comment on column alert_term_external.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ALERT_TYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CODE" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"NAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"USINGALERT" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"ALERTBASE" NUMBER(*,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(200) NOT NULL ENABLE, 
+	"ENABLECANCEL" NUMBER DEFAULT 1, 
+	"TYPELEVEL" NUMBER DEFAULT 4, 
+	"TYPEGROUPID" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_ALERT_TYPE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_ALERT_TYPE" UNIQUE ("CODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table alert_type is '报警类别'
+/
+comment on column alert_type.id is 'id'
+/
+comment on column alert_type.code is '0:平衡报警 1圈存报警 其他待扩展'
+/
+comment on column alert_type.name is '名称'
+/
+comment on column alert_type.usingalert is '0:不报警 1:报警'
+/
+comment on column alert_type.alertbase is '报警基数 大于基数报警'
+/
+comment on column alert_type.description is '描述'
+/
+comment on column alert_type.enablecancel is '0-禁止用户取消；1-允许用户取消'
+/
+comment on column alert_type.typelevel is '消息级别，默认一般'
+/
+comment on column alert_type.typegroupid is '消息对应的大类，预留'
+/
+
+
+  CREATE TABLE "CCENSE"."ATEST" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"NAME" VARCHAR2(10), 
+	"AID" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table atest is ''
+/
+comment on column atest.id is ''
+/
+comment on column atest.name is ''
+/
+comment on column atest.aid is ''
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_ACC_GROUP" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	"IFCARD" NUMBER NOT NULL ENABLE, 
+	"OPSUMFARE" NUMBER(*,0) NOT NULL ENABLE, 
+	"OPELECTRODDFARE" NUMBER(*,0) NOT NULL ENABLE, 
+	"OPMONTICKETODDFARE" NUMBER(*,0) NOT NULL ENABLE, 
+	"OPSUMADDFARE" NUMBER(*,0) NOT NULL ENABLE, 
+	"OPSUMCONSUME" NUMBER(*,0) NOT NULL ENABLE, 
+	"DIR" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SORTID" NUMBER, 
+	"LOCATION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE, 
+	"ISVISIBLE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_ACC_GROUP" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_acc_group is '科目大类'
+/
+comment on column base_acc_group.id is '主健'
+/
+comment on column base_acc_group.typename is '交易类别名称'
+/
+comment on column base_acc_group.describe is '描述'
+/
+comment on column base_acc_group.ifcard is '与卡有关'
+/
+comment on column base_acc_group.opsumfare is '卡总额操作0:不变 1:加 -1:减'
+/
+comment on column base_acc_group.opelectroddfare is '电子钱包余额操作0:不变 1:加 -1:减'
+/
+comment on column base_acc_group.opmonticketoddfare is '月票钱包余额操作0:不变 1:加 -1:减'
+/
+comment on column base_acc_group.opsumaddfare is '总加款额操作0:不变 1:加 -1:减'
+/
+comment on column base_acc_group.opsumconsume is '消费累加额操作0:不变 1:加 -1:减'
+/
+comment on column base_acc_group.dir is '交易类型（收入或支出）0:不变 1:加 -1:减'
+/
+comment on column base_acc_group.sortid is '排序顺序 越小越优先'
+/
+comment on column base_acc_group.location is '显示位置　1:收入类 -1:支出类 0:不显示'
+/
+comment on column base_acc_group.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_acc_group.isvisible is '是否可见（0不可见，1可见）'
+/
+comment on column base_acc_group.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_ACC_TYPE" 
+   (	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"GROUPID" NUMBER NOT NULL ENABLE, 
+	"ACCDSCRP" VARCHAR2(20) NOT NULL ENABLE, 
+	"ISSHOW" NUMBER NOT NULL ENABLE, 
+	"SORTID" NUMBER, 
+	"DIR" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE, 
+	"ISVISIBLE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"ID" NUMBER NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_ACC_TYPE" PRIMARY KEY ("ACCCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_acc_type is '帐目科目代码'
+/
+comment on column base_acc_type.acccode is '科目代码'
+/
+comment on column base_acc_type.groupid is '所属交易大类'
+/
+comment on column base_acc_type.accdscrp is '科目描述'
+/
+comment on column base_acc_type.isshow is '系统平衡是否显示 0-不显示 1-显示'
+/
+comment on column base_acc_type.sortid is '排序顺序 越小越优先'
+/
+comment on column base_acc_type.dir is '针对此科目所属大类的方向：加 1 或 减-1'
+/
+comment on column base_acc_type.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_acc_type.isvisible is '是否可见（0不可见，1可见）'
+/
+comment on column base_acc_type.ver is '版本号'
+/
+comment on column base_acc_type.id is ''
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_ACCOUNTTYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTNAME" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0, 
+	"DESCRIPTION" VARCHAR2(1000) DEFAULT '暂无描述', 
+	 CONSTRAINT "PK_BASE_ACCOUNTTYPE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_accounttype is '账户类型表'
+/
+comment on column base_accounttype.id is '编号'
+/
+comment on column base_accounttype.accountname is '类型描述'
+/
+comment on column base_accounttype.status is '是否禁用 0-启用 1-禁用'
+/
+comment on column base_accounttype.description is '描述信息'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_APP_INFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"APPTYPEID" NUMBER NOT NULL ENABLE, 
+	"IPADDESS" VARCHAR2(20) DEFAULT '0.0.0.0' NOT NULL ENABLE, 
+	"APPVER" VARCHAR2(20) DEFAULT '0.0.0.0' NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ISUSED" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TIMESTAMP" NUMBER DEFAULT 300 NOT NULL ENABLE, 
+	"SALTKEY" VARCHAR2(16) DEFAULT '123456789ABCDEFG' NOT NULL ENABLE, 
+	"MEMO" VARCHAR2(100), 
+	"STATIONID" NUMBER NOT NULL ENABLE, 
+	"LASTREGISTERDATE" DATE DEFAULT sysdate, 
+	"ISENABLEMONITOR" NUMBER DEFAULT 0, 
+	"VER" NUMBER DEFAULT 0, 
+	"MONITORPWD" VARCHAR2(6) DEFAULT '123456', 
+	"APPNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_APP_INFO" PRIMARY KEY ("ID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_APP_INFO" UNIQUE ("APPTYPEID", "STATIONID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "FK_BASE_APP_STATIONID" FOREIGN KEY ("STATIONID", "CUSTOMERUNITCODE")
+	  REFERENCES "CCENSE"."BASE_STATION" ("STATIONID", "CUSTOMERUNITCODE") ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_app_info is '应用程序信息管理表'
+/
+comment on column base_app_info.id is '主键id，自增长'
+/
+comment on column base_app_info.apptypeid is '应用类别编码'
+/
+comment on column base_app_info.ipaddess is '应用所在工作站的ip地址'
+/
+comment on column base_app_info.appver is '本地服务版本：仅自动统计使用'
+/
+comment on column base_app_info.createdate is '记录产生时间'
+/
+comment on column base_app_info.lastupdatedate is '最后一次修改更新时间'
+/
+comment on column base_app_info.isused is '是否启用（1启用 0禁用）'
+/
+comment on column base_app_info.timestamp is '允许的时间误差.单位（秒）'
+/
+comment on column base_app_info.saltkey is '访问的混淆key'
+/
+comment on column base_app_info.memo is '备注信息'
+/
+comment on column base_app_info.stationid is '工作站编号'
+/
+comment on column base_app_info.lastregisterdate is '最后一次注册时间'
+/
+comment on column base_app_info.isenablemonitor is '是否允许监控： 0不允许 1-允许'
+/
+comment on column base_app_info.ver is '版本'
+/
+comment on column base_app_info.monitorpwd is '监控密码'
+/
+comment on column base_app_info.appname is '应用程序名称'
+/
+comment on column base_app_info.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_APP_PORT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"APPID" NUMBER NOT NULL ENABLE, 
+	"PORT" NUMBER NOT NULL ENABLE, 
+	"PORTNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"IPADDR" VARCHAR2(20), 
+	"PORTPTY" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_APP_PORT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_APP_PORT" UNIQUE ("APPID", "PORT", "PORTPTY", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_app_port is '应用端口'
+/
+comment on column base_app_port.id is '主键'
+/
+comment on column base_app_port.appid is '应用编号'
+/
+comment on column base_app_port.port is '端口'
+/
+comment on column base_app_port.portname is '端口名称：无线com1等比较明确的名称'
+/
+comment on column base_app_port.ipaddr is 'ip地址：以太网侦听模式必须填写，串口模式不填写'
+/
+comment on column base_app_port.portpty is '"通讯方式(0:无线串口)"'
+/
+comment on column base_app_port.ver is ''
+/
+comment on column base_app_port.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_APP_TERM" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"APPID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"CREATEDATE" DATE NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_APP_TERM" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_APP_TERM" UNIQUE ("APPID", "POSCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_app_term is '应用终端对应关系表'
+/
+comment on column base_app_term.id is '主键'
+/
+comment on column base_app_term.appid is '采集终端数据的应用id：appid+poscode唯一约束'
+/
+comment on column base_app_term.poscode is '终端运营唯一编号'
+/
+comment on column base_app_term.createdate is '记录建立日期'
+/
+comment on column base_app_term.ver is '版本'
+/
+comment on column base_app_term.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_APP_TYPE" 
+   (	"APPTYPEID" NUMBER NOT NULL ENABLE, 
+	"APPTYPENAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"IFALONE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"APPVER" VARCHAR2(20) DEFAULT '0.0.0.0' NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"REMARKS" VARCHAR2(100), 
+	"ISVISIBLE" NUMBER DEFAULT 1, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"ISADDPORT" NUMBER, 
+	 CONSTRAINT "UK_APP_TYPE_ID" UNIQUE ("APPTYPEID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_APP_TYPE_NAME" UNIQUE ("CUSTOMERUNITCODE", "APPTYPENAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_app_type is '应用程序类字典表'
+/
+comment on column base_app_type.apptypeid is '应用程序类别id'
+/
+comment on column base_app_type.apptypename is '应用程序名称'
+/
+comment on column base_app_type.ifalone is '是否运行多个实例 0：禁用 n：允许运行n个实例'
+/
+comment on column base_app_type.appver is '应用程序版本号'
+/
+comment on column base_app_type.lastupdatedate is '最的一次更新时间'
+/
+comment on column base_app_type.remarks is '备注信息'
+/
+comment on column base_app_type.isvisible is '是否在界面显示。0-界面不可见该应用类型，1-允许界面可见该应用类型'
+/
+comment on column base_app_type.customerunitcode is '客户代码'
+/
+comment on column base_app_type.isaddport is '能否添加终端 0：不能 1：能'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_APPSERVICE_ACCREDIT" 
+   (	"SYSCODE" VARCHAR2(32) NOT NULL ENABLE, 
+	"ACCREDITEDCODE" VARCHAR2(512) NOT NULL ENABLE, 
+	"IP" VARCHAR2(20), 
+	"DESCRIPTION" VARCHAR2(2000), 
+	"WEBPATH" VARCHAR2(512) DEFAULT '未配置' NOT NULL ENABLE, 
+	"EXCHANGETIMEOUT" NUMBER(*,0) DEFAULT 100000 NOT NULL ENABLE, 
+	"ISHOST" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER(*,0), 
+	"AREAID" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"REGDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VER" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_APPSERVICE_ACCREDIT" PRIMARY KEY ("SYSCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_appservice_accredit is '应用服务器注册认证信息表'
+/
+comment on column base_appservice_accredit.syscode is '应用服务器webservice(的系统特征码。如：e62dd75f42be'
+/
+comment on column base_appservice_accredit.accreditedcode is '从公司获取的系统授权码'
+/
+comment on column base_appservice_accredit.ip is '应用服务器的ip'
+/
+comment on column base_appservice_accredit.description is '关于此应用服务器的描述'
+/
+comment on column base_appservice_accredit.webpath is 'web服务路径，例如：http://192.168.0.101/ecardwebservice'
+/
+comment on column base_appservice_accredit.exchangetimeout is '访问超时时长，单位：毫秒'
+/
+comment on column base_appservice_accredit.ishost is '是否为开通系统的主服务器'
+/
+comment on column base_appservice_accredit.empid is '注册职员编号'
+/
+comment on column base_appservice_accredit.areaid is '分区标识'
+/
+comment on column base_appservice_accredit.regdate is '注册时间'
+/
+comment on column base_appservice_accredit.ver is '版本'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_AREA" 
+   (	"AREAID" NUMBER NOT NULL ENABLE, 
+	"AREANAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"HASFINGERPRINT" NUMBER, 
+	 CONSTRAINT "PK_BASE_AREA" PRIMARY KEY ("AREAID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_area is '系统分区表（2.0中放弃使用分区）'
+/
+comment on column base_area.areaid is '编号'
+/
+comment on column base_area.areaname is '分区名称'
+/
+comment on column base_area.hasfingerprint is ''
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BANK" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BANKNAME" VARCHAR2(200) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_bank is '银行信息字典表'
+/
+comment on column base_bank.id is '编号'
+/
+comment on column base_bank.bankname is '名称'
+/
+comment on column base_bank.describe is '描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUS" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BUSNO" NUMBER NOT NULL ENABLE, 
+	"BUSNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"BUSTYPE" NUMBER NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"LINEID" NUMBER DEFAULT 0, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ISVISIBLE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISUSE" NUMBER, 
+	"SALETYPE" NUMBER, 
+	"SORTID" NUMBER, 
+	"ISDELETE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DELETEDATE" DATE, 
+	"VER" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ISFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODELIST" VARCHAR2(1000), 
+	 CONSTRAINT "PK_BASE_BUS" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_BUS" UNIQUE ("BUSNO", "CUSTOMERUNITCODE", "ISDELETE", "LASTUPDATEDATE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_BUSNUM" UNIQUE ("BUSNUMBER", "LASTUPDATEDATE", "CUSTOMERUNITCODE", "ISDELETE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_bus is '车辆信息表'
+/
+comment on column base_bus.id is '主键'
+/
+comment on column base_bus.busno is '唯一号，系统结算使用，不允许修改'
+/
+comment on column base_bus.busnumber is '车辆编号，用户可以修改'
+/
+comment on column base_bus.bustype is '车辆类型（0：汽油车 1：柴油车 2：燃气车）'
+/
+comment on column base_bus.dptcode is '车辆所属部门编号'
+/
+comment on column base_bus.lineid is '线路编号：0-备用线路'
+/
+comment on column base_bus.empid is '职员账号,录入的职员账号'
+/
+comment on column base_bus.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_bus.isvisible is '是否可见（0不可见，1可见）'
+/
+comment on column base_bus.isuse is '是否启用 0：启用 1：禁用 2：维修中 3：报废 4:备用'
+/
+comment on column base_bus.saletype is '售票类型 （0：无人 1：有人）'
+/
+comment on column base_bus.sortid is '排序字段'
+/
+comment on column base_bus.isdelete is '是否删除（0未删除，1已删除）'
+/
+comment on column base_bus.deletedate is '删除日期'
+/
+comment on column base_bus.ver is '版本号'
+/
+comment on column base_bus.poscode is '车载机运营唯一编号'
+/
+comment on column base_bus.customerunitcode is '客户代码'
+/
+comment on column base_bus.isflag is '车辆是否绑定多个终端 0：否 1：是'
+/
+comment on column base_bus.poscodelist is '车辆绑定多个终端的poscode组合字符串（使用|割开存放），绑定一个终端时此字段为空，使用原来字段'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUS_BANKLIST" 
+   (	"BANKCARDCODE" VARCHAR2(32) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DETAILID" NUMBER NOT NULL ENABLE, 
+	"DISCOUNTSTARTTIME" DATE DEFAULT SYSDATE, 
+	"DISCOUNTENDTIME" DATE DEFAULT SYSDATE, 
+	"ISUSE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "UK_BASE_BUS_BANKLIST" UNIQUE ("CUSTOMERUNITCODE", "BANKCARDCODE", "DETAILID", "ISUSE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_bus_banklist is '银行bin号'
+/
+comment on column base_bus_banklist.bankcardcode is '银行卡号前六位'
+/
+comment on column base_bus_banklist.ver is '版本 '
+/
+comment on column base_bus_banklist.detailid is '卡类型'
+/
+comment on column base_bus_banklist.discountstarttime is '折扣开始时间'
+/
+comment on column base_bus_banklist.discountendtime is '折扣结束时间'
+/
+comment on column base_bus_banklist.isuse is '是否启用 255表示打折  其他值表示限制  一个客户法人下面要不就是打折，要不就是限制，不能并存'
+/
+comment on column base_bus_banklist.customerunitcode is '客户法人'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUS_CHANGELOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BUSNO" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"UPDATEEMPCODE" VARCHAR2(32) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ISFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODELIST" VARCHAR2(1000)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_bus_changelog is '终端车辆绑定关系变更表'
+/
+comment on column base_bus_changelog.id is '编号'
+/
+comment on column base_bus_changelog.busno is '唯一号，系统结算使用，不允许修改'
+/
+comment on column base_bus_changelog.poscode is '设备唯一编号'
+/
+comment on column base_bus_changelog.updatedate is '只有修改车辆和终端的绑定关系改变时更新此字段，记录更新时间'
+/
+comment on column base_bus_changelog.updateempcode is '更改车辆终端绑定关系的操作人员，记录登录的用户名（登录名）'
+/
+comment on column base_bus_changelog.customerunitcode is '客户代码'
+/
+comment on column base_bus_changelog.isflag is '车辆是否绑定多个终端 0：否 1：是'
+/
+comment on column base_bus_changelog.poscodelist is '车辆绑定多个终端的poscode组合字符串（使用|割开存放），绑定一个终端时此字段为空，使用原来字段'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUS_TYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_BUS_TYPE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_bus_type is '汽车类型表 --暂未使用'
+/
+comment on column base_bus_type.id is '车辆类型id'
+/
+comment on column base_bus_type.typename is '车辆类型名称'
+/
+comment on column base_bus_type.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUSINESS_MODEL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"MODELNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"MODELDESC" VARCHAR2(200) NOT NULL ENABLE, 
+	"MENUIDSTR" VARCHAR2(4000) NOT NULL ENABLE, 
+	"REMARK" VARCHAR2(200), 
+	 CONSTRAINT "PK_BASE_BUSINESS_MODEL" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_business_model is '业务功能模块设置'
+/
+comment on column base_business_model.id is '自动增长'
+/
+comment on column base_business_model.modelname is '业务模块名称'
+/
+comment on column base_business_model.modeldesc is '业务模块描述'
+/
+comment on column base_business_model.menuidstr is '业务模块功能项（00000000|00000001|...），以菜单项的id存放一个串'
+/
+comment on column base_business_model.remark is '备注'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUSLINE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"LINEID" NUMBER NOT NULL ENABLE, 
+	"LINENAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"PRICE" NUMBER DEFAULT 1.00 NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ISVISIBLE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISDELETE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DELETEDATE" DATE, 
+	"VER" NUMBER DEFAULT 0, 
+	"DISABLECARDTYPE" VARCHAR2(100), 
+	"ESPECIALCARDFARE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ESPECIALCARDTYPE" VARCHAR2(64), 
+	"ISUSE" NUMBER DEFAULT 1, 
+	"FLEEPRICE" NUMBER DEFAULT 0.00, 
+	"CHARGETYPEID" NUMBER DEFAULT 0, 
+	"CHARGEMODESTR" VARCHAR2(200) DEFAULT 0, 
+	"PRICEVER" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STOPVER" NUMBER DEFAULT 0, 
+	"LINECARDVER" NUMBER DEFAULT 1, 
+	"LINECARDUPDATETIME" DATE, 
+	 CONSTRAINT "PK_BASE_BUSLINE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_BUSLINE" UNIQUE ("ID", "LINEID", "ISDELETE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_busline is '线路信息表'
+/
+comment on column base_busline.id is '主键'
+/
+comment on column base_busline.lineid is '线路id'
+/
+comment on column base_busline.linename is '线路名称'
+/
+comment on column base_busline.price is '单价'
+/
+comment on column base_busline.dptcode is '所属部门'
+/
+comment on column base_busline.sortid is '排序字段'
+/
+comment on column base_busline.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_busline.isvisible is '是否可见（0不可见，1可见）'
+/
+comment on column base_busline.isdelete is '是否删除（0未删除，1已删除）'
+/
+comment on column base_busline.deletedate is '删除日期'
+/
+comment on column base_busline.ver is '版本号'
+/
+comment on column base_busline.disablecardtype is '禁用的卡类型，用逗号(,)分隔'
+/
+comment on column base_busline.especialcardfare is '特定卡打折率'
+/
+comment on column base_busline.especialcardtype is '特定卡类型，用逗号(,)分隔'
+/
+comment on column base_busline.isuse is '统一票价启用标识：0-不启用、1-启用 ；（针对分段计费功能，正在使用的系统默认1）'
+/
+comment on column base_busline.fleeprice is '逃票票价'
+/
+comment on column base_busline.chargetypeid is '计费方式'
+/
+comment on column base_busline.chargemodestr is '票价模板，组合多种模板用,隔开存放'
+/
+comment on column base_busline.pricever is '分段计费票价版本号(计费模式是1和4时，票价信息改变更新该版本)'
+/
+comment on column base_busline.customerunitcode is '客户代码'
+/
+comment on column base_busline.stopver is '线路站点版本号：线路中的站点删除或者修改排序时进行修改'
+/
+comment on column base_busline.linecardver is '线路票价卡版本号：票价卡中线路对应信息和卡类型对应的参数信息变化时都更新改版本号'
+/
+comment on column base_busline.linecardupdatetime is '票价卡版本最后更新时间（和下发参数最大版本号更新的时间对应）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUSLINESTOP" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"LINEID" NUMBER NOT NULL ENABLE, 
+	"ADDTIMER" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) DEFAULT '' NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STARTSTOPID" NUMBER, 
+	"ENDSTOPID" NUMBER, 
+	"PRICESORTID" NUMBER, 
+	"PRICE" NUMBER(10,2)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_buslinestop is '线路阶梯票价表'
+/
+comment on column base_buslinestop.id is 'id，主键，自动产生'
+/
+comment on column base_buslinestop.lineid is '线路编号'
+/
+comment on column base_buslinestop.addtimer is '最好更新时间'
+/
+comment on column base_buslinestop.customerunitcode is '客户代码'
+/
+comment on column base_buslinestop.flag is '上下行标记,0:上行，1:下行'
+/
+comment on column base_buslinestop.ver is '版本'
+/
+comment on column base_buslinestop.startstopid is '开始站点'
+/
+comment on column base_buslinestop.endstopid is '结束站点'
+/
+comment on column base_buslinestop.pricesortid is '排序号'
+/
+comment on column base_buslinestop.price is '票价值'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUSROUTE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"LINEID" NUMBER NOT NULL ENABLE, 
+	"STOPID" NUMBER NOT NULL ENABLE, 
+	"SORTID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"ISDELETE" NUMBER DEFAULT 0, 
+	"DELETEDATE" DATE DEFAULT SYSDATE, 
+	"ISSHOW" NUMBER DEFAULT 1, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"DOWNSORTID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_BUSROUTE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_busroute is '路线信息表（线路-站点）'
+/
+comment on column base_busroute.id is '自动编号'
+/
+comment on column base_busroute.lineid is '线路编号'
+/
+comment on column base_busroute.stopid is '站点编号'
+/
+comment on column base_busroute.sortid is '不同线路上面站点排列顺序（越小上行越靠前）'
+/
+comment on column base_busroute.ver is '版本号'
+/
+comment on column base_busroute.opdt is '操作时间'
+/
+comment on column base_busroute.isdelete is '是否删除 0：正常站点 1：已经删除的站点'
+/
+comment on column base_busroute.deletedate is '删除时间'
+/
+comment on column base_busroute.isshow is '是否显示 0：不显示 1：显示'
+/
+comment on column base_busroute.flag is '站点上下行：1 隶属上行 2 隶属下行 3 同属上下行'
+/
+comment on column base_busroute.customerunitcode is '客户代码'
+/
+comment on column base_busroute.downsortid is '下行排序好顺序(越小越靠前)'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_BUSSTOP" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STOPID" NUMBER NOT NULL ENABLE, 
+	"STOPNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"LONGITUDE" VARCHAR2(12) DEFAULT 0 NOT NULL ENABLE, 
+	"LATITUDE" VARCHAR2(12) DEFAULT 0 NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"ISDELETE" NUMBER DEFAULT 0, 
+	"DELETEDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_BUSSTOP" PRIMARY KEY ("CUSTOMERUNITCODE", "STOPID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_busstop is '站点信息表'
+/
+comment on column base_busstop.id is '自动编号'
+/
+comment on column base_busstop.stopid is '站点编号'
+/
+comment on column base_busstop.stopname is '站点名称'
+/
+comment on column base_busstop.longitude is '经度（第一位是  0东经、1西经）'
+/
+comment on column base_busstop.latitude is '纬度（第一位是 0南纬、1北纬）'
+/
+comment on column base_busstop.collectdt is '采集时间（上传gps信息时更新）'
+/
+comment on column base_busstop.opdt is '最后一次操作时间（针对平台上面的维护管理操作）'
+/
+comment on column base_busstop.ver is '版本号'
+/
+comment on column base_busstop.isdelete is '是否删除 0：正常站点 1：删除的站点'
+/
+comment on column base_busstop.deletedate is '删除时间'
+/
+comment on column base_busstop.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARD_BAD_TYPE" 
+   (	"BADID" NUMBER NOT NULL ENABLE, 
+	"BADDESC" VARCHAR2(50) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CARD_BAD_TYPE" UNIQUE ("BADID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_card_bad_type is '坏卡类型表'
+/
+comment on column base_card_bad_type.badid is '坏卡类型编号'
+/
+comment on column base_card_bad_type.baddesc is '坏卡类型描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARD_REGIST" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT sysdate, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"EMPCODE" VARCHAR2(32) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER, 
+	"DETAILID" NUMBER, 
+	 CONSTRAINT "PK_BASE_CARD_REGIST" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_card_regist is '卡登记信息表'
+/
+comment on column base_card_regist.id is '自动编号（主键）'
+/
+comment on column base_card_regist.cardkind is '卡类型 （1m1卡 2cpu卡）'
+/
+comment on column base_card_regist.opdt is '卡登记时间'
+/
+comment on column base_card_regist.scardsnr is '卡唯一号'
+/
+comment on column base_card_regist.empcode is '操作员'
+/
+comment on column base_card_regist.customerunitcode is '客户代码'
+/
+comment on column base_card_regist.status is '状态： 0 初始状态 1：售卡成功  2：售卡失败'
+/
+comment on column base_card_regist.customerid is '账号（售卡成功更新此字段）'
+/
+comment on column base_card_regist.detailid is '卡类型'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARDID" 
+   (	"CARDID" NUMBER(8,0) NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CARDID" PRIMARY KEY ("CARDID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CARDID" UNIQUE ("SCARDSNR")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_cardid is '生成和存储所有卡的流水号'
+/
+comment on column base_cardid.cardid is '卡流水号，自动生成'
+/
+comment on column base_cardid.scardsnr is '卡唯一号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARDTYPE" 
+   (	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(30), 
+	"VER" NUMBER, 
+	 CONSTRAINT "PK_BASE_CARDTYPE" PRIMARY KEY ("TYPEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_cardtype is '卡的用途分类'
+/
+comment on column base_cardtype.typeid is ''
+/
+comment on column base_cardtype.typename is ''
+/
+comment on column base_cardtype.ver is ''
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARDTYPE_DETAIL" 
+   (	"DETAILID" NUMBER NOT NULL ENABLE, 
+	"DETAILNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"GROUPID" NUMBER NOT NULL ENABLE, 
+	"SORTID" NUMBER, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PARAGROUPID" NUMBER NOT NULL ENABLE, 
+	"WALLETUSETYPE" VARCHAR2(3) DEFAULT 10 NOT NULL ENABLE, 
+	"ISVISIBLE" VARCHAR2(1) DEFAULT 1 NOT NULL ENABLE, 
+	"CASHYEARCHECKMONS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CARDTYPE_DETAIL" PRIMARY KEY ("DETAILID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CARDTYPE_DETAIL" UNIQUE ("DETAILNAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_cardtype_detail is '卡类别信息（系统标准卡类型信息）'
+/
+comment on column base_cardtype_detail.detailid is '卡类别小类编号（0~224乘车卡编号范围，225以后属于功能卡编号）'
+/
+comment on column base_cardtype_detail.detailname is '卡类别小类名称'
+/
+comment on column base_cardtype_detail.groupid is '卡类别大类编号'
+/
+comment on column base_cardtype_detail.sortid is '排序id'
+/
+comment on column base_cardtype_detail.ver is '版本号'
+/
+comment on column base_cardtype_detail.paragroupid is '对应的参数组id'
+/
+comment on column base_cardtype_detail.walletusetype is '钱包启用类型：第一位，电子钱包0禁用、非零启用 如虚充则用双位头位2开头次位置提供终端优先级；第二位，月票钱包0禁用、1启用；第三位，次卡0禁用、1启用、2虚充'
+/
+comment on column base_cardtype_detail.isvisible is '是否显示，0不显示，1显示'
+/
+comment on column base_cardtype_detail.cashyearcheckmons is '定额类卡、充值自动增加年检月数'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARDTYPE_DETAIL_TEMP" 
+   (	"DETAILID" NUMBER NOT NULL ENABLE, 
+	"DETAILNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"GROUPID" NUMBER NOT NULL ENABLE, 
+	"SORTID" NUMBER, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PARAGROUPID" NUMBER NOT NULL ENABLE, 
+	"WALLETUSETYPE" VARCHAR2(3) DEFAULT 10 NOT NULL ENABLE, 
+	"ISVISIBLE" VARCHAR2(1) DEFAULT 1 NOT NULL ENABLE, 
+	"CASHYEARCHECKMONS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CARDTYPE_TEMP" PRIMARY KEY ("DETAILID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CARDTYPE_TEMP" UNIQUE ("DETAILNAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_cardtype_detail_temp is '卡类别信息（存放客户修改的卡类型信息，和base_cardtype_detail表配合使用）'
+/
+comment on column base_cardtype_detail_temp.detailid is '卡类别小类编号'
+/
+comment on column base_cardtype_detail_temp.detailname is '卡类别小类名称'
+/
+comment on column base_cardtype_detail_temp.groupid is '卡类别大类编号'
+/
+comment on column base_cardtype_detail_temp.sortid is '排序id'
+/
+comment on column base_cardtype_detail_temp.ver is '版本号'
+/
+comment on column base_cardtype_detail_temp.paragroupid is '对应的参数组id'
+/
+comment on column base_cardtype_detail_temp.walletusetype is '钱包启用类型：第一位，电子钱包0禁用、1启用；第二位，0禁用、1启用月票、2启用次票,3月票虚冲,4次卡虚冲'
+/
+comment on column base_cardtype_detail_temp.isvisible is '是否显示，0不显示，1显示'
+/
+comment on column base_cardtype_detail_temp.cashyearcheckmons is '定额类卡、充值自动增加年检月数'
+/
+comment on column base_cardtype_detail_temp.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARDTYPE_GROUP" 
+   (	"GROUPID" NUMBER NOT NULL ENABLE, 
+	"GROUPNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"SORTID" NUMBER NOT NULL ENABLE, 
+	"KIND" NUMBER NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_CARDTYPE_GROUP" PRIMARY KEY ("GROUPID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_cardtype_group is '用户卡类别大类'
+/
+comment on column base_cardtype_group.groupid is '卡类别大类编号'
+/
+comment on column base_cardtype_group.groupname is '卡类别大类名称'
+/
+comment on column base_cardtype_group.sortid is '排序id'
+/
+comment on column base_cardtype_group.kind is '卡种类  0乘车卡  1管理卡'
+/
+comment on column base_cardtype_group.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CARDTYPE_PEOPLE" 
+   (	"PEOPLEID" NUMBER NOT NULL ENABLE, 
+	"PEOPLENAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"GROUPID" NUMBER NOT NULL ENABLE, 
+	"SORTID" NUMBER, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PARAGROUPID" NUMBER NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(20), 
+	 CONSTRAINT "PK_BASE_CARDTYPE_PEOPLE" PRIMARY KEY ("PEOPLEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_cardtype_people is '市民卡类别信息（和城市一卡通做对接使用）'
+/
+comment on column base_cardtype_people.peopleid is '卡类别小类编号'
+/
+comment on column base_cardtype_people.peoplename is '卡类别小类名称'
+/
+comment on column base_cardtype_people.groupid is '卡类别大类编号'
+/
+comment on column base_cardtype_people.sortid is '排序id'
+/
+comment on column base_cardtype_people.ver is '版本号'
+/
+comment on column base_cardtype_people.paragroupid is '对应的参数组id'
+/
+comment on column base_cardtype_people.description is '描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CERTIFICATETYPE" 
+   (	"CERTIFICATEID" NUMBER NOT NULL ENABLE, 
+	"CERTIFICATENAME" VARCHAR2(30) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CERTIFICATETYPE" PRIMARY KEY ("CERTIFICATEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_certificatetype is '证件类型表'
+/
+comment on column base_certificatetype.certificateid is '证件编号'
+/
+comment on column base_certificatetype.certificatename is '证件类型名称'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CHARGEAUTH" 
+   (	"AUTHCODE" NUMBER NOT NULL ENABLE, 
+	"BUSINESSPOINT" VARCHAR2(12) NOT NULL ENABLE, 
+	"CURODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"AUTHTIME" DATE DEFAULT SYSDATE, 
+	"ALLOWOVERDRAFTFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MAXLIMITDATE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISUSE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WORKSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LIMITENDDATE" DATE DEFAULT SYSDATE, 
+	"MAXLIMITFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMFARE" NUMBER(20,2) DEFAULT 0.00, 
+	"ALLOWOVERDRAFTOPDT" DATE DEFAULT SYSDATE, 
+	"ALLOWOVERDRAFTSUMFARE" NUMBER(20,2) DEFAULT 0.00, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT sysdate, 
+	 CONSTRAINT "UK_BASE_CHARGEAUTH" UNIQUE ("BUSINESSPOINT", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "PK_BASE_CHARGEAUTH" PRIMARY KEY ("AUTHCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_chargeauth is '充值授权信息表'
+/
+comment on column base_chargeauth.authcode is '充值授权码'
+/
+comment on column base_chargeauth.businesspoint is '代理点编号（部门代码）'
+/
+comment on column base_chargeauth.curoddfare is '当前授权额度'
+/
+comment on column base_chargeauth.authtime is '授权时间（记录最近一次授权额度的操作时间）'
+/
+comment on column base_chargeauth.allowoverdraftfare is '允许透支金额'
+/
+comment on column base_chargeauth.maxlimitdate is '最大逾期（天）'
+/
+comment on column base_chargeauth.isuse is '是否启用充值授权额度，0：不启用，1：启用'
+/
+comment on column base_chargeauth.workstatus is '状态：0正常状态，1透支状态'
+/
+comment on column base_chargeauth.limitenddate is '允许透支截止日期'
+/
+comment on column base_chargeauth.maxlimitfare is '最大授权额度（上级网点对下级网点授权金额）'
+/
+comment on column base_chargeauth.sumfare is '授权额度累计'
+/
+comment on column base_chargeauth.allowoverdraftopdt is '允许透支金额最近一次操作时间（更新透支金额最后一次操作时间）'
+/
+comment on column base_chargeauth.allowoverdraftsumfare is '网点使用透支额度累计'
+/
+comment on column base_chargeauth.customerunitcode is '客户代码'
+/
+comment on column base_chargeauth.opdt is '第一次授权时间（初始化 第一次授权的时候记录该时间，其他任何操作都不在改变）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CHARGINGMODE" 
+   (	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(100), 
+	 CONSTRAINT "PK_BASE_CHARGEINGMODE" PRIMARY KEY ("TYPEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_chargingmode is '计费方式类型表'
+/
+comment on column base_chargingmode.typeid is '计费方式编号'
+/
+comment on column base_chargingmode.typename is '计费方式名称'
+/
+comment on column base_chargingmode.description is '计费方式描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CITY_AREA" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CITYCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"CITYNAME" VARCHAR2(10) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_CITY_AREA" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CITY_AREA" UNIQUE ("CITYCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_city_area is '互联互通-城市代码信息表'
+/
+comment on column base_city_area.id is '序号'
+/
+comment on column base_city_area.citycode is '城市代码'
+/
+comment on column base_city_area.cityname is '城市名称'
+/
+comment on column base_city_area.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CITY_ERRORCODE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ERRORCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	 CONSTRAINT "REC_CITY_ERRORCODE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_city_errorcode is '本地自定义 交通部对接文件入库错误代码'
+/
+comment on column base_city_errorcode.id is ''
+/
+comment on column base_city_errorcode.errorcode is '错误代码'
+/
+comment on column base_city_errorcode.describe is '描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CITY_ERRORDEALTYPE" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"ISLOCALCARD" NUMBER, 
+	"ISLOCALCONSUME" NUMBER, 
+	"ADJUSTMENTTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ADJUSTTYPEDESC" VARCHAR2(20), 
+	"ERRORTYPE" VARCHAR2(4) DEFAULT '0000' NOT NULL ENABLE, 
+	"ERRORTYPEDESC" VARCHAR2(50), 
+	"REASONCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"REASONCODEDESC" VARCHAR2(50), 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CITY_ERRORDEALTYPE" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_city_errordealtype is '差错处理调整差错类型管理'
+/
+comment on column base_city_errordealtype.cstaccfc is '流水号'
+/
+comment on column base_city_errordealtype.islocalcard is '是否是本地卡 0非本地卡 1本地卡'
+/
+comment on column base_city_errordealtype.islocalconsume is '是否是本地消费 0非本地消费 1本地消费'
+/
+comment on column base_city_errordealtype.adjustmenttype is '调整类型 0初始状态 1贷方调整（发卡发付款） 2借方调整（发卡方收款)'
+/
+comment on column base_city_errordealtype.adjusttypedesc is '调整类型 0初始状态 1贷方调整（发卡发付款） 2借方调整（发卡方收款)'
+/
+comment on column base_city_errordealtype.errortype is '差错类型 0000初始状态 其他参考ed文件'
+/
+comment on column base_city_errordealtype.errortypedesc is '差错类型 0000初始状态 其他参考ed文件'
+/
+comment on column base_city_errordealtype.reasoncode is '原因码'
+/
+comment on column base_city_errordealtype.reasoncodedesc is '原因码描述'
+/
+comment on column base_city_errordealtype.uploaddate is '上传时间'
+/
+comment on column base_city_errordealtype.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CLEARINGRATES" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(8) NOT NULL ENABLE, 
+	"FEEPERSALE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CURRENCYRATES" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"TRANSFERRATESOFBANK" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CREATETIME" DATE, 
+	 CONSTRAINT "PK_BASE_CLEARINGRATES" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CLEARINGRATES" UNIQUE ("MERCHANTCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_clearingrates is '商户结算费率设置信息表'
+/
+comment on column base_clearingrates.id is '自动编号'
+/
+comment on column base_clearingrates.merchantcode is '商户编码（部门代码）'
+/
+comment on column base_clearingrates.feepersale is '每笔收费（元）'
+/
+comment on column base_clearingrates.currencyrates is '金额收费（%），0表示不收取费用、其它整数表示的是按%收费，例如5，表示收结算金额的5%'
+/
+comment on column base_clearingrates.transferratesofbank is '银行转账费率'
+/
+comment on column base_clearingrates.flag is '0：按每笔交易收费 1：按金额收费'
+/
+comment on column base_clearingrates.opdt is '最后一次操作时间'
+/
+comment on column base_clearingrates.customerunitcode is '客户代码'
+/
+comment on column base_clearingrates.createtime is '第一费率设置时间（其他的操作不改变改时间）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_COUNTRY" 
+   (	"COUNTRYID" CHAR(3) NOT NULL ENABLE, 
+	"COUNTRYNAME" VARCHAR2(40) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_COUNTRY" PRIMARY KEY ("COUNTRYID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_country is '国别列表，142代表中国'
+/
+comment on column base_country.countryid is '国家编号'
+/
+comment on column base_country.countryname is '国家名称'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CUSTOMERS" 
+   (	"ID" VARCHAR2(8) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER NOT NULL ENABLE, 
+	"QUERYPWD" VARCHAR2(32), 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"COUNTRYID" NUMBER DEFAULT '142' NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"MONOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"MONSAVEOPCOUNT" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMMONADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMMONCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMMONRUSHFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMDISCOUNT" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"NOUSEDATE" DATE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"YEARCHECKS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CHECKBEGINDAY" DATE, 
+	"CHECKENDDAY" DATE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMMONTHODDFAREACC" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DEPRECIATEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DEPRECIATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"SUMELECTRADDDUMMYFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"REFUNDDUMPFARE" NUMBER DEFAULT 0, 
+	"REFUNDLIMITCONSUMFARE" NUMBER DEFAULT 0, 
+	"NONAMEFLAG" NUMBER(1,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TEMCARDNO" NUMBER, 
+	"JGCARDNO" NUMBER, 
+	"CARDTYPEID" NUMBER, 
+	"PRODUCTID" NUMBER, 
+	"ASN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OUTID" VARCHAR2(20) DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEPEOPLEID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CARDTYPECITYID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"SERVERID" NUMBER, 
+	"SENDSYS" VARCHAR2(1) DEFAULT '0', 
+	"NUMBEROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"NUMBERSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"NUMBERODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"NUMBERODDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ISNEWCAPECSYS" NUMBER(1,0) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMMANGEFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MANGEFARELASTDATE" DATE DEFAULT SYSDATE, 
+	"SUMFREEMANGEFARE" NUMBER DEFAULT 0.00, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"MONODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER DEFAULT 5, 
+	"SUMVICERUSHFARE" NUMBER(20,2) DEFAULT 0.00, 
+	"ELECASHTYPE" VARCHAR2(1) DEFAULT 0 NOT NULL ENABLE, 
+	"VICEVALIDTIMESTART" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"VIDEVALIDTIMEEND" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"MONVALIDTIMESTART" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"MONVALIDTIMEEND" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"VICESAVEPLANID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONSAVEPLANID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ELESAVEPLANID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ECOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("CUSTOMERID") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART200000"  VALUES LESS THAN (200000) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB20"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB20"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB20"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB20"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB20"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB20"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2000000"  VALUES LESS THAN (2000000) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB200"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB200"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB20"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB20"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB20"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB20"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB20"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table base_customers is '客户卡账户信息表-记录持卡人卡相关信息'
+/
+comment on column base_customers.id is '发卡流水号（主键）'
+/
+comment on column base_customers.customerid is '账号'
+/
+comment on column base_customers.scardsnr is '卡唯一号'
+/
+comment on column base_customers.cardtypedetailid is '卡类别小类'
+/
+comment on column base_customers.cardsn is '持卡序号'
+/
+comment on column base_customers.status is '卡状态：1--正常，3--挂失，4--冻结，5--灰色，6--停用,20--登记入库中间状态，21--已登记状态'
+/
+comment on column base_customers.querypwd is '查询密码'
+/
+comment on column base_customers.cardkind is '卡类型 （1m1卡 2cpu卡）'
+/
+comment on column base_customers.countryid is '国家编号'
+/
+comment on column base_customers.electropcount is '电子钱包消费计数'
+/
+comment on column base_customers.electrsaveopcount is '电子钱包充值计数'
+/
+comment on column base_customers.monopcount is '月票消费交易计数'
+/
+comment on column base_customers.monsaveopcount is '月票充值交易计数'
+/
+comment on column base_customers.sumelectraddfareacc is '电子钱包总加款额系统值'
+/
+comment on column base_customers.sumelectraddfare is '电子钱包总加款额'
+/
+comment on column base_customers.summonaddfareacc is '月票钱包总加款额系统值（和base_customers_monticket表中monaddfareacc一个含义）'
+/
+comment on column base_customers.sumconsumfare is '总消费额'
+/
+comment on column base_customers.sumelectrconsumfare is '电子钱包消费累计总额'
+/
+comment on column base_customers.summonconsumfare is '月票钱包消费累积总额（和base_customers_monticket表sumconsumefare一个含义）'
+/
+comment on column base_customers.sumelectrdummyfare is '电子钱包虚充总额'
+/
+comment on column base_customers.summonrushfare is '月票冲零总额'
+/
+comment on column base_customers.sumdiscount is '总打折额'
+/
+comment on column base_customers.electroddfare is '电子钱包卡余额'
+/
+comment on column base_customers.electroddfareacc is '电子钱包账户余额系统值'
+/
+comment on column base_customers.nousedate is '失效日期'
+/
+comment on column base_customers.empid is '职员编号'
+/
+comment on column base_customers.yearchecks is '是否需要年检（0不年检，1年检）'
+/
+comment on column base_customers.checkbeginday is '年检开始时间'
+/
+comment on column base_customers.checkendday is '年检结束时间'
+/
+comment on column base_customers.ver is '版本号'
+/
+comment on column base_customers.summonthoddfareacc is '月票钱包卡余额系统值'
+/
+comment on column base_customers.depreciatefare is '最后一次收取的折旧费，用于销户时计算退款'
+/
+comment on column base_customers.depreciatedate is '最后一次收取折旧费日期，用于销户时计算退款，格式yyyy-mm-dd hh24:mi:ss'
+/
+comment on column base_customers.sumelectradddummyfare is '电子钱包虚充加款时现金金额，如充100送20时此值累加100，不送不累加'
+/
+comment on column base_customers.refunddumpfare is '未消费完的虚充金额，退卡时从余额扣除'
+/
+comment on column base_customers.refundlimitconsumfare is '最低消费限额，否则退卡时虚充金额要从余额扣除'
+/
+comment on column base_customers.nonameflag is '不记名标记（0：记名；1：不记名）'
+/
+comment on column base_customers.temcardno is ''
+/
+comment on column base_customers.jgcardno is ''
+/
+comment on column base_customers.cardtypeid is '发卡类型：普通卡和手机卡'
+/
+comment on column base_customers.productid is '卡供应商：移动、联通、电信'
+/
+comment on column base_customers.asn is 'm1：卡唯一序列号；cpu卡：卡应用序列号'
+/
+comment on column base_customers.outid is '市民卡号'
+/
+comment on column base_customers.cardtypepeopleid is '市民用途，市民类、管理卡类'
+/
+comment on column base_customers.cardtypecityid is '卡类型，普通卡、管理卡等'
+/
+comment on column base_customers.serverid is ''
+/
+comment on column base_customers.sendsys is '发卡系统，0：公交，1：市民卡'
+/
+comment on column base_customers.numberopcount is '次钱包消费交易计数'
+/
+comment on column base_customers.numbersaveopcount is '次钱包充值交易计数'
+/
+comment on column base_customers.numberoddfare is '次钱包卡余额'
+/
+comment on column base_customers.numberoddfareacc is '次钱包系统余额'
+/
+comment on column base_customers.isnewcapecsys is '新旧系统（0第一次发卡系统是新开普系统，1第一次发卡系统是其它公司系统）'
+/
+comment on column base_customers.summangefare is '收取管理费累计，用于销户时计算退款（和卡上有效期结合）'
+/
+comment on column base_customers.mangefarelastdate is '最后一次收取管理费日期，格式yyyy-mm-dd hh24:mi:ss'
+/
+comment on column base_customers.sumfreemangefare is '免收管理费累计，用户销户时计算退款'
+/
+comment on column base_customers.customerunitcode is '客户代码'
+/
+comment on column base_customers.opdt is '开卡时间'
+/
+comment on column base_customers.cardno is '卡号'
+/
+comment on column base_customers.monoddfare is '月票钱包卡余额'
+/
+comment on column base_customers.accounttype is '账户类型（和base_accounttype对应）'
+/
+comment on column base_customers.sumvicerushfare is '次卡冲零金额累计'
+/
+comment on column base_customers.elecashtype is '电子现金启用状态，0不用1启用'
+/
+comment on column base_customers.vicevalidtimestart is '次卡有效起日'
+/
+comment on column base_customers.videvalidtimeend is '次卡有效止日'
+/
+comment on column base_customers.monvalidtimestart is '月票有效起日'
+/
+comment on column base_customers.monvalidtimeend is '月票有效止日'
+/
+comment on column base_customers.vicesaveplanid is '次卡最大充值计划id'
+/
+comment on column base_customers.monsaveplanid is '月票最大充值计划id'
+/
+comment on column base_customers.elesaveplanid is '钱包最大充值计划id'
+/
+comment on column base_customers.ecopcount is '电子现金消费计数'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CUSTOMERS_INFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"NAME" VARCHAR2(50), 
+	"SEX" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"NATION" VARCHAR2(2) DEFAULT '01' NOT NULL ENABLE, 
+	"TELPHONENUM" VARCHAR2(20), 
+	"IDCARDNO" VARCHAR2(18), 
+	"CERTIFICATEID" NUMBER DEFAULT 3 NOT NULL ENABLE, 
+	"CUSTDEPT" VARCHAR2(12), 
+	"OPENDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"ADDRESS" VARCHAR2(500), 
+	"BIRTHDAY" DATE, 
+	"RREMARK" VARCHAR2(500), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CUSTSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER DEFAULT 5
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_customers_info is '客户基本信息表'
+/
+comment on column base_customers_info.id is '自动增长'
+/
+comment on column base_customers_info.customerid is '账号'
+/
+comment on column base_customers_info.name is '姓名'
+/
+comment on column base_customers_info.sex is '性别，1是男，其它女'
+/
+comment on column base_customers_info.nation is '民族编号'
+/
+comment on column base_customers_info.telphonenum is '联系电话'
+/
+comment on column base_customers_info.idcardno is '证件号码'
+/
+comment on column base_customers_info.certificateid is '证件类型'
+/
+comment on column base_customers_info.custdept is '客户所属单位（预留，暂时无用）'
+/
+comment on column base_customers_info.opendt is '开户日期'
+/
+comment on column base_customers_info.address is '地址'
+/
+comment on column base_customers_info.birthday is '出生日期'
+/
+comment on column base_customers_info.rremark is '备注'
+/
+comment on column base_customers_info.customerunitcode is '客户代码'
+/
+comment on column base_customers_info.custstatus is '客户状态：0-注销 1：正常（用户的卡都注销后，改标记为0，可以转储基本信息到客户基本信息注销表）'
+/
+comment on column base_customers_info.accounttype is '账户类型（和base_accounttype对应）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CUSTOMERS_MONTICKET" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"SUMCONSUMEFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMRDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDDUMPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDLIMITCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CARDASN" NUMBER NOT NULL ENABLE, 
+	"MONHANGDATE" DATE, 
+	"HANGTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CUSTOMERS_MONTICKET" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CUSTOMERS_MONTICKET" UNIQUE ("CUSTOMERID", "CUSTOMERUNITCODE", "CARDASN")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_customers_monticket is '客户月票钱包信息表'
+/
+comment on column base_customers_monticket.id is '自动增长'
+/
+comment on column base_customers_monticket.customerid is '账号'
+/
+comment on column base_customers_monticket.sumconsumefare is '月票钱包消费累计总额'
+/
+comment on column base_customers_monticket.sumrdummyfare is '月票钱包虚充总额'
+/
+comment on column base_customers_monticket.sumaddfare is '月票钱包总加款额'
+/
+comment on column base_customers_monticket.sumaddfareacc is '月票钱包总加款额系统值'
+/
+comment on column base_customers_monticket.sumadddummyfare is '月票钱包虚充加款时现金金额，如充100送20时此值累加100，不送不累加'
+/
+comment on column base_customers_monticket.refunddumpfare is '未消费完的虚充金额，退卡时从余额扣除'
+/
+comment on column base_customers_monticket.refundlimitconsumfare is '最低消费限额，否则退卡时虚充金额要从余额扣除'
+/
+comment on column base_customers_monticket.ver is ''
+/
+comment on column base_customers_monticket.customerunitcode is '客户代码'
+/
+comment on column base_customers_monticket.cardasn is '卡应用序列号'
+/
+comment on column base_customers_monticket.monhangdate is '冲零/清零 日期'
+/
+comment on column base_customers_monticket.hangtype is '冲零/清零 方式  0为固定日期  1为月末清零'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_CUSTOMERS_VICECARD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"SUMCONSUMEFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMRDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDDUMPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDLIMITCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CARDASN" NUMBER NOT NULL ENABLE, 
+	"VICEHANGDATE" DATE, 
+	"HANGTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_CUSTOMERS_NUMBER" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_CUSTOMERS_NUMBER_1" UNIQUE ("CUSTOMERID", "CUSTOMERUNITCODE", "CARDASN")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_customers_vicecard is '客户次卡钱包信息表'
+/
+comment on column base_customers_vicecard.id is '自动增长'
+/
+comment on column base_customers_vicecard.customerid is '账号'
+/
+comment on column base_customers_vicecard.sumconsumefare is '次卡钱包消费累计总额'
+/
+comment on column base_customers_vicecard.sumrdummyfare is '次卡钱包虚充总额'
+/
+comment on column base_customers_vicecard.sumaddfare is '次卡钱包总加款额'
+/
+comment on column base_customers_vicecard.sumaddfareacc is '次卡钱包总加款额系统值'
+/
+comment on column base_customers_vicecard.sumadddummyfare is '次卡钱包虚充加款时现金金额，如充100送20时此值累加100，不送不累加'
+/
+comment on column base_customers_vicecard.refunddumpfare is '未消费完的虚充金额，退卡时从余额扣除'
+/
+comment on column base_customers_vicecard.refundlimitconsumfare is '最低消费限额，否则退卡时虚充金额要从余额扣除'
+/
+comment on column base_customers_vicecard.ver is ''
+/
+comment on column base_customers_vicecard.customerunitcode is '客户代码'
+/
+comment on column base_customers_vicecard.cardasn is '卡应用序列号'
+/
+comment on column base_customers_vicecard.vicehangdate is '冲零/清零 日期'
+/
+comment on column base_customers_vicecard.hangtype is '冲零/清零 方式  0为固定日期  1为月末清零'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_DATABASE_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"VERSIONNUMBER" VARCHAR2(30) NOT NULL ENABLE, 
+	"NOTE" VARCHAR2(1024) NOT NULL ENABLE, 
+	"PUBLISHDATE" DATE NOT NULL ENABLE, 
+	"LASTNUMBER" NUMBER(10,0) NOT NULL ENABLE, 
+	"UPDATEDATE" DATE NOT NULL ENABLE, 
+	"INNERVERNO" NUMBER, 
+	"DBVER" VARCHAR2(10) NOT NULL ENABLE, 
+	"APPVER" VARCHAR2(10), 
+	"APPINNERVER" VARCHAR2(30), 
+	 CONSTRAINT "PK_BASE_DATABASE_LOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_database_log is '数据库更新日志，记录数据库的版本列表'
+/
+comment on column base_database_log.id is '序号'
+/
+comment on column base_database_log.versionnumber is '版本号格式如:2007.01.24.01'
+/
+comment on column base_database_log.note is '备注（更新说明）'
+/
+comment on column base_database_log.publishdate is '发布日期格式如:2007-01-24'
+/
+comment on column base_database_log.lastnumber is '数据库历史版本中的版本号（行数）'
+/
+comment on column base_database_log.updatedate is '数据库更新日期'
+/
+comment on column base_database_log.innerverno is '数据库内部版本号'
+/
+comment on column base_database_log.dbver is '数据库发布版本'
+/
+comment on column base_database_log.appver is '应用程序发布版本'
+/
+comment on column base_database_log.appinnerver is '应用程序内部版本'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_DEPT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"DPTNAME" NVARCHAR2(20) NOT NULL ENABLE, 
+	"DPTCODE_P" VARCHAR2(9) NOT NULL ENABLE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ISVISIBLE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISDELETE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DELETEDATE" DATE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ISSUBCOMPANY" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SERVERID" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) DEFAULT '00000000000' NOT NULL ENABLE, 
+	"DEPTTYPE" NUMBER DEFAULT 2 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"DPTBANKCARDNO" VARCHAR2(30), 
+	"DPTBANKCARDOWNER" VARCHAR2(50), 
+	"TRANSACCOUNTNO" VARCHAR2(30), 
+	"DPTBANKCARDADDRESS" VARCHAR2(200), 
+	"DPTTELEPHONE" VARCHAR2(13), 
+	"DPTBANKCODE" NUMBER DEFAULT 1, 
+	"ACCOUNTTYPE" NUMBER DEFAULT 6 NOT NULL ENABLE, 
+	"TRANSACCOUTBANKCODE" NUMBER DEFAULT 1, 
+	 CONSTRAINT "PK_BASE_DEPT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_DEPT" UNIQUE ("DPTCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_dept is '业务部门：和卡业务有关的部门
+'
+/
+comment on column base_dept.id is '主键'
+/
+comment on column base_dept.dptcode is '业务部门编号'
+/
+comment on column base_dept.dptname is '业务部门名称'
+/
+comment on column base_dept.dptcode_p is '上级业务部门'
+/
+comment on column base_dept.sortid is '排序id'
+/
+comment on column base_dept.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_dept.isvisible is '是否可见（0不可见，1可见）'
+/
+comment on column base_dept.isdelete is '是否删除（0未删除，1已删除）'
+/
+comment on column base_dept.deletedate is '删除日期'
+/
+comment on column base_dept.ver is '版本号'
+/
+comment on column base_dept.issubcompany is '是否为分公司，1为分公司，0为其他部门'
+/
+comment on column base_dept.serverid is ''
+/
+comment on column base_dept.customerunitcode is '客户代码'
+/
+comment on column base_dept.depttype is '部门属性 1：充值类  2：消费类  0：综合类（充值和消费）'
+/
+comment on column base_dept.flag is '0：窗口 充值点（公司内部）   1：代理充值点（公司外部）'
+/
+comment on column base_dept.dptbankcardno is '商户开户行账号（银行转账使用）'
+/
+comment on column base_dept.dptbankcardowner is '商户转账卡所属人'
+/
+comment on column base_dept.transaccountno is '运营商转账账号（一般属于对公账号）'
+/
+comment on column base_dept.dptbankcardaddress is '商户开户行地址'
+/
+comment on column base_dept.dpttelephone is '商户联系电话'
+/
+comment on column base_dept.dptbankcode is '商户开户行银行（base_bank）'
+/
+comment on column base_dept.accounttype is '账户类型：部门属性为充值类，则账户类型为3 ，部门属性为消费类，则账户类型为6，部门属性为综合类，则账户类型为0'
+/
+comment on column base_dept.transaccoutbankcode is '运营商转账账户开户行银行（base_bank）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_EMP" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER(10,0) DEFAULT 0 NOT NULL ENABLE, 
+	"EMPCODE" VARCHAR2(32) NOT NULL ENABLE, 
+	"EMPNAME" VARCHAR2(10) NOT NULL ENABLE, 
+	"EMPPWD" VARCHAR2(64) DEFAULT '21218cca77804d2ba1922c33e0151105' NOT NULL ENABLE, 
+	"EMPPOS" VARCHAR2(2) DEFAULT 0 NOT NULL ENABLE, 
+	"EMPEMAIL" VARCHAR2(40), 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"IDCARDNO" VARCHAR2(18) NOT NULL ENABLE, 
+	"CERTIFICATEID" NUMBER NOT NULL ENABLE, 
+	"TELPHONENUM" VARCHAR2(20), 
+	"SEX" NUMBER NOT NULL ENABLE, 
+	"POSTID" NUMBER NOT NULL ENABLE, 
+	"ADDRESS" VARCHAR2(50) DEFAULT '' NOT NULL ENABLE, 
+	"NATION" VARCHAR2(2) NOT NULL ENABLE, 
+	"INCOMEDATE" DATE, 
+	"USERID" VARCHAR2(20) NOT NULL ENABLE, 
+	"LOGINST" NUMBER NOT NULL ENABLE, 
+	"ROLECODE" VARCHAR2(160) NOT NULL ENABLE, 
+	"ISSYSTEMUSER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CASHCARDTYPE" VARCHAR2(500), 
+	"SALECARDTYPE" VARCHAR2(500), 
+	"PRIVILEGELOGON" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"YEARCHECK" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CHECKBEGINDAY" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CHECKENDDAY" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"THEMES" VARCHAR2(30) DEFAULT 'capec' NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AREAID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXCEPTIVEEMP" NUMBER, 
+	"ISDELETE" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) DEFAULT '00000000000' NOT NULL ENABLE, 
+	"BANKCODE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(30), 
+	"LANGUAGE" VARCHAR2(50) DEFAULT 'zh', 
+	"DELETEDATE" DATE, 
+	"ACCOUNTTYPE" NUMBER DEFAULT 3, 
+	 CONSTRAINT "PK_BASE_EMP" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_EMP_EMPCODE" UNIQUE ("EMPCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_EMP_EMPID" UNIQUE ("EMPID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_EMP_USERID" UNIQUE ("USERID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_EMP_IDCARDNO" UNIQUE ("IDCARDNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_emp is '员工表'
+/
+comment on column base_emp.id is '主键'
+/
+comment on column base_emp.empid is '职员帐号'
+/
+comment on column base_emp.empcode is '操作员编号（登录名）'
+/
+comment on column base_emp.empname is '职员姓名'
+/
+comment on column base_emp.emppwd is '职员密码（sha1）'
+/
+comment on column base_emp.emppos is '职员权限限制（0-普通职员, 1-系统管理, ，2-部门领导）'
+/
+comment on column base_emp.empemail is '电子邮件'
+/
+comment on column base_emp.dptcode is '业务部门编号'
+/
+comment on column base_emp.idcardno is '证件号码'
+/
+comment on column base_emp.certificateid is '证件类型'
+/
+comment on column base_emp.telphonenum is '电话号码'
+/
+comment on column base_emp.sex is '性别'
+/
+comment on column base_emp.postid is '职务id'
+/
+comment on column base_emp.address is '家庭住址'
+/
+comment on column base_emp.nation is '民族'
+/
+comment on column base_emp.incomedate is '入职时间'
+/
+comment on column base_emp.userid is '工号'
+/
+comment on column base_emp.loginst is '登录限制 0-无限制 1-ip限制 ;不配置卡的使用，充值必须使用充值员卡'
+/
+comment on column base_emp.rolecode is '操作员角色'
+/
+comment on column base_emp.issystemuser is '是否是系统保留用户(0:不是系统用户，1:是系统用户)'
+/
+comment on column base_emp.cashcardtype is '职员允许充值卡类型，如（1，2），不允许值为0。'
+/
+comment on column base_emp.salecardtype is '职员允许销售卡类型，如（1，2），不允许值为0。'
+/
+comment on column base_emp.privilegelogon is '软件登陆权限(0:禁止登录软件；1:允许登陆软件)'
+/
+comment on column base_emp.yearcheck is '是否需要年检 0不需要 1需要'
+/
+comment on column base_emp.checkbeginday is '年检开始时间'
+/
+comment on column base_emp.checkendday is '结束时间'
+/
+comment on column base_emp.themes is '主题样式'
+/
+comment on column base_emp.ver is '版本号'
+/
+comment on column base_emp.areaid is '分区id'
+/
+comment on column base_emp.status is '帐号状态 -1：禁用 0-初始状态 1-正常状态'
+/
+comment on column base_emp.exceptiveemp is '0-普通职员 1-特殊职员'
+/
+comment on column base_emp.isdelete is '是否删除（0未删除，1 删除）'
+/
+comment on column base_emp.customerunitcode is '客户代码'
+/
+comment on column base_emp.bankcode is '银行代码（base_bank）'
+/
+comment on column base_emp.bankcardno is '银行账号 交账使用'
+/
+comment on column base_emp.language is '职员使用语言'
+/
+comment on column base_emp.deletedate is '删除时间：删除职员时更新此字段'
+/
+comment on column base_emp.accounttype is '账户类型（和base_accounttype对应）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_EMP_CARD" 
+   (	"EMPID" NUMBER NOT NULL ENABLE, 
+	"EMPCARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDSTATUS" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(8) NOT NULL ENABLE, 
+	"CARDSN" NUMBER(6,0) DEFAULT 1 NOT NULL ENABLE, 
+	"PWD" VARCHAR2(32), 
+	"NOUSEDATE" DATE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPERATIONEMPID" NUMBER NOT NULL ENABLE, 
+	"YEARCHECK" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CHECKBEGINDAY" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CHECKENDDAY" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"CARDID" VARCHAR2(8) NOT NULL ENABLE, 
+	"CUSTOMERUINTCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LINEID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_EMP_CARD" PRIMARY KEY ("EMPID", "CARDDETAILID", "SCARDSNR")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_EMP_CARD_CARDID" UNIQUE ("CARDID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_EMP_SCARDNR" UNIQUE ("SCARDSNR")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_emp_card is '职员卡记录表'
+/
+comment on column base_emp_card.empid is '职员帐号'
+/
+comment on column base_emp_card.empcardno is '职员卡号'
+/
+comment on column base_emp_card.carddetailid is '卡种类'
+/
+comment on column base_emp_card.cardstatus is '状态（1：正常 ，3：挂失）'
+/
+comment on column base_emp_card.scardsnr is '卡唯一号'
+/
+comment on column base_emp_card.cardsn is '持卡序号（第几张卡）'
+/
+comment on column base_emp_card.pwd is '卡密码'
+/
+comment on column base_emp_card.nousedate is '卡失效日期'
+/
+comment on column base_emp_card.cardkind is '卡类型 1m1卡2 cpu卡'
+/
+comment on column base_emp_card.ver is '版本号'
+/
+comment on column base_emp_card.operationempid is '对此卡进行发卡的操作员id'
+/
+comment on column base_emp_card.yearcheck is '是否需要年检 0不需要 1需要'
+/
+comment on column base_emp_card.checkbeginday is '年检开始时间'
+/
+comment on column base_emp_card.checkendday is '年检结束时间'
+/
+comment on column base_emp_card.opdt is '卡户时间'
+/
+comment on column base_emp_card.cardid is '卡流水号'
+/
+comment on column base_emp_card.customeruintcode is '客户代码'
+/
+comment on column base_emp_card.lineid is '线路卡时对应id，0为空'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_EMP_CARD_HISTORY" 
+   (	"CARDFC" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDCARDNO" NUMBER DEFAULT 0, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDCARDSN" NUMBER DEFAULT 0, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"LOSSFC" NUMBER, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"AREAID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PTY" NUMBER NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ID" VARCHAR2(8) DEFAULT 0 NOT NULL ENABLE, 
+	"OPERATIONEMPID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUINTCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_emp_card_history is '职员卡历史记录表'
+/
+comment on column base_emp_card_history.cardfc is '流水：主键，自增长'
+/
+comment on column base_emp_card_history.scardsnr is '卡唯一号'
+/
+comment on column base_emp_card_history.cardno is '卡号'
+/
+comment on column base_emp_card_history.oldcardno is '老卡号'
+/
+comment on column base_emp_card_history.cardtypedetailid is '卡类型'
+/
+comment on column base_emp_card_history.cardsn is '持卡序号（第几张卡）'
+/
+comment on column base_emp_card_history.oldcardsn is '老卜序号'
+/
+comment on column base_emp_card_history.cardkind is '卡类型 1m1卡2 cpu卡'
+/
+comment on column base_emp_card_history.opdt is '操作日期'
+/
+comment on column base_emp_card_history.lossfc is '挂失流水：挂失表的流水号'
+/
+comment on column base_emp_card_history.empid is '持有卡的职员帐号'
+/
+comment on column base_emp_card_history.areaid is '分区编号'
+/
+comment on column base_emp_card_history.pty is '发放性质 0=新卡，1=补发，2=换卡'
+/
+comment on column base_emp_card_history.ver is '版本号'
+/
+comment on column base_emp_card_history.id is '卡上流水号：来源于密钥系统的发卡流水号'
+/
+comment on column base_emp_card_history.operationempid is '对此卡进行发卡的操作员id'
+/
+comment on column base_emp_card_history.customeruintcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_EMP_MENU" 
+   (	"EMP_PRMID" NUMBER NOT NULL ENABLE, 
+	"ROLEID" NUMBER NOT NULL ENABLE, 
+	"MENUID" VARCHAR2(8) NOT NULL ENABLE, 
+	"EMP_PRM" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) DEFAULT '08600000000' NOT NULL ENABLE, 
+	"MODELID" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_EMP_MENU" PRIMARY KEY ("EMP_PRMID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_emp_menu is '业务职员菜单授权'
+/
+comment on column base_emp_menu.emp_prmid is '授权号（自动产生的）
+'
+/
+comment on column base_emp_menu.roleid is '角色编号'
+/
+comment on column base_emp_menu.menuid is '菜单标识'
+/
+comment on column base_emp_menu.emp_prm is '授权（0=收回，1=授权，null=忽略）'
+/
+comment on column base_emp_menu.customerunitcode is '客户代码'
+/
+comment on column base_emp_menu.modelid is '业务模块id号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_JTB_ERRORCODE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ERRORCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_JTB_ERRORCODE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_jtb_errorcode is '交通部对接错误代码表'
+/
+comment on column base_jtb_errorcode.id is ''
+/
+comment on column base_jtb_errorcode.errorcode is '错误代码'
+/
+comment on column base_jtb_errorcode.describe is '描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_LEGAL_PERSON" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CUSTOMERNAME" VARCHAR2(100) NOT NULL ENABLE, 
+	"CUSTOMERNAMEJP" VARCHAR2(100) NOT NULL ENABLE, 
+	"LINKMAN" VARCHAR2(100) NOT NULL ENABLE, 
+	"TELEPHONE" VARCHAR2(13), 
+	"ADDRESS" VARCHAR2(200), 
+	"EMAIL" VARCHAR2(200), 
+	"BANKCODE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(30), 
+	"DATABASESTR" VARCHAR2(200), 
+	"WEBURL" VARCHAR2(200), 
+	"OPDT" DATE DEFAULT sysdate, 
+	"OPENDT" DATE DEFAULT sysdate, 
+	"RREMARK" VARCHAR2(200), 
+	"STATUS" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISRELEVANCE" NUMBER DEFAULT 0, 
+	"MANAGELEGAL" VARCHAR2(200), 
+	"ISDELETE" NUMBER DEFAULT 0, 
+	"ISBALANCE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPERATORCODE" VARCHAR2(10) DEFAULT 10000000 NOT NULL ENABLE, 
+	"OWNERCITYCODE" VARCHAR2(10) DEFAULT 00000000 NOT NULL ENABLE, 
+	"CITYCODE" VARCHAR2(11) DEFAULT '08600000001', 
+	"INDUSTRYCODE" VARCHAR2(11), 
+	 CONSTRAINT "PK_BASE_LEGAL_PERSON" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_LEGAL_PERSON" UNIQUE ("CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_legal_person is '客户（法人）信息表'
+/
+comment on column base_legal_person.id is '自动编号'
+/
+comment on column base_legal_person.customerunitcode is '客户代码（国家地区编号（3）+预留（5）+分配序号（3）），如08600000001'
+/
+comment on column base_legal_person.customername is '客户名称'
+/
+comment on column base_legal_person.customernamejp is '客户名称简称'
+/
+comment on column base_legal_person.linkman is '联系人'
+/
+comment on column base_legal_person.telephone is '联系电话'
+/
+comment on column base_legal_person.address is '客户地址'
+/
+comment on column base_legal_person.email is '邮箱'
+/
+comment on column base_legal_person.bankcode is '所属银行(base_bank)'
+/
+comment on column base_legal_person.bankcardno is '转账卡号（银行卡号）'
+/
+comment on column base_legal_person.databasestr is '数据存储数据库连接字符串（预留）'
+/
+comment on column base_legal_person.weburl is '访问web服务地址'
+/
+comment on column base_legal_person.opdt is '最后一次操作时间（每次操作都更新）'
+/
+comment on column base_legal_person.opendt is '客户注册时间（添加时候更新，其他时间不维护）'
+/
+comment on column base_legal_person.rremark is '备注信息'
+/
+comment on column base_legal_person.status is '0：禁用状态 1：未授权 2：已授权'
+/
+comment on column base_legal_person.isrelevance is '是否拥有级联管理 0：无级联管理关系 1：有级联管理关系'
+/
+comment on column base_legal_person.managelegal is '级联管理客户编号，使用1,2,3,4......形式存储（1,2代表该表的id字段）'
+/
+comment on column base_legal_person.isdelete is '逻辑删除字段（0未删除，1 删除）'
+/
+comment on column base_legal_person.isbalance is '是否正在结帐（0：否；1：是 2：准备结账 非0状态不允许执行日结操作）'
+/
+comment on column base_legal_person.operatorcode is '交通部收单机构代码'
+/
+comment on column base_legal_person.ownercitycode is '交通部发卡方机构代码'
+/
+comment on column base_legal_person.citycode is '城市代码，用于指定秘钥'
+/
+comment on column base_legal_person.industrycode is '行业编号（oda和一卡通对接）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_LEGAL_PERSON_MENU" 
+   (	"PRMID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"MODELID" NUMBER NOT NULL ENABLE, 
+	"MENUID" VARCHAR2(4000) NOT NULL ENABLE, 
+	"CUS_PRM" NUMBER DEFAULT 1, 
+	 CONSTRAINT "PK_BASE_LEGAL_PERSON_MENU" PRIMARY KEY ("PRMID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_LEGAL_PERSON_MENU" UNIQUE ("CUSTOMERUNITCODE", "MODELID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_legal_person_menu is '客户法人-业务授权信息表'
+/
+comment on column base_legal_person_menu.prmid is '授权号(自动产生)'
+/
+comment on column base_legal_person_menu.customerunitcode is '客户代码'
+/
+comment on column base_legal_person_menu.modelid is '业务模块编号'
+/
+comment on column base_legal_person_menu.menuid is '业务模块功能项（00000000|00000001|...），以菜单项的id存放一个串'
+/
+comment on column base_legal_person_menu.cus_prm is '授权（0=收回，1=授权，null=忽略）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_LINEPARAM" 
+   (	"LINEID" NUMBER NOT NULL ENABLE, 
+	"PARAMNAME" VARCHAR2(50), 
+	"PARAMVALUE" VARCHAR2(1024), 
+	"ISUSE" NUMBER DEFAULT 1, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"VER" NUMBER DEFAULT 0, 
+	"OPDT" DATE DEFAULT sysdate, 
+	"ID" NUMBER NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_LINEPARAM" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_LINEPARAM" UNIQUE ("LINEID", "PARAMNAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_lineparam is '线路参数信息（线路票价卡参数-和线路相关的参数）'
+/
+comment on column base_lineparam.lineid is '线路id'
+/
+comment on column base_lineparam.paramname is '参数名称'
+/
+comment on column base_lineparam.paramvalue is '参数值'
+/
+comment on column base_lineparam.isuse is '是否启用 0 不启用 1 启用'
+/
+comment on column base_lineparam.customerunitcode is '客户代码'
+/
+comment on column base_lineparam.ver is '版本号'
+/
+comment on column base_lineparam.opdt is '操作时间'
+/
+comment on column base_lineparam.id is '自增长'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_LINEPARAM_CARDTYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"LINEID" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"PARAMNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"PARAMVALUE" VARCHAR2(1024) NOT NULL ENABLE, 
+	"ISUSE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"OPDT" DATE DEFAULT sysdate, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	 CONSTRAINT "PK_BASE_LINEPARAM_CARDTYPE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_LINEPARAM_CARDTYPE" UNIQUE ("LINEID", "CARDTYPE", "PARAMNAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_lineparam_cardtype is '线路票价卡-卡类型相关参数信息'
+/
+comment on column base_lineparam_cardtype.id is '编号'
+/
+comment on column base_lineparam_cardtype.lineid is '线路编号'
+/
+comment on column base_lineparam_cardtype.cardtype is '卡类型编号'
+/
+comment on column base_lineparam_cardtype.paramname is '参数名称'
+/
+comment on column base_lineparam_cardtype.paramvalue is '参数值'
+/
+comment on column base_lineparam_cardtype.isuse is '是否启用 0 不启用 1 启用'
+/
+comment on column base_lineparam_cardtype.ver is '版本号'
+/
+comment on column base_lineparam_cardtype.opdt is '最后一次操作时间'
+/
+comment on column base_lineparam_cardtype.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_MAINCARDTYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER NOT NULL ENABLE, 
+	"NAME" VARCHAR2(30), 
+	"ISUSE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE, 
+	 CONSTRAINT "PK_BASE_MAINCARDTYPE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_MAINCARDTYPE" UNIQUE ("MAINCARDTYPE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_maincardtype is '主卡类型'
+/
+comment on column base_maincardtype.id is '自增主键'
+/
+comment on column base_maincardtype.maincardtype is '主卡类型值'
+/
+comment on column base_maincardtype.name is '主卡类型名称'
+/
+comment on column base_maincardtype.isuse is '是否可见（0不可见，1可见）'
+/
+comment on column base_maincardtype.customerunitcode is '客户法人'
+/
+comment on column base_maincardtype.createdate is '最后一次修改时间'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_MENU" 
+   (	"MENUID" VARCHAR2(8) NOT NULL ENABLE, 
+	"MENUNAME" VARCHAR2(32) NOT NULL ENABLE, 
+	"SMALLICON" VARCHAR2(80), 
+	"NAVLINK" VARCHAR2(80), 
+	"DESCRIPTION" VARCHAR2(100), 
+	"LARGEICON" VARCHAR2(88), 
+	"PARENTMENUID" VARCHAR2(8), 
+	"SUBSYSTEMID" VARCHAR2(32), 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ISVISIBLE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_MENU" PRIMARY KEY ("MENUID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_menu is '业务菜单目录'
+/
+comment on column base_menu.menuid is '菜单标识'
+/
+comment on column base_menu.menuname is '菜单名称'
+/
+comment on column base_menu.smallicon is '小图标文件名(url)'
+/
+comment on column base_menu.navlink is '导航链接(url)'
+/
+comment on column base_menu.description is '描述'
+/
+comment on column base_menu.largeicon is '大图标文件名(url)'
+/
+comment on column base_menu.parentmenuid is '上级菜单标识(空表示顶级菜单，顶级菜单为自系统列表)'
+/
+comment on column base_menu.subsystemid is '所属子系统（存储加密后的密文）'
+/
+comment on column base_menu.sortid is '排序id'
+/
+comment on column base_menu.isvisible is '是否显示（0不显示。1显示）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_NATION" 
+   (	"NATIONID" VARCHAR2(2) NOT NULL ENABLE, 
+	"NATIONNAME" VARCHAR2(30) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_NATION" PRIMARY KEY ("NATIONID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_nation is '中国民族列表，01代表汉族'
+/
+comment on column base_nation.nationid is '名族编号'
+/
+comment on column base_nation.nationname is '民族名称'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_OPERATION_PROCEDURE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PROCENAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"PROCEDESC" VARCHAR2(200) NOT NULL ENABLE, 
+	"MENUIDSTR" VARCHAR2(4000) NOT NULL ENABLE, 
+	"REMARK" VARCHAR2(1000), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_OPERATION_PROCEDURE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_OPERATION_PROCEDURE" UNIQUE ("PROCENAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_operation_procedure is '操作流程设置'
+/
+comment on column base_operation_procedure.id is '自动编号'
+/
+comment on column base_operation_procedure.procename is '操作流程名称'
+/
+comment on column base_operation_procedure.procedesc is '操作流程简述'
+/
+comment on column base_operation_procedure.menuidstr is '操作功能串（00000000|00000001|...），以菜单项的id存放，存放的位置按照操作流程中的先后顺序存'
+/
+comment on column base_operation_procedure.remark is '备注'
+/
+comment on column base_operation_procedure.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_ORGANIZATION_INFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ORGCODE" VARCHAR2(100) NOT NULL ENABLE, 
+	"ORGNAME" VARCHAR2(500) NOT NULL ENABLE, 
+	"ORGBANK" VARCHAR2(100) NOT NULL ENABLE, 
+	"ORGBANKNAME" VARCHAR2(100) NOT NULL ENABLE, 
+	"ORGBANKCODE" VARCHAR2(50) NOT NULL ENABLE, 
+	"PROPORTION" NUMBER NOT NULL ENABLE, 
+	"DATETIMER" DATE NOT NULL ENABLE, 
+	"C_NAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"ORG_MERCHANTCODE" VARCHAR2(20), 
+	"INFLASTOPDT" VARCHAR2(8), 
+	"ACOMALASTOPDT" VARCHAR2(8), 
+	 CONSTRAINT "PK_BASE_ORGANIZATION_INFO" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_ORGANIZATION_INFO" UNIQUE ("ORGCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_organization_info is '维护机构信息表'
+/
+comment on column base_organization_info.id is '编号，自动增长'
+/
+comment on column base_organization_info.orgcode is '维护机构代码'
+/
+comment on column base_organization_info.orgname is '维护机构名称'
+/
+comment on column base_organization_info.orgbank is '维护机构开户行'
+/
+comment on column base_organization_info.orgbankname is '维护机构开户名'
+/
+comment on column base_organization_info.orgbankcode is '维护机构账号'
+/
+comment on column base_organization_info.proportion is '分成比例'
+/
+comment on column base_organization_info.datetimer is '添加时间'
+/
+comment on column base_organization_info.c_name is '添加人'
+/
+comment on column base_organization_info.org_merchantcode is '主账户'
+/
+comment on column base_organization_info.inflastopdt is '银联电子现金51b文件最后一次生成日期'
+/
+comment on column base_organization_info.acomalastopdt is '银联第三方acoma文件最后一次生成日期'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PARAM" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PARAMGROUPID" NUMBER NOT NULL ENABLE, 
+	"PARAMNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"PARAMVALUE" VARCHAR2(1024), 
+	"VER" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISUSE" NUMBER DEFAULT 1, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"UPDATEVERTIME" DATE DEFAULT SYSDATE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_PARAM" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_PARAM" UNIQUE ("PARAMGROUPID", "PARAMNAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_param is '系统参数表'
+/
+comment on column base_param.id is 'id'
+/
+comment on column base_param.paramgroupid is '参数组编号（根据设计，此编号对应卡类型大类）'
+/
+comment on column base_param.paramname is '参数名'
+/
+comment on column base_param.paramvalue is '参数值'
+/
+comment on column base_param.ver is '记录版本'
+/
+comment on column base_param.isuse is '是否启用 0 不启用 1 启用'
+/
+comment on column base_param.customerunitcode is '客户代码'
+/
+comment on column base_param.updatevertime is ''
+/
+comment on column base_param.flag is '标记：0 代表paramgroupid关联的是卡类型信息表，1 代表paramgroupid关联的是参数大类信息表'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PARAM_GROUP" 
+   (	"PARAMGROUPID" NUMBER NOT NULL ENABLE, 
+	"PARAMGROUPNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(100) DEFAULT '没发现此参数组的描述' NOT NULL ENABLE, 
+	"MODELID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_PARAM_GROUP" PRIMARY KEY ("PARAMGROUPID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_PARAM_GROUP" UNIQUE ("PARAMGROUPNAME", "MODELID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_param_group is '参数组'
+/
+comment on column base_param_group.paramgroupid is '参数组编号'
+/
+comment on column base_param_group.paramgroupname is '参数组名称'
+/
+comment on column base_param_group.description is '参数组描述'
+/
+comment on column base_param_group.modelid is '参数组模版id'
+/
+comment on column base_param_group.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PARAM_GROUP_MODEL" 
+   (	"MODELID" NUMBER NOT NULL ENABLE, 
+	"MODELNAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(100) DEFAULT '' NOT NULL ENABLE, 
+	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"ISENABLECREATE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_PARAM_GROUP_MODEL" PRIMARY KEY ("MODELID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_PARAM_GROUP_MODEL" UNIQUE ("MODELNAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "FK_PARAM_GROUP_MODEL_TYPE" FOREIGN KEY ("TYPEID")
+	  REFERENCES "CCENSE"."BASE_PARAM_GROUP_MODEL_TYPE" ("PARAMTYPEID") ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_param_group_model is '参数组模版'
+/
+comment on column base_param_group_model.modelid is '模版参数组编号'
+/
+comment on column base_param_group_model.modelname is '模版参数组名称'
+/
+comment on column base_param_group_model.description is '描述'
+/
+comment on column base_param_group_model.typeid is '模版参数组类别'
+/
+comment on column base_param_group_model.isenablecreate is '是否允许继承'
+/
+comment on column base_param_group_model.ver is '模版记录版本'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PARAM_GROUP_MODEL_TYPE" 
+   (	"PARAMTYPEID" NUMBER NOT NULL ENABLE, 
+	"PARAMTYPENAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"PARAMTYPEDESC" VARCHAR2(100) DEFAULT '无此参数类型描述' NOT NULL ENABLE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_PARAM_TYPE" PRIMARY KEY ("PARAMTYPEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_PARAM_GROUP_MODEL_TYPE" UNIQUE ("PARAMTYPENAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_param_group_model_type is '参数组模版类型'
+/
+comment on column base_param_group_model_type.paramtypeid is '参数类型编号：对应1..n个参数组模版'
+/
+comment on column base_param_group_model_type.paramtypename is '参数类型名称'
+/
+comment on column base_param_group_model_type.paramtypedesc is '参数类型描述'
+/
+comment on column base_param_group_model_type.sortid is '显示顺序'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PARAM_LIB" 
+   (	"PARAMID" NUMBER NOT NULL ENABLE, 
+	"PARAMNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"PARAMVALUE" VARCHAR2(128) NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(300), 
+	"ISENABLECHANGE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"DISPLAYNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALUETYPE" VARCHAR2(100) NOT NULL ENABLE, 
+	"PARAMTYPEID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ISVISIBLE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"PARATYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_SYS_PARAM_LIB" PRIMARY KEY ("PARAMID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "AK_PARAMNAME_BASE_SYS" UNIQUE ("PARAMNAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_param_lib is '参数字典'
+/
+comment on column base_param_lib.paramid is '参数编号'
+/
+comment on column base_param_lib.paramname is '参数名：英文代码'
+/
+comment on column base_param_lib.paramvalue is '参数值'
+/
+comment on column base_param_lib.description is '职务名称'
+/
+comment on column base_param_lib.isenablechange is '允许更改标志'
+/
+comment on column base_param_lib.displayname is '显示名称'
+/
+comment on column base_param_lib.sortid is '显示顺序'
+/
+comment on column base_param_lib.valuetype is '参数值类型:填表达式'
+/
+comment on column base_param_lib.paramtypeid is '参数类型编号'
+/
+comment on column base_param_lib.isvisible is '是否显示：1-可见，0-不可见'
+/
+comment on column base_param_lib.paratype is '参数类型：0 卡务参数 1 pos参数 3 参数卡参数'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PARAM_MODEL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"MODELID" NUMBER NOT NULL ENABLE, 
+	"PARAMNAME" VARCHAR2(100) NOT NULL ENABLE, 
+	"PARAMVALUE" VARCHAR2(1024) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_PARAM_MODEL" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "AK_PARAM_MODEL" UNIQUE ("MODELID", "PARAMNAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "FK_PARAM_MODEL_MODEL" FOREIGN KEY ("MODELID")
+	  REFERENCES "CCENSE"."BASE_PARAM_GROUP_MODEL" ("MODELID") ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_param_model is '参数模版'
+/
+comment on column base_param_model.id is '标识'
+/
+comment on column base_param_model.modelid is '模版编号'
+/
+comment on column base_param_model.paramname is '参数名称'
+/
+comment on column base_param_model.paramvalue is '值'
+/
+comment on column base_param_model.ver is '记录版本'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_POSITIONS" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSTID" NUMBER NOT NULL ENABLE, 
+	"POSTNAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	 CONSTRAINT "PK_BASE_POSTIONS" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_POSITIONS" UNIQUE ("POSTID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_positions is '岗位信息'
+/
+comment on column base_positions.id is '主键'
+/
+comment on column base_positions.postid is '职务id'
+/
+comment on column base_positions.postname is '职务名称'
+/
+comment on column base_positions.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_PRODUCTOR" 
+   (	"PRODUCTID" NUMBER NOT NULL ENABLE, 
+	"PROCUCTNAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"VER" NUMBER, 
+	 CONSTRAINT "PK_BASE_PRODUCTOR" PRIMARY KEY ("PRODUCTID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_productor is '卡供应商'
+/
+comment on column base_productor.productid is '卡供应商id'
+/
+comment on column base_productor.procuctname is '卡供应商名称'
+/
+comment on column base_productor.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_QRCODE_KEY" 
+   (	"ID" NUMBER, 
+	"KEY" VARCHAR2(300), 
+	"KEYTYPE" NUMBER, 
+	"VER" NUMBER, 
+	"LASTTIME" DATE DEFAULT sysdate
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_qrcode_key is ''
+/
+comment on column base_qrcode_key.id is '密钥编号'
+/
+comment on column base_qrcode_key.key is '密钥'
+/
+comment on column base_qrcode_key.keytype is '3：微信公钥，4：微信mac根密钥'
+/
+comment on column base_qrcode_key.ver is '版本'
+/
+comment on column base_qrcode_key.lasttime is '最后更新时'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_REC_BAD_TYPE" 
+   (	"BADID" NUMBER NOT NULL ENABLE, 
+	"BADDESC" VARCHAR2(50) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_rec_bad_type is '坏账类型-字典表'
+/
+comment on column base_rec_bad_type.badid is '坏账类型编号'
+/
+comment on column base_rec_bad_type.baddesc is '坏账类型描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_ROLE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ROLEID" NUMBER NOT NULL ENABLE, 
+	"ROLENMAE" VARCHAR2(30) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"ISVISIBLE" NUMBER DEFAULT 1, 
+	 CONSTRAINT "PK_BASE_ROLE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_ROLE_UNITCODE" UNIQUE ("ROLEID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_role is '角色'
+/
+comment on column base_role.id is '编号（主键）'
+/
+comment on column base_role.roleid is '角色编号'
+/
+comment on column base_role.rolenmae is '角色名称'
+/
+comment on column base_role.customerunitcode is '客户代码'
+/
+comment on column base_role.isvisible is '是否启用 0:不启用 1:启用'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SAMCARD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"SAMCARDNAME" VARCHAR2(12), 
+	"SAMCARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDSNR" VARCHAR2(20) NOT NULL ENABLE, 
+	"STATE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STARTDATE" DATE NOT NULL ENABLE, 
+	"ENDDATE" DATE NOT NULL ENABLE, 
+	"LOSSDATE" DATE, 
+	"LOSSRECNO" NUMBER, 
+	"LASTUPDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ADDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDTYPE" NUMBER NOT NULL ENABLE, 
+	"PRINTCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_SAMCARD" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_SAMCARDNO" UNIQUE ("SAMCARDNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_SAMCARDSNR" UNIQUE ("SAMCARDSNR", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_samcard is ''
+/
+comment on column base_samcard.id is '主键'
+/
+comment on column base_samcard.samcardno is 'psam卡号:samcardname转换成的数字。'
+/
+comment on column base_samcard.samcardname is 'psam卡号，来源于密钥系统的原始终端编号数据，6字节的数字'
+/
+comment on column base_samcard.samcardsn is '密钥系统的psam卡序列号（发卡流水号），4字节的数字'
+/
+comment on column base_samcard.samcardsnr is 'psam卡编号：10个字节的应用代码，公司自定义规则'
+/
+comment on column base_samcard.state is '状态：0-初始状态，1-正在使用，10-挂失，11-损坏。12-注销'
+/
+comment on column base_samcard.startdate is '卡上的有效起始日期'
+/
+comment on column base_samcard.enddate is '卡上的有效截止日期'
+/
+comment on column base_samcard.lossdate is '挂失日期'
+/
+comment on column base_samcard.lossrecno is '挂失时记录编号'
+/
+comment on column base_samcard.lastupdate is '最后一次更新日期'
+/
+comment on column base_samcard.createdate is 'psam卡登记入库日期'
+/
+comment on column base_samcard.ver is '版本'
+/
+comment on column base_samcard.addtype is '0为导入，1为手工录入，2为采集上传'
+/
+comment on column base_samcard.samcardtype is '0消费终端sam卡类型，2制卡中心sam卡类型'
+/
+comment on column base_samcard.printcode is '出厂打印号'
+/
+comment on column base_samcard.customerunitcode is '客户代码'
+/
+comment on column base_samcard.flag is 'psam卡来源：0 默认公司psam卡连密钥前置 1 第三方psam卡'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SAVEMONEY_CONFIG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"SAVEMONEYMN" NUMBER(10,2) NOT NULL ENABLE, 
+	"NUMBERDUMMYMN" NUMBER(10,2) NOT NULL ENABLE, 
+	"GROUPTYPE" VARCHAR2(1) DEFAULT 1 NOT NULL ENABLE, 
+	"SORTNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_SAVEMONEY_CONFIG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_SAVEMONEY_CONFIG" UNIQUE ("SAVEMONEYMN", "GROUPTYPE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_savemoney_config is '充值金额送次数配置表（放参数表实现）'
+/
+comment on column base_savemoney_config.id is '编号，自动增长'
+/
+comment on column base_savemoney_config.savemoneymn is '充值金额'
+/
+comment on column base_savemoney_config.numberdummymn is '虚充金额'
+/
+comment on column base_savemoney_config.grouptype is '组类型：1次钱包类型，2定额钱包类型'
+/
+comment on column base_savemoney_config.sortno is '显示序号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SEQUENCE_NO" 
+   (	"CODE" VARCHAR2(100) NOT NULL ENABLE, 
+	"MAX_NO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CONTENTMES" VARCHAR2(100), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_sequence_no is '索引信息表'
+/
+comment on column base_sequence_no.code is '代码类型'
+/
+comment on column base_sequence_no.max_no is '目前最大索引号'
+/
+comment on column base_sequence_no.contentmes is '描述'
+/
+comment on column base_sequence_no.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_STATION" 
+   (	"STATIONID" NUMBER NOT NULL ENABLE, 
+	"STATIONNAME" VARCHAR2(40) NOT NULL ENABLE, 
+	"STATIONTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"IPADDR" VARCHAR2(40) NOT NULL ENABLE, 
+	"ENABLEMONITOR" NUMBER DEFAULT 1, 
+	"MONITORPWD" VARCHAR2(32) DEFAULT '1234', 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_STATION" PRIMARY KEY ("STATIONID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_STATION_IP" UNIQUE ("IPADDR", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UN_BASE_STATION_NAME" UNIQUE ("STATIONNAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "FK_STATION_TYPEID" FOREIGN KEY ("STATIONTYPE")
+	  REFERENCES "CCENSE"."BASE_STATION_TYPE" ("TYPEID") ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_station is '工作站信息'
+/
+comment on column base_station.stationid is '工作站编号'
+/
+comment on column base_station.stationname is '工作站名称'
+/
+comment on column base_station.stationtype is '工作站类型(0：不限制  其他值，暂不定义)'
+/
+comment on column base_station.ipaddr is '工作站ip地址'
+/
+comment on column base_station.enablemonitor is '是否允许监控（0不允许 1允许）'
+/
+comment on column base_station.monitorpwd is '监控密码'
+/
+comment on column base_station.ver is '版本'
+/
+comment on column base_station.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_STATION_TYPE" 
+   (	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(100), 
+	"ENABLEMONITOR" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"APPTYPE" VARCHAR2(40), 
+	 CONSTRAINT "PK_BASE_STATION_TYPE" PRIMARY KEY ("TYPEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_station_type is '工作站类型'
+/
+comment on column base_station_type.typeid is '工作站类型编号'
+/
+comment on column base_station_type.typename is '工作站类型名称'
+/
+comment on column base_station_type.description is '描述'
+/
+comment on column base_station_type.enablemonitor is '是否允许监控'
+/
+comment on column base_station_type.ver is '版本'
+/
+comment on column base_station_type.apptype is '应用类型id'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SUBJECT" 
+   (	"SUBCODE" NUMBER NOT NULL ENABLE, 
+	"SUBNAME" VARCHAR2(100), 
+	"SUBCODETYPE" NUMBER, 
+	"PARENTCODE" NUMBER, 
+	"DSCRP" VARCHAR2(100), 
+	"FULLCODE" VARCHAR2(50), 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	 CONSTRAINT "UK_BASE_SUBJECT" UNIQUE ("SUBCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_subject is '会计科目表（资产负债平衡报表数据科目）'
+/
+comment on column base_subject.subcode is '会计科目'
+/
+comment on column base_subject.subname is '科目名称'
+/
+comment on column base_subject.subcodetype is '会计科目类型，1：资产类 2：负债类 3：所有者权益类 4 ：收入类 5：费用类 6：利润类'
+/
+comment on column base_subject.parentcode is '上级会计科目'
+/
+comment on column base_subject.dscrp is '资产负债科目组描述'
+/
+comment on column base_subject.fullcode is '会计科目代码全写'
+/
+comment on column base_subject.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SUBJECT_ACCOUNTTYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(20), 
+	"SUBCODE" VARCHAR2(50) NOT NULL ENABLE, 
+	"SUBNAME" VARCHAR2(100)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_subject_accounttype is '会计科目和账户类型关系表（初始化数据不可变）'
+/
+comment on column base_subject_accounttype.id is '编号'
+/
+comment on column base_subject_accounttype.accounttype is '账户类型'
+/
+comment on column base_subject_accounttype.typename is '账户类型描述'
+/
+comment on column base_subject_accounttype.subcode is '对应科目'
+/
+comment on column base_subject_accounttype.subname is '对应科目描述'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SUBSYSTEM" 
+   (	"SUBSYSID" NUMBER NOT NULL ENABLE, 
+	"SUBSYSSCPT" VARCHAR2(20), 
+	"TERMTYPE" NUMBER, 
+	"AUTHENTICATION_CODE" VARCHAR2(64), 
+	"VER" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_SUBSYSTEM" PRIMARY KEY ("SUBSYSID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_subsystem is '子系统目录信息'
+/
+comment on column base_subsystem.subsysid is '子系统id'
+/
+comment on column base_subsystem.subsysscpt is '子系统描述'
+/
+comment on column base_subsystem.termtype is '终端类型'
+/
+comment on column base_subsystem.authentication_code is '授权码'
+/
+comment on column base_subsystem.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_SYSPARA" 
+   (	"DPID" NUMBER NOT NULL ENABLE, 
+	"DPNAME" VARCHAR2(40) NOT NULL ENABLE, 
+	"DPPWD" VARCHAR2(32) NOT NULL ENABLE, 
+	"MAXCUSTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SYSSTARTDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"ISUIA" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REGCODE" VARCHAR2(6) DEFAULT '123456' NOT NULL ENABLE, 
+	"ISBALANCE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TEMPREGISTEREDCODE" VARCHAR2(256) DEFAULT '', 
+	"SYSSUBSIDYVER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CAPACITY" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ISAUTHTERM" NUMBER, 
+	"CITYCODE" VARCHAR2(10) NOT NULL ENABLE, 
+	"INDUSTRYCODE" VARCHAR2(10) NOT NULL ENABLE, 
+	"UPDATESAMCARD" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"FREEZEFARELIMIT" NUMBER DEFAULT 4 NOT NULL ENABLE, 
+	"BLLTTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPERATORCODE" VARCHAR2(10), 
+	"OWNERCITYCODE" VARCHAR2(10), 
+	 CONSTRAINT "PK_BASE_SYSPARA" PRIMARY KEY ("DPID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_syspara is '系统基本参数'
+/
+comment on column base_syspara.dpid is '系统编号'
+/
+comment on column base_syspara.dpname is '系统名称'
+/
+comment on column base_syspara.dppwd is '系统密码'
+/
+comment on column base_syspara.maxcustid is '当前最大客户编号'
+/
+comment on column base_syspara.sysstartdt is '系统开通日期'
+/
+comment on column base_syspara.isuia is '是否采用统一身份认证（0：否；1：是）'
+/
+comment on column base_syspara.regcode is '系统注册码'
+/
+comment on column base_syspara.isbalance is '是否正在结帐（0：否；1：是 2：准备结账 非0状态不允许交易记录上传）'
+/
+comment on column base_syspara.tempregisteredcode is '应急注册码（当ukey损坏后，使用应急注册提供的注册码）'
+/
+comment on column base_syspara.syssubsidyver is '系统补助版本号'
+/
+comment on column base_syspara.capacity is '系统允许领款最大人数'
+/
+comment on column base_syspara.isauthterm is '是否启用终端认'
+/
+comment on column base_syspara.citycode is '城市代码'
+/
+comment on column base_syspara.industrycode is '行业代码'
+/
+comment on column base_syspara.updatesamcard is '采集是否更新sanm卡号 1更新，其他不更新'
+/
+comment on column base_syspara.freezefarelimit is '领取冻结金额时间限制,单位为天'
+/
+comment on column base_syspara.bllttype is '黑名单类型，0：黑名单，1白名单'
+/
+comment on column base_syspara.operatorcode is '交通部收单机构代码'
+/
+comment on column base_syspara.ownercitycode is '交通部发卡方机构代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TERMNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ISUSE" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"ISAUTH" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"PARAMGROUPID" NUMBER DEFAULT 1005, 
+	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER, 
+	"LASTCOLLECTDATE" DATE DEFAULT SYSDATE, 
+	"PSAMCARDNO" NUMBER, 
+	"CPUTYPE" NUMBER DEFAULT 0, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE, 
+	"ISDELETE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DELETEDATE" DATE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEFAULTACCCODE" NUMBER, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SWITCHKEY" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PRIMARYKEY" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISSWITCH" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ISSECURITYTRANSPORT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(20) DEFAULT 888059540000002, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ISFLAG" NUMBER DEFAULT 0, 
+	"PSAMCARDSTR" VARCHAR2(500), 
+	"MAINTAINDATE" DATE, 
+	"MAINTAINEMPCODE" VARCHAR2(32), 
+	"UNIONTERMID" VARCHAR2(8) DEFAULT 0 NOT NULL ENABLE, 
+	"ISBUSBIND" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_BASE_TERM" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_TERM_POSCODE" UNIQUE ("POSCODE", "ISDELETE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "FK_TERM_TYPE" FOREIGN KEY ("TYPEID")
+	  REFERENCES "CCENSE"."BASE_TERM_TYPE" ("TYPEID") ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term is '终端目录'
+/
+comment on column base_term.id is '编号（主键）'
+/
+comment on column base_term.termname is '终端名称'
+/
+comment on column base_term.dptcode is '业务部门编号：分公司'
+/
+comment on column base_term.isuse is '是否使用：0-禁用，1-启用，2-维修停用，3-损坏，4...：改成非启用状态后，不可以再启用'
+/
+comment on column base_term.poscode is '设备运营唯一编号：初始值和生产编号相同,最大6个字节，唯一确定termid。采集上传，上层允许输入。'
+/
+comment on column base_term.isauth is '是否启用终端授权。南阳项目必须启用=1'
+/
+comment on column base_term.paramgroupid is '参数组编号'
+/
+comment on column base_term.typeid is '终端类型编号'
+/
+comment on column base_term.status is '工作状态：采集填充的终端状态，备用'
+/
+comment on column base_term.lastcollectdate is '最后一次采集数据时间：采集上传'
+/
+comment on column base_term.psamcardno is 'psam卡号（即psam上的终端编号，6个字节）。对于没有psam卡的设备，填入运营唯一编号：采集上传'
+/
+comment on column base_term.cputype is '处理器类型：默认值=0未知设备类型  1-c51设备  2-ram设备,...：采集上传更新，预留字段，上层不允许修改'
+/
+comment on column base_term.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_term.isdelete is '是否删除（0未删除，1已删除，2维修登记状态）'
+/
+comment on column base_term.deletedate is '删除日期'
+/
+comment on column base_term.sortid is '显示顺序'
+/
+comment on column base_term.defaultacccode is '默认的科目，如果交易记录的记录类型分析不出来科目，那么就以这个科目为准'
+/
+comment on column base_term.ver is '记录版本'
+/
+comment on column base_term.switchkey is '开通密钥'
+/
+comment on column base_term.primarykey is '主密钥'
+/
+comment on column base_term.isswitch is '终端是否接入 0：等待接入 1：已接入'
+/
+comment on column base_term.issecuritytransport is '是否加密数据传输 0：否  1：是'
+/
+comment on column base_term.merchantcode is '联动优势提供的商户号信息'
+/
+comment on column base_term.customerunitcode is '客户代码'
+/
+comment on column base_term.isflag is '一个终端是否支持多张psam卡 0：不支持 1：支持'
+/
+comment on column base_term.psamcardstr is '支持多张psam卡时，psam卡号存此字段，以,形式格式，isflag值为1 ，单张psam时此字段为空，使用原来的字段存放'
+/
+comment on column base_term.maintaindate is '维修登记时间，只有操作维修登记时改字段才赋值，系统当前时间'
+/
+comment on column base_term.maintainempcode is '维修登记人员，记录登录的用户名（登录名）'
+/
+comment on column base_term.uniontermid is '银联终端编号'
+/
+comment on column base_term.isbusbind is '是否和车辆绑定 0:未绑定 1：绑定'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_DELETE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TERMNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ISUSE" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"ISAUTH" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"PARAMGROUPID" NUMBER, 
+	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER, 
+	"LASTCOLLECTDATE" DATE DEFAULT SYSDATE, 
+	"PSAMCARDNO" NUMBER, 
+	"CPUTYPE" NUMBER DEFAULT 0, 
+	"LASTUPDATEDATE" DATE DEFAULT SYSDATE, 
+	"ISDELETE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DELETEDATE" DATE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEFAULTACCCODE" NUMBER, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SWITCHKEY" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PRIMARYKEY" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISSWITCH" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ISSECURITYTRANSPORT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(20) DEFAULT 888059540000002, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ISFLAG" NUMBER DEFAULT 0, 
+	"PSAMCARDSTR" VARCHAR2(500), 
+	"UNIONTERMID" VARCHAR2(8) DEFAULT 0 NOT NULL ENABLE, 
+	"DELETEEMPCODE" VARCHAR2(32) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_delete is '终端目录删除历史表'
+/
+comment on column base_term_delete.id is '编号（主键）'
+/
+comment on column base_term_delete.termname is '终端名称'
+/
+comment on column base_term_delete.dptcode is '业务部门编号：分公司'
+/
+comment on column base_term_delete.isuse is '是否使用：0-禁用，1-启用，2-维修停用，3-损坏，4...：改成非启用状态后，不可以再启用'
+/
+comment on column base_term_delete.poscode is '设备运营唯一编号：初始值和生产编号相同,最大6个字节，唯一确定termid。采集上传，上层允许输入。'
+/
+comment on column base_term_delete.isauth is '是否启用终端授权。南阳项目必须启用=1'
+/
+comment on column base_term_delete.paramgroupid is '参数组编号'
+/
+comment on column base_term_delete.typeid is '终端类型编号'
+/
+comment on column base_term_delete.status is '工作状态：采集填充的终端状态，备用'
+/
+comment on column base_term_delete.lastcollectdate is '最后一次采集数据时间：采集上传'
+/
+comment on column base_term_delete.psamcardno is 'psam卡号（即psam上的终端编号，6个字节）。对于没有psam卡的设备，填入运营唯一编号：采集上传'
+/
+comment on column base_term_delete.cputype is '处理器类型：默认值=0未知设备类型  1-c51设备  2-ram设备,...：采集上传更新，预留字段，上层不允许修改'
+/
+comment on column base_term_delete.lastupdatedate is '最后一次修改时间：更新此字段时，只有时间大于上次时间，才允许更新'
+/
+comment on column base_term_delete.isdelete is '是否删除（0未删除，1已删除）'
+/
+comment on column base_term_delete.deletedate is '删除日期'
+/
+comment on column base_term_delete.sortid is '显示顺序'
+/
+comment on column base_term_delete.defaultacccode is '默认的科目，如果交易记录的记录类型分析不出来科目，那么就以这个科目为准'
+/
+comment on column base_term_delete.ver is '记录版本'
+/
+comment on column base_term_delete.switchkey is '开通密钥'
+/
+comment on column base_term_delete.primarykey is '主密钥'
+/
+comment on column base_term_delete.isswitch is '终端是否接入 0：等待接入 1：已接入'
+/
+comment on column base_term_delete.issecuritytransport is '是否加密数据传输 0：否  1：是'
+/
+comment on column base_term_delete.merchantcode is '联动优势提供的商户号信息'
+/
+comment on column base_term_delete.customerunitcode is '客户代码'
+/
+comment on column base_term_delete.isflag is '一个终端是否支持多张psam卡 0：不支持 1：支持'
+/
+comment on column base_term_delete.psamcardstr is '支持多张psam卡时，psam卡号存此字段，以,形式格式，isflag值为1 ，单张psam时此字段为空，使用原来的字段存放'
+/
+comment on column base_term_delete.uniontermid is '银联终端编号'
+/
+comment on column base_term_delete.deleteempcode is '删除人'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_MAINTAINLOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TERMNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"ISFLAG" NUMBER DEFAULT 0, 
+	"PSAMCARDSTR" VARCHAR2(500), 
+	"MAINTAINDATE" DATE, 
+	"MAINTAINEMPCODE" VARCHAR2(32), 
+	"MAINTAINNAME" VARCHAR2(32), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STATE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_maintainlog is ''
+/
+comment on column base_term_maintainlog.id is '编号（主键）'
+/
+comment on column base_term_maintainlog.termname is '终端名称'
+/
+comment on column base_term_maintainlog.dptcode is '业务部门编号：分公司'
+/
+comment on column base_term_maintainlog.poscode is '设备运营唯一编号：初始值和生产编号相同,最大6个字节，唯一确定termid。采集上传，上层允许输入。'
+/
+comment on column base_term_maintainlog.isflag is '一个终端是否支持多张psam卡 0：不支持 1：支持'
+/
+comment on column base_term_maintainlog.psamcardstr is '支持多张psam卡时，psam卡号存此字段，以,形式格式，isflag值为1 ，单张psam时此字段为空，使用原来的字段存放'
+/
+comment on column base_term_maintainlog.maintaindate is '维修登记时间，只有操作维修登记时改字段才赋值，系统当前时间'
+/
+comment on column base_term_maintainlog.maintainempcode is '维修登记人员，记录登录的用户名（登录名）'
+/
+comment on column base_term_maintainlog.maintainname is '维修登记时记录的名字'
+/
+comment on column base_term_maintainlog.customerunitcode is '客户代码'
+/
+comment on column base_term_maintainlog.state is '状态  0：修改  1：维修登记'
+/
+comment on column base_term_maintainlog.psamcardno is 'psam卡号（即psam上的终端编号，6个字节）。对于没有psam卡的设备，填入运营唯一编号：采集上传'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_PUBLICKEY_PARAM" 
+   (	"GROUPID" VARCHAR2(20) NOT NULL ENABLE, 
+	"PARAMTAG" VARCHAR2(20) NOT NULL ENABLE, 
+	"PARAMLENGTH" NUMBER NOT NULL ENABLE, 
+	"PARAMVALUE" VARCHAR2(1000) NOT NULL ENABLE, 
+	"VER" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	 CONSTRAINT "UK_TERM_PUBLICKEY_PARAM" UNIQUE ("GROUPID", "PARAMTAG", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_publickey_param is '银联认证中心公钥参数'
+/
+comment on column base_term_publickey_param.groupid is '组名'
+/
+comment on column base_term_publickey_param.paramtag is '参数tag'
+/
+comment on column base_term_publickey_param.paramlength is '参数长度'
+/
+comment on column base_term_publickey_param.paramvalue is '参数值'
+/
+comment on column base_term_publickey_param.ver is '参数版本'
+/
+comment on column base_term_publickey_param.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_STATUS" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"LINEID" NUMBER NOT NULL ENABLE, 
+	"PORTPTY" VARCHAR2(2) NOT NULL ENABLE, 
+	"HARDWAREVER" VARCHAR2(100) NOT NULL ENABLE, 
+	"SOFTWAREVER" VARCHAR2(100) NOT NULL ENABLE, 
+	"NCOLLECTRECORDNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BLLTVER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BLLTNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"GPSSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"GPSLONGITUDE" VARCHAR2(12), 
+	"GPSLATITUDE" VARCHAR2(12), 
+	"GPSVER" NUMBER DEFAULT 0, 
+	"STOPPRICEVER" NUMBER DEFAULT 0, 
+	"PARAMCARDVER" NUMBER DEFAULT 0, 
+	"LINECARDVER" NUMBER DEFAULT 0, 
+	"CITYTRADEVER" NUMBER DEFAULT 0, 
+	"TERMTIME" DATE DEFAULT sysdate, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"OPDT" DATE, 
+	"COLLECTDT" DATE, 
+	"UNIONCARDPARAMVER" NUMBER, 
+	"PUBLICPARAMVER" NUMBER, 
+	"VOICEACTIONVER" NUMBER, 
+	"BANKPOSCODE" VARCHAR2(20), 
+	"MERCHANTCODE" VARCHAR2(20), 
+	"KEYNOUSEDATE" DATE, 
+	"POSMILEAGE" NUMBER, 
+	 CONSTRAINT "PK_BASE_TERM_STATUS" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_TERM_STATUS" UNIQUE ("POSCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_status is '终端各状态和版本信息'
+/
+comment on column base_term_status.id is '编号（自动增长）'
+/
+comment on column base_term_status.poscode is '终端唯一编号'
+/
+comment on column base_term_status.lineid is '线路编号'
+/
+comment on column base_term_status.portpty is '通讯方式："g"=gprs,"c"=cdma,"z"=zigbee,"t"=tcp,"m"=modem,"a"=can,"r"=485,"w"=wifi'
+/
+comment on column base_term_status.hardwarever is '终端硬件版本号'
+/
+comment on column base_term_status.softwarever is '应用软件版本号'
+/
+comment on column base_term_status.ncollectrecordnum is '未采集记录个数'
+/
+comment on column base_term_status.blltver is '增量黑名单版本号'
+/
+comment on column base_term_status.blltnum is '终端内实际的黑名单个数'
+/
+comment on column base_term_status.gpsstatus is '0：终端不支持gps，其他值：支持gps'
+/
+comment on column base_term_status.gpslongitude is '当前gps经度（第一位是  0东经、1西经）'
+/
+comment on column base_term_status.gpslatitude is '当前gps纬度（第一位是 0南纬、1北纬）'
+/
+comment on column base_term_status.gpsver is 'gps版本号'
+/
+comment on column base_term_status.stoppricever is '站点间票价版本号'
+/
+comment on column base_term_status.paramcardver is '参数卡版本号'
+/
+comment on column base_term_status.linecardver is '线路票价卡版本号'
+/
+comment on column base_term_status.citytradever is '互联互通版本号'
+/
+comment on column base_term_status.termtime is '终端时间'
+/
+comment on column base_term_status.customerunitcode is '客户代码'
+/
+comment on column base_term_status.opdt is '第一次上传时间'
+/
+comment on column base_term_status.collectdt is '采集时间（每次更新时改变该时间）'
+/
+comment on column base_term_status.unioncardparamver is '银联ic 卡其他参数版本'
+/
+comment on column base_term_status.publicparamver is '银联认证中心密钥版本'
+/
+comment on column base_term_status.voiceactionver is '语音包版本号'
+/
+comment on column base_term_status.bankposcode is '终端编号'
+/
+comment on column base_term_status.merchantcode is '商户编号'
+/
+comment on column base_term_status.keynousedate is '银联密钥失效时间 格式：yyyy-mm-dd'
+/
+comment on column base_term_status.posmileage is '车载机里程数'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_TYPE" 
+   (	"TYPEID" NUMBER NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(60) NOT NULL ENABLE, 
+	"TYPECLASS" NUMBER NOT NULL ENABLE, 
+	"SORTID" NUMBER, 
+	 CONSTRAINT "PK_BASE_TERM_TYPE" PRIMARY KEY ("TYPEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_type is '终端类型表'
+/
+comment on column base_term_type.typeid is '终端类型编号'
+/
+comment on column base_term_type.typename is '终端类型名称'
+/
+comment on column base_term_type.typeclass is '终端分类(1=交易设备，2=认证设备，3=跟踪设备)'
+/
+comment on column base_term_type.sortid is '排序号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_UNION" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"UNIONPOSCODE" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONMERCHANTCODE" VARCHAR2(15) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"UNIONTERMNAME" VARCHAR2(30), 
+	"UNIONMERCHANTNAME" VARCHAR2(30), 
+	"DPTCODE" VARCHAR2(9), 
+	"PRIMKEYCODE" VARCHAR2(50), 
+	"TERMTHRIDSEQNO" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "UK_BASE_TERM_UNION" UNIQUE ("POSCODE", "UNIONPOSCODE", "UNIONMERCHANTCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_union is '银联对接-终端关联表'
+/
+comment on column base_term_union.id is '主键'
+/
+comment on column base_term_union.poscode is '设备唯一编号'
+/
+comment on column base_term_union.unionposcode is '受卡机终端标识码（银联）'
+/
+comment on column base_term_union.unionmerchantcode is '受卡方标识码，即商户代码（银联）'
+/
+comment on column base_term_union.ver is '版本号'
+/
+comment on column base_term_union.customerunitcode is '客户代码'
+/
+comment on column base_term_union.uniontermname is '银联终端名称'
+/
+comment on column base_term_union.unionmerchantname is '银联商户名称'
+/
+comment on column base_term_union.dptcode is '部门名称'
+/
+comment on column base_term_union.primkeycode is '主密钥'
+/
+comment on column base_term_union.termthridseqno is '银联对账终端序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_UNIONCARD_PARAM" 
+   (	"GROUPID" VARCHAR2(20) NOT NULL ENABLE, 
+	"PARAMTAG" VARCHAR2(20) NOT NULL ENABLE, 
+	"PARAMLENGTH" NUMBER NOT NULL ENABLE, 
+	"PARAMVALUE" VARCHAR2(1000) NOT NULL ENABLE, 
+	"VER" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	 CONSTRAINT "UK_TERM_UNIONCARD_PARAM" UNIQUE ("GROUPID", "PARAMTAG", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_unioncard_param is '银联ic卡其他参数'
+/
+comment on column base_term_unioncard_param.groupid is '组名'
+/
+comment on column base_term_unioncard_param.paramtag is '参数tag'
+/
+comment on column base_term_unioncard_param.paramlength is '参数长度'
+/
+comment on column base_term_unioncard_param.paramvalue is '参数值'
+/
+comment on column base_term_unioncard_param.ver is '参数版本'
+/
+comment on column base_term_unioncard_param.customerunitcode is ''
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_UPGRADE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	"FILEID" NUMBER NOT NULL ENABLE, 
+	"UPGRADEENDTIME" DATE, 
+	"STATUS" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"ISERASUREFLASH" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"APPLICATIONVER" VARCHAR2(50), 
+	"SYSTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_TERM_UPGRADE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_TERM_UPGRADE" UNIQUE ("POSCODE", "FILEID", "SYSTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_upgrade is '升级终端与升级文件绑定关系表'
+/
+comment on column base_term_upgrade.id is '自动增长'
+/
+comment on column base_term_upgrade.poscode is '设备运营唯一编号/应用程序编号（根据systype决定）'
+/
+comment on column base_term_upgrade.fileid is '升级文件id'
+/
+comment on column base_term_upgrade.upgradeendtime is '终端升级结束时间'
+/
+comment on column base_term_upgrade.status is '终端升级控制（0：重定向  1：允许升级 2：最新,无需升级 3：禁止升级  4：取消升级 >4其他）'
+/
+comment on column base_term_upgrade.ver is '版本号（终端升级使用）'
+/
+comment on column base_term_upgrade.opdt is '操作时间'
+/
+comment on column base_term_upgrade.iserasureflash is '升级时指定否擦除flash 0：不擦除 1：擦除'
+/
+comment on column base_term_upgrade.applicationver is '应用程序版本号（终端升级用）'
+/
+comment on column base_term_upgrade.systype is '系统类型，0：终端，1：卡务 2：语音包 3：语言包'
+/
+comment on column base_term_upgrade.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_UPGRADE_BAK" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(100) NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"FILEURL" VARCHAR2(300) NOT NULL ENABLE, 
+	"FILEVER" VARCHAR2(50) NOT NULL ENABLE, 
+	"SYSTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_upgrade_bak is '终端升级文件导入表'
+/
+comment on column base_term_upgrade_bak.id is '自动增长'
+/
+comment on column base_term_upgrade_bak.filename is '升级文件名'
+/
+comment on column base_term_upgrade_bak.opdt is '上传时间'
+/
+comment on column base_term_upgrade_bak.fileurl is '升级文件存放路径'
+/
+comment on column base_term_upgrade_bak.filever is '升级文件版本号'
+/
+comment on column base_term_upgrade_bak.systype is '系统类型 0：终端 1：卡务 2：语音包 3：语言包'
+/
+comment on column base_term_upgrade_bak.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_UPGRADE_IMPORT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(100) NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"FILEURL" VARCHAR2(300) NOT NULL ENABLE, 
+	"FILEVER" VARCHAR2(50) NOT NULL ENABLE, 
+	"SYSTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_TERM_IMPORT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_upgrade_import is '终端升级文件导入表'
+/
+comment on column base_term_upgrade_import.id is '自动增长'
+/
+comment on column base_term_upgrade_import.filename is '升级文件名'
+/
+comment on column base_term_upgrade_import.opdt is '上传时间'
+/
+comment on column base_term_upgrade_import.fileurl is '升级文件存放路径'
+/
+comment on column base_term_upgrade_import.filever is '升级文件版本号'
+/
+comment on column base_term_upgrade_import.systype is '系统类型，0：终端，1：卡务 2：语音包 3：语言包'
+/
+comment on column base_term_upgrade_import.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TERM_UPGRADE_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	"FILEID" NUMBER NOT NULL ENABLE, 
+	"UPGRADEENDTIME" DATE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER, 
+	"CREATEDATE" DATE DEFAULT SYSDATE, 
+	"ISERASUREFLASH" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FILEVER" VARCHAR2(50) NOT NULL ENABLE, 
+	"SYSTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PROGRESS" VARCHAR2(10) DEFAULT 0, 
+	"APPVER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_TERM_UPGRADELOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_term_upgrade_log is '终端升级日志表'
+/
+comment on column base_term_upgrade_log.id is '自动增长'
+/
+comment on column base_term_upgrade_log.poscode is '设备运营唯一编号：初始值和生产编号相同,最大6个字节，唯一确定termid。采集上传，上层允许输入。(卡务对应appid)'
+/
+comment on column base_term_upgrade_log.fileid is '升级文件id'
+/
+comment on column base_term_upgrade_log.upgradeendtime is '终端升级结束时间'
+/
+comment on column base_term_upgrade_log.status is '终端升级状态（0：开始升级 1：正在升级 2：升级完成 3：升级失败  >3：其它）'
+/
+comment on column base_term_upgrade_log.ver is '版本号'
+/
+comment on column base_term_upgrade_log.createdate is '操作时间'
+/
+comment on column base_term_upgrade_log.iserasureflash is '升级时指定否擦除flash 0：不擦除 1：擦除（只针对终端升级用，卡务升级无关）'
+/
+comment on column base_term_upgrade_log.filever is '升级文件版本号'
+/
+comment on column base_term_upgrade_log.systype is '系统类型，0：终端，1：卡务  2：语音包 3：语言包'
+/
+comment on column base_term_upgrade_log.progress is '升级进度（下载文件进度）'
+/
+comment on column base_term_upgrade_log.appver is '卡务应用程序版本号（卡务使用）'
+/
+comment on column base_term_upgrade_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_TICKET_PRICE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CHARGETYPEID" NUMBER NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(200) NOT NULL ENABLE, 
+	"PRICE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VALUETYPE" VARCHAR2(100) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BASE_TICKET_PRICE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_ticket_price is '票价信息表'
+/
+comment on column base_ticket_price.id is '编号'
+/
+comment on column base_ticket_price.chargetypeid is '计费方式'
+/
+comment on column base_ticket_price.description is '票价描述'
+/
+comment on column base_ticket_price.price is '票价（元）'
+/
+comment on column base_ticket_price.valuetype is '票价规则'
+/
+comment on column base_ticket_price.ver is '版本号'
+/
+comment on column base_ticket_price.opdt is '最后一次操作时间'
+/
+comment on column base_ticket_price.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_UNIONPAY_PARAM" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"WEBSERVICEURL" VARCHAR2(300) NOT NULL ENABLE, 
+	"USERNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"PASSWORD" VARCHAR2(20) NOT NULL ENABLE, 
+	"UNIONKEY" VARCHAR2(32) NOT NULL ENABLE, 
+	"MACFLAG" NUMBER DEFAULT 4, 
+	"OPDT" DATE DEFAULT sysdate, 
+	"STATUS" NUMBER DEFAULT 1, 
+	"REMOTEHOST" VARCHAR2(20), 
+	"REMOTEPORT" NUMBER, 
+	"REMOTEFTPUPPATH" VARCHAR2(200), 
+	"REMOTEFTPDOWNPATH" VARCHAR2(200), 
+	"REMOTEUSER" VARCHAR2(20), 
+	"REMOTEPASS" VARCHAR2(20), 
+	 CONSTRAINT "PK_BASE_UNIONPAY_PARAM" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BASE_UNIONPAY_PARAM" UNIQUE ("CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_unionpay_param is '银联对账服务参数(不同的客户法人参数不一样)'
+/
+comment on column base_unionpay_param.cstaccfc is '流水号'
+/
+comment on column base_unionpay_param.customerunitcode is '客户法人'
+/
+comment on column base_unionpay_param.merchantcode is '银联商户号'
+/
+comment on column base_unionpay_param.uniontermid is '银联终端编号'
+/
+comment on column base_unionpay_param.webserviceurl is '对账web服务地址'
+/
+comment on column base_unionpay_param.username is '对账用户名'
+/
+comment on column base_unionpay_param.password is '对账密码'
+/
+comment on column base_unionpay_param.unionkey is '银联通讯密钥'
+/
+comment on column base_unionpay_param.macflag is 'mac校验和加密标志 默认为4，银联提供，切勿修改'
+/
+comment on column base_unionpay_param.opdt is '最后修改时间,第一次的话，则是添加时间'
+/
+comment on column base_unionpay_param.status is '是否启用 1:启用 0：不启用'
+/
+comment on column base_unionpay_param.remotehost is '银联手续费下载ftp地址'
+/
+comment on column base_unionpay_param.remoteport is '手续费ftp端口'
+/
+comment on column base_unionpay_param.remoteftpuppath is '手续费上传目录(未用)'
+/
+comment on column base_unionpay_param.remoteftpdownpath is '手续费下载目录(银联收单代码)'
+/
+comment on column base_unionpay_param.remoteuser is '手续费ftp用户名'
+/
+comment on column base_unionpay_param.remotepass is '手续费ftp密码'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_WRITEOFF" 
+   (	"ID" VARCHAR2(8) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER NOT NULL ENABLE, 
+	"QUERYPWD" VARCHAR2(32), 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"COUNTRYID" NUMBER DEFAULT '142' NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"MONOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"MONSAVEOPCOUNT" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMMONADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMMONCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMELECTRDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMMONRUSHFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMDISCOUNT" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"NOUSEDATE" DATE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"YEARCHECKS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CHECKBEGINDAY" DATE, 
+	"CHECKENDDAY" DATE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMMONTHODDFAREACC" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DEPRECIATEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DEPRECIATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"SUMELECTRADDDUMMYFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"REFUNDDUMPFARE" NUMBER DEFAULT 0, 
+	"REFUNDLIMITCONSUMFARE" NUMBER DEFAULT 0, 
+	"NONAMEFLAG" NUMBER(1,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TEMCARDNO" NUMBER, 
+	"JGCARDNO" NUMBER, 
+	"CARDTYPEID" NUMBER, 
+	"PRODUCTID" NUMBER, 
+	"ASN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OUTID" VARCHAR2(20) DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEPEOPLEID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CARDTYPECITYID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"SERVERID" NUMBER, 
+	"SENDSYS" VARCHAR2(1) DEFAULT '0', 
+	"NUMBEROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"NUMBERSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"NUMBERODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"NUMBERODDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ISNEWCAPECSYS" NUMBER(1,0) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMMANGEFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MANGEFARELASTDATE" DATE DEFAULT SYSDATE, 
+	"SUMFREEMANGEFARE" NUMBER DEFAULT 0.00, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"MONODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER DEFAULT 5, 
+	"SUMVICERUSHFARE" NUMBER(20,2) DEFAULT 0.00, 
+	"WRITEOFFDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"HASCARD" VARCHAR2(1) DEFAULT 0 NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_writeoff is '客户卡账户信息表-记录持卡人卡相关信息'
+/
+comment on column base_writeoff.id is '发卡流水号（主键）'
+/
+comment on column base_writeoff.customerid is '账号'
+/
+comment on column base_writeoff.scardsnr is '卡唯一号'
+/
+comment on column base_writeoff.cardtypedetailid is '卡类别小类'
+/
+comment on column base_writeoff.cardsn is '持卡序号'
+/
+comment on column base_writeoff.status is '卡状态：1--正常，3--挂失，4--冻结，5--灰色，6--停用,20--登记入库中间状态，21--已登记状态'
+/
+comment on column base_writeoff.querypwd is '查询密码'
+/
+comment on column base_writeoff.cardkind is '卡类型 （1m1卡 2cpu卡）'
+/
+comment on column base_writeoff.countryid is '国家编号'
+/
+comment on column base_writeoff.electropcount is '电子钱包消费计数'
+/
+comment on column base_writeoff.electrsaveopcount is '电子钱包充值计数'
+/
+comment on column base_writeoff.monopcount is '月票消费交易计数'
+/
+comment on column base_writeoff.monsaveopcount is '月票充值交易计数'
+/
+comment on column base_writeoff.sumelectraddfareacc is '电子钱包总加款额系统值'
+/
+comment on column base_writeoff.sumelectraddfare is '电子钱包总加款额'
+/
+comment on column base_writeoff.summonaddfareacc is '月票钱包总加款额系统值（和base_customers_monticket表中monaddfareacc一个含义）'
+/
+comment on column base_writeoff.sumconsumfare is '总消费额'
+/
+comment on column base_writeoff.sumelectrconsumfare is '电子钱包消费累计总额'
+/
+comment on column base_writeoff.summonconsumfare is '月票钱包消费累积总额（和base_customers_monticket表sumconsumefare一个含义）'
+/
+comment on column base_writeoff.sumelectrdummyfare is '电子钱包虚充总额'
+/
+comment on column base_writeoff.summonrushfare is '月票冲零总额'
+/
+comment on column base_writeoff.sumdiscount is '总打折额'
+/
+comment on column base_writeoff.electroddfare is '电子钱包卡余额'
+/
+comment on column base_writeoff.electroddfareacc is '电子钱包账户余额系统值'
+/
+comment on column base_writeoff.nousedate is '失效日期'
+/
+comment on column base_writeoff.empid is '职员编号'
+/
+comment on column base_writeoff.yearchecks is '是否需要年检（0不年检，1年检）'
+/
+comment on column base_writeoff.checkbeginday is '年检开始时间'
+/
+comment on column base_writeoff.checkendday is '年检结束时间'
+/
+comment on column base_writeoff.ver is '版本号'
+/
+comment on column base_writeoff.summonthoddfareacc is '月票钱包卡余额系统值'
+/
+comment on column base_writeoff.depreciatefare is '最后一次收取的折旧费，用于销户时计算退款'
+/
+comment on column base_writeoff.depreciatedate is '最后一次收取折旧费日期，用于销户时计算退款，格式yyyy-mm-dd hh24:mi:ss'
+/
+comment on column base_writeoff.sumelectradddummyfare is '电子钱包虚充加款时现金金额，如充100送20时此值累加100，不送不累加'
+/
+comment on column base_writeoff.refunddumpfare is '未消费完的虚充金额，退卡时从余额扣除'
+/
+comment on column base_writeoff.refundlimitconsumfare is '最低消费限额，否则退卡时虚充金额要从余额扣除'
+/
+comment on column base_writeoff.nonameflag is '不记名标记（0：记名；1：不记名）'
+/
+comment on column base_writeoff.temcardno is ''
+/
+comment on column base_writeoff.jgcardno is ''
+/
+comment on column base_writeoff.cardtypeid is '发卡类型：普通卡和手机卡'
+/
+comment on column base_writeoff.productid is '卡供应商：移动、联通、电信'
+/
+comment on column base_writeoff.asn is 'm1：卡唯一序列号；cpu卡：卡应用序列号'
+/
+comment on column base_writeoff.outid is '市民卡号'
+/
+comment on column base_writeoff.cardtypepeopleid is '市民用途，市民类、管理卡类'
+/
+comment on column base_writeoff.cardtypecityid is '卡类型，普通卡、管理卡等'
+/
+comment on column base_writeoff.serverid is ''
+/
+comment on column base_writeoff.sendsys is '发卡系统，0：公交，1：市民卡'
+/
+comment on column base_writeoff.numberopcount is '次钱包消费交易计数'
+/
+comment on column base_writeoff.numbersaveopcount is '次钱包充值交易计数'
+/
+comment on column base_writeoff.numberoddfare is '次钱包卡余额'
+/
+comment on column base_writeoff.numberoddfareacc is '次钱包系统余额'
+/
+comment on column base_writeoff.isnewcapecsys is '新旧系统（0第一次发卡系统是新开普系统，1第一次发卡系统是其它公司系统）'
+/
+comment on column base_writeoff.summangefare is '收取管理费累计，用于销户时计算退款（和卡上有效期结合）'
+/
+comment on column base_writeoff.mangefarelastdate is '最后一次收取管理费日期，格式yyyy-mm-dd hh24:mi:ss'
+/
+comment on column base_writeoff.sumfreemangefare is '免收管理费累计，用户销户时计算退款'
+/
+comment on column base_writeoff.customerunitcode is '客户代码'
+/
+comment on column base_writeoff.opdt is '开卡时间'
+/
+comment on column base_writeoff.cardno is '卡号'
+/
+comment on column base_writeoff.monoddfare is '月票钱包卡余额'
+/
+comment on column base_writeoff.accounttype is '账户类型（和base_accounttype对应）'
+/
+comment on column base_writeoff.sumvicerushfare is '次卡冲零金额累计'
+/
+comment on column base_writeoff.writeoffdate is '销户日期'
+/
+comment on column base_writeoff.hascard is '1有卡0无卡'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_WRITEOFF_INFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"NAME" VARCHAR2(50), 
+	"SEX" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"NATION" VARCHAR2(2) DEFAULT '01' NOT NULL ENABLE, 
+	"TELPHONENUM" VARCHAR2(20), 
+	"IDCARDNO" VARCHAR2(18), 
+	"CERTIFICATEID" NUMBER DEFAULT 3 NOT NULL ENABLE, 
+	"CUSTDEPT" VARCHAR2(12), 
+	"OPENDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ADDRESS" VARCHAR2(500), 
+	"BIRTHDAY" DATE, 
+	"RREMARK" VARCHAR2(500), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CUSTSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER DEFAULT 5 NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_writeoff_info is '客户基本信息注销表'
+/
+comment on column base_writeoff_info.id is '自动增长'
+/
+comment on column base_writeoff_info.customerid is '账号'
+/
+comment on column base_writeoff_info.name is '姓名'
+/
+comment on column base_writeoff_info.sex is '性别，1是男，其它女'
+/
+comment on column base_writeoff_info.nation is '民族编号'
+/
+comment on column base_writeoff_info.telphonenum is '联系电话'
+/
+comment on column base_writeoff_info.idcardno is '证件号码'
+/
+comment on column base_writeoff_info.certificateid is '证件类型'
+/
+comment on column base_writeoff_info.custdept is '客户所属单位（预留，暂时无用）'
+/
+comment on column base_writeoff_info.opendt is '开户日期'
+/
+comment on column base_writeoff_info.address is '地址'
+/
+comment on column base_writeoff_info.birthday is '出生日期'
+/
+comment on column base_writeoff_info.rremark is '备注'
+/
+comment on column base_writeoff_info.customerunitcode is '客户代码'
+/
+comment on column base_writeoff_info.custstatus is '客户状态：0-注销 1：正常（用户的卡都注销后，改标记为0，可以转储基本信息到客户基本信息注销表）'
+/
+comment on column base_writeoff_info.accounttype is '账户类型（和base_accounttype对应）'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_WRITEOFF_MONTICKET" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"SUMCONSUMEFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMRDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDDUMPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDLIMITCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CARDASN" NUMBER NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_writeoff_monticket is '客户月票钱包信息表'
+/
+comment on column base_writeoff_monticket.id is '自动增长'
+/
+comment on column base_writeoff_monticket.customerid is '账号'
+/
+comment on column base_writeoff_monticket.sumconsumefare is '月票钱包消费累计总额'
+/
+comment on column base_writeoff_monticket.sumrdummyfare is '月票钱包虚充总额'
+/
+comment on column base_writeoff_monticket.sumaddfare is '月票钱包总加款额'
+/
+comment on column base_writeoff_monticket.sumaddfareacc is '月票钱包总加款额系统值'
+/
+comment on column base_writeoff_monticket.sumadddummyfare is '月票钱包虚充加款时现金金额，如充100送20时此值累加100，不送不累加'
+/
+comment on column base_writeoff_monticket.refunddumpfare is '未消费完的虚充金额，退卡时从余额扣除'
+/
+comment on column base_writeoff_monticket.refundlimitconsumfare is '最低消费限额，否则退卡时虚充金额要从余额扣除'
+/
+comment on column base_writeoff_monticket.ver is ''
+/
+comment on column base_writeoff_monticket.customerunitcode is '客户代码'
+/
+comment on column base_writeoff_monticket.cardasn is '卡应用序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."BASE_WRITEOFF_VICECARD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"SUMCONSUMEFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMRDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMADDFAREACC" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDDUMPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REFUNDLIMITCONSUMFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"SUMADDDUMMYFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CARDASN" NUMBER, 
+	 CONSTRAINT "UK_BASE_WRITEOFF_VICECARD" UNIQUE ("CUSTOMERID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "PK_BASE_WRITEOFF_VICECARD" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table base_writeoff_vicecard is '客户次卡钱包信息表'
+/
+comment on column base_writeoff_vicecard.id is '自动增长'
+/
+comment on column base_writeoff_vicecard.customerid is '账号'
+/
+comment on column base_writeoff_vicecard.sumconsumefare is '次卡钱包消费累计总额'
+/
+comment on column base_writeoff_vicecard.sumrdummyfare is '次卡钱包虚充总额'
+/
+comment on column base_writeoff_vicecard.sumaddfare is '次卡钱包总加款额'
+/
+comment on column base_writeoff_vicecard.sumaddfareacc is '次卡钱包总加款额系统值'
+/
+comment on column base_writeoff_vicecard.refunddumpfare is '未消费完的虚充金额，退卡时从余额扣除'
+/
+comment on column base_writeoff_vicecard.refundlimitconsumfare is '最低消费限额，否则退卡时虚充金额要从余额扣除'
+/
+comment on column base_writeoff_vicecard.ver is ''
+/
+comment on column base_writeoff_vicecard.sumadddummyfare is '次卡钱包虚充加款时现金金额，如充100送20时此值累加100，不送不累加'
+/
+comment on column base_writeoff_vicecard.customerunitcode is '客户代码'
+/
+comment on column base_writeoff_vicecard.cardasn is '卡应用序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."GIS_COORDINATE" 
+   (	"COORDINATEID" NUMBER NOT NULL ENABLE, 
+	"CNAME" VARCHAR2(200), 
+	"CTYPEID" NUMBER, 
+	"LONGITUDE" VARCHAR2(20), 
+	"LATITUDE" VARCHAR2(20), 
+	"CREATEDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"ISUSE" NUMBER, 
+	 CONSTRAINT "PK_GIS_COORDINATE" PRIMARY KEY ("COORDINATEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "GIS_COORDINATETYPE_FK" FOREIGN KEY ("CTYPEID")
+	  REFERENCES "CCENSE"."GIS_COORDINATE_TYPE" ("CTYPEID") ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table gis_coordinate is '坐标表'
+/
+comment on column gis_coordinate.coordinateid is '自动增长'
+/
+comment on column gis_coordinate.cname is '坐标名称。'
+/
+comment on column gis_coordinate.ctypeid is '坐标类型id,0为系统初始化类型'
+/
+comment on column gis_coordinate.longitude is '经度坐标'
+/
+comment on column gis_coordinate.latitude is '纬度坐标'
+/
+comment on column gis_coordinate.createdate is '坐标获得时间'
+/
+comment on column gis_coordinate.customerunitcode is '客户代码（国家地区编号（3）+预留（5）+分配序号（3）），如08600000001,公交平台获得'
+/
+comment on column gis_coordinate.isuse is '是否启用,1启用，0不启用'
+/
+
+
+  CREATE TABLE "CCENSE"."GIS_COORDINATE_TYPE" 
+   (	"CTYPEID" NUMBER NOT NULL ENABLE, 
+	"CTYPENAME" VARCHAR2(200), 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"CREATEDATE" DATE, 
+	"CTYPEICON" NVARCHAR2(2000), 
+	 CONSTRAINT "PK_GIS_COORDINATE_TYPE" PRIMARY KEY ("CTYPEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table gis_coordinate_type is '坐标类型'
+/
+comment on column gis_coordinate_type.ctypeid is '自动增长'
+/
+comment on column gis_coordinate_type.ctypename is '坐标名称。'
+/
+comment on column gis_coordinate_type.customerunitcode is '客户代码（国家地区编号（3）+预留（5）+分配序号（3）），如08600000001,公交平台获得'
+/
+comment on column gis_coordinate_type.createdate is '类型创建时间'
+/
+comment on column gis_coordinate_type.ctypeicon is '图标地址'
+/
+
+
+  CREATE TABLE "CCENSE"."GIS_LOCATION_COORDINATE" 
+   (	"LOCATIONID" NUMBER NOT NULL ENABLE, 
+	"LONGITUDE" VARCHAR2(10), 
+	"LATITUDE" VARCHAR2(10), 
+	"DEVICECODE" NUMBER, 
+	"LINEID" NUMBER, 
+	"CREATEDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_GIS_LOCATION_COORDINATE" PRIMARY KEY ("LOCATIONID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table gis_location_coordinate is '轨迹存储表'
+/
+comment on column gis_location_coordinate.locationid is '自动增长'
+/
+comment on column gis_location_coordinate.longitude is '经度坐标'
+/
+comment on column gis_location_coordinate.latitude is '纬度坐标'
+/
+comment on column gis_location_coordinate.devicecode is '终端代码'
+/
+comment on column gis_location_coordinate.lineid is '线路编号'
+/
+comment on column gis_location_coordinate.createdate is '坐标获得时间'
+/
+comment on column gis_location_coordinate.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."GIS_ORDER_LOG" 
+   (	"LOGID" NUMBER NOT NULL ENABLE, 
+	"EMPCODE" VARCHAR2(32), 
+	"ORDERDESC" VARCHAR2(4000), 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"EXECUTEDATE" DATE, 
+	"STATUS" NUMBER, 
+	 CONSTRAINT "PK_GIS_ORDER_LOG" PRIMARY KEY ("LOGID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table gis_order_log is '下发命令日志表'
+/
+comment on column gis_order_log.logid is '自动增长'
+/
+comment on column gis_order_log.empcode is '命令发送者'
+/
+comment on column gis_order_log.orderdesc is '命令描述'
+/
+comment on column gis_order_log.customerunitcode is '客户代码（国家地区编号（3）+预留（5）+分配序号（3）），如08600000001,公交平台获得'
+/
+comment on column gis_order_log.executedate is '命令执行时间'
+/
+comment on column gis_order_log.status is '命令执行状态0.失败，1执行中，2.成功'
+/
+
+
+  CREATE GLOBAL TEMPORARY TABLE "CCENSE"."GIS_TEMPTABLE" 
+   (	"LINEID" NUMBER, 
+	"BUSNO" NUMBER, 
+	"TERMNAME" VARCHAR2(20), 
+	"POSCODE" NUMBER, 
+	"DRIVERID" NUMBER, 
+	"DRIVERCARDNO" NUMBER, 
+	"OPTYPE" NUMBER, 
+	"OPDT" DATE
+   ) ON COMMIT PRESERVE ROWS 
+ 
+/
+comment on table gis_temptable is 'gis使用的临时表'
+/
+comment on column gis_temptable.lineid is ''
+/
+comment on column gis_temptable.busno is ''
+/
+comment on column gis_temptable.termname is ''
+/
+comment on column gis_temptable.poscode is ''
+/
+comment on column gis_temptable.driverid is ''
+/
+comment on column gis_temptable.drivercardno is ''
+/
+comment on column gis_temptable.optype is ''
+/
+comment on column gis_temptable.opdt is ''
+/
+
+
+  CREATE TABLE "CCENSE"."LOG_LOGIN" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATIONID" VARCHAR2(30), 
+	"SYSTEMID" VARCHAR2(30), 
+	"APPID" VARCHAR2(30) DEFAULT '未知', 
+	"USERCODE" VARCHAR2(30) DEFAULT '未知', 
+	"MESSAGE" VARCHAR2(2000), 
+	"LOGINDATE" DATE, 
+	"IP" VARCHAR2(32), 
+	"ISWARN" NUMBER, 
+	"LOGINTYPE" NUMBER, 
+	"RECORDLEVEL" NUMBER, 
+	"CREATEDATE" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_LOG_LOGIN" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("CREATEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table log_login is '系统登录日志'
+/
+comment on column log_login.id is '主键，自增'
+/
+comment on column log_login.stationid is ''
+/
+comment on column log_login.systemid is ''
+/
+comment on column log_login.appid is '应用名称'
+/
+comment on column log_login.usercode is '登陆用户'
+/
+comment on column log_login.message is '登陆信息'
+/
+comment on column log_login.logindate is '登陆日期'
+/
+comment on column log_login.ip is '登陆ip'
+/
+comment on column log_login.iswarn is '是否报警'
+/
+comment on column log_login.logintype is '登陆类型'
+/
+comment on column log_login.recordlevel is '记录级别'
+/
+comment on column log_login.createdate is '记录建立日期'
+/
+comment on column log_login.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."LOG_OPERATION" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATIONID" VARCHAR2(30) DEFAULT '0' NOT NULL ENABLE, 
+	"SYSTEMID" VARCHAR2(30) DEFAULT '0' NOT NULL ENABLE, 
+	"MESSAGE" VARCHAR2(2000) DEFAULT 0 NOT NULL ENABLE, 
+	"LOGTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDLEVEL" NUMBER DEFAULT 4 NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"OUTID" VARCHAR2(20), 
+	"NAME" VARCHAR2(20), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"EMPCODE" VARCHAR2(30), 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_LOG_OPERATION" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("CREATEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table log_operation is '操作日志表'
+/
+comment on column log_operation.id is '主键，触发器'
+/
+comment on column log_operation.stationid is '工作站标识'
+/
+comment on column log_operation.systemid is '子系统标识'
+/
+comment on column log_operation.message is '业务日志详细信息'
+/
+comment on column log_operation.logtype is '日志类型 对应type中的id'
+/
+comment on column log_operation.recordlevel is '日志级别 0：错误 1：报警 2：正常信息 3：调试信息 4：跟踪信息'
+/
+comment on column log_operation.createdate is '建立日志'
+/
+comment on column log_operation.outid is '工号（如果操作的是乘车卡，此处填写乘车卡对应的市民卡号，如果是职员，此处填写职员的工号）'
+/
+comment on column log_operation.name is '姓名'
+/
+comment on column log_operation.customerunitcode is '客户代码'
+/
+comment on column log_operation.empcode is '操作员（登录用户名）'
+/
+comment on column log_operation.empid is '职员编号'
+/
+
+
+  CREATE TABLE "CCENSE"."LOG_TYPE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"SYSTEMID" NUMBER NOT NULL ENABLE, 
+	"NAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(100) DEFAULT '无详细描述' NOT NULL ENABLE, 
+	"SORTID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_LOG_TYPE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table log_type is '操作日志类别表'
+/
+comment on column log_type.id is '编号'
+/
+comment on column log_type.systemid is '所属子系统'
+/
+comment on column log_type.name is '日志类型'
+/
+comment on column log_type.description is '日志类型描述'
+/
+comment on column log_type.sortid is '显示顺序'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ALIPAY_RECORD" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTID" VARCHAR2(50), 
+	"APPID" VARCHAR2(30), 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) DEFAULT 001 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DRIVERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER DEFAULT 0, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"RESPONSECODE" VARCHAR2(12), 
+	"RESPONSEMESSAGE" VARCHAR2(1000), 
+	"NEXTTIME" DATE DEFAULT sysdate, 
+	 CONSTRAINT "PK_REC_ALIPAY_RECORD" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_alipay_record is '支付宝消费明细表'
+/
+comment on column rec_alipay_record.cstaccfc is '流水号'
+/
+comment on column rec_alipay_record.accountid is '支付宝记录唯一标志'
+/
+comment on column rec_alipay_record.appid is '应用id'
+/
+comment on column rec_alipay_record.poscode is '设备运营唯一编号'
+/
+comment on column rec_alipay_record.busid is '车辆id'
+/
+comment on column rec_alipay_record.buslineid is '线路编号'
+/
+comment on column rec_alipay_record.linedept is '线路所属部门'
+/
+comment on column rec_alipay_record.opdt is '交易时间'
+/
+comment on column rec_alipay_record.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_alipay_record.driverid is '司机id'
+/
+comment on column rec_alipay_record.opfare is '交易金额'
+/
+comment on column rec_alipay_record.oddfare is '卡余额'
+/
+comment on column rec_alipay_record.tradetype is '交易类型'
+/
+comment on column rec_alipay_record.acccode is '交易科目'
+/
+comment on column rec_alipay_record.dscrp is '交易科目描述'
+/
+comment on column rec_alipay_record.collectdt is '采集时间'
+/
+comment on column rec_alipay_record.uploaddate is '上传时间'
+/
+comment on column rec_alipay_record.accountdate is '清算时间'
+/
+comment on column rec_alipay_record.maincardtype is '主卡类型'
+/
+comment on column rec_alipay_record.cardtype is '卡类型'
+/
+comment on column rec_alipay_record.extentvalue is '扩展字段'
+/
+comment on column rec_alipay_record.flag is '处理标志  0待清算1已清算'
+/
+comment on column rec_alipay_record.customerunitcode is '客户法人'
+/
+comment on column rec_alipay_record.responsecode is '应答码'
+/
+comment on column rec_alipay_record.responsemessage is '应答信息'
+/
+comment on column rec_alipay_record.nexttime is '下次执行时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ALIPAY_RECORD_SUCCESS" 
+   (	"ACCOUNTID" VARCHAR2(50), 
+	"APPID" VARCHAR2(30), 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) DEFAULT 001 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DRIVERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER DEFAULT 0, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"FLAG" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"RESPONSECODE" VARCHAR2(12), 
+	"RESPONSEMESSAGE" VARCHAR2(1000), 
+	"CSTACCFC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_ALIPAY_RECORD_SUCCESS" PRIMARY KEY ("ACCOUNTID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TBS_PAR1"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TBS_PAR1" 
+ 
+/
+comment on table rec_alipay_record_success is '银联oda消费明细表'
+/
+comment on column rec_alipay_record_success.accountid is '支付宝记录唯一标志'
+/
+comment on column rec_alipay_record_success.appid is '应用id'
+/
+comment on column rec_alipay_record_success.poscode is '设备运营唯一编号'
+/
+comment on column rec_alipay_record_success.busid is '车辆id'
+/
+comment on column rec_alipay_record_success.buslineid is '线路编号'
+/
+comment on column rec_alipay_record_success.linedept is '线路所属部门'
+/
+comment on column rec_alipay_record_success.opdt is '交易时间'
+/
+comment on column rec_alipay_record_success.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_alipay_record_success.driverid is '司机id'
+/
+comment on column rec_alipay_record_success.opfare is '交易金额'
+/
+comment on column rec_alipay_record_success.oddfare is '卡余额'
+/
+comment on column rec_alipay_record_success.tradetype is '交易类型'
+/
+comment on column rec_alipay_record_success.acccode is '交易科目代码'
+/
+comment on column rec_alipay_record_success.dscrp is '交易科目描述'
+/
+comment on column rec_alipay_record_success.collectdt is '采集时间'
+/
+comment on column rec_alipay_record_success.uploaddate is '上传时间'
+/
+comment on column rec_alipay_record_success.accountdate is '清算时间'
+/
+comment on column rec_alipay_record_success.maincardtype is '主卡类型'
+/
+comment on column rec_alipay_record_success.cardtype is '卡类型'
+/
+comment on column rec_alipay_record_success.extentvalue is '预留字段'
+/
+comment on column rec_alipay_record_success.flag is '处理标识'
+/
+comment on column rec_alipay_record_success.customerunitcode is '客户法人'
+/
+comment on column rec_alipay_record_success.responsecode is '应答码'
+/
+comment on column rec_alipay_record_success.responsemessage is '应答信息'
+/
+comment on column rec_alipay_record_success.cstaccfc is '流水号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_BLLT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"LOSSDT" DATE NOT NULL ENABLE, 
+	"SUORCETYPE" NUMBER, 
+	"SUORCEIP" VARCHAR2(20), 
+	"NOUSEDATE" DATE, 
+	"LOSSCOUNT" NUMBER DEFAULT 0, 
+	"STATE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDASN" NUMBER, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDOWNBUSINESS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ISINTEROPERABILITY" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_BLLT" PRIMARY KEY ("CARDNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_bllt is '黑名单'
+/
+comment on column rec_bllt.id is '序号'
+/
+comment on column rec_bllt.cardno is '卡号'
+/
+comment on column rec_bllt.lossdt is '生成时间（挂失时间）'
+/
+comment on column rec_bllt.suorcetype is '黑名单来源（1：制卡中心；2：自助；3：记录上传；4：其他；5：oda）'
+/
+comment on column rec_bllt.suorceip is '黑名单来源ip'
+/
+comment on column rec_bllt.nousedate is '有效期'
+/
+comment on column rec_bllt.losscount is '挂失次数，挂失一次加1'
+/
+comment on column rec_bllt.state is '操作类型 0挂失 1解挂'
+/
+comment on column rec_bllt.cardasn is '卡应用号'
+/
+comment on column rec_bllt.ver is '板本号'
+/
+comment on column rec_bllt.cardownbusiness is '卡所属行业，0市民卡，1银联卡，2岭南通卡'
+/
+comment on column rec_bllt.customerunitcode is '客户代码'
+/
+comment on column rec_bllt.isinteroperability is '是否互通标识(0:不是，即分客户下载 1：是，即不分客户下载)'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_BLLT_PASMCARD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"LOSSDT" DATE NOT NULL ENABLE, 
+	"SUORCETYPE" NUMBER, 
+	"SUORCEIP" VARCHAR2(20), 
+	"REMARKS" VARCHAR2(50), 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_BLLT_PASMCARD" PRIMARY KEY ("PSAMCARDNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_bllt_pasmcard is 'psam卡号挂失黑名单表'
+/
+comment on column rec_bllt_pasmcard.id is '序号'
+/
+comment on column rec_bllt_pasmcard.psamcardno is 'psam卡号'
+/
+comment on column rec_bllt_pasmcard.lossdt is '生成时间（挂失时间）'
+/
+comment on column rec_bllt_pasmcard.suorcetype is '黑名单来源（1：制卡中心；2：自助；5记录上传；6：其他）'
+/
+comment on column rec_bllt_pasmcard.suorceip is '黑名单来源ip'
+/
+comment on column rec_bllt_pasmcard.remarks is '备注'
+/
+comment on column rec_bllt_pasmcard.empid is '操作职员'
+/
+comment on column rec_bllt_pasmcard.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_BLLT_SAFE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"LOSSDT" DATE NOT NULL ENABLE, 
+	"FINDDT" DATE, 
+	"OPPSN" NUMBER DEFAULT 0, 
+	"SUORCETYPE" NUMBER, 
+	"SUORCEIP" VARCHAR2(20), 
+	"SYSTEMID" NUMBER, 
+	"NOUSEDATE" DATE, 
+	"BLLTVER" NUMBER, 
+	"POSCODE" NUMBER, 
+	"POSRECNO" NUMBER, 
+	"CARDASN" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_BLLT_SAFE" PRIMARY KEY ("CARDNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_bllt_safe is '安全黑名单'
+/
+comment on column rec_bllt_safe.id is '序号'
+/
+comment on column rec_bllt_safe.cardno is '卡号'
+/
+comment on column rec_bllt_safe.lossdt is '挂失时间'
+/
+comment on column rec_bllt_safe.finddt is '捕获时间'
+/
+comment on column rec_bllt_safe.oppsn is '对应的黑明单序号'
+/
+comment on column rec_bllt_safe.suorcetype is '黑名单来源（1：制卡中心；2：自助查询；3：领款机；4：圈存机；5记录上传；6：其他）'
+/
+comment on column rec_bllt_safe.suorceip is '黑名单来源ip'
+/
+comment on column rec_bllt_safe.systemid is '系统id（具体定义见base_system）'
+/
+comment on column rec_bllt_safe.nousedate is '有效期'
+/
+comment on column rec_bllt_safe.blltver is '转移到安全黑名单前的版本号'
+/
+comment on column rec_bllt_safe.poscode is '捕获黑名单的终端：设备运营编号'
+/
+comment on column rec_bllt_safe.posrecno is 'pos记录编号'
+/
+comment on column rec_bllt_safe.cardasn is '卡应用号'
+/
+comment on column rec_bllt_safe.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_BLLTSAFE_PSAMCARD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PASMCARDNO" NUMBER NOT NULL ENABLE, 
+	"LOSSDT" DATE NOT NULL ENABLE, 
+	"FINDDT" DATE, 
+	"OPPSN" NUMBER DEFAULT 0, 
+	"SUORCETYPE" NUMBER, 
+	"SUORCEIP" VARCHAR2(20), 
+	"SYSTEMID" NUMBER, 
+	"POSCODE" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_BLLTSAFE_PSAMCARD" PRIMARY KEY ("PASMCARDNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_blltsafe_psamcard is 'psam卡安全黑名单表，已经捕获到的挂失卡记录'
+/
+comment on column rec_blltsafe_psamcard.id is 'id，自增长'
+/
+comment on column rec_blltsafe_psamcard.pasmcardno is 'psam卡号'
+/
+comment on column rec_blltsafe_psamcard.lossdt is '挂失时间'
+/
+comment on column rec_blltsafe_psamcard.finddt is '捕获时间'
+/
+comment on column rec_blltsafe_psamcard.oppsn is '原挂失流水号'
+/
+comment on column rec_blltsafe_psamcard.suorcetype is '黑名单来源（1：制卡中心；2：自助；5记录上传；6：其他）'
+/
+comment on column rec_blltsafe_psamcard.suorceip is '黑名单来源ip'
+/
+comment on column rec_blltsafe_psamcard.systemid is '系统id（具体定义见base_system）'
+/
+comment on column rec_blltsafe_psamcard.poscode is '捕获黑名单的终端：设备运营编号'
+/
+comment on column rec_blltsafe_psamcard.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CARD_MAKE_ACC" 
+   (	"CARDFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDCARDNO" NUMBER DEFAULT 0, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDCARDSN" NUMBER DEFAULT 0, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDELECTROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDELECTRSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDMONOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"LOSSFC" NUMBER, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"STAG_BAN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AREAID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PTY" NUMBER NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ID" VARCHAR2(8) DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"MONSAVEOPCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMMONTHODDFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMMONTHODDFAREACC" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DEPRECIATEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"DEPRECIATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"REMAKECARDTYPE" VARCHAR2(1) DEFAULT 1 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"OUTID" VARCHAR2(20) DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CARDMAKE_ACC" PRIMARY KEY ("CARDFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_card_make_acc is '制卡明细记录表'
+/
+comment on column rec_card_make_acc.cardfc is '编号'
+/
+comment on column rec_card_make_acc.customerid is '账号'
+/
+comment on column rec_card_make_acc.scardsnr is '唯一序列号'
+/
+comment on column rec_card_make_acc.cardno is '卡号'
+/
+comment on column rec_card_make_acc.oldcardno is '旧卡卡号'
+/
+comment on column rec_card_make_acc.cardtypedetailid is '卡类型小类id'
+/
+comment on column rec_card_make_acc.cardsn is '卡序号'
+/
+comment on column rec_card_make_acc.oldcardsn is '旧卡持卡序号'
+/
+comment on column rec_card_make_acc.cardkind is '卡种类 1m1卡2cpu卡'
+/
+comment on column rec_card_make_acc.oldelectropcount is '旧电子钱包消费计数'
+/
+comment on column rec_card_make_acc.oldelectrsaveopcount is '旧电子钱包充值计数'
+/
+comment on column rec_card_make_acc.oldmonopcount is '旧月票钱包消费计数'
+/
+comment on column rec_card_make_acc.oldelectroddfare is '旧电子钱包余额'
+/
+comment on column rec_card_make_acc.opdt is '操作时间'
+/
+comment on column rec_card_make_acc.lossfc is '挂失流水'
+/
+comment on column rec_card_make_acc.empid is '操作员'
+/
+comment on column rec_card_make_acc.stag_ban is '统计标示'
+/
+comment on column rec_card_make_acc.areaid is '所属分区'
+/
+comment on column rec_card_make_acc.pty is '发放性质 0=新卡，1=补发，2=换卡 10:新卡坏账 11：补卡坏卡 12：换卡坏卡'
+/
+comment on column rec_card_make_acc.ver is '版本'
+/
+comment on column rec_card_make_acc.id is '卡上流水号'
+/
+comment on column rec_card_make_acc.poscode is '终端唯一编号'
+/
+comment on column rec_card_make_acc.monsaveopcount is '旧月票钱包充值计数'
+/
+comment on column rec_card_make_acc.summonthoddfare is '旧月票钱包总余额'
+/
+comment on column rec_card_make_acc.summonthoddfareacc is '旧月票钱包总余额系统值'
+/
+comment on column rec_card_make_acc.depreciatefare is '最后一次收取的折旧费，用于销户时计算退款'
+/
+comment on column rec_card_make_acc.depreciatedate is '最后一次收取折旧费日期，用于销户时计算退款，格式yyyy-mm-dd hh24:mi:ss'
+/
+comment on column rec_card_make_acc.remakecardtype is '补卡类型：1丢失，2人为损坏，3非人为损坏'
+/
+comment on column rec_card_make_acc.customerunitcode is '客户代码'
+/
+comment on column rec_card_make_acc.outid is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CARD_MAKE_ACC_BAD" 
+   (	"CARDFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"STAG_BAN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AREAID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BADTYPE" NUMBER NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(500), 
+	"ID" VARCHAR2(8) DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CARD_MAKE_ACC_BAD" PRIMARY KEY ("CARDFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_card_make_acc_bad is '售卡坏卡明细记录表'
+/
+comment on column rec_card_make_acc_bad.cardfc is '编号'
+/
+comment on column rec_card_make_acc_bad.customerid is '账号'
+/
+comment on column rec_card_make_acc_bad.scardsnr is '唯一序列号'
+/
+comment on column rec_card_make_acc_bad.cardno is '卡号'
+/
+comment on column rec_card_make_acc_bad.cardtypedetailid is '卡类型小类id'
+/
+comment on column rec_card_make_acc_bad.cardsn is '卡序号'
+/
+comment on column rec_card_make_acc_bad.cardkind is '卡种类 1m1卡2cpu卡'
+/
+comment on column rec_card_make_acc_bad.opdt is '操作时间'
+/
+comment on column rec_card_make_acc_bad.empid is '操作员'
+/
+comment on column rec_card_make_acc_bad.stag_ban is '统计标示'
+/
+comment on column rec_card_make_acc_bad.areaid is '所属分区'
+/
+comment on column rec_card_make_acc_bad.badtype is '坏卡类型id'
+/
+comment on column rec_card_make_acc_bad.ver is '版本'
+/
+comment on column rec_card_make_acc_bad.description is '坏卡描述'
+/
+comment on column rec_card_make_acc_bad.id is '发卡流水号'
+/
+comment on column rec_card_make_acc_bad.poscode is '终端唯一编号'
+/
+comment on column rec_card_make_acc_bad.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CARD_SELL" 
+   (	"CARDFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"STAG_BAN" NUMBER NOT NULL ENABLE, 
+	"AREAID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CARD_SELL" PRIMARY KEY ("CARDFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_card_sell is '卡入库信息表'
+/
+comment on column rec_card_sell.cardfc is '入库流水号'
+/
+comment on column rec_card_sell.customerid is '客户编号'
+/
+comment on column rec_card_sell.cardno is '卡号'
+/
+comment on column rec_card_sell.opdt is '操作日期'
+/
+comment on column rec_card_sell.stag_ban is '结账汇总标记,用于班结账或日结账'
+/
+comment on column rec_card_sell.areaid is '所属分区'
+/
+comment on column rec_card_sell.scardsnr is '卡唯一号'
+/
+comment on column rec_card_sell.empid is '操作员id'
+/
+comment on column rec_card_sell.cardtypedetailid is '售卡卡类型id'
+/
+comment on column rec_card_sell.poscode is '终端唯一编号'
+/
+comment on column rec_card_sell.psamcardno is 'psam卡唯一编号'
+/
+comment on column rec_card_sell.cardkind is '卡种类 1：m1卡 2：cpu卡'
+/
+comment on column rec_card_sell.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CASH_INPUT_BUSINFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BUS_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"LINE_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"DEPT_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"MACHINCENO" VARCHAR2(20) NOT NULL ENABLE, 
+	"DEPT_NAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"LINE_NAME" VARCHAR2(30) NOT NULL ENABLE, 
+	"BUSNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CEREATETIME" DATE NOT NULL ENABLE, 
+	"UPDATETIME" DATE NOT NULL ENABLE, 
+	"CREATEOPERATORID" VARCHAR2(32), 
+	"UPDATEOPERATORID" VARCHAR2(32), 
+	 CONSTRAINT "UK_REC_CASH_INPUT_BUSINFO" UNIQUE ("BUS_NO", "LINE_NO", "DEPT_NO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cash_input_businfo is '投币录入车辆信息表'
+/
+comment on column rec_cash_input_businfo.id is '自增id'
+/
+comment on column rec_cash_input_businfo.bus_no is '车辆编号'
+/
+comment on column rec_cash_input_businfo.line_no is '线路编号'
+/
+comment on column rec_cash_input_businfo.dept_no is '部门编号'
+/
+comment on column rec_cash_input_businfo.machinceno is '机器编号'
+/
+comment on column rec_cash_input_businfo.dept_name is '部门名称'
+/
+comment on column rec_cash_input_businfo.line_name is '线路名称'
+/
+comment on column rec_cash_input_businfo.busnumber is '车辆号'
+/
+comment on column rec_cash_input_businfo.customerunitcode is '商户id'
+/
+comment on column rec_cash_input_businfo.cereatetime is '创建日期'
+/
+comment on column rec_cash_input_businfo.updatetime is '修改日期'
+/
+comment on column rec_cash_input_businfo.createoperatorid is '创建用户id'
+/
+comment on column rec_cash_input_businfo.updateoperatorid is '修改用户id'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CASH_INPUT_COUNTERINFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"OPNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"OPNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"TYPE" VARCHAR2(2) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CEREATETIME" DATE NOT NULL ENABLE, 
+	"UPDATETIME" DATE NOT NULL ENABLE, 
+	"CREATEOPERATORID" VARCHAR2(32), 
+	"UPDATEOPERATORID" VARCHAR2(32), 
+	 CONSTRAINT "UK_REC_CASH_INPUT_COUNTERINFO" UNIQUE ("OPNO", "OPNAME", "TYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cash_input_counterinfo is '投币录入点钞复核员信息表'
+/
+comment on column rec_cash_input_counterinfo.id is '自增id'
+/
+comment on column rec_cash_input_counterinfo.opno is '工号'
+/
+comment on column rec_cash_input_counterinfo.opname is '姓名'
+/
+comment on column rec_cash_input_counterinfo.type is '员工类型  0=  点钞员 ， 1=复核员'
+/
+comment on column rec_cash_input_counterinfo.customerunitcode is '商户id'
+/
+comment on column rec_cash_input_counterinfo.cereatetime is '创建日期'
+/
+comment on column rec_cash_input_counterinfo.updatetime is '修改日期'
+/
+comment on column rec_cash_input_counterinfo.createoperatorid is '创建用户id'
+/
+comment on column rec_cash_input_counterinfo.updateoperatorid is '修改用户id'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CASH_INPUT_DRIVERINFO" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"DRIVEROPNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"DRIVERNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"DRIVERID" VARCHAR2(10) NOT NULL ENABLE, 
+	"DEPT_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CEREATETIME" DATE NOT NULL ENABLE, 
+	"UPDATETIME" DATE NOT NULL ENABLE, 
+	"CREATEOPERATORID" VARCHAR2(32), 
+	"UPDATEOPERATORID" VARCHAR2(32), 
+	 CONSTRAINT "UK_REC_CASH_INPUT_DRIVERINFO" UNIQUE ("DRIVEROPNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 327680 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cash_input_driverinfo is '投币录入司机信息表'
+/
+comment on column rec_cash_input_driverinfo.id is '自增id'
+/
+comment on column rec_cash_input_driverinfo.driveropno is '司机编号'
+/
+comment on column rec_cash_input_driverinfo.drivername is '司机姓名'
+/
+comment on column rec_cash_input_driverinfo.driverid is '司机id'
+/
+comment on column rec_cash_input_driverinfo.dept_no is '部门编号'
+/
+comment on column rec_cash_input_driverinfo.customerunitcode is '商户id'
+/
+comment on column rec_cash_input_driverinfo.cereatetime is '创建日期'
+/
+comment on column rec_cash_input_driverinfo.updatetime is '修改日期'
+/
+comment on column rec_cash_input_driverinfo.createoperatorid is '创建用户id'
+/
+comment on column rec_cash_input_driverinfo.updateoperatorid is '修改用户id'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CASH_INPUT_TICKETS" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"DRIVEROPNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"INPUT_DATE" VARCHAR2(8) NOT NULL ENABLE, 
+	"BUS_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"LINE_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"DEPT_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"TOTALMONEY" NUMBER(10,2) NOT NULL ENABLE, 
+	"SHEETNUM" VARCHAR2(2) NOT NULL ENABLE, 
+	"SXW" VARCHAR2(2) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CEREATETIME" DATE NOT NULL ENABLE, 
+	"UPDATETIME" DATE NOT NULL ENABLE, 
+	"CREATEOPERATORID" VARCHAR2(32), 
+	"UPDATEOPERATORID" VARCHAR2(32), 
+	"DRIVERID" VARCHAR2(10), 
+	 CONSTRAINT "UK_REC_CASH_INPUT_TICKETS" UNIQUE ("DRIVEROPNO", "INPUT_DATE", "BUS_NO", "LINE_NO", "DEPT_NO", "CUSTOMERUNITCODE", "SHEETNUM", "SXW")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cash_input_tickets is '投币录入有人售票及租车数据表'
+/
+comment on column rec_cash_input_tickets.id is '自增id'
+/
+comment on column rec_cash_input_tickets.driveropno is '司机工号'
+/
+comment on column rec_cash_input_tickets.input_date is '售票日期'
+/
+comment on column rec_cash_input_tickets.bus_no is '车辆编号'
+/
+comment on column rec_cash_input_tickets.line_no is '线路编号'
+/
+comment on column rec_cash_input_tickets.dept_no is '部门编号'
+/
+comment on column rec_cash_input_tickets.totalmoney is '售票总额'
+/
+comment on column rec_cash_input_tickets.sheetnum is ''
+/
+comment on column rec_cash_input_tickets.sxw is ''
+/
+comment on column rec_cash_input_tickets.customerunitcode is '商户id'
+/
+comment on column rec_cash_input_tickets.cereatetime is '创建日期'
+/
+comment on column rec_cash_input_tickets.updatetime is '修改日期'
+/
+comment on column rec_cash_input_tickets.createoperatorid is '创建用户id'
+/
+comment on column rec_cash_input_tickets.updateoperatorid is '修改用户id'
+/
+comment on column rec_cash_input_tickets.driverid is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CASH_INPUT_TODAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"DRIVEROPNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"INPUT_DATE" VARCHAR2(8) NOT NULL ENABLE, 
+	"BUS_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"LINE_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"DEPT_NO" VARCHAR2(10) NOT NULL ENABLE, 
+	"COUNTBILLOPNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"CHECKOPNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"M100" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M50" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M20" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M10" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M5" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M2" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M1" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M05" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M02" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M01" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M005" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M002" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"M001" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DAY_TOTALMONEY" NUMBER(10,4) DEFAULT 0 NOT NULL ENABLE, 
+	"DAY_TOTALSUM" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"SXW" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SHEET" NUMBER(10,2) DEFAULT 1 NOT NULL ENABLE, 
+	"MMONEY" NUMBER(10,4) DEFAULT 0 NOT NULL ENABLE, 
+	"MCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"C1" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"C05" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"C02" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"C01" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"C005" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"C002" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"C001" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CEREATETIME" DATE NOT NULL ENABLE, 
+	"UPDATETIME" DATE NOT NULL ENABLE, 
+	"CREATEOPERATORID" VARCHAR2(32), 
+	"UPDATEOPERATORID" VARCHAR2(32), 
+	"DRIVERID" VARCHAR2(10), 
+	 CONSTRAINT "UK_CASH_INPUT_TODAY" UNIQUE ("DRIVEROPNO", "INPUT_DATE", "BUS_NO", "LINE_NO", "DEPT_NO", "COUNTBILLOPNO", "CHECKOPNO", "SXW", "SHEET")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 3145728 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 5242880 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cash_input_today is '投币录入无人售票数据表'
+/
+comment on column rec_cash_input_today.id is '自增id'
+/
+comment on column rec_cash_input_today.driveropno is '司机编号'
+/
+comment on column rec_cash_input_today.input_date is '投币日期'
+/
+comment on column rec_cash_input_today.bus_no is '车辆编号'
+/
+comment on column rec_cash_input_today.line_no is '线路编号'
+/
+comment on column rec_cash_input_today.dept_no is '部门编号'
+/
+comment on column rec_cash_input_today.countbillopno is '计数员工编号'
+/
+comment on column rec_cash_input_today.checkopno is '审核员工编号'
+/
+comment on column rec_cash_input_today.m100 is '100元纸币个数'
+/
+comment on column rec_cash_input_today.m50 is '50元纸币个数'
+/
+comment on column rec_cash_input_today.m20 is '20元纸币个数'
+/
+comment on column rec_cash_input_today.m10 is '10元纸币个数'
+/
+comment on column rec_cash_input_today.m5 is '5元纸币个数'
+/
+comment on column rec_cash_input_today.m2 is '2元纸币个数'
+/
+comment on column rec_cash_input_today.m1 is '1元纸币个数'
+/
+comment on column rec_cash_input_today.m05 is '5毛纸币个数'
+/
+comment on column rec_cash_input_today.m02 is '2毛纸币个数'
+/
+comment on column rec_cash_input_today.m01 is '1毛纸币个数'
+/
+comment on column rec_cash_input_today.m005 is '5分纸币个数'
+/
+comment on column rec_cash_input_today.m002 is '2分纸币个数'
+/
+comment on column rec_cash_input_today.m001 is '1分纸币个数'
+/
+comment on column rec_cash_input_today.day_totalmoney is '当天总钱数'
+/
+comment on column rec_cash_input_today.day_totalsum is '当天总个数'
+/
+comment on column rec_cash_input_today.sxw is ''
+/
+comment on column rec_cash_input_today.sheet is '单司机为 1 ，双司机为0.5'
+/
+comment on column rec_cash_input_today.mmoney is '纸币总钱数'
+/
+comment on column rec_cash_input_today.mcount is '纸币总个数'
+/
+comment on column rec_cash_input_today.c1 is '一元硬币个数'
+/
+comment on column rec_cash_input_today.c05 is '5毛硬币个数'
+/
+comment on column rec_cash_input_today.c02 is '2毛硬币个数'
+/
+comment on column rec_cash_input_today.c01 is '1毛硬币个数'
+/
+comment on column rec_cash_input_today.c005 is '5分硬币个数'
+/
+comment on column rec_cash_input_today.c002 is '2分硬币个数'
+/
+comment on column rec_cash_input_today.c001 is '1分硬币个数'
+/
+comment on column rec_cash_input_today.customerunitcode is '商户id'
+/
+comment on column rec_cash_input_today.cereatetime is '创建日期'
+/
+comment on column rec_cash_input_today.updatetime is '修改日期'
+/
+comment on column rec_cash_input_today.createoperatorid is '创建用户id'
+/
+comment on column rec_cash_input_today.updateoperatorid is '修改用户id'
+/
+comment on column rec_cash_input_today.driverid is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CASH_REQUEST" 
+   (	"REQUESTID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"MONOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"MONSAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"SUMFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MONODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CASH_REQUEST" PRIMARY KEY ("REQUESTID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 458752 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cash_request is '充值申请记录表（用以处理未决记录）'
+/
+comment on column rec_cash_request.requestid is '申请流水号'
+/
+comment on column rec_cash_request.customerid is '账号'
+/
+comment on column rec_cash_request.cardno is '卡号'
+/
+comment on column rec_cash_request.cardsn is '卡序号'
+/
+comment on column rec_cash_request.opdt is '交易日期'
+/
+comment on column rec_cash_request.cardtypedetailid is '卡类型小类'
+/
+comment on column rec_cash_request.cardkind is '卡种类'
+/
+comment on column rec_cash_request.electropcount is '电子钱包交易计数'
+/
+comment on column rec_cash_request.electrsaveopcount is '电子钱包充值计数'
+/
+comment on column rec_cash_request.monopcount is '月票交易计数'
+/
+comment on column rec_cash_request.monsaveopcount is '月票充值计数'
+/
+comment on column rec_cash_request.sumfare is '电子钱包卡总额'
+/
+comment on column rec_cash_request.electroddfare is '电子钱包余额'
+/
+comment on column rec_cash_request.poscode is '设备唯一编号'
+/
+comment on column rec_cash_request.samcardno is 'sam卡号'
+/
+comment on column rec_cash_request.uploaddate is '上传时间'
+/
+comment on column rec_cash_request.empid is '职员id'
+/
+comment on column rec_cash_request.viceopcount is '次卡钱包消费操作计数'
+/
+comment on column rec_cash_request.vicesaveopcount is '次卡钱包充值操作计数'
+/
+comment on column rec_cash_request.viceoddfare is '次卡钱包余额'
+/
+comment on column rec_cash_request.monoddfare is '月票钱包余额'
+/
+comment on column rec_cash_request.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CHARGEAUTH_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPCODE" VARCHAR2(32), 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"CURODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"LASTODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"AUTHTIME" DATE DEFAULT SYSDATE, 
+	"ALLOWOVERDRAFTFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MAXLIMITDATE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"ISUSE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"SUMFARE" NUMBER(20,2) DEFAULT 0.00, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"DIR" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MAXLIMITFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CHANGEDPTCODE" VARCHAR2(9), 
+	"TYPEFLAG" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_REC_CHARGEAUTH_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_chargeauth_acc is '代理点-充值授权明细表'
+/
+comment on column rec_chargeauth_acc.id is '编号，自动增长'
+/
+comment on column rec_chargeauth_acc.empcode is '操作员'
+/
+comment on column rec_chargeauth_acc.dptcode is '代理点（部门）编号'
+/
+comment on column rec_chargeauth_acc.curoddfare is '当前授权额度'
+/
+comment on column rec_chargeauth_acc.lastoddfare is '授权前余额'
+/
+comment on column rec_chargeauth_acc.opfare is '本次操作金额'
+/
+comment on column rec_chargeauth_acc.authtime is '授权时间，格式 yyyy-mm-dd hh24:mi:ss'
+/
+comment on column rec_chargeauth_acc.allowoverdraftfare is '允许透支金额'
+/
+comment on column rec_chargeauth_acc.maxlimitdate is '最大逾期（天）'
+/
+comment on column rec_chargeauth_acc.isuse is '是否启用充值授权额度，0：不启用，1：启用'
+/
+comment on column rec_chargeauth_acc.sumfare is '授权额度累计'
+/
+comment on column rec_chargeauth_acc.customerunitcode is '客户代码'
+/
+comment on column rec_chargeauth_acc.dir is '变化标识：-1 减少   0 不变   1 增加'
+/
+comment on column rec_chargeauth_acc.flag is '授权标识：0 增加授权额操作 1 额度上下级分配操作'
+/
+comment on column rec_chargeauth_acc.maxlimitfare is '最大授权额度（上级网点对下级网点授权金额）'
+/
+comment on column rec_chargeauth_acc.changedptcode is '部门编码：该字段配合dir和flag标记使用，当flag标记是1时，dir=0的表示额度分配增加额度的部门，dir=1的表示额度分配减少额度的部门  如果flag=0的话，changedptcode和dptcode一致'
+/
+comment on column rec_chargeauth_acc.typeflag is '业务类型：（和dir字段配合使用） 0 授权额度变化   1 最大授权额度变化   2透支额度变化   3最大逾期变化'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_COMMPAY_IMLOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BANKRECNO" NUMBER(17,0) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER(8,0) NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"SUCCED" NUMBER(2,0) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"ACCDSCRP" VARCHAR2(20), 
+	"ACCGROUP" NUMBER NOT NULL ENABLE, 
+	"FOOTDT" NUMBER(8,0) NOT NULL ENABLE, 
+	"BANKPCH" NUMBER(6,0), 
+	"REQPCH" NUMBER, 
+	"BANKRET" VARCHAR2(10), 
+	"BANKTRADENO" VARCHAR2(30), 
+	"BANKRETDESC" VARCHAR2(30), 
+	"CREATDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"IMPFILEID" NUMBER NOT NULL ENABLE, 
+	"PAYTYPE" NUMBER, 
+	"BANKCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BANKID" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(30) NOT NULL ENABLE, 
+	"QYZJHM" VARCHAR2(30), 
+	"QYLX" NUMBER(3,0) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BANK_COMMPAY_IMLOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_BANK_COMIMPORT_LOG" UNIQUE ("CUSTOMERID", "IMPFILEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_commpay_imlog is '银行卡代缴费批量导入日志信息表'
+/
+comment on column rec_city_bank_commpay_imlog.id is 'id编号，自动增长'
+/
+comment on column rec_city_bank_commpay_imlog.bankrecno is '服务流水号'
+/
+comment on column rec_city_bank_commpay_imlog.customerid is '客户账号'
+/
+comment on column rec_city_bank_commpay_imlog.opdt is '操作时间'
+/
+comment on column rec_city_bank_commpay_imlog.opfare is '交易金额'
+/
+comment on column rec_city_bank_commpay_imlog.succed is '成功标记'
+/
+comment on column rec_city_bank_commpay_imlog.acccode is '科目代码'
+/
+comment on column rec_city_bank_commpay_imlog.accdscrp is '科目描述'
+/
+comment on column rec_city_bank_commpay_imlog.accgroup is '科目大类'
+/
+comment on column rec_city_bank_commpay_imlog.footdt is '帐务日期'
+/
+comment on column rec_city_bank_commpay_imlog.bankpch is '批次号'
+/
+comment on column rec_city_bank_commpay_imlog.reqpch is '请求批次号'
+/
+comment on column rec_city_bank_commpay_imlog.bankret is '银行返回值'
+/
+comment on column rec_city_bank_commpay_imlog.banktradeno is '银行流水'
+/
+comment on column rec_city_bank_commpay_imlog.bankretdesc is '银行返回值的简要描述'
+/
+comment on column rec_city_bank_commpay_imlog.creatdate is '记录创建时间'
+/
+comment on column rec_city_bank_commpay_imlog.impfileid is '导入文件编号'
+/
+comment on column rec_city_bank_commpay_imlog.paytype is '0：批量代扣 1：批量代缴'
+/
+comment on column rec_city_bank_commpay_imlog.bankcount is '银行申请次数，用于检测只申请一次'
+/
+comment on column rec_city_bank_commpay_imlog.bankid is '银行 目前为103 133'
+/
+comment on column rec_city_bank_commpay_imlog.bankcardno is '银行卡号'
+/
+comment on column rec_city_bank_commpay_imlog.qyzjhm is '签约证件号码'
+/
+comment on column rec_city_bank_commpay_imlog.qylx is '签约类型'
+/
+comment on column rec_city_bank_commpay_imlog.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_COMMPAY_IMPORT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BANKRECNO" NUMBER(17,0) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER(8,0) NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"SUCCED" NUMBER(2,0) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"ACCDSCRP" VARCHAR2(20), 
+	"ACCGROUP" NUMBER NOT NULL ENABLE, 
+	"FOOTDT" NUMBER(8,0) NOT NULL ENABLE, 
+	"BANKPCH" NUMBER(6,0), 
+	"REQPCH" NUMBER, 
+	"BANKRET" VARCHAR2(10), 
+	"BANKTRADENO" VARCHAR2(30), 
+	"BANKRETDESC" VARCHAR2(30), 
+	"CREATDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"IMPFILEID" NUMBER NOT NULL ENABLE, 
+	"PAYTYPE" NUMBER, 
+	"BANKCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BANKID" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(30) NOT NULL ENABLE, 
+	"QYZJHM" VARCHAR2(30), 
+	"QYLX" NUMBER(3,0) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_BANK_COMMPAY_IMPORT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UN_BANK_COMIMPORT" UNIQUE ("CUSTOMERID", "IMPFILEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_commpay_import is '银行卡代缴费批量导入信息表'
+/
+comment on column rec_city_bank_commpay_import.id is 'id编号，自动增长'
+/
+comment on column rec_city_bank_commpay_import.bankrecno is '服务流水号'
+/
+comment on column rec_city_bank_commpay_import.customerid is '客户账号'
+/
+comment on column rec_city_bank_commpay_import.opdt is '操作时间'
+/
+comment on column rec_city_bank_commpay_import.opfare is '交易金额'
+/
+comment on column rec_city_bank_commpay_import.succed is '成功标记'
+/
+comment on column rec_city_bank_commpay_import.acccode is '科目代码'
+/
+comment on column rec_city_bank_commpay_import.accdscrp is '科目描述'
+/
+comment on column rec_city_bank_commpay_import.accgroup is '科目大类'
+/
+comment on column rec_city_bank_commpay_import.footdt is '帐务日期'
+/
+comment on column rec_city_bank_commpay_import.bankpch is '批次号'
+/
+comment on column rec_city_bank_commpay_import.reqpch is '请求批次号'
+/
+comment on column rec_city_bank_commpay_import.bankret is '银行返回值'
+/
+comment on column rec_city_bank_commpay_import.banktradeno is '银行流水'
+/
+comment on column rec_city_bank_commpay_import.bankretdesc is '银行返回值的简要描述'
+/
+comment on column rec_city_bank_commpay_import.creatdate is '记录创建时间'
+/
+comment on column rec_city_bank_commpay_import.impfileid is '导入文件编号'
+/
+comment on column rec_city_bank_commpay_import.paytype is '0：批量代扣 1：批量代缴'
+/
+comment on column rec_city_bank_commpay_import.bankcount is '银行申请次数，用于检测只申请一次'
+/
+comment on column rec_city_bank_commpay_import.bankid is '银行 目前为103 133'
+/
+comment on column rec_city_bank_commpay_import.bankcardno is '银行卡号'
+/
+comment on column rec_city_bank_commpay_import.qyzjhm is '签约证件号码'
+/
+comment on column rec_city_bank_commpay_import.qylx is '签约类型'
+/
+comment on column rec_city_bank_commpay_import.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_DZLOG" 
+   (	"FOOTDT" NUMBER(8,0) NOT NULL ENABLE, 
+	"ACCTYPE" NUMBER(2,0) NOT NULL ENABLE, 
+	"ACCCODE" VARCHAR2(10) NOT NULL ENABLE, 
+	"ACCCODEDESC" VARCHAR2(40), 
+	"OPDT" DATE, 
+	"BANKSUMCOUNT" NUMBER(10,0) NOT NULL ENABLE, 
+	"BANKSUMFARE" NUMBER(20,2), 
+	"ORGSUMCOUNT" NUMBER(10,0), 
+	"ORGSUMFARE" NUMBER(20,2), 
+	"DZSUMCOUNT" NUMBER(10,0), 
+	"DZSUMFARE" NUMBER(20,2), 
+	"DESCRIPT" VARCHAR2(60), 
+	"ALLSUMCOUNT" NUMBER(10,0), 
+	"ALLSUMFARE" NUMBER(20,2), 
+	"FIXSUMCOUNT" NUMBER(10,0), 
+	"FIXSUMFARE" NUMBER(20,2), 
+	"BZSUMCOUNT" NUMBER(10,0) DEFAULT 0, 
+	"BZSUMFARE" NUMBER(20,2), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANK_DZLOG" PRIMARY KEY ("FOOTDT", "ACCTYPE", "ACCCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_dzlog is '存储对帐时的对帐文件中的交易次数和交易金额(统计报表使用)'
+/
+comment on column rec_city_bank_dzlog.footdt is '帐务日期'
+/
+comment on column rec_city_bank_dzlog.acctype is '为银行缴费等代理业务对帐备用(1圈存,2银行代缴费...)'
+/
+comment on column rec_city_bank_dzlog.acccode is '科目代码'
+/
+comment on column rec_city_bank_dzlog.acccodedesc is '科目代码内银行名称的和对帐类别的描述'
+/
+comment on column rec_city_bank_dzlog.opdt is '操作时间'
+/
+comment on column rec_city_bank_dzlog.banksumcount is '对帐文件中银行交易总次数'
+/
+comment on column rec_city_bank_dzlog.banksumfare is '对帐文件中银行交易总金额'
+/
+comment on column rec_city_bank_dzlog.orgsumcount is '中心数据库内交易总次数'
+/
+comment on column rec_city_bank_dzlog.orgsumfare is '中心数据库内交易总金额'
+/
+comment on column rec_city_bank_dzlog.dzsumcount is '对帐修正后成功总笔数'
+/
+comment on column rec_city_bank_dzlog.dzsumfare is '对帐修正后成功总金额'
+/
+comment on column rec_city_bank_dzlog.descript is '数据库内对帐结果的描述'
+/
+comment on column rec_city_bank_dzlog.allsumcount is '对帐修正后，数据库内对帐成功（succed=1或2），交易总次数'
+/
+comment on column rec_city_bank_dzlog.allsumfare is '对帐修正后，数据库内对帐成功（succed=1或2），交易总金额'
+/
+comment on column rec_city_bank_dzlog.fixsumcount is '对帐修正后，数据库内对帐成功（以第三方日期为准），交易总次数'
+/
+comment on column rec_city_bank_dzlog.fixsumfare is '对帐修正后，数据库内对帐成功（以第三方日期为准），交易总金额'
+/
+comment on column rec_city_bank_dzlog.bzsumcount is '补帐成功次数'
+/
+comment on column rec_city_bank_dzlog.bzsumfare is '补帐成功金额'
+/
+comment on column rec_city_bank_dzlog.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_OUT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER(8,0) NOT NULL ENABLE, 
+	"FOOTDT" NUMBER(8,0) NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"PRECSTACCFC" NUMBER NOT NULL ENABLE, 
+	"PRERECNO" NUMBER NOT NULL ENABLE, 
+	"PREODDFARE" NUMBER(10,2), 
+	"PREOPCOUNT" NUMBER(5,0), 
+	"FIRSTSUMFARE" NUMBER(10,2), 
+	"FIRSTODDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"FIRSTOPCOUNT" NUMBER(5,0) NOT NULL ENABLE, 
+	"FIRSTDT" DATE, 
+	"LASTSUMFARE" NUMBER(10,2), 
+	"LASTODDFARE" NUMBER(10,2), 
+	"LASTOPCOUNT" NUMBER(5,0), 
+	"LASTOPDT" DATE, 
+	"LASTOUTSTATUS" NUMBER(2,0), 
+	"FARETYPE" NUMBER(3,0), 
+	"FAREDESC" VARCHAR2(20), 
+	"ACCCODE" VARCHAR2(20), 
+	"OUTCOUNT" NUMBER(3,0), 
+	"MAKERECOUNT" NUMBER(3,0), 
+	"INITDT" DATE, 
+	"INITGH" VARCHAR2(20), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANK_OUT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_out is '领款记录表'
+/
+comment on column rec_city_bank_out.id is '领款序号圈存记录对应的领款流水号,>0有效'
+/
+comment on column rec_city_bank_out.customerid is '客户账号'
+/
+comment on column rec_city_bank_out.footdt is '帐务日期'
+/
+comment on column rec_city_bank_out.opfare is '圈存金额'
+/
+comment on column rec_city_bank_out.cstaccfc is '对应的账目记录中的领款记录的序号'
+/
+comment on column rec_city_bank_out.precstaccfc is '账目中本记录对应的生成款项的记录序号'
+/
+comment on column rec_city_bank_out.prerecno is '对应原对圈存交易流水应的记录序号'
+/
+comment on column rec_city_bank_out.preoddfare is '以往余额'
+/
+comment on column rec_city_bank_out.preopcount is '以往操作数'
+/
+comment on column rec_city_bank_out.firstsumfare is '首次领款卡总额'
+/
+comment on column rec_city_bank_out.firstoddfare is '首次领款卡余额'
+/
+comment on column rec_city_bank_out.firstopcount is '首次领款卡操作数'
+/
+comment on column rec_city_bank_out.firstdt is '首次领款操作日期'
+/
+comment on column rec_city_bank_out.lastsumfare is '末次领款卡总额'
+/
+comment on column rec_city_bank_out.lastoddfare is '末次领款卡余额'
+/
+comment on column rec_city_bank_out.lastopcount is '末次领款卡操作数'
+/
+comment on column rec_city_bank_out.lastopdt is '末次领款操作日期'
+/
+comment on column rec_city_bank_out.lastoutstatus is '(=1新正常领款,=2已经正常领款,=3正常领款失败,=4正常领款挂起,=8正常领款成功,=9正常退款 ,=11产生补领清单,=12已经补领款, =13补领款失败, =14补领款挂起, =18补领款成功, =19补领退款'
+/
+comment on column rec_city_bank_out.faretype is '款类型(=0无效,1圈存款项,2学生补助,3综合补助,,,)'
+/
+comment on column rec_city_bank_out.faredesc is '款项类型的具体文字描述,前4个汉字供领款设备显示使用'
+/
+comment on column rec_city_bank_out.acccode is '业务代码'
+/
+comment on column rec_city_bank_out.outcount is '领款次数'
+/
+comment on column rec_city_bank_out.makerecount is 'makerecount(生成补领款次数,补领处理后lastoutstatus为1*)'
+/
+comment on column rec_city_bank_out.initdt is '初始时间'
+/
+comment on column rec_city_bank_out.initgh is '生成记录操作员的简要描述'
+/
+comment on column rec_city_bank_out.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_PAYMONEY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"ASN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"TERMID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUCCEED" NUMBER(10,0), 
+	"DESCRIPTION" VARCHAR2(50), 
+	"BANKCARDNO" VARCHAR2(20), 
+	"BANKDZ" NUMBER DEFAULT 0, 
+	"BANKRET" VARCHAR2(10) DEFAULT 00, 
+	"STATDATE" VARCHAR2(16), 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"QCTYPE" NUMBER(10,0) DEFAULT 0 NOT NULL ENABLE, 
+	"BZINFO" VARCHAR2(50), 
+	"THIRDID" VARCHAR2(50), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANK_PAYMONEY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_paymoney is '银行代扣费用明细表'
+/
+comment on column rec_city_bank_paymoney.id is '唯一编号'
+/
+comment on column rec_city_bank_paymoney.customerid is '帐号'
+/
+comment on column rec_city_bank_paymoney.opdt is '操作时间'
+/
+comment on column rec_city_bank_paymoney.asn is '应用序列号'
+/
+comment on column rec_city_bank_paymoney.cardsn is '持卡序号'
+/
+comment on column rec_city_bank_paymoney.oddfare is '市民卡钱包余额'
+/
+comment on column rec_city_bank_paymoney.opfare is '代扣金额'
+/
+comment on column rec_city_bank_paymoney.opcount is '消费计数'
+/
+comment on column rec_city_bank_paymoney.acccode is '科目代码'
+/
+comment on column rec_city_bank_paymoney.termid is '终端编号'
+/
+comment on column rec_city_bank_paymoney.succeed is '扣费成功标志：0：申请，1：成功'
+/
+comment on column rec_city_bank_paymoney.description is '描述(扣费描述)'
+/
+comment on column rec_city_bank_paymoney.bankcardno is '银行卡号'
+/
+comment on column rec_city_bank_paymoney.bankdz is '对账标志'
+/
+comment on column rec_city_bank_paymoney.bankret is '银行返回值'
+/
+comment on column rec_city_bank_paymoney.statdate is '统计日期'
+/
+comment on column rec_city_bank_paymoney.empid is '职员帐号'
+/
+comment on column rec_city_bank_paymoney.qctype is '圈存类型：0：圈存机，1：电话银行，2：网上银行，3：批量圈存'
+/
+comment on column rec_city_bank_paymoney.bzinfo is '电话号码或ip地址'
+/
+comment on column rec_city_bank_paymoney.thirdid is '第三方交易编号（水电号，手机号等）'
+/
+comment on column rec_city_bank_paymoney.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_RCODE" 
+   (	"GUID" VARCHAR2(64) NOT NULL ENABLE, 
+	"INDATE" DATE NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 589824 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_rcode is '圈存申请重复控制表'
+/
+comment on column rec_city_bank_rcode.guid is '唯一码'
+/
+comment on column rec_city_bank_rcode.indate is '生成时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANK_REQUEST" 
+   (	"BANKRECNO" NUMBER(17,0) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER(8,0) NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(20) NOT NULL ENABLE, 
+	"FOOTDT" NUMBER(8,0) NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2), 
+	"BANKCOUNT" NUMBER(6,0), 
+	"SUCCED" NUMBER(2,0), 
+	"BANKRET" VARCHAR2(10), 
+	"BANKTRADENO" VARCHAR2(30), 
+	"BANKRETDESC" VARCHAR2(30), 
+	"ACCCODE" VARCHAR2(10) NOT NULL ENABLE, 
+	"QYLX" NUMBER(2,0), 
+	"PREODDFARE" NUMBER(10,2), 
+	"PREOPCOUNT" NUMBER(5,0), 
+	"OPDT" DATE, 
+	"BANKPCH" NUMBER(6,0), 
+	"REQPCH" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANK_REQUEST" PRIMARY KEY ("FOOTDT", "BANKRECNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bank_request is '银行圈存申请记录表'
+/
+comment on column rec_city_bank_request.bankrecno is '服务流水号'
+/
+comment on column rec_city_bank_request.customerid is '客户账号'
+/
+comment on column rec_city_bank_request.bankcardno is '银行卡号'
+/
+comment on column rec_city_bank_request.footdt is '帐务日期'
+/
+comment on column rec_city_bank_request.opfare is '交易金额'
+/
+comment on column rec_city_bank_request.bankcount is 'aappll上午下午夜晚三个班次的组合次数,目前只支持0和1'
+/
+comment on column rec_city_bank_request.succed is '成功标记'
+/
+comment on column rec_city_bank_request.bankret is '银行返回值'
+/
+comment on column rec_city_bank_request.banktradeno is '银行流水'
+/
+comment on column rec_city_bank_request.bankretdesc is '银行返回值的简要描述'
+/
+comment on column rec_city_bank_request.acccode is '科目代码'
+/
+comment on column rec_city_bank_request.qylx is 'qylx[签约类型],签约类型的不同,向银行发送方式不同'
+/
+comment on column rec_city_bank_request.preoddfare is '以前余额'
+/
+comment on column rec_city_bank_request.preopcount is '以前操作次数'
+/
+comment on column rec_city_bank_request.opdt is '操作时间'
+/
+comment on column rec_city_bank_request.bankpch is '批次号'
+/
+comment on column rec_city_bank_request.reqpch is '请求批次号'
+/
+comment on column rec_city_bank_request.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANKBINDQY" 
+   (	"ACCCODE" VARCHAR2(10) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER(*,0) NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(30) NOT NULL ENABLE, 
+	"QYLX" NUMBER(3,0) NOT NULL ENABLE, 
+	"QYOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"QYODDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"QSRQ" NUMBER(*,0), 
+	"JZRQ" NUMBER(*,0), 
+	"QYPASS" CHAR(16), 
+	"QYZJHM" VARCHAR2(30), 
+	"FIRSTTRYDT" DATE, 
+	"LASTTRYCS" NUMBER(*,0), 
+	"INITDT" DATE, 
+	"INITGH" VARCHAR2(32), 
+	"QYTYPE" NUMBER(3,0) DEFAULT 0 NOT NULL ENABLE, 
+	"BZINFO" VARCHAR2(300), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ASN" NUMBER NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANKBINDQY" PRIMARY KEY ("ACCCODE", "CUSTOMERID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bankbindqy is '银行签约表'
+/
+comment on column rec_city_bankbindqy.acccode is '科目代码'
+/
+comment on column rec_city_bankbindqy.customerid is '校园帐号'
+/
+comment on column rec_city_bankbindqy.bankcardno is '银行帐号'
+/
+comment on column rec_city_bankbindqy.qylx is '签约类型 =1普通签约,=2定额签约,=3非定额签约'
+/
+comment on column rec_city_bankbindqy.qyopfare is '批量时交易金额'
+/
+comment on column rec_city_bankbindqy.qyoddfare is '批量时账本起圈金额'
+/
+comment on column rec_city_bankbindqy.qsrq is '有效起始日期-[备用]'
+/
+comment on column rec_city_bankbindqy.jzrq is '有效截止日期-[备用]'
+/
+comment on column rec_city_bankbindqy.qypass is '自助签约密码-[备用]'
+/
+comment on column rec_city_bankbindqy.qyzjhm is '签约证件号码'
+/
+comment on column rec_city_bankbindqy.firsttrydt is '尝试变更日期,没启用'
+/
+comment on column rec_city_bankbindqy.lasttrycs is '累计尝试变更签约次数,超过10次拒绝自动签约'
+/
+comment on column rec_city_bankbindqy.initdt is '初始日期'
+/
+comment on column rec_city_bankbindqy.initgh is '初始人'
+/
+comment on column rec_city_bankbindqy.qytype is '签约类型(圈存机：0，电话银行：1，网上银行：2，批量签约：3)'
+/
+comment on column rec_city_bankbindqy.bzinfo is '电话号码或ip地址或备注信息'
+/
+comment on column rec_city_bankbindqy.customerunitcode is '客户代码'
+/
+comment on column rec_city_bankbindqy.asn is 'm1：卡唯一序列号；cpu卡：卡应用序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANKBINDQY_BAD" 
+   (	"ACCCODE" VARCHAR2(10), 
+	"CUSTOMERID" NUMBER(*,0), 
+	"BANKCARDNO" VARCHAR2(30), 
+	"QYLX" NUMBER(3,0), 
+	"QYOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"QYODDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"QSRQ" NUMBER(*,0), 
+	"JZRQ" NUMBER(*,0), 
+	"QYPASS" CHAR(16), 
+	"QYZJHM" VARCHAR2(30), 
+	"QYTYPE" NUMBER(3,0) DEFAULT 0, 
+	"BANKTRADENO" VARCHAR2(50), 
+	"BANKRET" VARCHAR2(50), 
+	"BANKRETDESC" VARCHAR2(50), 
+	"OPDT" DATE, 
+	"NAME" VARCHAR2(50), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bankbindqy_bad is '银行签约表失败表'
+/
+comment on column rec_city_bankbindqy_bad.acccode is '科目代码'
+/
+comment on column rec_city_bankbindqy_bad.customerid is '校园帐号'
+/
+comment on column rec_city_bankbindqy_bad.bankcardno is '银行帐号'
+/
+comment on column rec_city_bankbindqy_bad.qylx is '签约类型=1普通签约,=2定额签约,=3非定额签约'
+/
+comment on column rec_city_bankbindqy_bad.qyopfare is '批量时交易金额'
+/
+comment on column rec_city_bankbindqy_bad.qyoddfare is '批量时账本起圈金额'
+/
+comment on column rec_city_bankbindqy_bad.qsrq is '有效起始日期-[备用]'
+/
+comment on column rec_city_bankbindqy_bad.jzrq is '有效截止日期-[备用]'
+/
+comment on column rec_city_bankbindqy_bad.qypass is '自助签约密码-[备用]'
+/
+comment on column rec_city_bankbindqy_bad.qyzjhm is '签约证件号码'
+/
+comment on column rec_city_bankbindqy_bad.qytype is '签约类型(圈存机：0，电话银行：1，网上银行：2，批量签约：3)'
+/
+comment on column rec_city_bankbindqy_bad.banktradeno is '银行交易号'
+/
+comment on column rec_city_bankbindqy_bad.bankret is '银行原始返回值'
+/
+comment on column rec_city_bankbindqy_bad.bankretdesc is '银行原始返回值的描述'
+/
+comment on column rec_city_bankbindqy_bad.opdt is '交易日期'
+/
+comment on column rec_city_bankbindqy_bad.name is '姓名'
+/
+comment on column rec_city_bankbindqy_bad.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANKINFO" 
+   (	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"BANKNAME" VARCHAR2(32) NOT NULL ENABLE, 
+	"SERVERIP" VARCHAR2(64) DEFAULT 0 NOT NULL ENABLE, 
+	"SERVERPORT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANKINFO" PRIMARY KEY ("ACCCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bankinfo is '银行圈存服务前置设置表'
+/
+comment on column rec_city_bankinfo.acccode is '科目代码'
+/
+comment on column rec_city_bankinfo.bankname is '银行代码'
+/
+comment on column rec_city_bankinfo.serverip is '圈存前置ip'
+/
+comment on column rec_city_bankinfo.serverport is '前置端口'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_BANKREC" 
+   (	"BANKRECNO" NUMBER(17,0) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER(8,0) NOT NULL ENABLE, 
+	"OPDT" DATE, 
+	"PREODDFARE" NUMBER(10,2), 
+	"PREOPCOUNT" NUMBER(5,0), 
+	"ODDFARE" NUMBER(10,2), 
+	"OPCOUNT" NUMBER(5,0), 
+	"CARDSN" NUMBER(3,0), 
+	"OPFARE" NUMBER(10,2), 
+	"FOOTDT" NUMBER(8,0), 
+	"FIXFOOTDT" NUMBER(8,0), 
+	"BANKCARDNO" VARCHAR2(20), 
+	"BANKTRADENO" VARCHAR2(40), 
+	"BANKRET" VARCHAR2(6), 
+	"BANKRETDESC" VARCHAR2(60), 
+	"BANKDZ" NUMBER, 
+	"ACCCODE" VARCHAR2(10) NOT NULL ENABLE, 
+	"TERMID" NUMBER(8,0) NOT NULL ENABLE, 
+	"TERMTRADENO" NUMBER(14,0) NOT NULL ENABLE, 
+	"TRADESTATUS" NUMBER(3,0), 
+	"SUCCED" NUMBER, 
+	"SN" NUMBER(9,0), 
+	"BANKPCH" NUMBER(6,0), 
+	"QCTYPE" NUMBER(3,0) DEFAULT 0 NOT NULL ENABLE, 
+	"BZINFO" VARCHAR2(32), 
+	"COUDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_BANKREC" PRIMARY KEY ("BANKRECNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 393216 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_bankrec is '银行圈存记录表'
+/
+comment on column rec_city_bankrec.bankrecno is '发送给银行的我方流水(yyyymmdd+5或6位lsh)'
+/
+comment on column rec_city_bankrec.customerid is '客户账号'
+/
+comment on column rec_city_bankrec.opdt is '操作日期'
+/
+comment on column rec_city_bankrec.preoddfare is '以往余额，不准确，批量圈存时，存的是账本表信息，实时交易存的是账本表信息'
+/
+comment on column rec_city_bankrec.preopcount is '以往操作计数，不准确，规则同preoddfare'
+/
+comment on column rec_city_bankrec.oddfare is '卡余额'
+/
+comment on column rec_city_bankrec.opcount is '卡操作计数'
+/
+comment on column rec_city_bankrec.cardsn is '持卡序号'
+/
+comment on column rec_city_bankrec.opfare is '对银行交易额'
+/
+comment on column rec_city_bankrec.footdt is '交易发起时本地日期'
+/
+comment on column rec_city_bankrec.fixfootdt is '最后修正帐务日期即第三方帐务日期'
+/
+comment on column rec_city_bankrec.bankcardno is '银行卡号'
+/
+comment on column rec_city_bankrec.banktradeno is '银行交易号'
+/
+comment on column rec_city_bankrec.bankret is '银行原始返回值'
+/
+comment on column rec_city_bankrec.bankretdesc is '银行原始返回值的描述'
+/
+comment on column rec_city_bankrec.bankdz is '银行对帐(0-默认值，原始状态4帐务日期差异,5学校单边帐,6银行单边帐,7对帐金额不一致,8补帐记录,9对帐成功记录)'
+/
+comment on column rec_city_bankrec.acccode is '业务代码,见rec_cust_dbacc表'
+/
+comment on column rec_city_bankrec.termid is '终端id'
+/
+comment on column rec_city_bankrec.termtradeno is '终端流水号(yyyymmdd+6位lsh)'
+/
+comment on column rec_city_bankrec.tradestatus is '写卡状态(0:原始状态；1：成功；51-99：跟踪信息，终端错误信息)'
+/
+comment on column rec_city_bankrec.succed is '交易状态(=0申请,=1成功,=2对帐成功,=3失败,=4冲正,=5冲正成功,=6冲正失败)，只使用前四种状态0、1、2、3'
+/
+comment on column rec_city_bankrec.sn is '领款计划表中的sn'
+/
+comment on column rec_city_bankrec.bankpch is '批次号'
+/
+comment on column rec_city_bankrec.qctype is '圈存类型：0：圈存机，1：电话银行，2：网上银行，3：批量圈存，4：对接app 电子钱包圈存，8：对接app,次卡钱包圈存，9：对接app，月票钱包圈存'
+/
+comment on column rec_city_bankrec.bzinfo is '电话号码或ip地址'
+/
+comment on column rec_city_bankrec.coudate is '圈款统计日期'
+/
+comment on column rec_city_bankrec.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_ERRORDEAL_AD" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ADJUSTSERNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"OLDACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"OLDCASISERNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"OLDACQUIRESERNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"OLDACQUIREDATE" DATE NOT NULL ENABLE, 
+	"OLDSEARCHNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"OLDTRANSACTIONCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"ADJUSTMENTTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OWNERCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"RECEIVECITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"SENDCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"SPONSORCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"CONFIRMCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"TRANSACTIONTYPE" VARCHAR2(4), 
+	"MCC" VARCHAR2(4) NOT NULL ENABLE, 
+	"CHANNELTYPE" VARCHAR2(2) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REASONCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"RESULTCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"ERRORCODE" VARCHAR2(6) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	"ERRORPOUNDAGE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"POUNDAGE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MAKECARDFENRUN" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACQUIREFENRUN" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"RESERVEDDOMAIN" VARCHAR2(40) NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"ADCONTENT" VARCHAR2(400) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_ERORDEAL_AD" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_errordeal_ad is '差错处理保存部里下发的ad文件数据'
+/
+comment on column rec_city_errordeal_ad.cstaccfc is '流水号'
+/
+comment on column rec_city_errordeal_ad.status is '差错ad数据是否已处理 0初始状态 1已处理'
+/
+comment on column rec_city_errordeal_ad.adjustsernum is '清分结算机构调整交易流水号'
+/
+comment on column rec_city_errordeal_ad.oldaccountdate is '原消费交易清分结算机构结算日期'
+/
+comment on column rec_city_errordeal_ad.oldcasisernum is '原消费交易清分结算机构流水号'
+/
+comment on column rec_city_errordeal_ad.oldacquiresernum is '原消费交易收单机构流水号'
+/
+comment on column rec_city_errordeal_ad.oldacquiredate is '原消费交易收单机构受理日期'
+/
+comment on column rec_city_errordeal_ad.oldsearchnumber is '原消费交易检索参考号'
+/
+comment on column rec_city_errordeal_ad.oldtransactioncode is '原交易交易类型'
+/
+comment on column rec_city_errordeal_ad.adjustmenttype is '调整类型 0初始状态 1贷方调整（发卡发付款） 2借方调整（发卡方收款)'
+/
+comment on column rec_city_errordeal_ad.cardno is '卡号'
+/
+comment on column rec_city_errordeal_ad.ownercitycode is '发卡机构代码'
+/
+comment on column rec_city_errordeal_ad.receivecitycode is '接收机构代码,发卡地的顶级单位'
+/
+comment on column rec_city_errordeal_ad.tradecitycode is '收单机构标代码'
+/
+comment on column rec_city_errordeal_ad.sendcitycode is '发送机构代码代码，交易发生地的顶级单位'
+/
+comment on column rec_city_errordeal_ad.sponsorcitycode is '差错发起方机构代码'
+/
+comment on column rec_city_errordeal_ad.confirmcitycode is '确认方机构代码'
+/
+comment on column rec_city_errordeal_ad.opcount is '卡消费计数器'
+/
+comment on column rec_city_errordeal_ad.electronoddfare is '消费前卡余额'
+/
+comment on column rec_city_errordeal_ad.electronopfare is '调整后交易金额'
+/
+comment on column rec_city_errordeal_ad.transactiontype is '调整后交易类型'
+/
+comment on column rec_city_errordeal_ad.mcc is 'mcc'
+/
+comment on column rec_city_errordeal_ad.channeltype is '渠道类型 '
+/
+comment on column rec_city_errordeal_ad.opdt is '交易时间'
+/
+comment on column rec_city_errordeal_ad.testflag is '测试标志'
+/
+comment on column rec_city_errordeal_ad.reasoncode is '原因码'
+/
+comment on column rec_city_errordeal_ad.resultcode is '回复码'
+/
+comment on column rec_city_errordeal_ad.errorcode is '错误码'
+/
+comment on column rec_city_errordeal_ad.describe is '错误代码描述'
+/
+comment on column rec_city_errordeal_ad.errorpoundage is '差错手续费'
+/
+comment on column rec_city_errordeal_ad.poundage is '手续费'
+/
+comment on column rec_city_errordeal_ad.makecardfenrun is '发卡分润'
+/
+comment on column rec_city_errordeal_ad.acquirefenrun is '收单分润'
+/
+comment on column rec_city_errordeal_ad.reserveddomain is '预留字段'
+/
+comment on column rec_city_errordeal_ad.uploaddate is '上传时间'
+/
+comment on column rec_city_errordeal_ad.updatedate is '修改时间'
+/
+comment on column rec_city_errordeal_ad.filecreatedate is '文件创建时间'
+/
+comment on column rec_city_errordeal_ad.customerunitcode is '客户代码'
+/
+comment on column rec_city_errordeal_ad.filename is '文件名称'
+/
+comment on column rec_city_errordeal_ad.adcontent is '流水号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_ERRORDEAL_ED" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALRESULT" VARCHAR2(6) DEFAULT null, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"CASISERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIRERSERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIRERDATE" DATE NOT NULL ENABLE, 
+	"SEARCHNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"ADJUSTMENTTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ERRORTYPE" VARCHAR2(4) DEFAULT '0000' NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"TRANSACTIONTYPE" VARCHAR2(4), 
+	"MCC" VARCHAR2(4) NOT NULL ENABLE, 
+	"CHANNELTYPE" VARCHAR2(2) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REASONCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"SPONSORCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"OWNERCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"EDCONTENT" VARCHAR2(400) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_ERORDEAL_ED" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_errordeal_ed is '差错处理存储部里下发的差错文件（交通部下发原始文件）'
+/
+comment on column rec_city_errordeal_ed.cstaccfc is '流水号'
+/
+comment on column rec_city_errordeal_ed.status is '差错处理状态 0初始状态 1已经处理'
+/
+comment on column rec_city_errordeal_ed.dealresult is '差错最终处理结果 '
+/
+comment on column rec_city_errordeal_ed.accountdate is '清算中心结算日期'
+/
+comment on column rec_city_errordeal_ed.casiserialnum is '清算中心流水号'
+/
+comment on column rec_city_errordeal_ed.acquirerserialnum is '收单机构流水号'
+/
+comment on column rec_city_errordeal_ed.acquirerdate is '收单机构受理日期'
+/
+comment on column rec_city_errordeal_ed.searchnumber is '交易检索参考号'
+/
+comment on column rec_city_errordeal_ed.adjustmenttype is '调整类型 0初始状态 1贷方调整（发卡发付款） 2借方调整（发卡方收款)'
+/
+comment on column rec_city_errordeal_ed.errortype is '差错类型 0000初始状态 其他参考ed文件'
+/
+comment on column rec_city_errordeal_ed.cardno is '卡片序列号'
+/
+comment on column rec_city_errordeal_ed.opcount is '卡消费计数器'
+/
+comment on column rec_city_errordeal_ed.electronoddfare is '消费前卡余额'
+/
+comment on column rec_city_errordeal_ed.electronopfare is '调整后交易金额'
+/
+comment on column rec_city_errordeal_ed.transactiontype is '调整后交易类型'
+/
+comment on column rec_city_errordeal_ed.mcc is 'mcc'
+/
+comment on column rec_city_errordeal_ed.channeltype is '渠道类型'
+/
+comment on column rec_city_errordeal_ed.opdt is '交易时间'
+/
+comment on column rec_city_errordeal_ed.testflag is '测试标志'
+/
+comment on column rec_city_errordeal_ed.reasoncode is '原因码'
+/
+comment on column rec_city_errordeal_ed.sponsorcitycode is '差错发起方机构代码'
+/
+comment on column rec_city_errordeal_ed.ownercitycode is '发卡机构标识码'
+/
+comment on column rec_city_errordeal_ed.tradecitycode is '收单机构标识码'
+/
+comment on column rec_city_errordeal_ed.uploaddate is '上传时间'
+/
+comment on column rec_city_errordeal_ed.updatedate is '修改时间'
+/
+comment on column rec_city_errordeal_ed.filecreatedate is '文件创建时间'
+/
+comment on column rec_city_errordeal_ed.customerunitcode is '客户代码'
+/
+comment on column rec_city_errordeal_ed.filename is '文件名称'
+/
+comment on column rec_city_errordeal_ed.edcontent is '单个差错文件内容'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_LOCALCARDCONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(30), 
+	"CARDSN" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(12), 
+	"OWNERCITYCODE" VARCHAR2(12), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(12), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"SAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SETTLEMENTDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35), 
+	 CONSTRAINT "PK_CITY_LOCALCARDCONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("UPLOADDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_city_localcardconsume is '互联互通本地卡异地消费记录'
+/
+comment on column rec_city_localcardconsume.cstaccfc is '流水号'
+/
+comment on column rec_city_localcardconsume.customerid is '账号'
+/
+comment on column rec_city_localcardconsume.cardno is '卡号'
+/
+comment on column rec_city_localcardconsume.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_city_localcardconsume.opdt is '交易时间'
+/
+comment on column rec_city_localcardconsume.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_city_localcardconsume.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_city_localcardconsume.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_city_localcardconsume.acccode is '交易科目'
+/
+comment on column rec_city_localcardconsume.dscrp is '科目描述'
+/
+comment on column rec_city_localcardconsume.cardsn is '卡序号'
+/
+comment on column rec_city_localcardconsume.opcount is '卡操作计数'
+/
+comment on column rec_city_localcardconsume.dealtype is '记录类型 1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_city_localcardconsume.collectdt is '采集时间'
+/
+comment on column rec_city_localcardconsume.uploaddate is '上传时间'
+/
+comment on column rec_city_localcardconsume.busid is '车辆id'
+/
+comment on column rec_city_localcardconsume.driverid is '司机id'
+/
+comment on column rec_city_localcardconsume.poscode is '设备运营唯一编号'
+/
+comment on column rec_city_localcardconsume.samcardno is 'sam卡号'
+/
+comment on column rec_city_localcardconsume.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_city_localcardconsume.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_city_localcardconsume.tac is 'tac验证码'
+/
+comment on column rec_city_localcardconsume.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_city_localcardconsume.buslineid is '线路编号'
+/
+comment on column rec_city_localcardconsume.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_city_localcardconsume.discount is '打折金额'
+/
+comment on column rec_city_localcardconsume.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_city_localcardconsume.linedept is '线路所属部门'
+/
+comment on column rec_city_localcardconsume.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_city_localcardconsume.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_city_localcardconsume.cardasn is '卡应用号'
+/
+comment on column rec_city_localcardconsume.tradecitycode is '交易地城市代码'
+/
+comment on column rec_city_localcardconsume.ownercitycode is '所属地城市代码'
+/
+comment on column rec_city_localcardconsume.maincardtype is '主卡类型'
+/
+comment on column rec_city_localcardconsume.assocardtype is '子卡类型'
+/
+comment on column rec_city_localcardconsume.cardversion is '卡内版本'
+/
+comment on column rec_city_localcardconsume.tradekind is '交易性质'
+/
+comment on column rec_city_localcardconsume.testflag is '测试标记'
+/
+comment on column rec_city_localcardconsume.operatorpoint is '营运单位编号'
+/
+comment on column rec_city_localcardconsume.collectpoint is '采集点编号'
+/
+comment on column rec_city_localcardconsume.accountdate is '结算日期'
+/
+comment on column rec_city_localcardconsume.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_city_localcardconsume.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_city_localcardconsume.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_city_localcardconsume.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_city_localcardconsume.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_city_localcardconsume.customerunitcode is '客户代码'
+/
+comment on column rec_city_localcardconsume.wallettype is '钱包类型  1电子钱包  2电子现金'
+/
+comment on column rec_city_localcardconsume.saveopcount is '充值计数'
+/
+comment on column rec_city_localcardconsume.settlementdate is '清算日期'
+/
+comment on column rec_city_localcardconsume.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_localcardconsume.filename is '文件名称'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_LOCALCARDCONSUME_CL" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" VARCHAR2(20), 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CASISERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIRERSERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIREDATE" DATE NOT NULL ENABLE, 
+	"SEARCHNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"TRADECODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"OPERATORFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"OPERATORCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"OWNERCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"ACCEPTCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"SPONSORCITYFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"MCC" VARCHAR2(4) NOT NULL ENABLE, 
+	"CHANNELTYPE" VARCHAR2(2) NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"BALANCETYPE" NUMBER(*,0) NOT NULL ENABLE, 
+	"ERRORCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(28), 
+	"CLTEXT" VARCHAR2(1000), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"POUNDAGE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MAKECARDFENRUN" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACQUIREFENRUN" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ADFILENAME" VARCHAR2(35), 
+	"ERRORDEALSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ADJUSTMENTTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ERRORTYPE" VARCHAR2(10) DEFAULT '0000' NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REASONCODE" VARCHAR2(10) DEFAULT '0000' NOT NULL ENABLE, 
+	 CONSTRAINT "PK_CITY_LOCALCARDCONSUME_CL" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_localcardconsume_cl is '互联互通本地卡异地消费记录（原始文件）'
+/
+comment on column rec_city_localcardconsume_cl.cstaccfc is '流水号'
+/
+comment on column rec_city_localcardconsume_cl.customerid is '账号'
+/
+comment on column rec_city_localcardconsume_cl.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_localcardconsume_cl.filename is '文件名称'
+/
+comment on column rec_city_localcardconsume_cl.accountdate is '清分结算机构清算日期'
+/
+comment on column rec_city_localcardconsume_cl.status is '0 未处理 1已处理'
+/
+comment on column rec_city_localcardconsume_cl.dealtype is '记录类型0：初始化状态  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_city_localcardconsume_cl.uploaddate is '上传时间'
+/
+comment on column rec_city_localcardconsume_cl.updatedate is ''
+/
+comment on column rec_city_localcardconsume_cl.wallettype is ''
+/
+comment on column rec_city_localcardconsume_cl.casiserialnum is '清分结算机构流水号'
+/
+comment on column rec_city_localcardconsume_cl.acquirerserialnum is '收单机构流水号'
+/
+comment on column rec_city_localcardconsume_cl.acquiredate is '收单机构受理日期'
+/
+comment on column rec_city_localcardconsume_cl.searchnumber is '检索参考号'
+/
+comment on column rec_city_localcardconsume_cl.tradecode is '交易代码'
+/
+comment on column rec_city_localcardconsume_cl.operatorflag is '收单机构标识码'
+/
+comment on column rec_city_localcardconsume_cl.operatorcode is '收单机构标代码'
+/
+comment on column rec_city_localcardconsume_cl.ownercitycode is '发卡地通卡公司代码'
+/
+comment on column rec_city_localcardconsume_cl.acceptcode is '接收清算机构代码 '
+/
+comment on column rec_city_localcardconsume_cl.sponsorcityflag is '发送机构标识码'
+/
+comment on column rec_city_localcardconsume_cl.mcc is ' mcc'
+/
+comment on column rec_city_localcardconsume_cl.channeltype is '渠道类型'
+/
+comment on column rec_city_localcardconsume_cl.cardno is '卡片序列号'
+/
+comment on column rec_city_localcardconsume_cl.opcount is '卡消费计数器'
+/
+comment on column rec_city_localcardconsume_cl.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_city_localcardconsume_cl.electronopfare is '交易金额'
+/
+comment on column rec_city_localcardconsume_cl.opdt is '交易日期'
+/
+comment on column rec_city_localcardconsume_cl.balancetype is '余额类型'
+/
+comment on column rec_city_localcardconsume_cl.errorcode is '错误代码'
+/
+comment on column rec_city_localcardconsume_cl.describe is '错误描述'
+/
+comment on column rec_city_localcardconsume_cl.testflag is '测试标志'
+/
+comment on column rec_city_localcardconsume_cl.extentvalue is '预留字段'
+/
+comment on column rec_city_localcardconsume_cl.cltext is '单个cl内容'
+/
+comment on column rec_city_localcardconsume_cl.customerunitcode is '客户代码'
+/
+comment on column rec_city_localcardconsume_cl.poundage is '手续费'
+/
+comment on column rec_city_localcardconsume_cl.makecardfenrun is '发卡分润'
+/
+comment on column rec_city_localcardconsume_cl.acquirefenrun is '收单分润'
+/
+comment on column rec_city_localcardconsume_cl.adfilename is '差错处理最终文件ad的文件名称'
+/
+comment on column rec_city_localcardconsume_cl.errordealstatus is '当前数据是否进行差错处理的状态 0处理状态 1正在进行差错处理'
+/
+comment on column rec_city_localcardconsume_cl.adjustmenttype is '调整类型 0初始状态 1贷方调整（发卡发付款） 2借方调整（发卡方收款）'
+/
+comment on column rec_city_localcardconsume_cl.errortype is '差错类型 0000初始状态 其他参考ed文件'
+/
+comment on column rec_city_localcardconsume_cl.ver is '进行差错处理的版本号'
+/
+comment on column rec_city_localcardconsume_cl.reasoncode is '原因码 0000初始状态 其他参考ed文件'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_LOCALCARDCONSUME_CQ" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" VARCHAR2(20) NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(12), 
+	"OWNERCITYCODE" VARCHAR2(12), 
+	"OPERATORPOINT" VARCHAR2(12), 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"APPKEY" VARCHAR2(20), 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"SETTLEMENTDATE" DATE NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"SEARCHNUMBER" VARCHAR2(12), 
+	"BUSINESSTYPE" VARCHAR2(4), 
+	"CARDASN" VARCHAR2(20), 
+	"TRADETYPE" VARCHAR2(2), 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"ORIGINALTRADE" VARCHAR2(23), 
+	"UNIONTERMID" VARCHAR2(20), 
+	"FILENAME" VARCHAR2(35), 
+	"CASISERIALNUMBER" VARCHAR2(15), 
+	"TRADETRANSDATE" VARCHAR2(10), 
+	"ERRORCODE" VARCHAR2(30), 
+	"DESCRIBE" VARCHAR2(200), 
+	 CONSTRAINT "PK_CITY_LOCALCARDCONSUME_CQ" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("UPLOADDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_city_localcardconsume_cq is '互联互通本地卡异地消费记录（原始文件）'
+/
+comment on column rec_city_localcardconsume_cq.cstaccfc is '流水号'
+/
+comment on column rec_city_localcardconsume_cq.customerid is '账号'
+/
+comment on column rec_city_localcardconsume_cq.cardno is '卡号'
+/
+comment on column rec_city_localcardconsume_cq.opdt is '交易时间'
+/
+comment on column rec_city_localcardconsume_cq.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_city_localcardconsume_cq.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_city_localcardconsume_cq.opcount is '卡操作计数'
+/
+comment on column rec_city_localcardconsume_cq.dealtype is '记录类型0：初始化状态  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_city_localcardconsume_cq.uploaddate is '上传时间'
+/
+comment on column rec_city_localcardconsume_cq.samcardno is 'sam卡号'
+/
+comment on column rec_city_localcardconsume_cq.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_city_localcardconsume_cq.tac is 'tac验证码'
+/
+comment on column rec_city_localcardconsume_cq.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_city_localcardconsume_cq.tradecitycode is '交易地城市代码'
+/
+comment on column rec_city_localcardconsume_cq.ownercitycode is '所属地城市代码'
+/
+comment on column rec_city_localcardconsume_cq.operatorpoint is '营运单位编号'
+/
+comment on column rec_city_localcardconsume_cq.accountdate is '结算日期'
+/
+comment on column rec_city_localcardconsume_cq.customerunitcode is '客户代码'
+/
+comment on column rec_city_localcardconsume_cq.wallettype is '钱包类型  1电子钱包  2电子现金'
+/
+comment on column rec_city_localcardconsume_cq.appkey is '应用密文'
+/
+comment on column rec_city_localcardconsume_cq.extentvalue is '预留字段'
+/
+comment on column rec_city_localcardconsume_cq.settlementdate is '清算日期'
+/
+comment on column rec_city_localcardconsume_cq.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_localcardconsume_cq.updatedate is '入一卡通账时间'
+/
+comment on column rec_city_localcardconsume_cq.searchnumber is '检索参考号'
+/
+comment on column rec_city_localcardconsume_cq.businesstype is '商户类型'
+/
+comment on column rec_city_localcardconsume_cq.cardasn is '卡片序列号'
+/
+comment on column rec_city_localcardconsume_cq.tradetype is '交易类型标识'
+/
+comment on column rec_city_localcardconsume_cq.status is '0 未处理 1已处理'
+/
+comment on column rec_city_localcardconsume_cq.originaltrade is '原始交易信息'
+/
+comment on column rec_city_localcardconsume_cq.uniontermid is '终端机编号'
+/
+comment on column rec_city_localcardconsume_cq.filename is '文件名'
+/
+comment on column rec_city_localcardconsume_cq.casiserialnumber is '清分机构交易流水号'
+/
+comment on column rec_city_localcardconsume_cq.tradetransdate is '交易传输时间'
+/
+comment on column rec_city_localcardconsume_cq.errorcode is '部里处理清算结果错误代码'
+/
+comment on column rec_city_localcardconsume_cq.describe is '部里处理清算结果描述'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_LOCALCARDCONSUME_FN" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CASISERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIRERSERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIREACCEPTDATE" DATE NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"SEARCHNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" VARCHAR2(20), 
+	"ERRORCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	"TRANSCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"ACQUIREFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"ACCEPTCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"ACQUIRECODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"COMPANYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"MCC" VARCHAR2(4) NOT NULL ENABLE, 
+	"CHANNELTYPE" VARCHAR2(2) NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"FNCONTENT" VARCHAR2(400) NOT NULL ENABLE, 
+	"RESERVEDDOMAIN" VARCHAR2(40) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_CITY_LOCALCARDCONSUME_FN" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_localcardconsume_fn is '互联互通本地卡已地消费记录（交通部下发清算结构原始文件fn）'
+/
+comment on column rec_city_localcardconsume_fn.cstaccfc is '流水号'
+/
+comment on column rec_city_localcardconsume_fn.casiserialnum is '清分结算机构流水号'
+/
+comment on column rec_city_localcardconsume_fn.acquirerserialnum is '收单机构流水号'
+/
+comment on column rec_city_localcardconsume_fn.acquireacceptdate is '收单机构受理日期'
+/
+comment on column rec_city_localcardconsume_fn.accountdate is '清分结算机构清算日期'
+/
+comment on column rec_city_localcardconsume_fn.searchnumber is '检索参考号'
+/
+comment on column rec_city_localcardconsume_fn.status is '0 未处理 1已处理'
+/
+comment on column rec_city_localcardconsume_fn.dealtype is '记录类型0：初始化状态  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_city_localcardconsume_fn.errorcode is '错误代码'
+/
+comment on column rec_city_localcardconsume_fn.describe is '错误描述'
+/
+comment on column rec_city_localcardconsume_fn.transcode is '交易代码'
+/
+comment on column rec_city_localcardconsume_fn.acquireflag is '收单机构标识码'
+/
+comment on column rec_city_localcardconsume_fn.acceptcode is '受理地机构代码'
+/
+comment on column rec_city_localcardconsume_fn.acquirecode is '接收清算机构代码'
+/
+comment on column rec_city_localcardconsume_fn.companycode is '发卡地机构代码'
+/
+comment on column rec_city_localcardconsume_fn.mcc is ' mcc'
+/
+comment on column rec_city_localcardconsume_fn.channeltype is '渠道类型'
+/
+comment on column rec_city_localcardconsume_fn.cardno is '卡片序列号'
+/
+comment on column rec_city_localcardconsume_fn.opcount is '卡消费计数器'
+/
+comment on column rec_city_localcardconsume_fn.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_city_localcardconsume_fn.electronopfare is '交易金额'
+/
+comment on column rec_city_localcardconsume_fn.opdt is '交易日期'
+/
+comment on column rec_city_localcardconsume_fn.wallettype is '钱包类型'
+/
+comment on column rec_city_localcardconsume_fn.testflag is '测试标志'
+/
+comment on column rec_city_localcardconsume_fn.uploaddate is '上传时间'
+/
+comment on column rec_city_localcardconsume_fn.updatedate is '入一卡通账时间'
+/
+comment on column rec_city_localcardconsume_fn.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_localcardconsume_fn.customerunitcode is '客户代码'
+/
+comment on column rec_city_localcardconsume_fn.filename is '文件名称'
+/
+comment on column rec_city_localcardconsume_fn.fncontent is '单个fb内容'
+/
+comment on column rec_city_localcardconsume_fn.reserveddomain is '预留字段'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_LOCALCARDCONSUME_MX" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"ERRORCODE" VARCHAR2(30), 
+	"DESCRIBE" VARCHAR2(200), 
+	"CUSTOMERID" NUMBER, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(12), 
+	"OWNERCITYCODE" VARCHAR2(12), 
+	"OPERATORPOINT" VARCHAR2(12), 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"SETTLEMENTDATE" DATE NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"SEARCHNUMBER" VARCHAR2(12), 
+	"BUSINESSTYPE" VARCHAR2(4), 
+	"CARDASN" NUMBER NOT NULL ENABLE, 
+	"TRADETYPE" VARCHAR2(2), 
+	"ORIGINALTRADE" VARCHAR2(23), 
+	"UNIONTERMID" VARCHAR2(20), 
+	"TRADECODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"RECEIVENUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"TRADECHANNEL" VARCHAR2(4) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35), 
+	 CONSTRAINT "PK_CITY_LOCALCARDCONSUME_MX" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_CITY_LOCALCARDCONSUME_MX" UNIQUE ("CARDNO", "OPCOUNT", "TRADERECNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_localcardconsume_mx is '互联互通本地卡异地消费记录（原始文件）'
+/
+comment on column rec_city_localcardconsume_mx.cstaccfc is '流水号'
+/
+comment on column rec_city_localcardconsume_mx.status is '0:原始状态 1:验证成功 2:验证失败'
+/
+comment on column rec_city_localcardconsume_mx.updatedate is '入一卡通账时间'
+/
+comment on column rec_city_localcardconsume_mx.errorcode is '错误代码'
+/
+comment on column rec_city_localcardconsume_mx.describe is '错误描述'
+/
+comment on column rec_city_localcardconsume_mx.customerid is '账号'
+/
+comment on column rec_city_localcardconsume_mx.cardno is '卡号'
+/
+comment on column rec_city_localcardconsume_mx.opdt is '交易时间'
+/
+comment on column rec_city_localcardconsume_mx.electronoddfare is '电子钱包交易前卡余额'
+/
+comment on column rec_city_localcardconsume_mx.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_city_localcardconsume_mx.opcount is '卡操作计数'
+/
+comment on column rec_city_localcardconsume_mx.uploaddate is '上传时间'
+/
+comment on column rec_city_localcardconsume_mx.samcardno is 'sam卡号'
+/
+comment on column rec_city_localcardconsume_mx.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_city_localcardconsume_mx.tac is 'tac验证码'
+/
+comment on column rec_city_localcardconsume_mx.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_city_localcardconsume_mx.tradecitycode is '交易地城市代码'
+/
+comment on column rec_city_localcardconsume_mx.ownercitycode is '所属地城市代码'
+/
+comment on column rec_city_localcardconsume_mx.operatorpoint is '营运单位编号'
+/
+comment on column rec_city_localcardconsume_mx.accountdate is '结算日期'
+/
+comment on column rec_city_localcardconsume_mx.customerunitcode is '客户代码'
+/
+comment on column rec_city_localcardconsume_mx.wallettype is '钱包类型  1电子钱包  2电子现金'
+/
+comment on column rec_city_localcardconsume_mx.settlementdate is '清算日期'
+/
+comment on column rec_city_localcardconsume_mx.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_localcardconsume_mx.searchnumber is '检索参考号'
+/
+comment on column rec_city_localcardconsume_mx.businesstype is '商户类型'
+/
+comment on column rec_city_localcardconsume_mx.cardasn is '卡片序列号'
+/
+comment on column rec_city_localcardconsume_mx.tradetype is '交易类型标识'
+/
+comment on column rec_city_localcardconsume_mx.originaltrade is '原始交易信息'
+/
+comment on column rec_city_localcardconsume_mx.uniontermid is '终端机编号'
+/
+comment on column rec_city_localcardconsume_mx.tradecode is '交易代码'
+/
+comment on column rec_city_localcardconsume_mx.receivenum is '收单机构流水号'
+/
+comment on column rec_city_localcardconsume_mx.tradechannel is '交易发起渠道'
+/
+comment on column rec_city_localcardconsume_mx.filename is '文件名'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_NOLOCALCARDCONSUME_FB" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CASISERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIRERSERIALNUM" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACQUIREACCEPTDATE" DATE NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"SEARCHNUMBER" VARCHAR2(12) NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" VARCHAR2(20), 
+	"ERRORCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"DESCRIBE" VARCHAR2(200) NOT NULL ENABLE, 
+	"TRANSCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"OPERATORFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"OWNERCITYCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MCC" VARCHAR2(4) NOT NULL ENABLE, 
+	"CHANNELTYPE" VARCHAR2(2) NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"FBCONTENT" VARCHAR2(400) NOT NULL ENABLE, 
+	"RESERVEDDOMAIN" VARCHAR2(40) NOT NULL ENABLE, 
+	"OPERATORCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"SENDERCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"POUNDAGE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MAKECARDFENRUN" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACQUIREFENRUN" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_CITY_NOLOCALCARDCONSUME_FB" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 109051904 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_nolocalcardconsume_fb is '互联互通异地卡本地消费记录（交通部下发原始文件）'
+/
+comment on column rec_city_nolocalcardconsume_fb.cstaccfc is '流水号'
+/
+comment on column rec_city_nolocalcardconsume_fb.casiserialnum is '清分结算机构流水号'
+/
+comment on column rec_city_nolocalcardconsume_fb.acquirerserialnum is '收单机构流水号'
+/
+comment on column rec_city_nolocalcardconsume_fb.acquireacceptdate is '收单机构受理日期'
+/
+comment on column rec_city_nolocalcardconsume_fb.accountdate is '清分结算机构清算日期'
+/
+comment on column rec_city_nolocalcardconsume_fb.searchnumber is '检索参考号'
+/
+comment on column rec_city_nolocalcardconsume_fb.status is '0 未处理 1已处理'
+/
+comment on column rec_city_nolocalcardconsume_fb.dealtype is '记录类型0：初始化状态  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_city_nolocalcardconsume_fb.errorcode is '错误代码'
+/
+comment on column rec_city_nolocalcardconsume_fb.describe is '错误描述'
+/
+comment on column rec_city_nolocalcardconsume_fb.transcode is '交易代码'
+/
+comment on column rec_city_nolocalcardconsume_fb.operatorflag is '收单机构标识码'
+/
+comment on column rec_city_nolocalcardconsume_fb.ownercitycode is '发卡地发卡机构代码'
+/
+comment on column rec_city_nolocalcardconsume_fb.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_city_nolocalcardconsume_fb.electronopfare is '交易金额'
+/
+comment on column rec_city_nolocalcardconsume_fb.mcc is ' mcc'
+/
+comment on column rec_city_nolocalcardconsume_fb.channeltype is '渠道类型'
+/
+comment on column rec_city_nolocalcardconsume_fb.cardno is '卡片序列号'
+/
+comment on column rec_city_nolocalcardconsume_fb.opcount is '卡消费计数器'
+/
+comment on column rec_city_nolocalcardconsume_fb.opdt is '交易日期'
+/
+comment on column rec_city_nolocalcardconsume_fb.wallettype is '钱包类型'
+/
+comment on column rec_city_nolocalcardconsume_fb.testflag is '测试标志'
+/
+comment on column rec_city_nolocalcardconsume_fb.uploaddate is '上传时间'
+/
+comment on column rec_city_nolocalcardconsume_fb.updatedate is '入一卡通账时间'
+/
+comment on column rec_city_nolocalcardconsume_fb.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_nolocalcardconsume_fb.customerunitcode is '客户代码'
+/
+comment on column rec_city_nolocalcardconsume_fb.filename is '文件名称'
+/
+comment on column rec_city_nolocalcardconsume_fb.fbcontent is '单个fb内容'
+/
+comment on column rec_city_nolocalcardconsume_fb.reserveddomain is '预留字段'
+/
+comment on column rec_city_nolocalcardconsume_fb.operatorcode is '收单机构代码'
+/
+comment on column rec_city_nolocalcardconsume_fb.sendercode is '发送机构代码'
+/
+comment on column rec_city_nolocalcardconsume_fb.poundage is '手续费'
+/
+comment on column rec_city_nolocalcardconsume_fb.makecardfenrun is '发卡分润'
+/
+comment on column rec_city_nolocalcardconsume_fb.acquirefenrun is '收单分润'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_NONLOCAL_OPCOUNT" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CARDASN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_NONLOCAL_OPCOUNT" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 262144 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_CITY_NONLOCAL_OPCOUNT" UNIQUE ("CARDASN", "OPCOUNT", "WALLETTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 983040 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 786432 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_nonlocal_opcount is '异地卡本地消费交易操作计数'
+/
+comment on column rec_city_nonlocal_opcount.cstaccfc is '流水号'
+/
+comment on column rec_city_nonlocal_opcount.cardasn is '卡应用序列号'
+/
+comment on column rec_city_nonlocal_opcount.opcount is '交易计数'
+/
+comment on column rec_city_nonlocal_opcount.customerunitcode is '客户代码'
+/
+comment on column rec_city_nonlocal_opcount.wallettype is '1电子钱包，4自发卡电子现金'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_NONLOCALCONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(100), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDASN" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(12), 
+	"OWNERCITYCODE" VARCHAR2(12), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(12) NOT NULL ENABLE, 
+	"COLLECTPOINT" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSINESSTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35), 
+	"FILECREATEDATE" DATE, 
+	"ACCOUNTDATE" DATE, 
+	"ERRORCODE" VARCHAR2(30), 
+	"ERRORDEALSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ADJUSTMENTTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ERRORTYPE" VARCHAR2(10) DEFAULT '0000' NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REASONCODE" VARCHAR2(10) DEFAULT '0000' NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CITY_NONLOCALCONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_CITY_NONLOCALCONSUME" UNIQUE ("CARDSN", "CARDASN", "OPCOUNT", "WALLETTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 327680 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_nonlocalconsume is '互联互通异地卡本地消费记录表（未清算）'
+/
+comment on column rec_city_nonlocalconsume.cstaccfc is '流水号'
+/
+comment on column rec_city_nonlocalconsume.customerid is '账号'
+/
+comment on column rec_city_nonlocalconsume.cardno is '卡号'
+/
+comment on column rec_city_nonlocalconsume.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_city_nonlocalconsume.wallettype is '钱包类型'
+/
+comment on column rec_city_nonlocalconsume.opdt is '交易时间'
+/
+comment on column rec_city_nonlocalconsume.oddfare is '卡余额（交易前）'
+/
+comment on column rec_city_nonlocalconsume.opfare is '交易金额'
+/
+comment on column rec_city_nonlocalconsume.acccode is '交易科目'
+/
+comment on column rec_city_nonlocalconsume.dscrp is '科目描述'
+/
+comment on column rec_city_nonlocalconsume.cardsn is '卡序号'
+/
+comment on column rec_city_nonlocalconsume.opcount is '卡操作计数（交易前）'
+/
+comment on column rec_city_nonlocalconsume.dealtype is '记录类型 1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_city_nonlocalconsume.collectdt is '采集时间'
+/
+comment on column rec_city_nonlocalconsume.uploaddate is '上传时间'
+/
+comment on column rec_city_nonlocalconsume.busid is '车辆id'
+/
+comment on column rec_city_nonlocalconsume.driverid is '司机id'
+/
+comment on column rec_city_nonlocalconsume.poscode is '设备运营唯一编号'
+/
+comment on column rec_city_nonlocalconsume.samcardno is 'sam卡号'
+/
+comment on column rec_city_nonlocalconsume.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_city_nonlocalconsume.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_city_nonlocalconsume.tac is 'tac验证码'
+/
+comment on column rec_city_nonlocalconsume.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_city_nonlocalconsume.buslineid is '线路编号'
+/
+comment on column rec_city_nonlocalconsume.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_city_nonlocalconsume.discount is '打折金额'
+/
+comment on column rec_city_nonlocalconsume.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_city_nonlocalconsume.linedept is '线路所属部门'
+/
+comment on column rec_city_nonlocalconsume.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_city_nonlocalconsume.cardasn is '卡应用序列号'
+/
+comment on column rec_city_nonlocalconsume.tradecitycode is '交易地城市代码'
+/
+comment on column rec_city_nonlocalconsume.ownercitycode is '所属地城市代码'
+/
+comment on column rec_city_nonlocalconsume.maincardtype is '主卡类型'
+/
+comment on column rec_city_nonlocalconsume.assocardtype is '子卡类型'
+/
+comment on column rec_city_nonlocalconsume.cardversion is '卡内版本'
+/
+comment on column rec_city_nonlocalconsume.tradekind is '交易性质'
+/
+comment on column rec_city_nonlocalconsume.testflag is '测试标记'
+/
+comment on column rec_city_nonlocalconsume.operatorpoint is '商户编号'
+/
+comment on column rec_city_nonlocalconsume.collectpoint is '采集点编号'
+/
+comment on column rec_city_nonlocalconsume.status is '0 未处理 1已处理'
+/
+comment on column rec_city_nonlocalconsume.businesstype is '交易应用类型 0：消费'
+/
+comment on column rec_city_nonlocalconsume.deptcode is '部门编号'
+/
+comment on column rec_city_nonlocalconsume.customerunitcode is '客户代码'
+/
+comment on column rec_city_nonlocalconsume.filename is '文件名称'
+/
+comment on column rec_city_nonlocalconsume.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_nonlocalconsume.accountdate is '数据清算日期'
+/
+comment on column rec_city_nonlocalconsume.errorcode is '交通部处理结果errorcode'
+/
+comment on column rec_city_nonlocalconsume.errordealstatus is '当前数据是否进行差错处理的状态 0处理状态 1正在进行差错处理'
+/
+comment on column rec_city_nonlocalconsume.adjustmenttype is '调整类型 0初始状态 1贷方调整（发卡发付款） 2借方调整（发卡方收款）'
+/
+comment on column rec_city_nonlocalconsume.errortype is '差错类型 0000初始状态 其他参考ed文件'
+/
+comment on column rec_city_nonlocalconsume.ver is '进行差错处理的版本号'
+/
+comment on column rec_city_nonlocalconsume.reasoncode is '原因码 0000初始状态 其他参考ed文件'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_NONLOCALINACCURATE" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDASN" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(12), 
+	"OWNERCITYCODE" VARCHAR2(12), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(12) NOT NULL ENABLE, 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"TRANSSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSINESSTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"BADTYPE" NUMBER(*,0), 
+	"OPDATE" VARCHAR2(8), 
+	"OPTIME" VARCHAR2(6), 
+	 CONSTRAINT "PK_REC_CITY_NONLOCALINACCURATE" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_nonlocalinaccurate is '互联互通异地卡消费记录表'
+/
+comment on column rec_city_nonlocalinaccurate.cstaccfc is '流水号'
+/
+comment on column rec_city_nonlocalinaccurate.customerid is '账号'
+/
+comment on column rec_city_nonlocalinaccurate.cardno is '卡号'
+/
+comment on column rec_city_nonlocalinaccurate.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_city_nonlocalinaccurate.wallettype is '钱包类型'
+/
+comment on column rec_city_nonlocalinaccurate.opdt is '交易时间'
+/
+comment on column rec_city_nonlocalinaccurate.oddfare is '卡余额（交易后）'
+/
+comment on column rec_city_nonlocalinaccurate.opfare is '交易金额'
+/
+comment on column rec_city_nonlocalinaccurate.acccode is ''
+/
+comment on column rec_city_nonlocalinaccurate.dscrp is '科目描述'
+/
+comment on column rec_city_nonlocalinaccurate.cardsn is '卡序号'
+/
+comment on column rec_city_nonlocalinaccurate.opcount is '卡操作计数（交易后）'
+/
+comment on column rec_city_nonlocalinaccurate.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_city_nonlocalinaccurate.collectdt is '采集时间'
+/
+comment on column rec_city_nonlocalinaccurate.uploaddate is '上传时间'
+/
+comment on column rec_city_nonlocalinaccurate.busid is '车辆id'
+/
+comment on column rec_city_nonlocalinaccurate.driverid is '司机id'
+/
+comment on column rec_city_nonlocalinaccurate.poscode is '设备运营唯一编号'
+/
+comment on column rec_city_nonlocalinaccurate.samcardno is 'sam卡号'
+/
+comment on column rec_city_nonlocalinaccurate.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_city_nonlocalinaccurate.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_city_nonlocalinaccurate.tac is 'tac验证码'
+/
+comment on column rec_city_nonlocalinaccurate.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_city_nonlocalinaccurate.buslineid is '线路编号'
+/
+comment on column rec_city_nonlocalinaccurate.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_city_nonlocalinaccurate.discount is '打折金额'
+/
+comment on column rec_city_nonlocalinaccurate.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_city_nonlocalinaccurate.linedept is '线路所属部门'
+/
+comment on column rec_city_nonlocalinaccurate.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_city_nonlocalinaccurate.cardasn is '卡应用序列号'
+/
+comment on column rec_city_nonlocalinaccurate.tradecitycode is '交易地城市代码'
+/
+comment on column rec_city_nonlocalinaccurate.ownercitycode is '所属地城市代码'
+/
+comment on column rec_city_nonlocalinaccurate.maincardtype is '主卡类型'
+/
+comment on column rec_city_nonlocalinaccurate.assocardtype is '子卡类型'
+/
+comment on column rec_city_nonlocalinaccurate.cardversion is '卡内版本'
+/
+comment on column rec_city_nonlocalinaccurate.tradekind is '交易性质'
+/
+comment on column rec_city_nonlocalinaccurate.testflag is '测试标记'
+/
+comment on column rec_city_nonlocalinaccurate.operatorpoint is '商户编号'
+/
+comment on column rec_city_nonlocalinaccurate.collectpoint is '采集点编号'
+/
+comment on column rec_city_nonlocalinaccurate.transstatus is '对账上传标识，0初始状态，1已对账'
+/
+comment on column rec_city_nonlocalinaccurate.businesstype is '交易应用类型 0：消费'
+/
+comment on column rec_city_nonlocalinaccurate.deptcode is '部门编号'
+/
+comment on column rec_city_nonlocalinaccurate.customerunitcode is '客户代码'
+/
+comment on column rec_city_nonlocalinaccurate.badtype is '坏账类型'
+/
+comment on column rec_city_nonlocalinaccurate.opdate is '交易日期'
+/
+comment on column rec_city_nonlocalinaccurate.optime is '交易时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_NONLOCALRETURNINFO" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"TRANSFERDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"RESULTCODE" VARCHAR2(20), 
+	"RESULTINFO" VARCHAR2(100), 
+	"RESULTCONTENT" VARCHAR2(1000), 
+	"WALLETTYPE" NUMBER, 
+	"ACQUIREACCEPTDATE" DATE, 
+	"MAKECARDCODE" VARCHAR2(8), 
+	"FILENAME" VARCHAR2(35), 
+	 CONSTRAINT "PK_REC_CITY_NONLOCALRETURNINFO" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_nonlocalreturninfo is '互联互通异地卡消费清算信息记录表'
+/
+comment on column rec_city_nonlocalreturninfo.cstaccfc is '流水号'
+/
+comment on column rec_city_nonlocalreturninfo.localcstaccfc is '原始记录流水号'
+/
+comment on column rec_city_nonlocalreturninfo.cardno is '卡号'
+/
+comment on column rec_city_nonlocalreturninfo.opdt is '交易时间'
+/
+comment on column rec_city_nonlocalreturninfo.oddfare is '卡余额（交易后）'
+/
+comment on column rec_city_nonlocalreturninfo.opfare is '交易金额'
+/
+comment on column rec_city_nonlocalreturninfo.acccode is '科目代码'
+/
+comment on column rec_city_nonlocalreturninfo.dscrp is '科目描述'
+/
+comment on column rec_city_nonlocalreturninfo.opcount is '卡操作计数（交易后）'
+/
+comment on column rec_city_nonlocalreturninfo.customerunitcode is '客户代码'
+/
+comment on column rec_city_nonlocalreturninfo.accountdate is '清算日期'
+/
+comment on column rec_city_nonlocalreturninfo.transferdate is '转储日期'
+/
+comment on column rec_city_nonlocalreturninfo.resultcode is '返回结果码'
+/
+comment on column rec_city_nonlocalreturninfo.resultinfo is '返回结果信息'
+/
+comment on column rec_city_nonlocalreturninfo.resultcontent is '返回原始报文'
+/
+comment on column rec_city_nonlocalreturninfo.wallettype is '钱包类型'
+/
+comment on column rec_city_nonlocalreturninfo.acquireacceptdate is '收单机构受理日期'
+/
+comment on column rec_city_nonlocalreturninfo.makecardcode is '发卡地发卡机构代码'
+/
+comment on column rec_city_nonlocalreturninfo.filename is '文件名'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_NONLOCALSUCCESS" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER NOT NULL ENABLE, 
+	"TAC" NUMBER NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER NOT NULL ENABLE, 
+	"CARDASN" NUMBER(20,0) NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(12), 
+	"OWNERCITYCODE" VARCHAR2(12), 
+	"MAINCARDTYPE" NUMBER NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(12) NOT NULL ENABLE, 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"TRANSSTATUS" NUMBER NOT NULL ENABLE, 
+	"BUSINESSTYPE" NUMBER NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"TRANSFERDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35), 
+	 CONSTRAINT "PK_REC_CITY_NONLOCALSUCCESS" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_CITY_NONLOCALSUCCESS" UNIQUE ("CARDASN", "OPCOUNT", "WALLETTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_nonlocalsuccess is '互联互通异地卡本地消费清算成功记录表'
+/
+comment on column rec_city_nonlocalsuccess.cstaccfc is '流水号'
+/
+comment on column rec_city_nonlocalsuccess.customerid is '账号'
+/
+comment on column rec_city_nonlocalsuccess.cardno is '卡号'
+/
+comment on column rec_city_nonlocalsuccess.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_city_nonlocalsuccess.wallettype is '钱包类型'
+/
+comment on column rec_city_nonlocalsuccess.opdt is '交易时间'
+/
+comment on column rec_city_nonlocalsuccess.oddfare is '卡余额（交易后）'
+/
+comment on column rec_city_nonlocalsuccess.opfare is '交易金额'
+/
+comment on column rec_city_nonlocalsuccess.acccode is '交易科目'
+/
+comment on column rec_city_nonlocalsuccess.dscrp is '科目描述'
+/
+comment on column rec_city_nonlocalsuccess.cardsn is '卡序号'
+/
+comment on column rec_city_nonlocalsuccess.opcount is '卡操作计数（交易后）'
+/
+comment on column rec_city_nonlocalsuccess.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_city_nonlocalsuccess.collectdt is '采集时间'
+/
+comment on column rec_city_nonlocalsuccess.uploaddate is '上传时间'
+/
+comment on column rec_city_nonlocalsuccess.busid is '车辆id'
+/
+comment on column rec_city_nonlocalsuccess.driverid is '司机id'
+/
+comment on column rec_city_nonlocalsuccess.poscode is '设备运营唯一编号'
+/
+comment on column rec_city_nonlocalsuccess.samcardno is 'sam卡号'
+/
+comment on column rec_city_nonlocalsuccess.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_city_nonlocalsuccess.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_city_nonlocalsuccess.tac is 'tac验证码'
+/
+comment on column rec_city_nonlocalsuccess.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_city_nonlocalsuccess.buslineid is '线路编号'
+/
+comment on column rec_city_nonlocalsuccess.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_city_nonlocalsuccess.discount is '打折金额'
+/
+comment on column rec_city_nonlocalsuccess.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_city_nonlocalsuccess.linedept is '线路所属部门'
+/
+comment on column rec_city_nonlocalsuccess.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_city_nonlocalsuccess.cardasn is '卡应用序列号'
+/
+comment on column rec_city_nonlocalsuccess.tradecitycode is '交易地城市代码'
+/
+comment on column rec_city_nonlocalsuccess.ownercitycode is '所属地城市代码'
+/
+comment on column rec_city_nonlocalsuccess.maincardtype is '主卡类型'
+/
+comment on column rec_city_nonlocalsuccess.assocardtype is '子卡类型'
+/
+comment on column rec_city_nonlocalsuccess.cardversion is '卡内版本'
+/
+comment on column rec_city_nonlocalsuccess.tradekind is '交易性质'
+/
+comment on column rec_city_nonlocalsuccess.testflag is '测试标记'
+/
+comment on column rec_city_nonlocalsuccess.operatorpoint is '商户编号'
+/
+comment on column rec_city_nonlocalsuccess.collectpoint is '采集点编号'
+/
+comment on column rec_city_nonlocalsuccess.transstatus is '对账上传标识，0初始状态，1已对账'
+/
+comment on column rec_city_nonlocalsuccess.businesstype is '交易应用类型 0：消费'
+/
+comment on column rec_city_nonlocalsuccess.deptcode is '部门编号'
+/
+comment on column rec_city_nonlocalsuccess.customerunitcode is '客户代码'
+/
+comment on column rec_city_nonlocalsuccess.accountdate is '结算日期'
+/
+comment on column rec_city_nonlocalsuccess.transferdate is '转储日期'
+/
+comment on column rec_city_nonlocalsuccess.filecreatedate is '文件创建日期'
+/
+comment on column rec_city_nonlocalsuccess.filename is '文件名'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_SAFELIST" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"MAKECARDCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"CARDIIN" VARCHAR2(10), 
+	"VER" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_REC_CITY_SAFELIST" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_CITY_SAFELIST" UNIQUE ("MAKECARDCODE", "CARDIIN")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_safelist is ''
+/
+comment on column rec_city_safelist.id is '自增长id'
+/
+comment on column rec_city_safelist.makecardcode is '发卡机构代码'
+/
+comment on column rec_city_safelist.cardiin is '卡iin'
+/
+comment on column rec_city_safelist.ver is '版本号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CITY_SAFELISTDISCOUNT" 
+   (	"CITYNAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"MAKECARDCODE" VARCHAR2(8) NOT NULL ENABLE, 
+	"RATE" NUMBER DEFAULT 100 NOT NULL ENABLE, 
+	"ISUSE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_city_safelistdiscount is ''
+/
+comment on column rec_city_safelistdiscount.cityname is '发卡城市名称'
+/
+comment on column rec_city_safelistdiscount.makecardcode is '发卡机构代码'
+/
+comment on column rec_city_safelistdiscount.rate is '打折率（100不打折，0免费，90：9折）'
+/
+comment on column rec_city_safelistdiscount.isuse is '是否启用'
+/
+comment on column rec_city_safelistdiscount.ver is '版本'
+/
+comment on column rec_city_safelistdiscount.customerunitcode is '客户法人'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_COIN_ACC" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"BUSNO" VARCHAR2(5) NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"RECORDEMPID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"AUDITINGID" NUMBER NOT NULL ENABLE, 
+	"AUDITINGDT" DATE NOT NULL ENABLE, 
+	"TAC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_COIN_ACC" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 393216 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_coin_acc is '投币收入明细记录表'
+/
+comment on column rec_coin_acc.cstaccfc is '流水号'
+/
+comment on column rec_coin_acc.buslineid is '路线编号'
+/
+comment on column rec_coin_acc.busno is '车辆编号'
+/
+comment on column rec_coin_acc.driverid is '司机编号'
+/
+comment on column rec_coin_acc.recordempid is '录入员id'
+/
+comment on column rec_coin_acc.opdt is '交易日期'
+/
+comment on column rec_coin_acc.opfare is '投币收入金额'
+/
+comment on column rec_coin_acc.deptcode is '线路部门'
+/
+comment on column rec_coin_acc.collectdt is '记录录入时间'
+/
+comment on column rec_coin_acc.auditingid is '审核员id'
+/
+comment on column rec_coin_acc.auditingdt is '审核通过时间'
+/
+comment on column rec_coin_acc.tac is 'tac'
+/
+comment on column rec_coin_acc.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_COIN_ACC_DELLOG" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"BUSNO" VARCHAR2(5) NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"COLLECTEMPID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"COLLECTDT" DATE NOT NULL ENABLE, 
+	"STATUS" NUMBER NOT NULL ENABLE, 
+	"TAC" NUMBER NOT NULL ENABLE, 
+	"DELETEDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_COIN_ACC_DELLOG" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_coin_acc_dellog is '投币收入录入删除信息表'
+/
+comment on column rec_coin_acc_dellog.cstaccfc is '流水号'
+/
+comment on column rec_coin_acc_dellog.buslineid is '路线编号'
+/
+comment on column rec_coin_acc_dellog.busno is '车辆编号'
+/
+comment on column rec_coin_acc_dellog.driverid is '司机编号'
+/
+comment on column rec_coin_acc_dellog.collectempid is '录入员id'
+/
+comment on column rec_coin_acc_dellog.opdt is '交易日期'
+/
+comment on column rec_coin_acc_dellog.opfare is '投币收入金额'
+/
+comment on column rec_coin_acc_dellog.deptcode is '线路部门'
+/
+comment on column rec_coin_acc_dellog.collectdt is '录入日期'
+/
+comment on column rec_coin_acc_dellog.status is '记录状态 0：初始录入状态 1：审核未通过状态，允许录入员修改'
+/
+comment on column rec_coin_acc_dellog.tac is '软tac码'
+/
+comment on column rec_coin_acc_dellog.deletedt is '删除时间'
+/
+comment on column rec_coin_acc_dellog.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_COIN_ACC_PRE" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"BUSNO" VARCHAR2(5) NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"COLLECTEMPID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"STATUS" NUMBER NOT NULL ENABLE, 
+	"TAC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_COIN_ACC_PRE" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_coin_acc_pre is '投币收入录入原始信息表'
+/
+comment on column rec_coin_acc_pre.cstaccfc is '流水号'
+/
+comment on column rec_coin_acc_pre.buslineid is '路线编号'
+/
+comment on column rec_coin_acc_pre.busno is '车辆编号'
+/
+comment on column rec_coin_acc_pre.driverid is '司机编号'
+/
+comment on column rec_coin_acc_pre.collectempid is '录入员id'
+/
+comment on column rec_coin_acc_pre.opdt is '交易日期'
+/
+comment on column rec_coin_acc_pre.opfare is '投币收入金额'
+/
+comment on column rec_coin_acc_pre.deptcode is '线路部门'
+/
+comment on column rec_coin_acc_pre.collectdt is '录入日期'
+/
+comment on column rec_coin_acc_pre.status is '记录状态 0：初始录入状态 1：审核未通过状态，允许录入员修改'
+/
+comment on column rec_coin_acc_pre.tac is '软tac码'
+/
+comment on column rec_coin_acc_pre.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CONSUMEACC_BAD" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER, 
+	"CARDTYPE" NUMBER, 
+	"OPDT" DATE, 
+	"SUMFARE" NUMBER(10,2), 
+	"ODDFARE" NUMBER(10,2), 
+	"OPFARE" NUMBER(10,2), 
+	"ACCCODE" NUMBER, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER, 
+	"OPCOUNT" NUMBER, 
+	"DEALTYPE" NUMBER, 
+	"COLLECTDT" DATE DEFAULT SYSDATE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE, 
+	"BUSID" NUMBER, 
+	"DRIVERID" NUMBER, 
+	"STAG_BAN" NUMBER, 
+	"POSCODE" NUMBER, 
+	"SAMCARDNO" NUMBER, 
+	"CARDKIND" NUMBER, 
+	"TRADERECNO" NUMBER, 
+	"TAC" NUMBER, 
+	"SAMTRADENO" NUMBER, 
+	"WALLETTYPE" NUMBER, 
+	"BADTYPE" NUMBER, 
+	"BUSLINEID" NUMBER, 
+	"LINEDEPTCODE" VARCHAR2(20), 
+	"TOTALRECNO" NUMBER, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"CARDASN" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_consumeacc_bad is '消费明细坏账表'
+/
+comment on column rec_consumeacc_bad.cstaccfc is '流水号'
+/
+comment on column rec_consumeacc_bad.customerid is '账号'
+/
+comment on column rec_consumeacc_bad.cardno is '卡号'
+/
+comment on column rec_consumeacc_bad.cardtype is '当前卡卡类别,普通卡或者老年卡等等'
+/
+comment on column rec_consumeacc_bad.opdt is '交易时间'
+/
+comment on column rec_consumeacc_bad.sumfare is '卡总额，根据钱包类型判断钱包'
+/
+comment on column rec_consumeacc_bad.oddfare is '卡余额，根据钱包类型判断钱包'
+/
+comment on column rec_consumeacc_bad.opfare is '交易金额'
+/
+comment on column rec_consumeacc_bad.acccode is '交易科目'
+/
+comment on column rec_consumeacc_bad.dscrp is '科目描述'
+/
+comment on column rec_consumeacc_bad.cardsn is '卡序号'
+/
+comment on column rec_consumeacc_bad.opcount is '卡操作计数'
+/
+comment on column rec_consumeacc_bad.dealtype is '交易记录类型'
+/
+comment on column rec_consumeacc_bad.collectdt is '采集时间'
+/
+comment on column rec_consumeacc_bad.uploaddate is '上传时间'
+/
+comment on column rec_consumeacc_bad.busid is '车辆id'
+/
+comment on column rec_consumeacc_bad.driverid is '司机id'
+/
+comment on column rec_consumeacc_bad.stag_ban is '统计标识'
+/
+comment on column rec_consumeacc_bad.poscode is '设备运营唯一编号'
+/
+comment on column rec_consumeacc_bad.samcardno is 'sam卡号'
+/
+comment on column rec_consumeacc_bad.cardkind is '交易卡类型 1m1卡， 2  cpu卡'
+/
+comment on column rec_consumeacc_bad.traderecno is 'pos交易流水号'
+/
+comment on column rec_consumeacc_bad.tac is 'tac验证码'
+/
+comment on column rec_consumeacc_bad.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_consumeacc_bad.wallettype is '钱包类型 1电子钱包 2 月票 3次卡'
+/
+comment on column rec_consumeacc_bad.badtype is '坏账类型'
+/
+comment on column rec_consumeacc_bad.buslineid is '线路id'
+/
+comment on column rec_consumeacc_bad.linedeptcode is '线路所属部门'
+/
+comment on column rec_consumeacc_bad.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_consumeacc_bad.tradetype is '交易应用类型'
+/
+comment on column rec_consumeacc_bad.discount is '折折费用'
+/
+comment on column rec_consumeacc_bad.cardasn is '卡应用号'
+/
+comment on column rec_consumeacc_bad.tradecitycode is '交易地城市代码'
+/
+comment on column rec_consumeacc_bad.ownercitycode is '所属地城市代码'
+/
+comment on column rec_consumeacc_bad.maincardtype is '主卡类型'
+/
+comment on column rec_consumeacc_bad.assocardtype is '子卡类型'
+/
+comment on column rec_consumeacc_bad.cardversion is '卡内版本'
+/
+comment on column rec_consumeacc_bad.tradekind is '交易性质'
+/
+comment on column rec_consumeacc_bad.testflag is '测试标记'
+/
+comment on column rec_consumeacc_bad.operatorpoint is '营运单位编号'
+/
+comment on column rec_consumeacc_bad.collectpoint is '采集点编号'
+/
+comment on column rec_consumeacc_bad.customerunitcode is '客户代码'
+/
+comment on column rec_consumeacc_bad.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_consumeacc_bad.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_consumeacc_bad.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_consumeacc_bad.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_consumeacc_bad.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_consumeacc_bad.status is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CONSUMEACC_BAD_REPEAT" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER, 
+	"CARDTYPE" NUMBER, 
+	"OPDT" DATE, 
+	"SUMFARE" NUMBER(10,2), 
+	"ODDFARE" NUMBER(10,2), 
+	"OPFARE" NUMBER(10,2), 
+	"ACCCODE" NUMBER, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER, 
+	"OPCOUNT" NUMBER, 
+	"DEALTYPE" NUMBER, 
+	"COLLECTDT" DATE DEFAULT SYSDATE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE, 
+	"BUSID" NUMBER, 
+	"DRIVERID" NUMBER, 
+	"STAG_BAN" NUMBER, 
+	"POSCODE" NUMBER, 
+	"SAMCARDNO" NUMBER, 
+	"CARDKIND" NUMBER, 
+	"TRADERECNO" NUMBER, 
+	"TAC" NUMBER, 
+	"SAMTRADENO" NUMBER, 
+	"WALLETTYPE" NUMBER, 
+	"BADTYPE" NUMBER, 
+	"BUSLINEID" NUMBER, 
+	"LINEDEPTCODE" VARCHAR2(20), 
+	"TOTALRECNO" NUMBER, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"CARDASN" NUMBER, 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER, 
+	"TRADEKIND" NUMBER, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 262144 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_consumeacc_bad_repeat is '消费明细重复上传表'
+/
+comment on column rec_consumeacc_bad_repeat.cstaccfc is '流水号'
+/
+comment on column rec_consumeacc_bad_repeat.customerid is '账号'
+/
+comment on column rec_consumeacc_bad_repeat.cardno is '卡号'
+/
+comment on column rec_consumeacc_bad_repeat.cardtype is '当前卡卡类别,普通卡或者老年卡等等'
+/
+comment on column rec_consumeacc_bad_repeat.opdt is '交易时间'
+/
+comment on column rec_consumeacc_bad_repeat.sumfare is '卡总额，根据钱包类型判断钱包'
+/
+comment on column rec_consumeacc_bad_repeat.oddfare is '卡余额，根据钱包类型判断钱包'
+/
+comment on column rec_consumeacc_bad_repeat.opfare is '交易金额'
+/
+comment on column rec_consumeacc_bad_repeat.acccode is '交易科目'
+/
+comment on column rec_consumeacc_bad_repeat.dscrp is '科目描述'
+/
+comment on column rec_consumeacc_bad_repeat.cardsn is '卡序号'
+/
+comment on column rec_consumeacc_bad_repeat.opcount is '卡操作计数'
+/
+comment on column rec_consumeacc_bad_repeat.dealtype is '交易记录类型'
+/
+comment on column rec_consumeacc_bad_repeat.collectdt is '采集时间'
+/
+comment on column rec_consumeacc_bad_repeat.uploaddate is '上传时间'
+/
+comment on column rec_consumeacc_bad_repeat.busid is '车辆id'
+/
+comment on column rec_consumeacc_bad_repeat.driverid is '司机id'
+/
+comment on column rec_consumeacc_bad_repeat.stag_ban is '统计标识'
+/
+comment on column rec_consumeacc_bad_repeat.poscode is '设备运营唯一编号'
+/
+comment on column rec_consumeacc_bad_repeat.samcardno is 'sam卡号'
+/
+comment on column rec_consumeacc_bad_repeat.cardkind is '交易卡类型 1m1卡， 2  cpu卡'
+/
+comment on column rec_consumeacc_bad_repeat.traderecno is 'pos交易流水号'
+/
+comment on column rec_consumeacc_bad_repeat.tac is 'tac验证码'
+/
+comment on column rec_consumeacc_bad_repeat.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_consumeacc_bad_repeat.wallettype is '钱包类型 1电子钱包 2 月票'
+/
+comment on column rec_consumeacc_bad_repeat.badtype is '坏账类型'
+/
+comment on column rec_consumeacc_bad_repeat.buslineid is '线路id'
+/
+comment on column rec_consumeacc_bad_repeat.linedeptcode is '线路所属部门'
+/
+comment on column rec_consumeacc_bad_repeat.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_consumeacc_bad_repeat.tradetype is '交易应用类型'
+/
+comment on column rec_consumeacc_bad_repeat.discount is '折折费用'
+/
+comment on column rec_consumeacc_bad_repeat.tradecitycode is '交易地城市代码'
+/
+comment on column rec_consumeacc_bad_repeat.cardasn is '卡应用序列号'
+/
+comment on column rec_consumeacc_bad_repeat.ownercitycode is '所属地城市代码'
+/
+comment on column rec_consumeacc_bad_repeat.maincardtype is '主卡类型'
+/
+comment on column rec_consumeacc_bad_repeat.assocardtype is '子卡类型'
+/
+comment on column rec_consumeacc_bad_repeat.cardversion is '卡内版本'
+/
+comment on column rec_consumeacc_bad_repeat.tradekind is '交易性质'
+/
+comment on column rec_consumeacc_bad_repeat.testflag is '测试标记'
+/
+comment on column rec_consumeacc_bad_repeat.operatorpoint is '营运单位编号'
+/
+comment on column rec_consumeacc_bad_repeat.collectpoint is '采集点编号'
+/
+comment on column rec_consumeacc_bad_repeat.customerunitcode is '客户代码'
+/
+comment on column rec_consumeacc_bad_repeat.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_consumeacc_bad_repeat.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_consumeacc_bad_repeat.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_consumeacc_bad_repeat.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_consumeacc_bad_repeat.downstopid is '分段计费-下车站点编号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CUST_CARDTYPE_CHANGE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER, 
+	"CARDNO" NUMBER, 
+	"CARDSN" NUMBER, 
+	"EMPID" NUMBER, 
+	"OPDT" DATE, 
+	"OPDESC" VARCHAR2(100), 
+	"ACCCODE" NUMBER, 
+	"ACCDESC" VARCHAR2(30), 
+	"PSAMCARDNO" NUMBER, 
+	"OLDCARDTYPE" NUMBER, 
+	"NEWCARDTYPE" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"OLDYEARCHECKS" NUMBER(*,0), 
+	"OLDCHECKBEGINDAY" DATE, 
+	"OLDCHECKENDDAY" DATE, 
+	"NEWYEARCHECKS" NUMBER(*,0), 
+	"NEWCHECKBEGINDAY" DATE, 
+	"NEWCHECKENDDAY" DATE, 
+	 CONSTRAINT "PK_REC_CUST_CARDTYPE_CHANGE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cust_cardtype_change is '卡类型转换明细'
+/
+comment on column rec_cust_cardtype_change.id is '编号'
+/
+comment on column rec_cust_cardtype_change.customerid is '账号'
+/
+comment on column rec_cust_cardtype_change.cardno is '卡号'
+/
+comment on column rec_cust_cardtype_change.cardsn is '卡序号'
+/
+comment on column rec_cust_cardtype_change.empid is '职员编号'
+/
+comment on column rec_cust_cardtype_change.opdt is '操作日期'
+/
+comment on column rec_cust_cardtype_change.opdesc is '操作描述'
+/
+comment on column rec_cust_cardtype_change.acccode is '科目代码'
+/
+comment on column rec_cust_cardtype_change.accdesc is '科目描述'
+/
+comment on column rec_cust_cardtype_change.psamcardno is 'psam卡号'
+/
+comment on column rec_cust_cardtype_change.oldcardtype is '老卡类型'
+/
+comment on column rec_cust_cardtype_change.newcardtype is '新卡类型'
+/
+comment on column rec_cust_cardtype_change.customerunitcode is '客户代码'
+/
+comment on column rec_cust_cardtype_change.oldyearchecks is '原卡类型 是否年检'
+/
+comment on column rec_cust_cardtype_change.oldcheckbeginday is '原年检开始时间'
+/
+comment on column rec_cust_cardtype_change.oldcheckendday is '原年检结束时间'
+/
+comment on column rec_cust_cardtype_change.newyearchecks is '新卡类型 是否年检'
+/
+comment on column rec_cust_cardtype_change.newcheckbeginday is '新卡类型 年检开始时间'
+/
+comment on column rec_cust_cardtype_change.newcheckendday is '新卡类型 年检结束时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_CUST_YEAR_CHECK" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"STARTCHECKDATE" DATE NOT NULL ENABLE, 
+	"ENDCHECKDATE" DATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPDESC" VARCHAR2(100) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"ACCDESC" VARCHAR2(30) NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"STARTCHECKDATEPRE" DATE NOT NULL ENABLE, 
+	"ENDCHECKDATEPRE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_CUST_YEAR_CHECK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_cust_year_check is '年检明细'
+/
+comment on column rec_cust_year_check.id is '编号'
+/
+comment on column rec_cust_year_check.customerid is '账号'
+/
+comment on column rec_cust_year_check.cardno is '卡号'
+/
+comment on column rec_cust_year_check.cardsn is '卡序号'
+/
+comment on column rec_cust_year_check.startcheckdate is '年检后卡上开始年检时间'
+/
+comment on column rec_cust_year_check.endcheckdate is '年检后卡上结束年检时间'
+/
+comment on column rec_cust_year_check.empid is '操作职员'
+/
+comment on column rec_cust_year_check.opdt is '操作时间'
+/
+comment on column rec_cust_year_check.opdesc is '操作描述'
+/
+comment on column rec_cust_year_check.acccode is '操作科目'
+/
+comment on column rec_cust_year_check.accdesc is '操作描述'
+/
+comment on column rec_cust_year_check.psamcardno is 'psam卡号'
+/
+comment on column rec_cust_year_check.startcheckdatepre is '年检前卡上开始年检时间'
+/
+comment on column rec_cust_year_check.endcheckdatepre is '年检后卡上结束年检时间'
+/
+comment on column rec_cust_year_check.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_DRIVECARD_RECORD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"DRIVERCARDNO" NUMBER NOT NULL ENABLE, 
+	"DRIVERCARDSN" NUMBER NOT NULL ENABLE, 
+	"OPTYPE" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"COLLECTDT" DATE NOT NULL ENABLE, 
+	"UPLOADDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"POSRECNO" NUMBER, 
+	"CARDASN" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_drivecard_record is '司机卡刷卡日志'
+/
+comment on column rec_drivecard_record.id is '编号'
+/
+comment on column rec_drivecard_record.driverid is '司机编号'
+/
+comment on column rec_drivecard_record.poscode is ''
+/
+comment on column rec_drivecard_record.drivercardno is '司机卡号'
+/
+comment on column rec_drivecard_record.drivercardsn is '司机卡序号'
+/
+comment on column rec_drivecard_record.optype is '操作类型  1：签到；0：签退'
+/
+comment on column rec_drivecard_record.buslineid is '线路编号'
+/
+comment on column rec_drivecard_record.busid is '车辆编号'
+/
+comment on column rec_drivecard_record.opdt is '交易时间'
+/
+comment on column rec_drivecard_record.deptcode is '分公司'
+/
+comment on column rec_drivecard_record.collectdt is '采集时间'
+/
+comment on column rec_drivecard_record.uploaddt is '上传时间'
+/
+comment on column rec_drivecard_record.posrecno is 'pos记录编号'
+/
+comment on column rec_drivecard_record.cardasn is '卡应用号'
+/
+comment on column rec_drivecard_record.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_DRIVECARD_SUMFARE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"CHECKSTARTDT" DATE NOT NULL ENABLE, 
+	"CHECKENDDT" DATE NOT NULL ENABLE, 
+	"SUMNO" NUMBER(10,2) NOT NULL ENABLE, 
+	"SUMFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"RECNO" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"TAC" VARCHAR2(12) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"UPLOADDT" DATE NOT NULL ENABLE, 
+	"COLLECTDT" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"EMPID" NUMBER, 
+	"VICECARDNO" NUMBER(20,0) DEFAULT 0, 
+	 CONSTRAINT "PK_REC_DRIVERCARD_SUMFARE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_drivecard_sumfare is '司机当班总额汇总信息表'
+/
+comment on column rec_drivecard_sumfare.id is '编号'
+/
+comment on column rec_drivecard_sumfare.poscode is '设备运营唯一编号'
+/
+comment on column rec_drivecard_sumfare.driverid is '司机id（签退的司机编号）'
+/
+comment on column rec_drivecard_sumfare.checkstartdt is '签到时间'
+/
+comment on column rec_drivecard_sumfare.checkenddt is '签退时间'
+/
+comment on column rec_drivecard_sumfare.sumno is '交易笔数'
+/
+comment on column rec_drivecard_sumfare.sumfare is '交易总额'
+/
+comment on column rec_drivecard_sumfare.psamcardno is 'sam卡号'
+/
+comment on column rec_drivecard_sumfare.recno is '记录流水'
+/
+comment on column rec_drivecard_sumfare.busid is '车辆编号'
+/
+comment on column rec_drivecard_sumfare.buslineid is '线路编号'
+/
+comment on column rec_drivecard_sumfare.deptcode is '运营部门'
+/
+comment on column rec_drivecard_sumfare.tac is 'tac'
+/
+comment on column rec_drivecard_sumfare.opdt is '交易时间按签退时间取日期（yyyy-mm-dd）'
+/
+comment on column rec_drivecard_sumfare.uploaddt is '上传时间'
+/
+comment on column rec_drivecard_sumfare.collectdt is '采集时间'
+/
+comment on column rec_drivecard_sumfare.customerunitcode is '客户代码'
+/
+comment on column rec_drivecard_sumfare.empid is '实际签到的司机编号'
+/
+comment on column rec_drivecard_sumfare.vicecardno is '次卡汇总次数（暂时不明确）'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECONSUME_INACCURATE" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TRCFLG" NUMBER NOT NULL ENABLE, 
+	"DISFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_ELECONSUME_INACCURATE" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_ELECONSUME_INACCURATE" UNIQUE ("CUSTOMERID", "CARDSN", "OPCOUNT", "CARDNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_eleconsume_inaccurate is '电子钱包消费-灰色记录表'
+/
+comment on column rec_eleconsume_inaccurate.cstaccfc is '流水号'
+/
+comment on column rec_eleconsume_inaccurate.customerid is '账号'
+/
+comment on column rec_eleconsume_inaccurate.cardno is '卡号'
+/
+comment on column rec_eleconsume_inaccurate.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_eleconsume_inaccurate.opdt is '交易时间'
+/
+comment on column rec_eleconsume_inaccurate.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_eleconsume_inaccurate.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_eleconsume_inaccurate.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_eleconsume_inaccurate.acccode is '交易科目'
+/
+comment on column rec_eleconsume_inaccurate.dscrp is '科目描述'
+/
+comment on column rec_eleconsume_inaccurate.cardsn is '卡序号'
+/
+comment on column rec_eleconsume_inaccurate.opcount is '卡操作计数'
+/
+comment on column rec_eleconsume_inaccurate.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_eleconsume_inaccurate.collectdt is '采集时间'
+/
+comment on column rec_eleconsume_inaccurate.uploaddate is '上传时间'
+/
+comment on column rec_eleconsume_inaccurate.busid is '车辆id'
+/
+comment on column rec_eleconsume_inaccurate.driverid is '司机id'
+/
+comment on column rec_eleconsume_inaccurate.poscode is '设备运营唯一编号'
+/
+comment on column rec_eleconsume_inaccurate.samcardno is 'sam卡号'
+/
+comment on column rec_eleconsume_inaccurate.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_eleconsume_inaccurate.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_eleconsume_inaccurate.tac is 'tac验证码'
+/
+comment on column rec_eleconsume_inaccurate.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_eleconsume_inaccurate.buslineid is '线路编号'
+/
+comment on column rec_eleconsume_inaccurate.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_eleconsume_inaccurate.discount is '打折金额'
+/
+comment on column rec_eleconsume_inaccurate.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_eleconsume_inaccurate.linedept is '线路所属部门'
+/
+comment on column rec_eleconsume_inaccurate.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_eleconsume_inaccurate.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_eleconsume_inaccurate.cardasn is '卡应用号'
+/
+comment on column rec_eleconsume_inaccurate.tradecitycode is '交易地城市代码'
+/
+comment on column rec_eleconsume_inaccurate.ownercitycode is '所属地城市代码'
+/
+comment on column rec_eleconsume_inaccurate.maincardtype is '主卡类型'
+/
+comment on column rec_eleconsume_inaccurate.assocardtype is '子卡类型'
+/
+comment on column rec_eleconsume_inaccurate.cardversion is '卡内版本'
+/
+comment on column rec_eleconsume_inaccurate.tradekind is '交易性质'
+/
+comment on column rec_eleconsume_inaccurate.testflag is '测试标记'
+/
+comment on column rec_eleconsume_inaccurate.operatorpoint is '营运单位编号'
+/
+comment on column rec_eleconsume_inaccurate.collectpoint is '采集点编号'
+/
+comment on column rec_eleconsume_inaccurate.accountdate is '清算日期'
+/
+comment on column rec_eleconsume_inaccurate.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_eleconsume_inaccurate.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_eleconsume_inaccurate.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_eleconsume_inaccurate.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_eleconsume_inaccurate.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_eleconsume_inaccurate.customerunitcode is '客户代码'
+/
+comment on column rec_eleconsume_inaccurate.trcflg is '灰色记录类型（和base_rec_bad_type表对应）'
+/
+comment on column rec_eleconsume_inaccurate.disflag is '处理标志 0：未处理；1：已处理（有可能处理成功也有可能再次形成未决账目） 2：处理未坏账'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTION_CASH1" 
+   (	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 393216 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_electtion_cash1 is '电子钱包充值-红冲记录'
+/
+comment on column rec_electtion_cash1.customerid is '客户编号'
+/
+comment on column rec_electtion_cash1.planid is '红冲流水号'
+/
+comment on column rec_electtion_cash1.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CASH" 
+   (	"CASHACCFC" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTROPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16) NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_ELECTTRON_CASH" PRIMARY KEY ("CASHACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_ELECTTRION_CAH" UNIQUE ("CUSTOMERID", "CARDNO", "ELECTRSAVEOPCOUNT", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_ELECTTRION_CAH_PLD" UNIQUE ("PLANID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("OPDT") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_electtron_cash is '电子钱包充值记录明细表'
+/
+comment on column rec_electtron_cash.cashaccfc is '交易流水号'
+/
+comment on column rec_electtron_cash.opdt is '交易时间'
+/
+comment on column rec_electtron_cash.customerid is '账号'
+/
+comment on column rec_electtron_cash.cardno is '卡号'
+/
+comment on column rec_electtron_cash.cardsn is '卡序号'
+/
+comment on column rec_electtron_cash.cardtypedetailid is '卡类别小类'
+/
+comment on column rec_electtron_cash.cardkind is '卡类型 1m1 2cpu'
+/
+comment on column rec_electtron_cash.electropcount is '电子钱包消费操作计数'
+/
+comment on column rec_electtron_cash.electrsaveopcount is '电子钱包充值交易计数'
+/
+comment on column rec_electtron_cash.electroddfare is '电子钱包卡余额'
+/
+comment on column rec_electtron_cash.electroddfarepre is '电子钱包前期卡余额'
+/
+comment on column rec_electtron_cash.electrdummyopfare is '电子钱包虚充金额'
+/
+comment on column rec_electtron_cash.electropfare is '电子钱包交易金额'
+/
+comment on column rec_electtron_cash.acccode is '交易科目'
+/
+comment on column rec_electtron_cash.dscrp is '交易科目描述'
+/
+comment on column rec_electtron_cash.poscode is '交易终端设备唯一编号'
+/
+comment on column rec_electtron_cash.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_electtron_cash.samcardno is 'sam卡号'
+/
+comment on column rec_electtron_cash.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_cash.planid is '充值申请流水'
+/
+comment on column rec_electtron_cash.uploaddate is '上传时间'
+/
+comment on column rec_electtron_cash.empid is '职员id'
+/
+comment on column rec_electtron_cash.wallettype is '钱包类型:1-电子钱包'
+/
+comment on column rec_electtron_cash.tac is 'tac码'
+/
+comment on column rec_electtron_cash.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_cash.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CASH_PLAN" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTROPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"REPEALEMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OLDPLANID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_ELECTTRON_CASH_PLAN" PRIMARY KEY ("PLANID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_electtron_cash_plan is '领款计划申请表'
+/
+comment on column rec_electtron_cash_plan.planid is '申请流水'
+/
+comment on column rec_electtron_cash_plan.customerid is '帐号'
+/
+comment on column rec_electtron_cash_plan.cardno is '卡号'
+/
+comment on column rec_electtron_cash_plan.cardsn is '持卡序号'
+/
+comment on column rec_electtron_cash_plan.cardtypedetailid is '卡类型'
+/
+comment on column rec_electtron_cash_plan.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_cash_plan.electroddfare is '充值后电子钱包余额'
+/
+comment on column rec_electtron_cash_plan.electroddfarepre is '充值前电子钱包余额'
+/
+comment on column rec_electtron_cash_plan.electrdummyopfare is '电子钱包虚充金额'
+/
+comment on column rec_electtron_cash_plan.electropfare is '电子钱包交易金额'
+/
+comment on column rec_electtron_cash_plan.electrsaveopcount is '电子钱包充值后交易计数'
+/
+comment on column rec_electtron_cash_plan.electropcount is '电子钱包消费交易计数'
+/
+comment on column rec_electtron_cash_plan.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_electtron_cash_plan.acccode is '科目代码'
+/
+comment on column rec_electtron_cash_plan.opdt is '操作时间'
+/
+comment on column rec_electtron_cash_plan.description is '科目描述'
+/
+comment on column rec_electtron_cash_plan.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_electtron_cash_plan.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_cash_plan.psamcardno is 'psam卡号'
+/
+comment on column rec_electtron_cash_plan.empid is '职员帐号'
+/
+comment on column rec_electtron_cash_plan.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_electtron_cash_plan.wallettype is '钱包类型'
+/
+comment on column rec_electtron_cash_plan.tac is 'tac码'
+/
+comment on column rec_electtron_cash_plan.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_cash_plan.ver is '记录版本'
+/
+comment on column rec_electtron_cash_plan.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_electtron_cash_plan.oldplanid is '原充值planid（充值申请时产生）'
+/
+comment on column rec_electtron_cash_plan.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CASH_PLAN_BAD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER, 
+	"CUSTOMERID" NUMBER, 
+	"CARDNO" NUMBER DEFAULT 0, 
+	"CARDSN" NUMBER DEFAULT 0, 
+	"CARDTYPEDETAILID" NUMBER(*,0) DEFAULT 0, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"ELECTRODDFAREPRE" NUMBER(10,2) DEFAULT 0.00, 
+	"ELECTRDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"ELECTROPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"ELECTRSAVEOPCOUNT" NUMBER DEFAULT 0, 
+	"ELECTROPCOUNT" NUMBER DEFAULT 0, 
+	"STATUS" NUMBER DEFAULT 0, 
+	"ACCCODE" NUMBER, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER DEFAULT 0, 
+	"PSAMCARDNO" NUMBER DEFAULT 0, 
+	"EMPID" NUMBER DEFAULT 0, 
+	"DEALTYPE" NUMBER DEFAULT 0, 
+	"WALLETTYPE" NUMBER DEFAULT 0, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0, 
+	"BADCODE" NUMBER, 
+	"BADDESC" VARCHAR2(300), 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT sysdate, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_ELECTTRON_CASH_PLAN_BAD" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_electtron_cash_plan_bad is '提交失败记录表'
+/
+comment on column rec_electtron_cash_plan_bad.id is '流水号'
+/
+comment on column rec_electtron_cash_plan_bad.planid is '提交申请流水'
+/
+comment on column rec_electtron_cash_plan_bad.customerid is '提交帐号'
+/
+comment on column rec_electtron_cash_plan_bad.cardno is '提交卡号'
+/
+comment on column rec_electtron_cash_plan_bad.cardsn is '持卡序号'
+/
+comment on column rec_electtron_cash_plan_bad.cardtypedetailid is '提交卡类型'
+/
+comment on column rec_electtron_cash_plan_bad.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_cash_plan_bad.electroddfare is '提交充值后电子钱包余额'
+/
+comment on column rec_electtron_cash_plan_bad.electroddfarepre is '提交充值前电子钱包余额'
+/
+comment on column rec_electtron_cash_plan_bad.electrdummyopfare is '提交电子钱包虚充金额'
+/
+comment on column rec_electtron_cash_plan_bad.electropfare is '提交电子钱包交易金额'
+/
+comment on column rec_electtron_cash_plan_bad.electrsaveopcount is '提交电子钱包充值后交易计数'
+/
+comment on column rec_electtron_cash_plan_bad.electropcount is '提交电子钱包消费交易计数'
+/
+comment on column rec_electtron_cash_plan_bad.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_electtron_cash_plan_bad.acccode is '提交科目代码'
+/
+comment on column rec_electtron_cash_plan_bad.opdt is '操作时间'
+/
+comment on column rec_electtron_cash_plan_bad.description is '交易科目描述'
+/
+comment on column rec_electtron_cash_plan_bad.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_electtron_cash_plan_bad.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_cash_plan_bad.psamcardno is 'psam卡号'
+/
+comment on column rec_electtron_cash_plan_bad.empid is '职员帐号'
+/
+comment on column rec_electtron_cash_plan_bad.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_electtron_cash_plan_bad.wallettype is '钱包类型'
+/
+comment on column rec_electtron_cash_plan_bad.tac is 'tac码'
+/
+comment on column rec_electtron_cash_plan_bad.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_cash_plan_bad.badcode is '坏账编号'
+/
+comment on column rec_electtron_cash_plan_bad.baddesc is '坏账描述'
+/
+comment on column rec_electtron_cash_plan_bad.ver is '记录版本'
+/
+comment on column rec_electtron_cash_plan_bad.createdt is '记录形成时间'
+/
+comment on column rec_electtron_cash_plan_bad.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CASH_PLAN_LOG" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTROPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_electtron_cash_plan_log is '领款计划申请表'
+/
+comment on column rec_electtron_cash_plan_log.planid is '申请流水'
+/
+comment on column rec_electtron_cash_plan_log.customerid is '帐号'
+/
+comment on column rec_electtron_cash_plan_log.cardno is '卡号'
+/
+comment on column rec_electtron_cash_plan_log.cardsn is '持卡序号'
+/
+comment on column rec_electtron_cash_plan_log.cardtypedetailid is '卡类型'
+/
+comment on column rec_electtron_cash_plan_log.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_cash_plan_log.electroddfare is '充值后电子钱包余额'
+/
+comment on column rec_electtron_cash_plan_log.electroddfarepre is '充值前电子钱包余额'
+/
+comment on column rec_electtron_cash_plan_log.electrdummyopfare is '电子钱包虚冲余额'
+/
+comment on column rec_electtron_cash_plan_log.electropfare is '电子钱包交易金额'
+/
+comment on column rec_electtron_cash_plan_log.electrsaveopcount is '电子钱包充值后交易计数'
+/
+comment on column rec_electtron_cash_plan_log.electropcount is '电子钱包消费交易计数'
+/
+comment on column rec_electtron_cash_plan_log.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_electtron_cash_plan_log.acccode is '科目代码'
+/
+comment on column rec_electtron_cash_plan_log.opdt is '操作时间'
+/
+comment on column rec_electtron_cash_plan_log.description is '描述(补助,零散补助,稿费)'
+/
+comment on column rec_electtron_cash_plan_log.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_electtron_cash_plan_log.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_cash_plan_log.psamcardno is 'psam卡号'
+/
+comment on column rec_electtron_cash_plan_log.empid is '职员帐号'
+/
+comment on column rec_electtron_cash_plan_log.dealtype is '记录类型'
+/
+comment on column rec_electtron_cash_plan_log.wallettype is '钱包类型'
+/
+comment on column rec_electtron_cash_plan_log.tac is 'tac码'
+/
+comment on column rec_electtron_cash_plan_log.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_cash_plan_log.ver is '记录版本'
+/
+comment on column rec_electtron_cash_plan_log.createdt is '记录形成时间'
+/
+comment on column rec_electtron_cash_plan_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CASH_PLAN_PUTOUT" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTROPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ELECTROPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT sysdate, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("OPDT") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_electtron_cash_plan_putout is '领款计划申请表'
+/
+comment on column rec_electtron_cash_plan_putout.planid is '申请流水'
+/
+comment on column rec_electtron_cash_plan_putout.customerid is '帐号'
+/
+comment on column rec_electtron_cash_plan_putout.cardno is '卡号'
+/
+comment on column rec_electtron_cash_plan_putout.cardsn is '持卡序号'
+/
+comment on column rec_electtron_cash_plan_putout.cardtypedetailid is '卡类型'
+/
+comment on column rec_electtron_cash_plan_putout.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_cash_plan_putout.electroddfare is '充值后电子钱包余额'
+/
+comment on column rec_electtron_cash_plan_putout.electroddfarepre is '充值前电子钱包余额'
+/
+comment on column rec_electtron_cash_plan_putout.electrdummyopfare is '电子钱包虚充金额'
+/
+comment on column rec_electtron_cash_plan_putout.electropfare is '电子钱包交易金额(含虚充)'
+/
+comment on column rec_electtron_cash_plan_putout.electrsaveopcount is '电子钱包充值后交易计数'
+/
+comment on column rec_electtron_cash_plan_putout.electropcount is '电子钱包消费交易计数'
+/
+comment on column rec_electtron_cash_plan_putout.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_electtron_cash_plan_putout.acccode is '科目代码'
+/
+comment on column rec_electtron_cash_plan_putout.opdt is '操作时间'
+/
+comment on column rec_electtron_cash_plan_putout.description is '描述(补助,零散补助,稿费)'
+/
+comment on column rec_electtron_cash_plan_putout.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_electtron_cash_plan_putout.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_cash_plan_putout.psamcardno is 'psam卡号'
+/
+comment on column rec_electtron_cash_plan_putout.empid is '职员帐号'
+/
+comment on column rec_electtron_cash_plan_putout.dealtype is '交易类型'
+/
+comment on column rec_electtron_cash_plan_putout.wallettype is '钱包类型'
+/
+comment on column rec_electtron_cash_plan_putout.tac is 'tac码'
+/
+comment on column rec_electtron_cash_plan_putout.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_cash_plan_putout.ver is '记录版本'
+/
+comment on column rec_electtron_cash_plan_putout.createdt is '记录形成时间'
+/
+comment on column rec_electtron_cash_plan_putout.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_ELECTTRON_CONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_ELECTTRON_CONSUME" UNIQUE ("CUSTOMERID", "CARDSN", "OPCOUNT", "CARDASN", "WALLETTYPE", "TRADERECNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("UPLOADDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_electtron_consume is '电子钱包消费明细表'
+/
+comment on column rec_electtron_consume.cstaccfc is '流水号'
+/
+comment on column rec_electtron_consume.customerid is '账号'
+/
+comment on column rec_electtron_consume.cardno is '卡号'
+/
+comment on column rec_electtron_consume.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_electtron_consume.opdt is '交易时间'
+/
+comment on column rec_electtron_consume.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_consume.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_electtron_consume.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_electtron_consume.acccode is '交易科目'
+/
+comment on column rec_electtron_consume.dscrp is '科目描述'
+/
+comment on column rec_electtron_consume.cardsn is '卡序号'
+/
+comment on column rec_electtron_consume.opcount is '卡操作计数'
+/
+comment on column rec_electtron_consume.dealtype is '记录类型 1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_electtron_consume.collectdt is '采集时间'
+/
+comment on column rec_electtron_consume.uploaddate is '上传时间'
+/
+comment on column rec_electtron_consume.busid is '车辆id'
+/
+comment on column rec_electtron_consume.driverid is '司机id'
+/
+comment on column rec_electtron_consume.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_consume.samcardno is 'sam卡号'
+/
+comment on column rec_electtron_consume.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_electtron_consume.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_electtron_consume.tac is 'tac验证码'
+/
+comment on column rec_electtron_consume.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_consume.buslineid is '线路编号'
+/
+comment on column rec_electtron_consume.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_electtron_consume.discount is '打折金额'
+/
+comment on column rec_electtron_consume.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_electtron_consume.linedept is '线路所属部门'
+/
+comment on column rec_electtron_consume.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_electtron_consume.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_electtron_consume.cardasn is '卡应用号'
+/
+comment on column rec_electtron_consume.tradecitycode is '交易地城市代码'
+/
+comment on column rec_electtron_consume.ownercitycode is '所属地城市代码'
+/
+comment on column rec_electtron_consume.maincardtype is '主卡类型'
+/
+comment on column rec_electtron_consume.assocardtype is '子卡类型'
+/
+comment on column rec_electtron_consume.cardversion is '卡内版本'
+/
+comment on column rec_electtron_consume.tradekind is '交易性质'
+/
+comment on column rec_electtron_consume.testflag is '测试标记'
+/
+comment on column rec_electtron_consume.operatorpoint is '营运单位编号'
+/
+comment on column rec_electtron_consume.collectpoint is '采集点编号'
+/
+comment on column rec_electtron_consume.accountdate is '清算日期'
+/
+comment on column rec_electtron_consume.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_electtron_consume.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_electtron_consume.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_electtron_consume.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_electtron_consume.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_electtron_consume.customerunitcode is '客户代码'
+/
+comment on column rec_electtron_consume.wallettype is '坏账的最终处理状态 0：待处理 1：已入正常账 2：用户置坏 3：系统置坏'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CONSUME_CITY" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0, 
+	"RETURNCODE" VARCHAR2(10), 
+	"ERRORREASON" VARCHAR2(100), 
+	 CHECK ("FLAG" IS NOT NULL) ENABLE, 
+	 CONSTRAINT "PK_REC_ELECTTRON_CONS_CITY" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_ELECTTRON_CONS_CITY" UNIQUE ("CARDNO", "CARDSN", "OPCOUNT", "CARDASN", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_electtron_consume_city is '城市通消费明细表'
+/
+comment on column rec_electtron_consume_city.cstaccfc is '流水号'
+/
+comment on column rec_electtron_consume_city.customerid is '账号'
+/
+comment on column rec_electtron_consume_city.cardno is '卡号'
+/
+comment on column rec_electtron_consume_city.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_electtron_consume_city.opdt is '交易时间'
+/
+comment on column rec_electtron_consume_city.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_consume_city.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_electtron_consume_city.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_electtron_consume_city.acccode is '交易科目'
+/
+comment on column rec_electtron_consume_city.dscrp is '科目描述'
+/
+comment on column rec_electtron_consume_city.cardsn is '卡序号'
+/
+comment on column rec_electtron_consume_city.opcount is '卡操作计数'
+/
+comment on column rec_electtron_consume_city.dealtype is '记录类型 1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_electtron_consume_city.collectdt is '采集时间'
+/
+comment on column rec_electtron_consume_city.uploaddate is '上传时间'
+/
+comment on column rec_electtron_consume_city.busid is '车辆id'
+/
+comment on column rec_electtron_consume_city.driverid is '司机id'
+/
+comment on column rec_electtron_consume_city.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_consume_city.samcardno is 'sam卡号'
+/
+comment on column rec_electtron_consume_city.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_electtron_consume_city.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_electtron_consume_city.tac is 'tac验证码'
+/
+comment on column rec_electtron_consume_city.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_consume_city.buslineid is '线路编号'
+/
+comment on column rec_electtron_consume_city.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_electtron_consume_city.discount is '打折金额'
+/
+comment on column rec_electtron_consume_city.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_electtron_consume_city.linedept is '线路所属部门'
+/
+comment on column rec_electtron_consume_city.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_electtron_consume_city.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_electtron_consume_city.cardasn is '卡应用号'
+/
+comment on column rec_electtron_consume_city.tradecitycode is '交易地城市代码'
+/
+comment on column rec_electtron_consume_city.ownercitycode is '所属地城市代码'
+/
+comment on column rec_electtron_consume_city.maincardtype is '主卡类型'
+/
+comment on column rec_electtron_consume_city.assocardtype is '子卡类型'
+/
+comment on column rec_electtron_consume_city.cardversion is '卡内版本'
+/
+comment on column rec_electtron_consume_city.tradekind is '交易性质'
+/
+comment on column rec_electtron_consume_city.testflag is '测试标记'
+/
+comment on column rec_electtron_consume_city.operatorpoint is '营运单位编号'
+/
+comment on column rec_electtron_consume_city.collectpoint is '采集点编号'
+/
+comment on column rec_electtron_consume_city.accountdate is '清算日期'
+/
+comment on column rec_electtron_consume_city.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_electtron_consume_city.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_electtron_consume_city.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_electtron_consume_city.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_electtron_consume_city.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_electtron_consume_city.customerunitcode is '客户代码'
+/
+comment on column rec_electtron_consume_city.status is '是否清算 0,未清算，1，已清算'
+/
+comment on column rec_electtron_consume_city.returncode is '清算返回码'
+/
+comment on column rec_electtron_consume_city.errorreason is '清算失败原因'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_ELECTTRON_CONSUME_CITY_SUC" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FLEEPOSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DOWNSTOPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"RETURNCODE" VARCHAR2(10), 
+	"ERRORREASON" VARCHAR2(100), 
+	 CHECK ("FLAG" IS NOT NULL) ENABLE, 
+	 CONSTRAINT "PK_REC_ELECTTRON_CONS_CITY_SUC" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_ELECTTRON_CONS_CITY_SUC" UNIQUE ("CARDNO", "CARDSN", "OPCOUNT", "CARDASN", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_electtron_consume_city_suc is '城市通消费清算成功表'
+/
+comment on column rec_electtron_consume_city_suc.cstaccfc is '流水号'
+/
+comment on column rec_electtron_consume_city_suc.customerid is '账号'
+/
+comment on column rec_electtron_consume_city_suc.cardno is '卡号'
+/
+comment on column rec_electtron_consume_city_suc.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_electtron_consume_city_suc.opdt is '交易时间'
+/
+comment on column rec_electtron_consume_city_suc.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_electtron_consume_city_suc.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_electtron_consume_city_suc.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_electtron_consume_city_suc.acccode is '交易科目'
+/
+comment on column rec_electtron_consume_city_suc.dscrp is '科目描述'
+/
+comment on column rec_electtron_consume_city_suc.cardsn is '卡序号'
+/
+comment on column rec_electtron_consume_city_suc.opcount is '卡操作计数'
+/
+comment on column rec_electtron_consume_city_suc.dealtype is '记录类型 1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_electtron_consume_city_suc.collectdt is '采集时间'
+/
+comment on column rec_electtron_consume_city_suc.uploaddate is '上传时间'
+/
+comment on column rec_electtron_consume_city_suc.busid is '车辆id'
+/
+comment on column rec_electtron_consume_city_suc.driverid is '司机id'
+/
+comment on column rec_electtron_consume_city_suc.poscode is '设备运营唯一编号'
+/
+comment on column rec_electtron_consume_city_suc.samcardno is 'sam卡号'
+/
+comment on column rec_electtron_consume_city_suc.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_electtron_consume_city_suc.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_electtron_consume_city_suc.tac is 'tac验证码'
+/
+comment on column rec_electtron_consume_city_suc.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_electtron_consume_city_suc.buslineid is '线路编号'
+/
+comment on column rec_electtron_consume_city_suc.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_electtron_consume_city_suc.discount is '打折金额'
+/
+comment on column rec_electtron_consume_city_suc.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_electtron_consume_city_suc.linedept is '线路所属部门'
+/
+comment on column rec_electtron_consume_city_suc.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_electtron_consume_city_suc.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_electtron_consume_city_suc.cardasn is '卡应用号'
+/
+comment on column rec_electtron_consume_city_suc.tradecitycode is '交易地城市代码'
+/
+comment on column rec_electtron_consume_city_suc.ownercitycode is '所属地城市代码'
+/
+comment on column rec_electtron_consume_city_suc.maincardtype is '主卡类型'
+/
+comment on column rec_electtron_consume_city_suc.assocardtype is '子卡类型'
+/
+comment on column rec_electtron_consume_city_suc.cardversion is '卡内版本'
+/
+comment on column rec_electtron_consume_city_suc.tradekind is '交易性质'
+/
+comment on column rec_electtron_consume_city_suc.testflag is '测试标记'
+/
+comment on column rec_electtron_consume_city_suc.operatorpoint is '营运单位编号'
+/
+comment on column rec_electtron_consume_city_suc.collectpoint is '采集点编号'
+/
+comment on column rec_electtron_consume_city_suc.accountdate is '清算日期'
+/
+comment on column rec_electtron_consume_city_suc.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_electtron_consume_city_suc.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_electtron_consume_city_suc.fleeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_electtron_consume_city_suc.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_electtron_consume_city_suc.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_electtron_consume_city_suc.customerunitcode is '客户代码'
+/
+comment on column rec_electtron_consume_city_suc.returncode is '清算返回码'
+/
+comment on column rec_electtron_consume_city_suc.errorreason is '清算成功原因'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_EMP_INDENT" 
+   (	"INDENTNO" NUMBER NOT NULL ENABLE, 
+	"INDENTCOUNT" NUMBER NOT NULL ENABLE, 
+	"INDENTTYPE" NUMBER NOT NULL ENABLE, 
+	"INDENTEMPID" NUMBER NOT NULL ENABLE, 
+	"INDENTTIME" DATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"BEGINTIME" DATE, 
+	"ENDTIME" DATE, 
+	"FINISHCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REMAINDERCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FAILCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REMARKS" VARCHAR2(1000), 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"ISFINISH" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_REC_EMP_INDENT" PRIMARY KEY ("INDENTNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_emp_indent is '用户卡登记订单管理表'
+/
+comment on column rec_emp_indent.indentno is '订单编号'
+/
+comment on column rec_emp_indent.indentcount is '订单数量'
+/
+comment on column rec_emp_indent.indenttype is '订单类型'
+/
+comment on column rec_emp_indent.indentempid is '操作员编号'
+/
+comment on column rec_emp_indent.indenttime is '订单时间'
+/
+comment on column rec_emp_indent.empid is '管理员编号'
+/
+comment on column rec_emp_indent.begintime is '开始时间'
+/
+comment on column rec_emp_indent.endtime is '结束时间'
+/
+comment on column rec_emp_indent.finishcount is '完成数量'
+/
+comment on column rec_emp_indent.remaindercount is '未完成数量'
+/
+comment on column rec_emp_indent.failcount is '坏卡数量'
+/
+comment on column rec_emp_indent.remarks is '备注'
+/
+comment on column rec_emp_indent.customerunitcode is '客户代码'
+/
+comment on column rec_emp_indent.isfinish is '订单是否完成0：未完成，1：已经完成(用于手动接受订单)'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_EMP_LOSS" 
+   (	"OPDT" DATE NOT NULL ENABLE, 
+	"AREAID" NUMBER NOT NULL ENABLE, 
+	"USERID" VARCHAR2(20) NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"OPEMPID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER, 
+	"LOSSTYPE" NUMBER, 
+	"OPTYPE" NUMBER, 
+	"SOURCEIP" VARCHAR2(30), 
+	"POSCODE" NUMBER, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"OPDESC" VARCHAR2(100), 
+	"NEWCARDNO" NUMBER, 
+	"HASUNLOSS" NUMBER, 
+	"LOSSFC" NUMBER NOT NULL ENABLE, 
+	"BLLTTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_EMP_LOSS" PRIMARY KEY ("LOSSFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_EMP_LOSS" UNIQUE ("EMPID", "CARDNO", "OPTYPE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_emp_loss is '职员挂失和解挂表'
+/
+comment on column rec_emp_loss.opdt is '挂失或解挂时间'
+/
+comment on column rec_emp_loss.areaid is '所属校区'
+/
+comment on column rec_emp_loss.userid is '挂失职员工号'
+/
+comment on column rec_emp_loss.empid is '挂失职员账号'
+/
+comment on column rec_emp_loss.opempid is '操作职员账号'
+/
+comment on column rec_emp_loss.cardno is '挂失卡号'
+/
+comment on column rec_emp_loss.cardsn is '挂失卡序号'
+/
+comment on column rec_emp_loss.losstype is '挂失类别 1自助挂失 2制卡中心挂失'
+/
+comment on column rec_emp_loss.optype is '0--挂失；1--解挂'
+/
+comment on column rec_emp_loss.sourceip is '挂失地址'
+/
+comment on column rec_emp_loss.poscode is '设备唯一编号'
+/
+comment on column rec_emp_loss.cardtypedetailid is '卡类型小类'
+/
+comment on column rec_emp_loss.opdesc is '操作描述'
+/
+comment on column rec_emp_loss.newcardno is '新卡号'
+/
+comment on column rec_emp_loss.hasunloss is '已经解挂 （0挂失未解挂 1挂失已解挂 2解挂记录）'
+/
+comment on column rec_emp_loss.lossfc is '流水号'
+/
+comment on column rec_emp_loss.bllttype is '黑名单类型，0：黑名单，1白名单'
+/
+comment on column rec_emp_loss.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_EMP_SELFMONEY_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER(32,0) NOT NULL ENABLE, 
+	"CARDEMPID" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"KTACCCODE" NUMBER NOT NULL ENABLE, 
+	"KTFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"KTACCDSCRP" VARCHAR2(20), 
+	"CHANGEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_EMP_SELFMONEY_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_emp_selfmoney_acc is '开户费用明细表（包含折旧费和卡套费）'
+/
+comment on column rec_emp_selfmoney_acc.id is '流水号'
+/
+comment on column rec_emp_selfmoney_acc.empid is '操作职员'
+/
+comment on column rec_emp_selfmoney_acc.cardempid is '此卡用户员工编号'
+/
+comment on column rec_emp_selfmoney_acc.cardtype is '卡类别，普通卡，月票卡，老年卡'
+/
+comment on column rec_emp_selfmoney_acc.opfare is '交易金额'
+/
+comment on column rec_emp_selfmoney_acc.acccode is '交易科目'
+/
+comment on column rec_emp_selfmoney_acc.dscrp is '交易科目描述'
+/
+comment on column rec_emp_selfmoney_acc.ktacccode is '卡套费科目'
+/
+comment on column rec_emp_selfmoney_acc.ktfare is '卡套费金额'
+/
+comment on column rec_emp_selfmoney_acc.ktaccdscrp is ''
+/
+comment on column rec_emp_selfmoney_acc.changedate is '交易时间'
+/
+comment on column rec_emp_selfmoney_acc.cardkind is '交易卡类型 1m1卡， 2  cpu卡'
+/
+comment on column rec_emp_selfmoney_acc.poscode is '终端唯一编号'
+/
+comment on column rec_emp_selfmoney_acc.scardsnr is '卡唯一编号'
+/
+comment on column rec_emp_selfmoney_acc.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_FREEZEFARE_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"SAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"FREEZEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"FREEZEFAREFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE, 
+	"LIMITTIMES" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT sysdate, 
+	"VALIDTIMEEND" DATE DEFAULT sysdate, 
+	"MONTHFREEZEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHFREEZEFAREFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEFREEZEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"VICEFREEZEFAREFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICELIMITTIMES" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEMONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEVALIDTIMESTART" DATE DEFAULT sysdate, 
+	"VICEVALIDTIMEEND" DATE DEFAULT sysdate, 
+	"NEWCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OUTID" VARCHAR2(20) DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"OPENDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_FREEZEFARE_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_freezefare_acc is '冻结金额记录表（包含电子钱包和月票冻结金额和次卡钱包冻结金额）'
+/
+comment on column rec_freezefare_acc.id is '流水号，自增长'
+/
+comment on column rec_freezefare_acc.customerid is '客户编号'
+/
+comment on column rec_freezefare_acc.cardno is '客户卡号'
+/
+comment on column rec_freezefare_acc.cardtype is '卡类型 普通卡，月票卡，老年卡等'
+/
+comment on column rec_freezefare_acc.cardsn is '持卡序号'
+/
+comment on column rec_freezefare_acc.cardkind is '卡种类 1 m1卡 2 cpu卡'
+/
+comment on column rec_freezefare_acc.opcount is '消费操作计数'
+/
+comment on column rec_freezefare_acc.saveopcount is '充值操作计数'
+/
+comment on column rec_freezefare_acc.freezefare is '冻结金额'
+/
+comment on column rec_freezefare_acc.empid is '领取操作职员 0 自助'
+/
+comment on column rec_freezefare_acc.freezefareflag is '冻结金额领取标记(0未领，1已领，2，申请状态  3,已经冲零次状态针对月票和次卡 )'
+/
+comment on column rec_freezefare_acc.createdate is '冻结金额形成时间'
+/
+comment on column rec_freezefare_acc.ver is '版本号'
+/
+comment on column rec_freezefare_acc.customerunitcode is '客户代码'
+/
+comment on column rec_freezefare_acc.wallettype is '钱包类型：1 电子钱包 2 月票钱包 3 次卡钱包'
+/
+comment on column rec_freezefare_acc.opdt is '冻结金额领取时间'
+/
+comment on column rec_freezefare_acc.limittimes is '每月最大消费次数（次卡）/金额（月票）'
+/
+comment on column rec_freezefare_acc.monthnum is '连充月个数'
+/
+comment on column rec_freezefare_acc.validtimestart is '月票/次卡钱包连充有效起日'
+/
+comment on column rec_freezefare_acc.validtimeend is '月票/次卡钱包连充有效止日'
+/
+comment on column rec_freezefare_acc.monthfreezefare is '月票冻结金额'
+/
+comment on column rec_freezefare_acc.monthfreezefareflag is '月票冻结金额领取标记(0未领，1已领，2，申请状态  3,已经冲零次状态针对月票和次卡 )'
+/
+comment on column rec_freezefare_acc.monthopcount is '月票消费操作计数'
+/
+comment on column rec_freezefare_acc.monthsaveopcount is '月票充值操作计数'
+/
+comment on column rec_freezefare_acc.vicefreezefare is '次卡冻结金额'
+/
+comment on column rec_freezefare_acc.vicefreezefareflag is '次卡冻结金额领取标记(0未领，1已领，2，申请状态  3,已经冲零次状态针对月票和次卡 )'
+/
+comment on column rec_freezefare_acc.viceopcount is '次卡消费操作计数'
+/
+comment on column rec_freezefare_acc.vicesaveopcount is '次卡充值操作计数'
+/
+comment on column rec_freezefare_acc.vicelimittimes is '次卡每月最大消费次数（次卡）/金额（月票）'
+/
+comment on column rec_freezefare_acc.vicemonthnum is '次卡连充月个数'
+/
+comment on column rec_freezefare_acc.vicevalidtimestart is '次卡钱包连充有效起日'
+/
+comment on column rec_freezefare_acc.vicevalidtimeend is '次卡钱包连充有效止日'
+/
+comment on column rec_freezefare_acc.newcardno is '新卡号'
+/
+comment on column rec_freezefare_acc.cardid is '对应卡信息表id列，多次补卡时表示哪一张卡的冻结'
+/
+comment on column rec_freezefare_acc.outid is '市民卡号'
+/
+comment on column rec_freezefare_acc.cardtypedetailid is '卡类型小类'
+/
+comment on column rec_freezefare_acc.opendt is '开户日期'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_LOSS" 
+   (	"LOSSFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"EMPID" VARCHAR2(32) NOT NULL ENABLE, 
+	"OPTYPE" NUMBER NOT NULL ENABLE, 
+	"LOSSTYPE" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER, 
+	"SOURCEIP" VARCHAR2(30), 
+	"CARDTYPEDETAILID" NUMBER, 
+	"OPDESC" VARCHAR2(100), 
+	"NEWCARDNO" NUMBER, 
+	"HASUNLOSS" NUMBER, 
+	"BLLTTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CARDID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_LOSS" PRIMARY KEY ("LOSSFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 262144 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_loss is '卡挂失记录'
+/
+comment on column rec_loss.lossfc is '流水号'
+/
+comment on column rec_loss.customerid is '客户账户'
+/
+comment on column rec_loss.cardno is '卡号'
+/
+comment on column rec_loss.opdt is '操作日期'
+/
+comment on column rec_loss.cardsn is '持卡序号'
+/
+comment on column rec_loss.empid is '职员编号'
+/
+comment on column rec_loss.optype is '0--挂失；1--解挂'
+/
+comment on column rec_loss.losstype is '挂失类别 1自助挂失 2制卡中心挂失'
+/
+comment on column rec_loss.poscode is '终端唯一编号'
+/
+comment on column rec_loss.sourceip is '挂失终端ip'
+/
+comment on column rec_loss.cardtypedetailid is '卡小类编号'
+/
+comment on column rec_loss.opdesc is '挂失描述'
+/
+comment on column rec_loss.newcardno is '新卡号'
+/
+comment on column rec_loss.hasunloss is '已经解挂 （0未解挂 1已解挂）'
+/
+comment on column rec_loss.bllttype is ''
+/
+comment on column rec_loss.customerunitcode is '客户代码'
+/
+comment on column rec_loss.cardid is '对应卡信息表id'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONCONSUME_INACCURATE" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"VICEDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TRCFLG" NUMBER NOT NULL ENABLE, 
+	"DISFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_MONCONSUME_INACCURATE" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_MONCONSUME_INACCURATE" UNIQUE ("CUSTOMERID", "CARDSN", "OPCOUNT", "CARDNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monconsume_inaccurate is '月票钱包消费明细-灰色记录表'
+/
+comment on column rec_monconsume_inaccurate.cstaccfc is '流水号'
+/
+comment on column rec_monconsume_inaccurate.customerid is '账号'
+/
+comment on column rec_monconsume_inaccurate.cardno is '卡号'
+/
+comment on column rec_monconsume_inaccurate.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_monconsume_inaccurate.opdt is '交易时间'
+/
+comment on column rec_monconsume_inaccurate.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monconsume_inaccurate.viceonoddfare is '月票钱包卡余额'
+/
+comment on column rec_monconsume_inaccurate.viceonopfare is '月票钱包交易金额'
+/
+comment on column rec_monconsume_inaccurate.acccode is '交易科目'
+/
+comment on column rec_monconsume_inaccurate.dscrp is '科目描述'
+/
+comment on column rec_monconsume_inaccurate.cardsn is '卡序号'
+/
+comment on column rec_monconsume_inaccurate.opcount is '卡操作计数'
+/
+comment on column rec_monconsume_inaccurate.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_monconsume_inaccurate.collectdt is '采集时间'
+/
+comment on column rec_monconsume_inaccurate.uploaddate is '上传时间'
+/
+comment on column rec_monconsume_inaccurate.busid is '车辆id'
+/
+comment on column rec_monconsume_inaccurate.driverid is '司机id'
+/
+comment on column rec_monconsume_inaccurate.poscode is '设备运营唯一编号'
+/
+comment on column rec_monconsume_inaccurate.samcardno is 'sam卡号'
+/
+comment on column rec_monconsume_inaccurate.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_monconsume_inaccurate.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_monconsume_inaccurate.tac is 'tac验证码'
+/
+comment on column rec_monconsume_inaccurate.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monconsume_inaccurate.buslineid is '线路编号'
+/
+comment on column rec_monconsume_inaccurate.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_monconsume_inaccurate.discount is '打折金额'
+/
+comment on column rec_monconsume_inaccurate.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值 3：次卡钱包'
+/
+comment on column rec_monconsume_inaccurate.linedept is '线路所属部门'
+/
+comment on column rec_monconsume_inaccurate.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_monconsume_inaccurate.vicedummyopfare is '月票钱包虚冲撤销金额'
+/
+comment on column rec_monconsume_inaccurate.cardasn is '卡应用序列号'
+/
+comment on column rec_monconsume_inaccurate.tradecitycode is '交易地城市代码'
+/
+comment on column rec_monconsume_inaccurate.ownercitycode is '所属地城市代码'
+/
+comment on column rec_monconsume_inaccurate.maincardtype is '主卡类型'
+/
+comment on column rec_monconsume_inaccurate.assocardtype is '子卡类型'
+/
+comment on column rec_monconsume_inaccurate.cardversion is '卡内版本'
+/
+comment on column rec_monconsume_inaccurate.tradekind is '交易性质'
+/
+comment on column rec_monconsume_inaccurate.testflag is '测试标记'
+/
+comment on column rec_monconsume_inaccurate.operatorpoint is '营运单位编号'
+/
+comment on column rec_monconsume_inaccurate.collectpoint is '采集点编号'
+/
+comment on column rec_monconsume_inaccurate.accountdate is '清算日期'
+/
+comment on column rec_monconsume_inaccurate.customerunitcode is '客户代码'
+/
+comment on column rec_monconsume_inaccurate.trcflg is '灰色记录类型（和base_rec_bad_type表对应）'
+/
+comment on column rec_monconsume_inaccurate.disflag is '处理标志 0：未处理；1：已处理（有可能处理成功也有可能再次形成未决账目） 2：处理未坏账'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_BILLNO" 
+   (	"BILLDT" DATE NOT NULL ENABLE, 
+	"BILLNO" NUMBER NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monticket_billno is ''
+/
+comment on column rec_monticket_billno.billdt is '帐单日期'
+/
+comment on column rec_monticket_billno.billno is '帐单流水'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CASH" 
+   (	"CASHACCFC" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16) NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BILLNO" NUMBER, 
+	 CONSTRAINT "PK_REC_MONTICKET_CASH" PRIMARY KEY ("CASHACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_MONTICKET_CASH" UNIQUE ("CUSTOMERID", "CARDNO", "VICESAVEOPCOUNT", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_MONTICKET_CASH_PLD" UNIQUE ("PLANID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("OPDT") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_monticket_cash is '月票钱包充值记录明细表'
+/
+comment on column rec_monticket_cash.cashaccfc is '交易流水号'
+/
+comment on column rec_monticket_cash.opdt is '交易时间'
+/
+comment on column rec_monticket_cash.customerid is '账号'
+/
+comment on column rec_monticket_cash.cardno is '卡号'
+/
+comment on column rec_monticket_cash.cardsn is '卡序号'
+/
+comment on column rec_monticket_cash.cardtypedetailid is '卡类别小类'
+/
+comment on column rec_monticket_cash.cardkind is '卡类型 1m1 2cpu'
+/
+comment on column rec_monticket_cash.viceopcount is '月票钱包消费操作计数'
+/
+comment on column rec_monticket_cash.vicesaveopcount is '月票包充值交易计数'
+/
+comment on column rec_monticket_cash.viceoddfare is '月票钱包卡余额'
+/
+comment on column rec_monticket_cash.viceoddfarepre is '月票钱包前期卡余额'
+/
+comment on column rec_monticket_cash.vicedummyopfare is '月票钱包虚充金额'
+/
+comment on column rec_monticket_cash.viceopfare is '月票钱包交易金额'
+/
+comment on column rec_monticket_cash.acccode is '交易科目'
+/
+comment on column rec_monticket_cash.dscrp is '交易科目描述'
+/
+comment on column rec_monticket_cash.poscode is '交易终端设备唯一编号'
+/
+comment on column rec_monticket_cash.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_monticket_cash.samcardno is 'sam卡号'
+/
+comment on column rec_monticket_cash.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monticket_cash.planid is '充值申请流水'
+/
+comment on column rec_monticket_cash.uploaddate is '上传时间'
+/
+comment on column rec_monticket_cash.empid is '职员id'
+/
+comment on column rec_monticket_cash.wallettype is '钱包类型:2-月票钱包'
+/
+comment on column rec_monticket_cash.tac is 'tac码'
+/
+comment on column rec_monticket_cash.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monticket_cash.customerunitcode is '客户代码'
+/
+comment on column rec_monticket_cash.limittimes is '单位消费最大金额（每个月最多可以消费多少钱）'
+/
+comment on column rec_monticket_cash.monthnum is '连充月个数'
+/
+comment on column rec_monticket_cash.validtimestart is '有效启日'
+/
+comment on column rec_monticket_cash.validtimeend is '有效止日'
+/
+comment on column rec_monticket_cash.billno is '账单编号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CASH_PLAN" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"REPEALEMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"OLDPLANID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BILLNO" NUMBER, 
+	"HANGDATEMONTHPRE" DATE, 
+	"HANGDATEMONTH" DATE, 
+	 CONSTRAINT "PK_MONTICKET_CASH_PLAN" PRIMARY KEY ("PLANID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monticket_cash_plan is '月票钱包领款计划申请表'
+/
+comment on column rec_monticket_cash_plan.planid is '申请流水'
+/
+comment on column rec_monticket_cash_plan.customerid is '帐号'
+/
+comment on column rec_monticket_cash_plan.cardno is '卡号'
+/
+comment on column rec_monticket_cash_plan.cardsn is '持卡序号'
+/
+comment on column rec_monticket_cash_plan.cardtypedetailid is '卡类型'
+/
+comment on column rec_monticket_cash_plan.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monticket_cash_plan.viceoddfare is '充值后月票包余额'
+/
+comment on column rec_monticket_cash_plan.viceoddfarepre is '充值前月票钱包余额'
+/
+comment on column rec_monticket_cash_plan.vicedummyopfare is '月票钱包虚充金额'
+/
+comment on column rec_monticket_cash_plan.viceopfare is '月票钱包交易金额'
+/
+comment on column rec_monticket_cash_plan.vicesaveopcount is '月票钱包充值后交易计数'
+/
+comment on column rec_monticket_cash_plan.viceopcount is '月票钱包消费交易计数'
+/
+comment on column rec_monticket_cash_plan.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_monticket_cash_plan.acccode is '科目代码'
+/
+comment on column rec_monticket_cash_plan.opdt is '操作时间'
+/
+comment on column rec_monticket_cash_plan.description is '科目描述'
+/
+comment on column rec_monticket_cash_plan.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_monticket_cash_plan.poscode is '设备运营唯一编号'
+/
+comment on column rec_monticket_cash_plan.psamcardno is 'psam卡号'
+/
+comment on column rec_monticket_cash_plan.empid is '职员帐号'
+/
+comment on column rec_monticket_cash_plan.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_monticket_cash_plan.wallettype is '钱包类型'
+/
+comment on column rec_monticket_cash_plan.tac is 'tac码'
+/
+comment on column rec_monticket_cash_plan.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monticket_cash_plan.ver is '记录版本'
+/
+comment on column rec_monticket_cash_plan.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_monticket_cash_plan.customerunitcode is '客户代码'
+/
+comment on column rec_monticket_cash_plan.validtimestart is '有效启日'
+/
+comment on column rec_monticket_cash_plan.validtimeend is '有效止日'
+/
+comment on column rec_monticket_cash_plan.oldplanid is '原充值planid(充值申请时产生)'
+/
+comment on column rec_monticket_cash_plan.limittimes is '单位最大消费次数'
+/
+comment on column rec_monticket_cash_plan.monthnum is '充值单位数'
+/
+comment on column rec_monticket_cash_plan.billno is '账单编号'
+/
+comment on column rec_monticket_cash_plan.hangdatemonthpre is '月票充值前卡上冲零时间'
+/
+comment on column rec_monticket_cash_plan.hangdatemonth is '月票充值后卡上冲零时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CASH_PLAN_BAD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER, 
+	"CUSTOMERID" NUMBER, 
+	"CARDNO" NUMBER DEFAULT 0, 
+	"CARDSN" NUMBER DEFAULT 0, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0, 
+	"STATUS" NUMBER DEFAULT 0, 
+	"ACCCODE" NUMBER, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER DEFAULT 0, 
+	"PSAMCARDNO" NUMBER DEFAULT 0, 
+	"EMPID" NUMBER DEFAULT 0, 
+	"DEALTYPE" NUMBER DEFAULT 0, 
+	"WALLETTYPE" NUMBER DEFAULT 0, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0, 
+	"BADCODE" NUMBER, 
+	"BADDESC" VARCHAR2(300), 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BILLNO" NUMBER, 
+	 CONSTRAINT "PK_MONTICKET_CASH_PLAN_BAD" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monticket_cash_plan_bad is '月票钱包提交失败记录表'
+/
+comment on column rec_monticket_cash_plan_bad.id is '流水号'
+/
+comment on column rec_monticket_cash_plan_bad.planid is '提交申请流水'
+/
+comment on column rec_monticket_cash_plan_bad.customerid is '提交帐号'
+/
+comment on column rec_monticket_cash_plan_bad.cardno is '提交卡号'
+/
+comment on column rec_monticket_cash_plan_bad.cardsn is '持卡序号'
+/
+comment on column rec_monticket_cash_plan_bad.cardtypedetailid is '提交卡类型'
+/
+comment on column rec_monticket_cash_plan_bad.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monticket_cash_plan_bad.viceoddfare is '提交充值后月票钱包余额'
+/
+comment on column rec_monticket_cash_plan_bad.viceoddfarepre is '提交充值前月票钱包余额'
+/
+comment on column rec_monticket_cash_plan_bad.vicedummyopfare is '提交月票钱包虚充金额'
+/
+comment on column rec_monticket_cash_plan_bad.viceopfare is '提交月票钱包交易金额'
+/
+comment on column rec_monticket_cash_plan_bad.vicesaveopcount is '提交月票钱包充值后交易计数'
+/
+comment on column rec_monticket_cash_plan_bad.viceopcount is '提交月票钱包消费交易计数'
+/
+comment on column rec_monticket_cash_plan_bad.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_monticket_cash_plan_bad.acccode is '提交科目代码'
+/
+comment on column rec_monticket_cash_plan_bad.opdt is '操作时间'
+/
+comment on column rec_monticket_cash_plan_bad.description is '交易科目描述'
+/
+comment on column rec_monticket_cash_plan_bad.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_monticket_cash_plan_bad.poscode is '设备运营唯一编号'
+/
+comment on column rec_monticket_cash_plan_bad.psamcardno is 'psam卡号'
+/
+comment on column rec_monticket_cash_plan_bad.empid is '职员帐号'
+/
+comment on column rec_monticket_cash_plan_bad.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_monticket_cash_plan_bad.wallettype is '钱包类型'
+/
+comment on column rec_monticket_cash_plan_bad.tac is 'tac码'
+/
+comment on column rec_monticket_cash_plan_bad.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monticket_cash_plan_bad.badcode is '坏账编号'
+/
+comment on column rec_monticket_cash_plan_bad.baddesc is '坏账描述'
+/
+comment on column rec_monticket_cash_plan_bad.ver is '记录版本'
+/
+comment on column rec_monticket_cash_plan_bad.createdt is '记录形成时间'
+/
+comment on column rec_monticket_cash_plan_bad.customerunitcode is '客户代码'
+/
+comment on column rec_monticket_cash_plan_bad.limittimes is '单位最大消费次数'
+/
+comment on column rec_monticket_cash_plan_bad.monthnum is '充值单位数'
+/
+comment on column rec_monticket_cash_plan_bad.validtimestart is '有效启日'
+/
+comment on column rec_monticket_cash_plan_bad.validtimeend is '有效止日'
+/
+comment on column rec_monticket_cash_plan_bad.billno is '账单编号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CASH_PLAN_LOG" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BILLNO" NUMBER, 
+	"HANGDATEMONTHPRE" DATE, 
+	"HANGDATEMONTH" DATE, 
+	"OLDPLANID" NUMBER DEFAULT 0
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monticket_cash_plan_log is '月票钱包领款计划申请日志表'
+/
+comment on column rec_monticket_cash_plan_log.planid is '申请流水'
+/
+comment on column rec_monticket_cash_plan_log.customerid is '帐号'
+/
+comment on column rec_monticket_cash_plan_log.cardno is '卡号'
+/
+comment on column rec_monticket_cash_plan_log.cardsn is '持卡序号'
+/
+comment on column rec_monticket_cash_plan_log.cardtypedetailid is '卡类型'
+/
+comment on column rec_monticket_cash_plan_log.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monticket_cash_plan_log.viceoddfare is '充值后月票钱包余额'
+/
+comment on column rec_monticket_cash_plan_log.viceoddfarepre is '充值前月票钱包余额'
+/
+comment on column rec_monticket_cash_plan_log.vicedummyopfare is '月票钱包虚冲余额'
+/
+comment on column rec_monticket_cash_plan_log.viceopfare is '月票钱包交易金额'
+/
+comment on column rec_monticket_cash_plan_log.vicesaveopcount is '月票钱包充值后交易计数'
+/
+comment on column rec_monticket_cash_plan_log.viceopcount is '月票钱包消费交易计数'
+/
+comment on column rec_monticket_cash_plan_log.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_monticket_cash_plan_log.acccode is '科目代码'
+/
+comment on column rec_monticket_cash_plan_log.opdt is '操作时间'
+/
+comment on column rec_monticket_cash_plan_log.description is '描述(补助,零散补助,稿费)'
+/
+comment on column rec_monticket_cash_plan_log.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_monticket_cash_plan_log.poscode is '设备运营唯一编号'
+/
+comment on column rec_monticket_cash_plan_log.psamcardno is 'psam卡号'
+/
+comment on column rec_monticket_cash_plan_log.empid is '职员帐号'
+/
+comment on column rec_monticket_cash_plan_log.dealtype is '记录类型'
+/
+comment on column rec_monticket_cash_plan_log.wallettype is '钱包类型'
+/
+comment on column rec_monticket_cash_plan_log.tac is 'tac码'
+/
+comment on column rec_monticket_cash_plan_log.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monticket_cash_plan_log.ver is '记录版本'
+/
+comment on column rec_monticket_cash_plan_log.createdt is '记录形成时间'
+/
+comment on column rec_monticket_cash_plan_log.customerunitcode is '客户代码'
+/
+comment on column rec_monticket_cash_plan_log.limittimes is '单位最大消费次数'
+/
+comment on column rec_monticket_cash_plan_log.monthnum is '充值单位数'
+/
+comment on column rec_monticket_cash_plan_log.validtimestart is '有效启日'
+/
+comment on column rec_monticket_cash_plan_log.validtimeend is '有效止日'
+/
+comment on column rec_monticket_cash_plan_log.billno is '账号编号'
+/
+comment on column rec_monticket_cash_plan_log.hangdatemonthpre is '月票充值前卡上冲零时间'
+/
+comment on column rec_monticket_cash_plan_log.hangdatemonth is '月票充值后卡上冲零时间'
+/
+comment on column rec_monticket_cash_plan_log.oldplanid is '原充值planid(充值申请时产生)'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CASH_PLAN_PUTOUT" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AREAID" NUMBER, 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BILLNO" NUMBER
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("OPDT") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_monticket_cash_plan_putout is '月票钱包领款发放表'
+/
+comment on column rec_monticket_cash_plan_putout.planid is '申请流水'
+/
+comment on column rec_monticket_cash_plan_putout.customerid is '帐号'
+/
+comment on column rec_monticket_cash_plan_putout.cardno is '卡号'
+/
+comment on column rec_monticket_cash_plan_putout.cardsn is '持卡序号'
+/
+comment on column rec_monticket_cash_plan_putout.cardtypedetailid is '卡类型'
+/
+comment on column rec_monticket_cash_plan_putout.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monticket_cash_plan_putout.viceoddfare is '充值后月票钱包余额'
+/
+comment on column rec_monticket_cash_plan_putout.viceoddfarepre is '充值前月票钱包余额'
+/
+comment on column rec_monticket_cash_plan_putout.vicedummyopfare is '月票钱包虚充金额'
+/
+comment on column rec_monticket_cash_plan_putout.viceopfare is '月票钱包交易金额(含虚充)'
+/
+comment on column rec_monticket_cash_plan_putout.vicesaveopcount is '月票钱包充值后交易计数'
+/
+comment on column rec_monticket_cash_plan_putout.viceopcount is '月票钱包消费交易计数'
+/
+comment on column rec_monticket_cash_plan_putout.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_monticket_cash_plan_putout.acccode is '科目代码'
+/
+comment on column rec_monticket_cash_plan_putout.opdt is '操作时间'
+/
+comment on column rec_monticket_cash_plan_putout.description is '描述(补助,零散补助,稿费)'
+/
+comment on column rec_monticket_cash_plan_putout.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_monticket_cash_plan_putout.poscode is '设备运营唯一编号'
+/
+comment on column rec_monticket_cash_plan_putout.psamcardno is 'psam卡号'
+/
+comment on column rec_monticket_cash_plan_putout.empid is '职员帐号'
+/
+comment on column rec_monticket_cash_plan_putout.dealtype is '交易类型'
+/
+comment on column rec_monticket_cash_plan_putout.wallettype is '钱包类型'
+/
+comment on column rec_monticket_cash_plan_putout.tac is 'tac码'
+/
+comment on column rec_monticket_cash_plan_putout.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monticket_cash_plan_putout.areaid is '分区id'
+/
+comment on column rec_monticket_cash_plan_putout.ver is '记录版本'
+/
+comment on column rec_monticket_cash_plan_putout.createdt is '记录形成时间'
+/
+comment on column rec_monticket_cash_plan_putout.customerunitcode is '客户代码'
+/
+comment on column rec_monticket_cash_plan_putout.limittimes is '单位最大消费次数'
+/
+comment on column rec_monticket_cash_plan_putout.monthnum is '充值单位数'
+/
+comment on column rec_monticket_cash_plan_putout.validtimestart is '有效启日'
+/
+comment on column rec_monticket_cash_plan_putout.validtimeend is '有效止日'
+/
+comment on column rec_monticket_cash_plan_putout.billno is '账单编号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CASH1" 
+   (	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monticket_cash1 is '月票钱包充值红冲记录'
+/
+comment on column rec_monticket_cash1.customerid is '客户编号'
+/
+comment on column rec_monticket_cash1.planid is '红冲流水号'
+/
+comment on column rec_monticket_cash1.customerunitcode is '人员客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_CONSUM" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"VICEDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_MONTICKET_CONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_MONTICKET_CONSUME" UNIQUE ("CUSTOMERID", "CARDSN", "OPCOUNT", "CARDASN", "TRADERECNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("UPLOADDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_monticket_consum is '月票钱包消费明细表'
+/
+comment on column rec_monticket_consum.cstaccfc is '流水号'
+/
+comment on column rec_monticket_consum.customerid is '账号'
+/
+comment on column rec_monticket_consum.cardno is '卡号'
+/
+comment on column rec_monticket_consum.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_monticket_consum.opdt is '交易时间'
+/
+comment on column rec_monticket_consum.sumviceaddfare is '月票钱包总加款额系统值'
+/
+comment on column rec_monticket_consum.viceonoddfare is '月票钱包卡余额'
+/
+comment on column rec_monticket_consum.viceonopfare is '月票钱包交易金额'
+/
+comment on column rec_monticket_consum.acccode is '交易科目'
+/
+comment on column rec_monticket_consum.dscrp is '科目描述'
+/
+comment on column rec_monticket_consum.cardsn is '卡序号'
+/
+comment on column rec_monticket_consum.opcount is '卡操作计数'
+/
+comment on column rec_monticket_consum.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_monticket_consum.collectdt is '采集时间'
+/
+comment on column rec_monticket_consum.uploaddate is '上传时间'
+/
+comment on column rec_monticket_consum.busid is '车辆id'
+/
+comment on column rec_monticket_consum.driverid is '司机id'
+/
+comment on column rec_monticket_consum.poscode is '设备运营唯一编号'
+/
+comment on column rec_monticket_consum.samcardno is 'sam卡号'
+/
+comment on column rec_monticket_consum.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_monticket_consum.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_monticket_consum.tac is 'tac验证码'
+/
+comment on column rec_monticket_consum.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_monticket_consum.buslineid is '线路编号'
+/
+comment on column rec_monticket_consum.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_monticket_consum.discount is '打折金额'
+/
+comment on column rec_monticket_consum.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值 3：月票钱包'
+/
+comment on column rec_monticket_consum.linedept is '线路所属部门'
+/
+comment on column rec_monticket_consum.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_monticket_consum.vicedummyopfare is '月票钱包虚冲撤销金额'
+/
+comment on column rec_monticket_consum.cardasn is '卡应用序列号'
+/
+comment on column rec_monticket_consum.tradecitycode is '交易地城市代码'
+/
+comment on column rec_monticket_consum.ownercitycode is '所属地城市代码'
+/
+comment on column rec_monticket_consum.maincardtype is '主卡类型'
+/
+comment on column rec_monticket_consum.assocardtype is '子卡类型'
+/
+comment on column rec_monticket_consum.cardversion is '卡内版本'
+/
+comment on column rec_monticket_consum.tradekind is '交易性质'
+/
+comment on column rec_monticket_consum.testflag is '测试标记'
+/
+comment on column rec_monticket_consum.operatorpoint is '营运单位编号'
+/
+comment on column rec_monticket_consum.collectpoint is '采集点编号'
+/
+comment on column rec_monticket_consum.accountdate is '清算日期'
+/
+comment on column rec_monticket_consum.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_MONTICKET_RESET" 
+   (	"RESETID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"MONOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONSAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RUSHFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"HANGDATEMONTH" DATE NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"BILLNO" NUMBER NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(30) NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_MONTICKET_RESET" PRIMARY KEY ("RESETID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_MONTICKET_RESET" UNIQUE ("CUSTOMERID", "CARDNO", "CARDSN", "HANGDATEMONTH", "ACCCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_monticket_reset is '月票、次卡冲零明细表'
+/
+comment on column rec_monticket_reset.resetid is '冲零流水号'
+/
+comment on column rec_monticket_reset.customerid is '账号'
+/
+comment on column rec_monticket_reset.cardno is '卡号'
+/
+comment on column rec_monticket_reset.cardsn is '卡序号'
+/
+comment on column rec_monticket_reset.createdate is '生成时间'
+/
+comment on column rec_monticket_reset.cardtypedetailid is '卡类型小类'
+/
+comment on column rec_monticket_reset.cardkind is '卡种类'
+/
+comment on column rec_monticket_reset.monopcount is '交易计数'
+/
+comment on column rec_monticket_reset.monsaveopcount is '充值计数'
+/
+comment on column rec_monticket_reset.rushfare is '冲零金额'
+/
+comment on column rec_monticket_reset.hangdatemonth is '冲零月份'
+/
+comment on column rec_monticket_reset.planid is '充值申请流水'
+/
+comment on column rec_monticket_reset.billno is '帐单编号'
+/
+comment on column rec_monticket_reset.acccode is '科目编号'
+/
+comment on column rec_monticket_reset.dscrp is '科目描述'
+/
+comment on column rec_monticket_reset.poscode is '设备唯一编号'
+/
+comment on column rec_monticket_reset.empid is '职员id'
+/
+comment on column rec_monticket_reset.psamcardno is 'psam卡号'
+/
+comment on column rec_monticket_reset.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_NOTICE_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"NOTICECODE" VARCHAR2(36) NOT NULL ENABLE, 
+	"CUSTOMERID" VARCHAR2(36) NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(36) NOT NULL ENABLE, 
+	"TYPECODE" VARCHAR2(36) NOT NULL ENABLE, 
+	"TYPESTATE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TITLE" VARCHAR2(50) NOT NULL ENABLE, 
+	"IMAGEPATH" VARCHAR2(1000), 
+	"CONTENT" VARCHAR2(2000) NOT NULL ENABLE, 
+	"ISDELETE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CREATETIME" DATE NOT NULL ENABLE, 
+	"COMMENTCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DELETETIME" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_NOTICE_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_NOTICE_ACC" UNIQUE ("NOTICECODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_notice_acc is '系统公告'
+/
+comment on column rec_notice_acc.id is '自动增长'
+/
+comment on column rec_notice_acc.noticecode is '公告编号code'
+/
+comment on column rec_notice_acc.customerid is '客户账号'
+/
+comment on column rec_notice_acc.dptcode is '所属公交公司'
+/
+comment on column rec_notice_acc.typecode is '所属公告类型'
+/
+comment on column rec_notice_acc.typestate is '公告类型 0内部公告 1外部公告'
+/
+comment on column rec_notice_acc.title is '公告主题，不能重复'
+/
+comment on column rec_notice_acc.imagepath is '公告图片地址，多个图片中间用‘，’分割'
+/
+comment on column rec_notice_acc.content is '公告内容'
+/
+comment on column rec_notice_acc.isdelete is '公告状态 0正常 1已删除'
+/
+comment on column rec_notice_acc.createtime is '公告创建时间'
+/
+comment on column rec_notice_acc.commentcount is '公告评论条数的统计数据'
+/
+comment on column rec_notice_acc.deletetime is '公告删除时间'
+/
+comment on column rec_notice_acc.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_NOTICE_COMMENT_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"COMMENTCODE" VARCHAR2(36) NOT NULL ENABLE, 
+	"NOTICECODE" VARCHAR2(36) NOT NULL ENABLE, 
+	"COMMENTERID" VARCHAR2(36) NOT NULL ENABLE, 
+	"NAME" VARCHAR2(20), 
+	"CONTENT" VARCHAR2(100) NOT NULL ENABLE, 
+	"TIME" DATE NOT NULL ENABLE, 
+	"IMAGEPATH" VARCHAR2(100), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_NOTICE_COMMENT_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_NOTICE_COMMENT_ACC" UNIQUE ("COMMENTCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_notice_comment_acc is '公告评论数据'
+/
+comment on column rec_notice_comment_acc.id is '自动增长'
+/
+comment on column rec_notice_comment_acc.commentcode is '公告评论的编号code'
+/
+comment on column rec_notice_comment_acc.noticecode is '公告code'
+/
+comment on column rec_notice_comment_acc.commenterid is '评论人id'
+/
+comment on column rec_notice_comment_acc.name is '评论人姓名'
+/
+comment on column rec_notice_comment_acc.content is '评论内容'
+/
+comment on column rec_notice_comment_acc.time is '评论时间'
+/
+comment on column rec_notice_comment_acc.imagepath is '评论人头像地址'
+/
+comment on column rec_notice_comment_acc.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_NOTICE_TYPE_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TYPECODE" VARCHAR2(36) NOT NULL ENABLE, 
+	"TYPESTATE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TYPENAME" VARCHAR2(20) NOT NULL ENABLE, 
+	"CREATETIME" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "UK_REC_NOTICE_TYPE_ACC" UNIQUE ("TYPECODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "PK_REC_NOTICE_TYPE_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_notice_type_acc is '公告类型'
+/
+comment on column rec_notice_type_acc.id is '自动增长'
+/
+comment on column rec_notice_type_acc.typecode is '公告类型的编号code'
+/
+comment on column rec_notice_type_acc.typestate is '公告类型 0内部公告 1外部公告'
+/
+comment on column rec_notice_type_acc.typename is '公告类型的内容'
+/
+comment on column rec_notice_type_acc.createtime is '公告类型创建时间'
+/
+comment on column rec_notice_type_acc.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_PAYMENT_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SELLCARDS" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"SELLCARDCASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTTIONS" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"ELECTTIONCASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MONTICKETS" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"MONTICKETCASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICECARDS" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"VICECARDCASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"WRITEOFFS" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"WRITECASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"FARES" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"FARECASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"UNSETS" NUMBER(6,0) DEFAULT 0 NOT NULL ENABLE, 
+	"UNSETCASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"SUMCASH" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_PAYMENT_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_PAYMENT_DAY" UNIQUE ("EMPID", "OPDT")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_payment_day is '出纳卡务即时日结统计表'
+/
+comment on column rec_payment_day.id is 'id'
+/
+comment on column rec_payment_day.empid is '职员编号'
+/
+comment on column rec_payment_day.opdt is '操作日期：yyyy-mm-dd'
+/
+comment on column rec_payment_day.sellcards is '售卡张数'
+/
+comment on column rec_payment_day.sellcardcash is '售卡金额'
+/
+comment on column rec_payment_day.electtions is '钱包充值张数'
+/
+comment on column rec_payment_day.electtioncash is '钱包充值金额'
+/
+comment on column rec_payment_day.montickets is '月票充值张数'
+/
+comment on column rec_payment_day.monticketcash is '月票充值金额'
+/
+comment on column rec_payment_day.vicecards is '次卡充值张数'
+/
+comment on column rec_payment_day.vicecardcash is '次卡充值金额'
+/
+comment on column rec_payment_day.writeoffs is '退卡张数'
+/
+comment on column rec_payment_day.writecash is '退卡金额'
+/
+comment on column rec_payment_day.fares is '其他收费张数'
+/
+comment on column rec_payment_day.farecash is '其他收费金额'
+/
+comment on column rec_payment_day.unsets is '未决张数'
+/
+comment on column rec_payment_day.unsetcash is '未决金额'
+/
+comment on column rec_payment_day.sumcash is '现金总额'
+/
+comment on column rec_payment_day.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_POSCODE_RESET" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"RUSHFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"HANGDATEMONTH" DATE NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER NOT NULL ENABLE, 
+	"MONSAVEOPFARE" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"HANGDATEMONTHEND" DATE, 
+	"ODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_POSCODE_RESET" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_POSCODE_RESET" UNIQUE ("CUSTOMERID", "CARDNO", "CARDSN", "OPCOUNT", "WALLETTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 262144 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_poscode_reset is '终端清零明细记录'
+/
+comment on column rec_poscode_reset.cstaccfc is '流水号'
+/
+comment on column rec_poscode_reset.customerid is '账号'
+/
+comment on column rec_poscode_reset.cardno is '卡号'
+/
+comment on column rec_poscode_reset.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_poscode_reset.opdt is '交易时间'
+/
+comment on column rec_poscode_reset.rushfare is '清零金额'
+/
+comment on column rec_poscode_reset.hangdatemonth is '清零金额所属月份（最早清零开始月份）'
+/
+comment on column rec_poscode_reset.acccode is '交易科目'
+/
+comment on column rec_poscode_reset.dscrp is '科目描述'
+/
+comment on column rec_poscode_reset.cardsn is '卡序号'
+/
+comment on column rec_poscode_reset.opcount is '卡操作计数（直接取卡上当时的交易计数）'
+/
+comment on column rec_poscode_reset.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_poscode_reset.collectdt is '采集时间'
+/
+comment on column rec_poscode_reset.uploaddate is '上传时间'
+/
+comment on column rec_poscode_reset.busid is '车辆id'
+/
+comment on column rec_poscode_reset.driverid is '司机id'
+/
+comment on column rec_poscode_reset.poscode is '设备运营唯一编号'
+/
+comment on column rec_poscode_reset.samcardno is 'sam卡号'
+/
+comment on column rec_poscode_reset.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_poscode_reset.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_poscode_reset.tac is 'tac验证码'
+/
+comment on column rec_poscode_reset.samtradeno is 'sam卡交易流水号（清零记录全部为0）'
+/
+comment on column rec_poscode_reset.buslineid is '线路编号'
+/
+comment on column rec_poscode_reset.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_poscode_reset.tradetype is '交易应用类型 0：消费记录 1：电子钱包充值撤销  9 清零记录'
+/
+comment on column rec_poscode_reset.linedept is '线路所属部门'
+/
+comment on column rec_poscode_reset.operatorpoint is '营运单位编号'
+/
+comment on column rec_poscode_reset.collectpoint is '采集点编号'
+/
+comment on column rec_poscode_reset.customerunitcode is '客户代码'
+/
+comment on column rec_poscode_reset.wallettype is '钱包类型 1：电子钱包 2 月票钱包 3 次卡钱包'
+/
+comment on column rec_poscode_reset.monsaveopfare is '每月充值金额'
+/
+comment on column rec_poscode_reset.hangdatemonthend is '清零金额结束月份（如果清零一个月，则该时间和最早开始清零月份一致）'
+/
+comment on column rec_poscode_reset.oddfare is '卡余额'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_REFUNDMENT_LIST" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"ELECODDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"DEPRECIATEFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"EMPID" NUMBER(10,0) NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MANGEFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"MONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OTHERFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "UK_REC_REFUNDMENT_LIST_CUSTID" UNIQUE ("CUSTOMERID", "CUSTOMERUNITCODE", "CARDSN", "CARDNO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_refundment_list is '退款明细报表'
+/
+comment on column rec_refundment_list.id is 'id'
+/
+comment on column rec_refundment_list.customerid is '客户编号'
+/
+comment on column rec_refundment_list.elecoddfare is '电子钱包退款金额'
+/
+comment on column rec_refundment_list.depreciatefare is '折旧费金额'
+/
+comment on column rec_refundment_list.empid is '退款职员'
+/
+comment on column rec_refundment_list.psamcardno is 'psam卡号'
+/
+comment on column rec_refundment_list.poscode is '终端唯一编号'
+/
+comment on column rec_refundment_list.createdate is '形成记录时间'
+/
+comment on column rec_refundment_list.viceoddfare is '次卡钱包退款金额'
+/
+comment on column rec_refundment_list.mangefare is '管理费金额'
+/
+comment on column rec_refundment_list.customerunitcode is '客户代码'
+/
+comment on column rec_refundment_list.monoddfare is '月票钱包退款金额'
+/
+comment on column rec_refundment_list.otherfare is '其他扣费'
+/
+comment on column rec_refundment_list.cardsn is '持卡序号'
+/
+comment on column rec_refundment_list.cardno is '卡号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_RUSHDUMPFARE_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"ELECOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"ELECSAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"LASTDUMPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ELECSUMFARE" NUMBER NOT NULL ENABLE, 
+	"SUMCONSUMFARE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_RUSHDUMPFARE_LOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_rushdumpfare_log is '充值时虚充金额清零日志记录表，累计消费金额达到最低限额，则虚充金额清零'
+/
+comment on column rec_rushdumpfare_log.id is 'id'
+/
+comment on column rec_rushdumpfare_log.customerid is '客户编号'
+/
+comment on column rec_rushdumpfare_log.cardno is '客户卡号'
+/
+comment on column rec_rushdumpfare_log.elecopcount is '电子钱包交易计数'
+/
+comment on column rec_rushdumpfare_log.elecsaveopcount is '电子钱包充值计数'
+/
+comment on column rec_rushdumpfare_log.lastdumpfare is '清零金额'
+/
+comment on column rec_rushdumpfare_log.elecsumfare is '电子钱包总额'
+/
+comment on column rec_rushdumpfare_log.sumconsumfare is '电子钱包累计消费金额'
+/
+comment on column rec_rushdumpfare_log.opdt is '操作日期'
+/
+comment on column rec_rushdumpfare_log.poscode is '终端编号'
+/
+comment on column rec_rushdumpfare_log.psamcardno is 'psam卡号'
+/
+comment on column rec_rushdumpfare_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_RUSHVICEDUMPFARE_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER NOT NULL ENABLE, 
+	"LASTDUMPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ELECSUMFARE" NUMBER NOT NULL ENABLE, 
+	"SUMCONSUMFARE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 3 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_RUSHVICEDUMPFARE_LOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_rushvicedumpfare_log is '次卡、月票钱包充值时虚充金额清零日志记录表，累计消费金额达到最低限额，则虚充金额清零'
+/
+comment on column rec_rushvicedumpfare_log.id is 'id'
+/
+comment on column rec_rushvicedumpfare_log.customerid is '客户编号'
+/
+comment on column rec_rushvicedumpfare_log.cardno is '客户卡号'
+/
+comment on column rec_rushvicedumpfare_log.viceopcount is '次卡、月票钱包交易计数'
+/
+comment on column rec_rushvicedumpfare_log.vicesaveopcount is '次卡、月票钱包充值计数'
+/
+comment on column rec_rushvicedumpfare_log.lastdumpfare is '清零金额'
+/
+comment on column rec_rushvicedumpfare_log.elecsumfare is '次卡、月票钱包总额'
+/
+comment on column rec_rushvicedumpfare_log.sumconsumfare is '次卡、月票钱包累计消费金额'
+/
+comment on column rec_rushvicedumpfare_log.opdt is '操作日期'
+/
+comment on column rec_rushvicedumpfare_log.poscode is '终端编号'
+/
+comment on column rec_rushvicedumpfare_log.psamcardno is 'psam卡号'
+/
+comment on column rec_rushvicedumpfare_log.customerunitcode is '客户代码'
+/
+comment on column rec_rushvicedumpfare_log.wallettype is '钱包类型 2 月票钱包 3 次卡钱包'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_SELFMONEY_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER(32,0) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"KTACCCODE" NUMBER NOT NULL ENABLE, 
+	"KTFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"KTACCDSCRP" VARCHAR2(20), 
+	"CHANGEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"MANGEACCCODE" NUMBER, 
+	"MANGEFARE" NUMBER(10,2), 
+	"MANGEDSCRP" VARCHAR2(20), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"CARDNO" NUMBER, 
+	 CONSTRAINT "PK_REC_SELFMONEY_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_selfmoney_acc is '开户费用明细表（包含折旧费和卡套费）'
+/
+comment on column rec_selfmoney_acc.id is '流水号'
+/
+comment on column rec_selfmoney_acc.empid is '操作职员'
+/
+comment on column rec_selfmoney_acc.customerid is '账号'
+/
+comment on column rec_selfmoney_acc.cardtype is '卡类别，普通卡，月票卡，老年卡'
+/
+comment on column rec_selfmoney_acc.opfare is '交易金额'
+/
+comment on column rec_selfmoney_acc.acccode is '交易科目'
+/
+comment on column rec_selfmoney_acc.dscrp is '交易科目描述'
+/
+comment on column rec_selfmoney_acc.ktacccode is '卡套费科目'
+/
+comment on column rec_selfmoney_acc.ktfare is '卡套费金额'
+/
+comment on column rec_selfmoney_acc.ktaccdscrp is ''
+/
+comment on column rec_selfmoney_acc.changedate is '交易时间'
+/
+comment on column rec_selfmoney_acc.cardkind is '交易卡类型 1m1卡， 2  cpu卡'
+/
+comment on column rec_selfmoney_acc.poscode is '终端唯一编号'
+/
+comment on column rec_selfmoney_acc.scardsnr is '卡唯一编号'
+/
+comment on column rec_selfmoney_acc.mangeacccode is '管理费科目'
+/
+comment on column rec_selfmoney_acc.mangefare is '管理费金额'
+/
+comment on column rec_selfmoney_acc.mangedscrp is '管理费科目描述'
+/
+comment on column rec_selfmoney_acc.customerunitcode is '客户代码'
+/
+comment on column rec_selfmoney_acc.cardno is '卡号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_SELFMONEY_ACC_ROLLBACK" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER(32,0) NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"KTACCCODE" NUMBER NOT NULL ENABLE, 
+	"KTACCDSCRP" VARCHAR2(20), 
+	"KTFARE" NUMBER NOT NULL ENABLE, 
+	"CHANGEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"SCARDSNR" VARCHAR2(16) NOT NULL ENABLE, 
+	"ROLLDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_selfmoney_acc_rollback is '开户费用回滚明细表（包含折旧费和卡套费）'
+/
+comment on column rec_selfmoney_acc_rollback.id is '流水号'
+/
+comment on column rec_selfmoney_acc_rollback.empid is '操作职员'
+/
+comment on column rec_selfmoney_acc_rollback.customerid is '账号'
+/
+comment on column rec_selfmoney_acc_rollback.cardtype is '卡类别，普通卡，月票卡，老年卡'
+/
+comment on column rec_selfmoney_acc_rollback.opfare is '交易金额'
+/
+comment on column rec_selfmoney_acc_rollback.acccode is '交易科目'
+/
+comment on column rec_selfmoney_acc_rollback.dscrp is '交易科目描述'
+/
+comment on column rec_selfmoney_acc_rollback.ktacccode is '卡套费科目'
+/
+comment on column rec_selfmoney_acc_rollback.ktaccdscrp is '卡套费描述'
+/
+comment on column rec_selfmoney_acc_rollback.ktfare is '卡套费金额'
+/
+comment on column rec_selfmoney_acc_rollback.changedate is '交易时间'
+/
+comment on column rec_selfmoney_acc_rollback.cardkind is '交易卡类型 1m1卡， 2  cpu卡'
+/
+comment on column rec_selfmoney_acc_rollback.poscode is '终端唯一编号'
+/
+comment on column rec_selfmoney_acc_rollback.scardsnr is '卡唯一编号'
+/
+comment on column rec_selfmoney_acc_rollback.rolldate is '回滚时间'
+/
+comment on column rec_selfmoney_acc_rollback.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_TERM_OPERATION_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"OPTYPEID" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPDESC" VARCHAR2(600) NOT NULL ENABLE, 
+	"UPLOADDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"POSRECNO" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_term_operation_log is '终端操作日志'
+/
+comment on column rec_term_operation_log.id is '编号'
+/
+comment on column rec_term_operation_log.poscode is '设备唯一编号'
+/
+comment on column rec_term_operation_log.optypeid is '操作类型'
+/
+comment on column rec_term_operation_log.opdt is '操作时间'
+/
+comment on column rec_term_operation_log.opdesc is '操作描述'
+/
+comment on column rec_term_operation_log.uploaddt is '上传时间'
+/
+comment on column rec_term_operation_log.collectdt is '采集时间'
+/
+comment on column rec_term_operation_log.posrecno is 'pos记录编号'
+/
+comment on column rec_term_operation_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRD_CONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UNIONAPPKEY" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT 000000000000000 NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"TICKETCHARGE" VARCHAR2(20) DEFAULT 0, 
+	"RECORDTYPE" NUMBER DEFAULT 0, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FREEPOSCODE" NUMBER DEFAULT 0, 
+	"UPSTOPID" NUMBER DEFAULT 0, 
+	"DOWNSTOPID" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"BADRECTYPE" NUMBER DEFAULT 0, 
+	"RESPONSECODE" VARCHAR2(12), 
+	"UNIONPAYDATE" DATE DEFAULT sysdate
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 16384 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_third_consume is '银联双免，二维码，oda原始消费明细表'
+/
+comment on column rec_third_consume.cstaccfc is '流水号'
+/
+comment on column rec_third_consume.bankcardno is '银行卡号'
+/
+comment on column rec_third_consume.opdt is '交易时间'
+/
+comment on column rec_third_consume.electronopfare is 'oda交易金额'
+/
+comment on column rec_third_consume.acccode is '交易科目'
+/
+comment on column rec_third_consume.dscrp is '科目描述'
+/
+comment on column rec_third_consume.collectdt is '采集时间'
+/
+comment on column rec_third_consume.uploaddate is '上传时间'
+/
+comment on column rec_third_consume.busid is '车辆id'
+/
+comment on column rec_third_consume.driverid is '司机id'
+/
+comment on column rec_third_consume.poscode is '设备运营唯一编号'
+/
+comment on column rec_third_consume.samcardno is 'sam卡号'
+/
+comment on column rec_third_consume.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_third_consume.buslineid is '线路编号'
+/
+comment on column rec_third_consume.discount is '打折金额'
+/
+comment on column rec_third_consume.linedept is '线路所属部门'
+/
+comment on column rec_third_consume.maincardtype is '主卡类型'
+/
+comment on column rec_third_consume.assocardtype is '子卡类型'
+/
+comment on column rec_third_consume.cardversion is '卡内版本'
+/
+comment on column rec_third_consume.testflag is '测试标记'
+/
+comment on column rec_third_consume.operatorpoint is '营运单位编号'
+/
+comment on column rec_third_consume.collectpoint is '采集点编号'
+/
+comment on column rec_third_consume.accountdate is '清算日期'
+/
+comment on column rec_third_consume.bankcode is '银行代码'
+/
+comment on column rec_third_consume.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_third_consume.uniontermid is '银联终端编号'
+/
+comment on column rec_third_consume.unionbatchno is '批次号'
+/
+comment on column rec_third_consume.unionappkey is '应用密文'
+/
+comment on column rec_third_consume.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_third_consume.extentvalue is '预留字段'
+/
+comment on column rec_third_consume.merchantcode is '商户编号'
+/
+comment on column rec_third_consume.localcstaccfc is '本地记录流水号（第三方平台系统传过来）'
+/
+comment on column rec_third_consume.ticketcharge is '票价'
+/
+comment on column rec_third_consume.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_third_consume.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_third_consume.freeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_third_consume.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_third_consume.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_third_consume.customerunitcode is '客户法人'
+/
+comment on column rec_third_consume.badrectype is '坏账类型'
+/
+comment on column rec_third_consume.responsecode is '银行应答码'
+/
+comment on column rec_third_consume.unionpaydate is '银行处理时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_51B" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(20) NOT NULL ENABLE, 
+	"CARDASN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT '000000000000000' NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"SEARCHNUMBER" NUMBER NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SYSTEMTRACKINGNUM" NUMBER NOT NULL ENABLE, 
+	"UNIONAPPKEY" VARCHAR2(20) NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"UNIONRESULTCODE" VARCHAR2(5) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"RECORDCONTENT" VARCHAR2(1000) NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"RESULTCODE" VARCHAR2(6), 
+	"RESULTDSC" VARCHAR2(40), 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"MERCHANTNAME" VARCHAR2(40), 
+	 CONSTRAINT "PK_REC_THIRDCARD_51B" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 16384 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_51b is '银联电子现金反馈文件51b记录表'
+/
+comment on column rec_thirdcard_51b.cstaccfc is '流水号'
+/
+comment on column rec_thirdcard_51b.thirdcardno is '主账号'
+/
+comment on column rec_thirdcard_51b.cardasn is '卡片序列号'
+/
+comment on column rec_thirdcard_51b.merchantcode is '商户编号'
+/
+comment on column rec_thirdcard_51b.uniontermid is '银联终端编号'
+/
+comment on column rec_thirdcard_51b.searchnumber is '检索参考号'
+/
+comment on column rec_thirdcard_51b.opfare is '交易金额，单位分'
+/
+comment on column rec_thirdcard_51b.opdt is '交易时间'
+/
+comment on column rec_thirdcard_51b.systemtrackingnum is '系统跟踪号'
+/
+comment on column rec_thirdcard_51b.unionappkey is '应用密文'
+/
+comment on column rec_thirdcard_51b.accountdate is '清算时间'
+/
+comment on column rec_thirdcard_51b.opcount is '卡片交易计数'
+/
+comment on column rec_thirdcard_51b.bankcode is '银行代码'
+/
+comment on column rec_thirdcard_51b.unionresultcode is '银联返回应答码'
+/
+comment on column rec_thirdcard_51b.filename is '文件名称'
+/
+comment on column rec_thirdcard_51b.recordcontent is '单个记录内容'
+/
+comment on column rec_thirdcard_51b.uploaddate is '上传时间'
+/
+comment on column rec_thirdcard_51b.status is '0 未处理 1已处理'
+/
+comment on column rec_thirdcard_51b.updatedate is '入一卡通账时间'
+/
+comment on column rec_thirdcard_51b.resultcode is '处理结果code，0000：处理为正常帐成功；0001：找不到对应的商户及终端 0002：记录银联返回为异常账,解析帐目处理成功'
+/
+comment on column rec_thirdcard_51b.resultdsc is '处理结果描述'
+/
+comment on column rec_thirdcard_51b.customerunitcode is '客户法人'
+/
+comment on column rec_thirdcard_51b.merchantname is '受卡方名称地址即公交公司名称'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_CONSUMBAK" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER NOT NULL ENABLE, 
+	"TAC" NUMBER NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(4), 
+	"OWNERCITYCODE" VARCHAR2(4), 
+	"MAINCARDTYPE" NUMBER NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER, 
+	"CARDVERSION" NUMBER NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDOWNBUSINESS" NUMBER NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UNIONAPPKEY" VARCHAR2(20), 
+	"STATUS" NUMBER NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"MERCHANTCODE" VARCHAR2(15) NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"TICKETCHARGE" VARCHAR2(20), 
+	"RECORDTYPE" NUMBER, 
+	"FLAG" NUMBER, 
+	"FREEPOSCODE" NUMBER, 
+	"UPSTOPID" NUMBER, 
+	"DOWNSTOPID" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TERMTHRIDSEQNO" NUMBER NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_consumbak is ''
+/
+comment on column rec_thirdcard_consumbak.cstaccfc is ''
+/
+comment on column rec_thirdcard_consumbak.thirdcardno is ''
+/
+comment on column rec_thirdcard_consumbak.opdt is ''
+/
+comment on column rec_thirdcard_consumbak.sumelectraddfare is ''
+/
+comment on column rec_thirdcard_consumbak.electronoddfare is ''
+/
+comment on column rec_thirdcard_consumbak.electronopfare is ''
+/
+comment on column rec_thirdcard_consumbak.acccode is ''
+/
+comment on column rec_thirdcard_consumbak.dscrp is ''
+/
+comment on column rec_thirdcard_consumbak.cardtype is ''
+/
+comment on column rec_thirdcard_consumbak.opcount is ''
+/
+comment on column rec_thirdcard_consumbak.dealtype is ''
+/
+comment on column rec_thirdcard_consumbak.collectdt is ''
+/
+comment on column rec_thirdcard_consumbak.uploaddate is ''
+/
+comment on column rec_thirdcard_consumbak.busid is ''
+/
+comment on column rec_thirdcard_consumbak.driverid is ''
+/
+comment on column rec_thirdcard_consumbak.poscode is ''
+/
+comment on column rec_thirdcard_consumbak.samcardno is ''
+/
+comment on column rec_thirdcard_consumbak.cardkind is ''
+/
+comment on column rec_thirdcard_consumbak.traderecno is ''
+/
+comment on column rec_thirdcard_consumbak.tac is ''
+/
+comment on column rec_thirdcard_consumbak.samtradeno is ''
+/
+comment on column rec_thirdcard_consumbak.buslineid is ''
+/
+comment on column rec_thirdcard_consumbak.totalrecno is ''
+/
+comment on column rec_thirdcard_consumbak.discount is ''
+/
+comment on column rec_thirdcard_consumbak.tradetype is ''
+/
+comment on column rec_thirdcard_consumbak.linedept is ''
+/
+comment on column rec_thirdcard_consumbak.repealempid is ''
+/
+comment on column rec_thirdcard_consumbak.electrdummyopfare is ''
+/
+comment on column rec_thirdcard_consumbak.tradecitycode is ''
+/
+comment on column rec_thirdcard_consumbak.ownercitycode is ''
+/
+comment on column rec_thirdcard_consumbak.maincardtype is ''
+/
+comment on column rec_thirdcard_consumbak.assocardtype is ''
+/
+comment on column rec_thirdcard_consumbak.cardversion is ''
+/
+comment on column rec_thirdcard_consumbak.tradekind is ''
+/
+comment on column rec_thirdcard_consumbak.testflag is ''
+/
+comment on column rec_thirdcard_consumbak.operatorpoint is ''
+/
+comment on column rec_thirdcard_consumbak.collectpoint is ''
+/
+comment on column rec_thirdcard_consumbak.accountdate is ''
+/
+comment on column rec_thirdcard_consumbak.wallettype is ''
+/
+comment on column rec_thirdcard_consumbak.cardownbusiness is ''
+/
+comment on column rec_thirdcard_consumbak.bankcode is ''
+/
+comment on column rec_thirdcard_consumbak.batchno is ''
+/
+comment on column rec_thirdcard_consumbak.uniontermid is ''
+/
+comment on column rec_thirdcard_consumbak.unionbatchno is ''
+/
+comment on column rec_thirdcard_consumbak.unionappkey is ''
+/
+comment on column rec_thirdcard_consumbak.status is ''
+/
+comment on column rec_thirdcard_consumbak.extentvalue is ''
+/
+comment on column rec_thirdcard_consumbak.merchantcode is ''
+/
+comment on column rec_thirdcard_consumbak.localcstaccfc is ''
+/
+comment on column rec_thirdcard_consumbak.ticketcharge is ''
+/
+comment on column rec_thirdcard_consumbak.recordtype is ''
+/
+comment on column rec_thirdcard_consumbak.flag is ''
+/
+comment on column rec_thirdcard_consumbak.freeposcode is ''
+/
+comment on column rec_thirdcard_consumbak.upstopid is ''
+/
+comment on column rec_thirdcard_consumbak.downstopid is ''
+/
+comment on column rec_thirdcard_consumbak.customerunitcode is ''
+/
+comment on column rec_thirdcard_consumbak.termthridseqno is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_CONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(4), 
+	"OWNERCITYCODE" VARCHAR2(4), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDOWNBUSINESS" NUMBER NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UNIONAPPKEY" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT 000000000000000 NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"TICKETCHARGE" VARCHAR2(20) DEFAULT 0, 
+	"RECORDTYPE" NUMBER DEFAULT 0, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FREEPOSCODE" NUMBER DEFAULT 0, 
+	"UPSTOPID" NUMBER DEFAULT 0, 
+	"DOWNSTOPID" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TERMTHRIDSEQNO" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDCARD_CONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_THIRDCARD_CONSUME" UNIQUE ("MERCHANTCODE", "THIRDCARDNO", "UNIONTERMID", "OPCOUNT")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_consume is '银联电子现金消费明细表'
+/
+comment on column rec_thirdcard_consume.cstaccfc is '流水号'
+/
+comment on column rec_thirdcard_consume.thirdcardno is '第三方系统卡号'
+/
+comment on column rec_thirdcard_consume.opdt is '交易时间'
+/
+comment on column rec_thirdcard_consume.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_thirdcard_consume.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_thirdcard_consume.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_thirdcard_consume.acccode is '交易科目'
+/
+comment on column rec_thirdcard_consume.dscrp is '科目描述'
+/
+comment on column rec_thirdcard_consume.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_thirdcard_consume.opcount is '卡操作计数'
+/
+comment on column rec_thirdcard_consume.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_thirdcard_consume.collectdt is '采集时间'
+/
+comment on column rec_thirdcard_consume.uploaddate is '上传时间'
+/
+comment on column rec_thirdcard_consume.busid is '车辆id'
+/
+comment on column rec_thirdcard_consume.driverid is '司机id'
+/
+comment on column rec_thirdcard_consume.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdcard_consume.samcardno is 'sam卡号'
+/
+comment on column rec_thirdcard_consume.cardkind is '卡种类1m1卡， 2 cpu卡（3 移动卡：联动优势）'
+/
+comment on column rec_thirdcard_consume.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_thirdcard_consume.tac is 'tac验证码'
+/
+comment on column rec_thirdcard_consume.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_thirdcard_consume.buslineid is '线路编号'
+/
+comment on column rec_thirdcard_consume.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_thirdcard_consume.discount is '打折金额'
+/
+comment on column rec_thirdcard_consume.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_thirdcard_consume.linedept is '线路所属部门'
+/
+comment on column rec_thirdcard_consume.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_thirdcard_consume.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_thirdcard_consume.tradecitycode is '交易地城市代码'
+/
+comment on column rec_thirdcard_consume.ownercitycode is '所属地城市代码'
+/
+comment on column rec_thirdcard_consume.maincardtype is '主卡类型'
+/
+comment on column rec_thirdcard_consume.assocardtype is '子卡类型'
+/
+comment on column rec_thirdcard_consume.cardversion is '卡内版本'
+/
+comment on column rec_thirdcard_consume.tradekind is '交易性质'
+/
+comment on column rec_thirdcard_consume.testflag is '测试标记'
+/
+comment on column rec_thirdcard_consume.operatorpoint is '营运单位编号'
+/
+comment on column rec_thirdcard_consume.collectpoint is '采集点编号'
+/
+comment on column rec_thirdcard_consume.accountdate is '清算日期'
+/
+comment on column rec_thirdcard_consume.wallettype is '钱包类型'
+/
+comment on column rec_thirdcard_consume.cardownbusiness is '卡所属行业，0市民卡，1银联卡，2岭南通卡  3 移动卡'
+/
+comment on column rec_thirdcard_consume.bankcode is '银行代码'
+/
+comment on column rec_thirdcard_consume.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_consume.uniontermid is '银联终端编号'
+/
+comment on column rec_thirdcard_consume.unionbatchno is '批次号'
+/
+comment on column rec_thirdcard_consume.unionappkey is '应用密文'
+/
+comment on column rec_thirdcard_consume.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_thirdcard_consume.extentvalue is '预留字段'
+/
+comment on column rec_thirdcard_consume.merchantcode is '商户编号'
+/
+comment on column rec_thirdcard_consume.localcstaccfc is '本地记录流水号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_consume.ticketcharge is '票价'
+/
+comment on column rec_thirdcard_consume.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_thirdcard_consume.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_thirdcard_consume.freeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_thirdcard_consume.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_thirdcard_consume.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_thirdcard_consume.customerunitcode is '客户法人'
+/
+comment on column rec_thirdcard_consume.termthridseqno is '银联对账终端序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_CONSUME_CS" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" VARCHAR2(20) NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" VARCHAR2(20) DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" VARCHAR2(20) DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(4), 
+	"OWNERCITYCODE" VARCHAR2(4), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" VARCHAR2(20) DEFAULT SYSDATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDOWNBUSINESS" NUMBER NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UNIONAPPKEY" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT 000000000000000 NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"TICKETCHARGE" VARCHAR2(20) DEFAULT 0, 
+	"RECORDTYPE" NUMBER DEFAULT 0, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FREEPOSCODE" NUMBER DEFAULT 0, 
+	"UPSTOPID" NUMBER DEFAULT 0, 
+	"DOWNSTOPID" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TERMTHRIDSEQNO" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDCARD_CONSUME_CS" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_THIRDCARD_CONSUME_CS1" UNIQUE ("THIRDCARDNO", "OPCOUNT", "MERCHANTCODE", "UNIONTERMID", "UNIONAPPKEY")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_consume_cs is '电子钱包消费明细表'
+/
+comment on column rec_thirdcard_consume_cs.cstaccfc is '流水号'
+/
+comment on column rec_thirdcard_consume_cs.thirdcardno is '第三方系统卡号'
+/
+comment on column rec_thirdcard_consume_cs.opdt is '交易时间'
+/
+comment on column rec_thirdcard_consume_cs.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_thirdcard_consume_cs.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_thirdcard_consume_cs.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_thirdcard_consume_cs.acccode is '交易科目'
+/
+comment on column rec_thirdcard_consume_cs.dscrp is '科目描述'
+/
+comment on column rec_thirdcard_consume_cs.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_thirdcard_consume_cs.opcount is '卡操作计数'
+/
+comment on column rec_thirdcard_consume_cs.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_thirdcard_consume_cs.collectdt is '采集时间'
+/
+comment on column rec_thirdcard_consume_cs.uploaddate is '上传时间'
+/
+comment on column rec_thirdcard_consume_cs.busid is '车辆id'
+/
+comment on column rec_thirdcard_consume_cs.driverid is '司机id'
+/
+comment on column rec_thirdcard_consume_cs.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdcard_consume_cs.samcardno is 'sam卡号'
+/
+comment on column rec_thirdcard_consume_cs.cardkind is '卡种类1m1卡， 2 cpu卡（3 移动卡：联动优势）'
+/
+comment on column rec_thirdcard_consume_cs.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_thirdcard_consume_cs.tac is 'tac验证码'
+/
+comment on column rec_thirdcard_consume_cs.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_thirdcard_consume_cs.buslineid is '线路编号'
+/
+comment on column rec_thirdcard_consume_cs.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_thirdcard_consume_cs.discount is '打折金额'
+/
+comment on column rec_thirdcard_consume_cs.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_thirdcard_consume_cs.linedept is '线路所属部门'
+/
+comment on column rec_thirdcard_consume_cs.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_thirdcard_consume_cs.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_thirdcard_consume_cs.tradecitycode is '交易地城市代码'
+/
+comment on column rec_thirdcard_consume_cs.ownercitycode is '所属地城市代码'
+/
+comment on column rec_thirdcard_consume_cs.maincardtype is '主卡类型'
+/
+comment on column rec_thirdcard_consume_cs.assocardtype is '子卡类型'
+/
+comment on column rec_thirdcard_consume_cs.cardversion is '卡内版本'
+/
+comment on column rec_thirdcard_consume_cs.tradekind is '交易性质'
+/
+comment on column rec_thirdcard_consume_cs.testflag is '测试标记'
+/
+comment on column rec_thirdcard_consume_cs.operatorpoint is '营运单位编号'
+/
+comment on column rec_thirdcard_consume_cs.collectpoint is '采集点编号'
+/
+comment on column rec_thirdcard_consume_cs.accountdate is '清算日期'
+/
+comment on column rec_thirdcard_consume_cs.wallettype is '钱包类型'
+/
+comment on column rec_thirdcard_consume_cs.cardownbusiness is '卡所属行业，0市民卡，1银联卡，2岭南通卡  3 移动卡'
+/
+comment on column rec_thirdcard_consume_cs.bankcode is '银行代码'
+/
+comment on column rec_thirdcard_consume_cs.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_consume_cs.uniontermid is '银联终端编号'
+/
+comment on column rec_thirdcard_consume_cs.unionbatchno is '批次号'
+/
+comment on column rec_thirdcard_consume_cs.unionappkey is '应用密文'
+/
+comment on column rec_thirdcard_consume_cs.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_thirdcard_consume_cs.extentvalue is '预留字段'
+/
+comment on column rec_thirdcard_consume_cs.merchantcode is '商户编号'
+/
+comment on column rec_thirdcard_consume_cs.localcstaccfc is '本地记录流水号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_consume_cs.ticketcharge is '票价'
+/
+comment on column rec_thirdcard_consume_cs.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_thirdcard_consume_cs.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_thirdcard_consume_cs.freeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_thirdcard_consume_cs.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_thirdcard_consume_cs.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_thirdcard_consume_cs.customerunitcode is '客户法人'
+/
+comment on column rec_thirdcard_consume_cs.termthridseqno is '银联对账终端序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_CONSUME_RESULT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ANSWERCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"SELLCARDDATE" DATE NOT NULL ENABLE, 
+	"SQUAREDATE" DATE NOT NULL ENABLE, 
+	"INDEXCODE" VARCHAR2(24) NOT NULL ENABLE, 
+	"ISFIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FINDMSG" VARCHAR2(200), 
+	"CSTACCFC" NUMBER DEFAULT 0, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UPLOADDATE" DATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "UK_REC_THIRD_CON_RES" UNIQUE ("THIRDCARDNO", "OPCOUNT", "SELLCARDDATE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_consume_result is '银联返回结果'
+/
+comment on column rec_thirdcard_consume_result.id is '主键'
+/
+comment on column rec_thirdcard_consume_result.poscode is '终端唯一编号'
+/
+comment on column rec_thirdcard_consume_result.traderecno is 'pos交易流水号'
+/
+comment on column rec_thirdcard_consume_result.thirdcardno is '第三方系统卡号'
+/
+comment on column rec_thirdcard_consume_result.opcount is '卡操作计数'
+/
+comment on column rec_thirdcard_consume_result.answercode is '应答码'
+/
+comment on column rec_thirdcard_consume_result.sellcarddate is '售卡方所在方时间'
+/
+comment on column rec_thirdcard_consume_result.squaredate is '清算时间'
+/
+comment on column rec_thirdcard_consume_result.indexcode is '检索索引号'
+/
+comment on column rec_thirdcard_consume_result.isfind is '插入消费记录对账结果  100：正常   其他：出现异常情况'
+/
+comment on column rec_thirdcard_consume_result.findmsg is '异常消息'
+/
+comment on column rec_thirdcard_consume_result.cstaccfc is '原有消费记录的流水号'
+/
+comment on column rec_thirdcard_consume_result.unionbatchno is '批次号'
+/
+comment on column rec_thirdcard_consume_result.uploaddate is '记录上传时间'
+/
+comment on column rec_thirdcard_consume_result.customerunitcode is '客户法人'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_CONSUMESUCESS" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(4), 
+	"OWNERCITYCODE" VARCHAR2(4), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDOWNBUSINESS" NUMBER NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT '000000000000000' NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"UNIONAPPKEY" VARCHAR2(20) NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(25), 
+	 CONSTRAINT "PK_REC_THIRDCARD_CONSUMESUCESS" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_consumesucess is '电子钱包消费明细成功表'
+/
+comment on column rec_thirdcard_consumesucess.cstaccfc is '流水号'
+/
+comment on column rec_thirdcard_consumesucess.thirdcardno is ''
+/
+comment on column rec_thirdcard_consumesucess.opdt is '交易时间'
+/
+comment on column rec_thirdcard_consumesucess.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_thirdcard_consumesucess.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_thirdcard_consumesucess.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_thirdcard_consumesucess.acccode is '交易科目'
+/
+comment on column rec_thirdcard_consumesucess.dscrp is '科目描述'
+/
+comment on column rec_thirdcard_consumesucess.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_thirdcard_consumesucess.opcount is '卡操作计数'
+/
+comment on column rec_thirdcard_consumesucess.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_thirdcard_consumesucess.collectdt is '采集时间'
+/
+comment on column rec_thirdcard_consumesucess.uploaddate is '上传时间'
+/
+comment on column rec_thirdcard_consumesucess.busid is '车辆id'
+/
+comment on column rec_thirdcard_consumesucess.driverid is '司机id'
+/
+comment on column rec_thirdcard_consumesucess.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdcard_consumesucess.samcardno is 'sam卡号'
+/
+comment on column rec_thirdcard_consumesucess.cardkind is '卡种类1m1卡， 2 cpu卡（3 移动卡：联动优势）'
+/
+comment on column rec_thirdcard_consumesucess.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_thirdcard_consumesucess.tac is 'tac验证码'
+/
+comment on column rec_thirdcard_consumesucess.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_thirdcard_consumesucess.buslineid is '线路编号'
+/
+comment on column rec_thirdcard_consumesucess.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_thirdcard_consumesucess.discount is '打折金额'
+/
+comment on column rec_thirdcard_consumesucess.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_thirdcard_consumesucess.linedept is '线路所属部门'
+/
+comment on column rec_thirdcard_consumesucess.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_thirdcard_consumesucess.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_thirdcard_consumesucess.tradecitycode is '交易地城市代码'
+/
+comment on column rec_thirdcard_consumesucess.ownercitycode is '所属地城市代码'
+/
+comment on column rec_thirdcard_consumesucess.maincardtype is '主卡类型'
+/
+comment on column rec_thirdcard_consumesucess.assocardtype is '子卡类型'
+/
+comment on column rec_thirdcard_consumesucess.cardversion is '卡内版本'
+/
+comment on column rec_thirdcard_consumesucess.tradekind is '交易性质'
+/
+comment on column rec_thirdcard_consumesucess.testflag is '测试标记'
+/
+comment on column rec_thirdcard_consumesucess.operatorpoint is '营运单位编号'
+/
+comment on column rec_thirdcard_consumesucess.collectpoint is '采集点编号'
+/
+comment on column rec_thirdcard_consumesucess.accountdate is '清算日期'
+/
+comment on column rec_thirdcard_consumesucess.wallettype is '钱包类型'
+/
+comment on column rec_thirdcard_consumesucess.cardownbusiness is '卡所属行业，0市民卡，1银联卡，2岭南通卡  3 移动卡'
+/
+comment on column rec_thirdcard_consumesucess.bankcode is '银行代码'
+/
+comment on column rec_thirdcard_consumesucess.merchantcode is '商户编号'
+/
+comment on column rec_thirdcard_consumesucess.localcstaccfc is '本地记录流水号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_consumesucess.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_consumesucess.uniontermid is '银联终端编号'
+/
+comment on column rec_thirdcard_consumesucess.unionbatchno is '批次号'
+/
+comment on column rec_thirdcard_consumesucess.unionappkey is '应用密文'
+/
+comment on column rec_thirdcard_consumesucess.extentvalue is '预留字段'
+/
+comment on column rec_thirdcard_consumesucess.customerunitcode is '客户法人'
+/
+comment on column rec_thirdcard_consumesucess.filename is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDCARD_UNSETTLED" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMELECTRADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"ELECTRDUMMYOPFARE" NUMBER, 
+	"TRADECITYCODE" VARCHAR2(4), 
+	"OWNERCITYCODE" VARCHAR2(4), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDOWNBUSINESS" NUMBER NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT '000000000000000' NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10) NOT NULL ENABLE, 
+	"UNIONAPPKEY" VARCHAR2(20) NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"BADTYPE" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDCARD_UNSETTLED" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_THIRDCARD_UNSETTLED" UNIQUE ("THIRDCARDNO", "OPCOUNT", "OPDT", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdcard_unsettled is '电子钱包消费异常记录表'
+/
+comment on column rec_thirdcard_unsettled.cstaccfc is '流水号'
+/
+comment on column rec_thirdcard_unsettled.thirdcardno is ''
+/
+comment on column rec_thirdcard_unsettled.opdt is '交易时间'
+/
+comment on column rec_thirdcard_unsettled.sumelectraddfare is '电子钱包总加款额系统值'
+/
+comment on column rec_thirdcard_unsettled.electronoddfare is '电子钱包卡余额'
+/
+comment on column rec_thirdcard_unsettled.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_thirdcard_unsettled.acccode is '交易科目'
+/
+comment on column rec_thirdcard_unsettled.dscrp is '科目描述'
+/
+comment on column rec_thirdcard_unsettled.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_thirdcard_unsettled.opcount is '卡操作计数'
+/
+comment on column rec_thirdcard_unsettled.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_thirdcard_unsettled.collectdt is '采集时间'
+/
+comment on column rec_thirdcard_unsettled.uploaddate is '上传时间'
+/
+comment on column rec_thirdcard_unsettled.busid is '车辆id'
+/
+comment on column rec_thirdcard_unsettled.driverid is '司机id'
+/
+comment on column rec_thirdcard_unsettled.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdcard_unsettled.samcardno is 'sam卡号'
+/
+comment on column rec_thirdcard_unsettled.cardkind is '卡种类1m1卡， 2 cpu卡（3 移动卡：联动优势）'
+/
+comment on column rec_thirdcard_unsettled.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_thirdcard_unsettled.tac is 'tac验证码'
+/
+comment on column rec_thirdcard_unsettled.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_thirdcard_unsettled.buslineid is '线路编号'
+/
+comment on column rec_thirdcard_unsettled.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_thirdcard_unsettled.discount is '打折金额'
+/
+comment on column rec_thirdcard_unsettled.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值'
+/
+comment on column rec_thirdcard_unsettled.linedept is '线路所属部门'
+/
+comment on column rec_thirdcard_unsettled.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_thirdcard_unsettled.electrdummyopfare is '电子钱包虚冲撤销金额'
+/
+comment on column rec_thirdcard_unsettled.tradecitycode is '交易地城市代码'
+/
+comment on column rec_thirdcard_unsettled.ownercitycode is '所属地城市代码'
+/
+comment on column rec_thirdcard_unsettled.maincardtype is '主卡类型'
+/
+comment on column rec_thirdcard_unsettled.assocardtype is '子卡类型'
+/
+comment on column rec_thirdcard_unsettled.cardversion is '卡内版本'
+/
+comment on column rec_thirdcard_unsettled.tradekind is '交易性质'
+/
+comment on column rec_thirdcard_unsettled.testflag is '测试标记'
+/
+comment on column rec_thirdcard_unsettled.operatorpoint is '营运单位编号'
+/
+comment on column rec_thirdcard_unsettled.collectpoint is '采集点编号'
+/
+comment on column rec_thirdcard_unsettled.accountdate is '清算日期'
+/
+comment on column rec_thirdcard_unsettled.wallettype is '钱包类型'
+/
+comment on column rec_thirdcard_unsettled.cardownbusiness is '卡所属行业，0市民卡，1银联卡，2岭南通卡  3 移动卡'
+/
+comment on column rec_thirdcard_unsettled.bankcode is '银行代码'
+/
+comment on column rec_thirdcard_unsettled.merchantcode is '商户编号'
+/
+comment on column rec_thirdcard_unsettled.localcstaccfc is '本地记录流水号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_unsettled.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_thirdcard_unsettled.uniontermid is '银联终端编号'
+/
+comment on column rec_thirdcard_unsettled.unionbatchno is '批次号'
+/
+comment on column rec_thirdcard_unsettled.unionappkey is '应用密文'
+/
+comment on column rec_thirdcard_unsettled.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_thirdcard_unsettled.extentvalue is '预留字段'
+/
+comment on column rec_thirdcard_unsettled.badtype is '异常账目类型'
+/
+comment on column rec_thirdcard_unsettled.customerunitcode is '客户法人'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDRECORD" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"DISCOUNTFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(30), 
+	"BUSID" NUMBER, 
+	"DRIVERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT NULL, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"THIRDTERMID" VARCHAR2(20), 
+	"THIRDMERCHANTCODE" VARCHAR2(20) DEFAULT NULL, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT NULL, 
+	"RESPONSECODE" VARCHAR2(20), 
+	"RESPONSEMESSAGE" VARCHAR2(200), 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"NEXTTIME" DATE DEFAULT NULL, 
+	"USERID" VARCHAR2(30), 
+	"THIRDCARDNO" VARCHAR2(30), 
+	"ACCOUNTID" VARCHAR2(50), 
+	"FILENAME" VARCHAR2(50), 
+	"SYSTRACENUM" VARCHAR2(60) DEFAULT 0 NOT NULL ENABLE, 
+	"STOPID" NUMBER(10,0), 
+	"ORDERTYPE" VARCHAR2(2) DEFAULT 01 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDINFO" VARCHAR2(1000), 
+	"APPID" VARCHAR2(30), 
+	"LINEDIRECTION" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDRECORD" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_THIRDRECORD" UNIQUE ("SYSTRACENUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdrecord is '银联双免,二维码（所有发码方）,oda原始消费明细表'
+/
+comment on column rec_thirdrecord.cstaccfc is '流水号'
+/
+comment on column rec_thirdrecord.opfare is '交易金额'
+/
+comment on column rec_thirdrecord.discountfare is '打折金额'
+/
+comment on column rec_thirdrecord.oddfare is '消费后余额'
+/
+comment on column rec_thirdrecord.acccode is '交易科目'
+/
+comment on column rec_thirdrecord.dscrp is '科目描述'
+/
+comment on column rec_thirdrecord.busid is '车辆id'
+/
+comment on column rec_thirdrecord.driverid is '司机id'
+/
+comment on column rec_thirdrecord.buslineid is '线路编号'
+/
+comment on column rec_thirdrecord.linedept is '线路所属部门'
+/
+comment on column rec_thirdrecord.maincardtype is '主卡类型'
+/
+comment on column rec_thirdrecord.cardtype is '子卡类型'
+/
+comment on column rec_thirdrecord.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdrecord.traderecno is 'pos交易流水号'
+/
+comment on column rec_thirdrecord.opdt is '交易时间'
+/
+comment on column rec_thirdrecord.collectdt is '采集时间'
+/
+comment on column rec_thirdrecord.uploaddate is '上传时间'
+/
+comment on column rec_thirdrecord.testflag is '测试标记 （0：正常，1：测试）'
+/
+comment on column rec_thirdrecord.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_thirdrecord.dealtype is '记录类型  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_thirdrecord.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_thirdrecord.thirdtermid is '第三方分配终端编号'
+/
+comment on column rec_thirdrecord.thirdmerchantcode is '第三方分配商户编号'
+/
+comment on column rec_thirdrecord.customerunitcode is '客户法人'
+/
+comment on column rec_thirdrecord.status is '账目状态，0未清算，1已清算'
+/
+comment on column rec_thirdrecord.accountdate is '清算日期'
+/
+comment on column rec_thirdrecord.responsecode is '应答码'
+/
+comment on column rec_thirdrecord.responsemessage is '应答信息'
+/
+comment on column rec_thirdrecord.extentvalue is '扩展字段'
+/
+comment on column rec_thirdrecord.nexttime is '下次清算时间'
+/
+comment on column rec_thirdrecord.userid is '用户id'
+/
+comment on column rec_thirdrecord.thirdcardno is '虚拟卡号或第三方卡号'
+/
+comment on column rec_thirdrecord.accountid is '账户id'
+/
+comment on column rec_thirdrecord.filename is '清算文件名'
+/
+comment on column rec_thirdrecord.systracenum is '银联联机业务（银联终端编号+批次号+受卡方系统跟踪号），非银联联机业务（商户订单号），脱机业务（消费时间+poscode+终端交易流水）'
+/
+comment on column rec_thirdrecord.stopid is '站点编号'
+/
+comment on column rec_thirdrecord.ordertype is '订单类型 01：正常行程单 02：带人行程单 03：换乘订单'
+/
+comment on column rec_thirdrecord.tradekind is '交易性质  公交 地铁 出租车'
+/
+comment on column rec_thirdrecord.wallettype is '钱包类型'
+/
+comment on column rec_thirdrecord.recordinfo is '二维码脱机记录信息'
+/
+comment on column rec_thirdrecord.appid is '第三方应用id'
+/
+comment on column rec_thirdrecord.linedirection is '线路方向  0上行 1下行 分段计费时使用'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDRECORD_ACOMA" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(20) NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"RESPONSECODE" VARCHAR2(2) NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AGENCYINSTITUTIONFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"SENDINSTITUTIONFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"SYSTEMTRACKINGNUM" NUMBER NOT NULL ENABLE, 
+	"TRADETRANSFEDT" DATE NOT NULL ENABLE, 
+	"MERCHANTTYPE" VARCHAR2(4) NOT NULL ENABLE, 
+	"IDENTIFYCODE" VARCHAR2(18) NOT NULL ENABLE, 
+	"SEARCHNUMBER" NUMBER NOT NULL ENABLE, 
+	"AUTHORIZEREPLYCODE" VARCHAR2(6) NOT NULL ENABLE, 
+	"RECEIVEINSTITUTIONFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"OLDSYSTEMTRACKINGNUM" NUMBER NOT NULL ENABLE, 
+	"MAKECARDFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"TERMTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SENDLIQUIDATIONFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"RECEIVELIQUIDATIONFLAG" VARCHAR2(11) NOT NULL ENABLE, 
+	"TRADETYPE" VARCHAR2(4), 
+	"TRADETYPECODE" VARCHAR2(6), 
+	"SERVERINPUTTYPE" VARCHAR2(4), 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"FILECONTENT" VARCHAR2(1000) NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"RESULTCODE" VARCHAR2(6), 
+	"RESULTDSC" VARCHAR2(40), 
+	"MERCHANTNAME" VARCHAR2(40), 
+	 CONSTRAINT "PK_THIRDRECORD_ACOMA" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 16384 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdrecord_acoma is '银联双免，二维码，oda消费反馈文件acoma记录表'
+/
+comment on column rec_thirdrecord_acoma.cstaccfc is '流水号'
+/
+comment on column rec_thirdrecord_acoma.bankcardno is '主账号'
+/
+comment on column rec_thirdrecord_acoma.opfare is '交易金额'
+/
+comment on column rec_thirdrecord_acoma.opdt is '交易时间'
+/
+comment on column rec_thirdrecord_acoma.accountdate is '清算时间'
+/
+comment on column rec_thirdrecord_acoma.uniontermid is '受卡机终端标识码'
+/
+comment on column rec_thirdrecord_acoma.responsecode is '交易返回码'
+/
+comment on column rec_thirdrecord_acoma.cardsn is '持卡序号'
+/
+comment on column rec_thirdrecord_acoma.agencyinstitutionflag is '代理机构标识码'
+/
+comment on column rec_thirdrecord_acoma.sendinstitutionflag is '发送机构标识码'
+/
+comment on column rec_thirdrecord_acoma.systemtrackingnum is '系统跟踪号'
+/
+comment on column rec_thirdrecord_acoma.tradetransfedt is '交易传输时间'
+/
+comment on column rec_thirdrecord_acoma.merchanttype is '商户类型'
+/
+comment on column rec_thirdrecord_acoma.identifycode is '受卡方标识码'
+/
+comment on column rec_thirdrecord_acoma.searchnumber is '检索参考号'
+/
+comment on column rec_thirdrecord_acoma.authorizereplycode is '授权应答码'
+/
+comment on column rec_thirdrecord_acoma.receiveinstitutionflag is '接收机构标识码'
+/
+comment on column rec_thirdrecord_acoma.oldsystemtrackingnum is '原始交易的系统跟踪号'
+/
+comment on column rec_thirdrecord_acoma.makecardflag is '发卡机构标识码'
+/
+comment on column rec_thirdrecord_acoma.termtype is '终端类型'
+/
+comment on column rec_thirdrecord_acoma.sendliquidationflag is '发送方清算机构'
+/
+comment on column rec_thirdrecord_acoma.receiveliquidationflag is '接收方清算机构'
+/
+comment on column rec_thirdrecord_acoma.tradetype is '报文类型'
+/
+comment on column rec_thirdrecord_acoma.tradetypecode is '交易类型码'
+/
+comment on column rec_thirdrecord_acoma.serverinputtype is '服务点输入方式码'
+/
+comment on column rec_thirdrecord_acoma.customerunitcode is '客户代码'
+/
+comment on column rec_thirdrecord_acoma.filename is '文件名称'
+/
+comment on column rec_thirdrecord_acoma.filecreatedate is '文件创建日期'
+/
+comment on column rec_thirdrecord_acoma.filecontent is '单个tb内容'
+/
+comment on column rec_thirdrecord_acoma.uploaddate is '上传时间'
+/
+comment on column rec_thirdrecord_acoma.status is '0 未处理 1已处理'
+/
+comment on column rec_thirdrecord_acoma.updatedate is '入一卡通账时间'
+/
+comment on column rec_thirdrecord_acoma.resultcode is '处理结果code，0000：处理为正常帐成功；0001：找不到对应的商户及终端 0002：记录银联返回为异常账,解析帐目处理成功'
+/
+comment on column rec_thirdrecord_acoma.resultdsc is '处理结果描述'
+/
+comment on column rec_thirdrecord_acoma.merchantname is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDRECORD_FILEINFO" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(40) NOT NULL ENABLE, 
+	"FILESIZE" NUMBER NOT NULL ENABLE, 
+	"TOTALNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CURRENTDEALNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALRESULT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"UPLOADDT" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDRECORD_FILEINFO" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_THIRDRECORD_FILEINFO" UNIQUE ("FILENAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdrecord_fileinfo is '银联下载文件解析信息记录表'
+/
+comment on column rec_thirdrecord_fileinfo.cstaccfc is '流水号'
+/
+comment on column rec_thirdrecord_fileinfo.filename is '文件名称'
+/
+comment on column rec_thirdrecord_fileinfo.filesize is '文件大小'
+/
+comment on column rec_thirdrecord_fileinfo.totalnum is '文件中数据条数'
+/
+comment on column rec_thirdrecord_fileinfo.currentdealnum is '文件中当前处理成功的条数'
+/
+comment on column rec_thirdrecord_fileinfo.dealresult is '文件处理结果 0 解析处理中 1解析处理成功'
+/
+comment on column rec_thirdrecord_fileinfo.uploaddt is '入库时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDRECORD_REPEAT" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"DISCOUNTFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(30), 
+	"BUSID" NUMBER, 
+	"DRIVERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT NULL, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"THIRDTERMID" VARCHAR2(20), 
+	"THIRDMERCHANTCODE" VARCHAR2(20) DEFAULT NULL, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT NULL, 
+	"RESPONSECODE" VARCHAR2(20), 
+	"RESPONSEMESSAGE" VARCHAR2(200), 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"NEXTTIME" DATE DEFAULT NULL, 
+	"USERID" VARCHAR2(30), 
+	"THIRDCARDNO" VARCHAR2(30), 
+	"ACCOUNTID" VARCHAR2(50), 
+	"FILENAME" VARCHAR2(50), 
+	"SYSTRACENUM" VARCHAR2(60) DEFAULT 0 NOT NULL ENABLE, 
+	"STOPID" NUMBER(10,0), 
+	"ORDERTYPE" VARCHAR2(2) DEFAULT 01 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDINFO" VARCHAR2(1000), 
+	"APPID" VARCHAR2(30), 
+	"LINEDIRECTION" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDRECORD_REPEAT" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdrecord_repeat is '银联双免,二维码（所有发码方）,oda原始消费明细表'
+/
+comment on column rec_thirdrecord_repeat.cstaccfc is '流水号'
+/
+comment on column rec_thirdrecord_repeat.opfare is '交易金额'
+/
+comment on column rec_thirdrecord_repeat.discountfare is '打折金额'
+/
+comment on column rec_thirdrecord_repeat.oddfare is '消费后余额'
+/
+comment on column rec_thirdrecord_repeat.acccode is '交易科目'
+/
+comment on column rec_thirdrecord_repeat.dscrp is '科目描述'
+/
+comment on column rec_thirdrecord_repeat.busid is '车辆id'
+/
+comment on column rec_thirdrecord_repeat.driverid is '司机id'
+/
+comment on column rec_thirdrecord_repeat.buslineid is '线路编号'
+/
+comment on column rec_thirdrecord_repeat.linedept is '线路所属部门'
+/
+comment on column rec_thirdrecord_repeat.maincardtype is '主卡类型'
+/
+comment on column rec_thirdrecord_repeat.cardtype is '子卡类型'
+/
+comment on column rec_thirdrecord_repeat.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdrecord_repeat.traderecno is 'pos交易流水号'
+/
+comment on column rec_thirdrecord_repeat.opdt is '交易时间'
+/
+comment on column rec_thirdrecord_repeat.collectdt is '采集时间'
+/
+comment on column rec_thirdrecord_repeat.uploaddate is '上传时间'
+/
+comment on column rec_thirdrecord_repeat.testflag is '测试标记 （0：正常，1：测试）'
+/
+comment on column rec_thirdrecord_repeat.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_thirdrecord_repeat.dealtype is '记录类型  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_thirdrecord_repeat.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_thirdrecord_repeat.thirdtermid is '第三方分配终端编号'
+/
+comment on column rec_thirdrecord_repeat.thirdmerchantcode is '第三方分配商户编号'
+/
+comment on column rec_thirdrecord_repeat.customerunitcode is '客户法人'
+/
+comment on column rec_thirdrecord_repeat.status is '账目状态，0未清算，1已清算'
+/
+comment on column rec_thirdrecord_repeat.accountdate is '清算日期'
+/
+comment on column rec_thirdrecord_repeat.responsecode is '应答码'
+/
+comment on column rec_thirdrecord_repeat.responsemessage is '应答信息'
+/
+comment on column rec_thirdrecord_repeat.extentvalue is '扩展字段'
+/
+comment on column rec_thirdrecord_repeat.nexttime is '下次清算时间'
+/
+comment on column rec_thirdrecord_repeat.userid is '用户id'
+/
+comment on column rec_thirdrecord_repeat.thirdcardno is '虚拟卡号或第三方卡号'
+/
+comment on column rec_thirdrecord_repeat.accountid is '账户id'
+/
+comment on column rec_thirdrecord_repeat.filename is '清算文件名'
+/
+comment on column rec_thirdrecord_repeat.systracenum is '银联联机业务（银联终端编号+批次号+受卡方系统跟踪号），非银联联机业务（商户订单号），脱机业务（消费时间+poscode+终端交易流水）'
+/
+comment on column rec_thirdrecord_repeat.stopid is '站点编号'
+/
+comment on column rec_thirdrecord_repeat.ordertype is '订单类型 01：正常行程单 02：带人行程单 03：换乘订单'
+/
+comment on column rec_thirdrecord_repeat.tradekind is '交易性质 公交 地铁 出租车'
+/
+comment on column rec_thirdrecord_repeat.wallettype is '钱包类型'
+/
+comment on column rec_thirdrecord_repeat.recordinfo is '二维码脱机记录信息'
+/
+comment on column rec_thirdrecord_repeat.appid is '第三方应用id'
+/
+comment on column rec_thirdrecord_repeat.linedirection is '线路方向  0上行 1下行 分段计费时使用'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDRECORD_SUCESS" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(30), 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"DISCOUNTFARE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(30), 
+	"BUSID" NUMBER, 
+	"DRIVERID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT NULL NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"THIRDTERMID" VARCHAR2(20), 
+	"THIRDMERCHANTCODE" VARCHAR2(20) DEFAULT NULL, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT NULL NOT NULL ENABLE, 
+	"RESPONSECODE" VARCHAR2(12), 
+	"RESPONSEMESSAGE" VARCHAR2(200), 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"USERID" VARCHAR2(30), 
+	"ACCOUNTID" VARCHAR2(50), 
+	"FILENAME" VARCHAR2(50), 
+	"TRANSFERDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"SYSTRACENUM" VARCHAR2(60) DEFAULT 0 NOT NULL ENABLE, 
+	"STOPID" NUMBER(10,0), 
+	"ORDERTYPE" VARCHAR2(2) DEFAULT 01 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"RECORDINFO" VARCHAR2(1000), 
+	"APPID" VARCHAR2(30), 
+	"LINEDIRECTION" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"GPFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_THIRDRECORD_SUCESS" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_THIRDRECORD_SUCESS" UNIQUE ("SYSTRACENUM")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS NOCOMPRESS LOGGING
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdrecord_sucess is '银联双免,二维码（所有发码方）,oda原始消费明细表'
+/
+comment on column rec_thirdrecord_sucess.cstaccfc is '流水号'
+/
+comment on column rec_thirdrecord_sucess.thirdcardno is '第三方卡号'
+/
+comment on column rec_thirdrecord_sucess.opfare is '交易金额'
+/
+comment on column rec_thirdrecord_sucess.discountfare is '打折金额'
+/
+comment on column rec_thirdrecord_sucess.oddfare is '消费后余额'
+/
+comment on column rec_thirdrecord_sucess.acccode is '交易科目'
+/
+comment on column rec_thirdrecord_sucess.dscrp is '科目描述'
+/
+comment on column rec_thirdrecord_sucess.busid is '车辆id'
+/
+comment on column rec_thirdrecord_sucess.driverid is '司机id'
+/
+comment on column rec_thirdrecord_sucess.buslineid is '线路编号'
+/
+comment on column rec_thirdrecord_sucess.linedept is '线路所属部门'
+/
+comment on column rec_thirdrecord_sucess.maincardtype is '主卡类型'
+/
+comment on column rec_thirdrecord_sucess.cardtype is '子卡类型'
+/
+comment on column rec_thirdrecord_sucess.poscode is '设备运营唯一编号'
+/
+comment on column rec_thirdrecord_sucess.traderecno is 'pos交易流水号'
+/
+comment on column rec_thirdrecord_sucess.opdt is '交易时间'
+/
+comment on column rec_thirdrecord_sucess.collectdt is '采集时间'
+/
+comment on column rec_thirdrecord_sucess.uploaddate is '上传时间'
+/
+comment on column rec_thirdrecord_sucess.testflag is '测试标记 （0：正常，1：测试）'
+/
+comment on column rec_thirdrecord_sucess.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_thirdrecord_sucess.dealtype is '记录类型  1：正常 2：灰色 3：mac错误...'
+/
+comment on column rec_thirdrecord_sucess.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_thirdrecord_sucess.thirdtermid is '第三方分配终端编号'
+/
+comment on column rec_thirdrecord_sucess.thirdmerchantcode is '第三方分配商户编号'
+/
+comment on column rec_thirdrecord_sucess.customerunitcode is '客户法人'
+/
+comment on column rec_thirdrecord_sucess.accountdate is '清算日期'
+/
+comment on column rec_thirdrecord_sucess.responsecode is '应答码'
+/
+comment on column rec_thirdrecord_sucess.responsemessage is '应答信息'
+/
+comment on column rec_thirdrecord_sucess.extentvalue is '扩展字段'
+/
+comment on column rec_thirdrecord_sucess.userid is '用户id'
+/
+comment on column rec_thirdrecord_sucess.accountid is '账户id'
+/
+comment on column rec_thirdrecord_sucess.filename is '清算文件名'
+/
+comment on column rec_thirdrecord_sucess.transferdate is '转储时间'
+/
+comment on column rec_thirdrecord_sucess.systracenum is '银联联机业务（银联终端编号+批次号+受卡方系统跟踪号），非银联联机业务（商户订单号），脱机业务（消费时间+poscode+终端交易流水）'
+/
+comment on column rec_thirdrecord_sucess.stopid is '站点编号'
+/
+comment on column rec_thirdrecord_sucess.ordertype is '订单类型 01：正常行程单 02：带人行程单 03：换乘订单'
+/
+comment on column rec_thirdrecord_sucess.tradekind is '交易性质 公交 地铁 出租车'
+/
+comment on column rec_thirdrecord_sucess.wallettype is '钱包类型'
+/
+comment on column rec_thirdrecord_sucess.recordinfo is '二维码脱机记录信息'
+/
+comment on column rec_thirdrecord_sucess.appid is '第三方应用id'
+/
+comment on column rec_thirdrecord_sucess.linedirection is '线路方向  0上行 1下行 分段计费时使用'
+/
+comment on column rec_thirdrecord_sucess.gpflag is '0源于tb文件;1源于pd'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_THIRDRECORD_TB" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"ACQUIRERSERIALNUM" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT 000000000000000 NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"RETURNCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(35) NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE NOT NULL ENABLE, 
+	"FILECONTENT" VARCHAR2(1000) NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"STATUS" NUMBER(*,0) DEFAULT 0 NOT NULL ENABLE, 
+	"UPDATEDATE" DATE, 
+	"GPFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"REQUESTFARE" NUMBER(10,2), 
+	"RETURNSTATUS" VARCHAR2(30), 
+	"CARDSN" VARCHAR2(30), 
+	 CONSTRAINT "PK_REC_UNIONPAY_CONSUME_ODA_TB" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_thirdrecord_tb is 'oda脱机消费记录反馈表'
+/
+comment on column rec_thirdrecord_tb.cstaccfc is '流水号（自动成功）'
+/
+comment on column rec_thirdrecord_tb.acquirerserialnum is '收单机构流水号(rec_unionpay_consume_oda表中的cstaccfc字段值)'
+/
+comment on column rec_thirdrecord_tb.bankcardno is '银行卡号'
+/
+comment on column rec_thirdrecord_tb.merchantcode is '商户编号'
+/
+comment on column rec_thirdrecord_tb.uniontermid is '银联终端编号'
+/
+comment on column rec_thirdrecord_tb.electronopfare is 'oda交易金额'
+/
+comment on column rec_thirdrecord_tb.opdt is '记录交易日期'
+/
+comment on column rec_thirdrecord_tb.accountdate is '清分结算机构清算日期'
+/
+comment on column rec_thirdrecord_tb.returncode is '返回代码'
+/
+comment on column rec_thirdrecord_tb.customerunitcode is '客户代码'
+/
+comment on column rec_thirdrecord_tb.filename is '文件名称'
+/
+comment on column rec_thirdrecord_tb.filecreatedate is '文件创建日期'
+/
+comment on column rec_thirdrecord_tb.filecontent is '单个tb内容'
+/
+comment on column rec_thirdrecord_tb.uploaddate is '上传时间'
+/
+comment on column rec_thirdrecord_tb.status is '0 未处理 1已处理'
+/
+comment on column rec_thirdrecord_tb.updatedate is '入一卡通账时间'
+/
+comment on column rec_thirdrecord_tb.gpflag is '单边组合标志'
+/
+comment on column rec_thirdrecord_tb.requestfare is '请款金额'
+/
+comment on column rec_thirdrecord_tb.returnstatus is '返回结果状态'
+/
+comment on column rec_thirdrecord_tb.cardsn is '卡序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONCARD_CONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) NOT NULL ENABLE, 
+	"UNIONCSTACCFC" VARCHAR2(50) DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"STATUS" NUMBER NOT NULL ENABLE, 
+	"UNIONAPPKEY" VARCHAR2(20) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_UNIONCARD_CONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_UNIONCARD_CONSUME" UNIQUE ("THIRDCARDNO", "MERCHANTCODE", "UNIONTERMID", "UNIONAPPKEY")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unioncard_consume is '银联电子现金消费记录表'
+/
+comment on column rec_unioncard_consume.cstaccfc is '本地流水号'
+/
+comment on column rec_unioncard_consume.thirdcardno is '银联卡号'
+/
+comment on column rec_unioncard_consume.merchantcode is '商户编号'
+/
+comment on column rec_unioncard_consume.uniontermid is '银联终端编号'
+/
+comment on column rec_unioncard_consume.traderecno is '终端交易流水号'
+/
+comment on column rec_unioncard_consume.opdt is '交易时间，格式：yyyymmddhhmiss'
+/
+comment on column rec_unioncard_consume.opfare is '交易金额，单位：元'
+/
+comment on column rec_unioncard_consume.unioncstaccfc is '银联交易流水号'
+/
+comment on column rec_unioncard_consume.accountdate is '银联清算日期，格式：yyyymmdd'
+/
+comment on column rec_unioncard_consume.status is '状态，0未更新，1已更新'
+/
+comment on column rec_unioncard_consume.unionappkey is '应用密文'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONCONSUME_SYNCCONTROL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"LOCALFILEPATH" VARCHAR2(1000) NOT NULL ENABLE, 
+	"LOCALFILENAME" VARCHAR2(200) NOT NULL ENABLE, 
+	"FILETRANSSTATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRANSCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"LASTTRANSDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"TRANSDESCRIPTION" VARCHAR2(1000), 
+	"DOWNSTATUS" NUMBER, 
+	"DOWNCOUNT" NUMBER, 
+	"FTPFILEPATH" VARCHAR2(1000), 
+	"TOTALCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TOTALLENGTH" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ANALYCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ANALYLENGTH" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_UNIONCONSUME_SYNCCONTROL" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unionconsume_synccontrol is '银联清算结果同步控制表'
+/
+comment on column rec_unionconsume_synccontrol.id is '编号，自增长'
+/
+comment on column rec_unionconsume_synccontrol.localfilepath is '本地文件路径'
+/
+comment on column rec_unionconsume_synccontrol.localfilename is '本地文件名称'
+/
+comment on column rec_unionconsume_synccontrol.filetransstatus is '本地文件同步状态，0：未同步，1：同步失败，100：同步成功'
+/
+comment on column rec_unionconsume_synccontrol.transcount is '同步次数'
+/
+comment on column rec_unionconsume_synccontrol.createdate is '上传时间'
+/
+comment on column rec_unionconsume_synccontrol.lasttransdate is '最后一次同步时间'
+/
+comment on column rec_unionconsume_synccontrol.transdescription is '同步结果描述'
+/
+comment on column rec_unionconsume_synccontrol.downstatus is '银联ftp文件下载结果，0：未下载，1：下载失败，100：下载成功'
+/
+comment on column rec_unionconsume_synccontrol.downcount is '下载次数'
+/
+comment on column rec_unionconsume_synccontrol.ftpfilepath is 'ftp服务器目录'
+/
+comment on column rec_unionconsume_synccontrol.totalcount is '文件记录总数'
+/
+comment on column rec_unionconsume_synccontrol.totallength is '文件总长度'
+/
+comment on column rec_unionconsume_synccontrol.analycount is '已处理记录数'
+/
+comment on column rec_unionconsume_synccontrol.analylength is '已解析记录数'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONPAY_CONSUME_ODA" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UNIONAPPKEY" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT 000000000000000 NOT NULL ENABLE, 
+	"LOCALCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"TICKETCHARGE" VARCHAR2(20) DEFAULT 0, 
+	"RECORDTYPE" NUMBER DEFAULT 0, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FREEPOSCODE" NUMBER DEFAULT 0, 
+	"UPSTOPID" NUMBER DEFAULT 0, 
+	"DOWNSTOPID" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"BADRECTYPE" NUMBER DEFAULT 0, 
+	"RESPONSECODE" VARCHAR2(12), 
+	"UNIONPAYDATE" DATE DEFAULT sysdate, 
+	 CONSTRAINT "PK_REC_UNIONPAY_CONSUME_ODA" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 8192 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unionpay_consume_oda is '银联oda消费明细表'
+/
+comment on column rec_unionpay_consume_oda.cstaccfc is '流水号'
+/
+comment on column rec_unionpay_consume_oda.bankcardno is '银行卡号'
+/
+comment on column rec_unionpay_consume_oda.opdt is '交易时间'
+/
+comment on column rec_unionpay_consume_oda.electronopfare is 'oda交易金额'
+/
+comment on column rec_unionpay_consume_oda.acccode is '交易科目'
+/
+comment on column rec_unionpay_consume_oda.dscrp is '科目描述'
+/
+comment on column rec_unionpay_consume_oda.collectdt is '采集时间'
+/
+comment on column rec_unionpay_consume_oda.uploaddate is '上传时间'
+/
+comment on column rec_unionpay_consume_oda.busid is '车辆id'
+/
+comment on column rec_unionpay_consume_oda.driverid is '司机id'
+/
+comment on column rec_unionpay_consume_oda.poscode is '设备运营唯一编号'
+/
+comment on column rec_unionpay_consume_oda.samcardno is 'sam卡号'
+/
+comment on column rec_unionpay_consume_oda.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_unionpay_consume_oda.buslineid is '线路编号'
+/
+comment on column rec_unionpay_consume_oda.discount is '打折金额'
+/
+comment on column rec_unionpay_consume_oda.linedept is '线路所属部门'
+/
+comment on column rec_unionpay_consume_oda.maincardtype is '主卡类型'
+/
+comment on column rec_unionpay_consume_oda.assocardtype is '子卡类型'
+/
+comment on column rec_unionpay_consume_oda.cardversion is '卡内版本'
+/
+comment on column rec_unionpay_consume_oda.testflag is '测试标记'
+/
+comment on column rec_unionpay_consume_oda.operatorpoint is '营运单位编号'
+/
+comment on column rec_unionpay_consume_oda.collectpoint is '采集点编号'
+/
+comment on column rec_unionpay_consume_oda.accountdate is '清算日期'
+/
+comment on column rec_unionpay_consume_oda.bankcode is '银行代码'
+/
+comment on column rec_unionpay_consume_oda.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_unionpay_consume_oda.uniontermid is '银联终端编号'
+/
+comment on column rec_unionpay_consume_oda.unionbatchno is '批次号'
+/
+comment on column rec_unionpay_consume_oda.unionappkey is '应用密文'
+/
+comment on column rec_unionpay_consume_oda.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_unionpay_consume_oda.extentvalue is '预留字段'
+/
+comment on column rec_unionpay_consume_oda.merchantcode is '商户编号'
+/
+comment on column rec_unionpay_consume_oda.localcstaccfc is '本地记录流水号（第三方平台系统传过来）'
+/
+comment on column rec_unionpay_consume_oda.ticketcharge is '票价'
+/
+comment on column rec_unionpay_consume_oda.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_unionpay_consume_oda.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_unionpay_consume_oda.freeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_unionpay_consume_oda.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_unionpay_consume_oda.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_unionpay_consume_oda.customerunitcode is '客户法人'
+/
+comment on column rec_unionpay_consume_oda.badrectype is '坏账类型'
+/
+comment on column rec_unionpay_consume_oda.responsecode is '银行应答码'
+/
+comment on column rec_unionpay_consume_oda.unionpaydate is '银行处理时间'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONPAY_CONSUMESUCESS" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BANKCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"ELECTRONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BANKCODE" VARCHAR2(20), 
+	"BATCHNO" NUMBER NOT NULL ENABLE, 
+	"UNIONTERMID" VARCHAR2(8) NOT NULL ENABLE, 
+	"UNIONBATCHNO" VARCHAR2(10), 
+	"UNIONAPPKEY" VARCHAR2(20), 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EXTENTVALUE" VARCHAR2(1000), 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT 000000000000000 NOT NULL ENABLE, 
+	"UNIONCSTACCFC" NUMBER NOT NULL ENABLE, 
+	"TICKETCHARGE" VARCHAR2(20) DEFAULT 0, 
+	"RECORDTYPE" NUMBER DEFAULT 0, 
+	"FLAG" NUMBER DEFAULT 0, 
+	"FREEPOSCODE" NUMBER DEFAULT 0, 
+	"UPSTOPID" NUMBER DEFAULT 0, 
+	"DOWNSTOPID" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TERMTHRIDSEQNO" NUMBER DEFAULT 1 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_UNIONPAY_CONSUMESUCESS" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unionpay_consumesucess is 'oda消费明细表'
+/
+comment on column rec_unionpay_consumesucess.cstaccfc is '流水号'
+/
+comment on column rec_unionpay_consumesucess.bankcardno is '第三方系统卡号'
+/
+comment on column rec_unionpay_consumesucess.opdt is '交易时间'
+/
+comment on column rec_unionpay_consumesucess.electronopfare is '电子钱包交易金额'
+/
+comment on column rec_unionpay_consumesucess.acccode is '交易科目'
+/
+comment on column rec_unionpay_consumesucess.dscrp is '科目描述'
+/
+comment on column rec_unionpay_consumesucess.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_unionpay_consumesucess.collectdt is '采集时间'
+/
+comment on column rec_unionpay_consumesucess.uploaddate is '上传时间'
+/
+comment on column rec_unionpay_consumesucess.busid is '车辆id'
+/
+comment on column rec_unionpay_consumesucess.driverid is '司机id'
+/
+comment on column rec_unionpay_consumesucess.poscode is '设备运营唯一编号'
+/
+comment on column rec_unionpay_consumesucess.samcardno is 'sam卡号'
+/
+comment on column rec_unionpay_consumesucess.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_unionpay_consumesucess.buslineid is '线路编号'
+/
+comment on column rec_unionpay_consumesucess.totalrecno is ''
+/
+comment on column rec_unionpay_consumesucess.discount is '打折金额'
+/
+comment on column rec_unionpay_consumesucess.linedept is '线路所属部门'
+/
+comment on column rec_unionpay_consumesucess.maincardtype is '主卡类型'
+/
+comment on column rec_unionpay_consumesucess.assocardtype is '子卡类型'
+/
+comment on column rec_unionpay_consumesucess.cardversion is '卡内版本'
+/
+comment on column rec_unionpay_consumesucess.testflag is '测试标记'
+/
+comment on column rec_unionpay_consumesucess.operatorpoint is '营运单位编号'
+/
+comment on column rec_unionpay_consumesucess.collectpoint is '采集点编号'
+/
+comment on column rec_unionpay_consumesucess.accountdate is '清算日期'
+/
+comment on column rec_unionpay_consumesucess.bankcode is '银行代码'
+/
+comment on column rec_unionpay_consumesucess.batchno is '交易记录批次号（第三方平台系统传过来）'
+/
+comment on column rec_unionpay_consumesucess.uniontermid is '银联终端编号'
+/
+comment on column rec_unionpay_consumesucess.unionbatchno is '批次号'
+/
+comment on column rec_unionpay_consumesucess.unionappkey is '应用密文'
+/
+comment on column rec_unionpay_consumesucess.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_unionpay_consumesucess.extentvalue is '预留字段'
+/
+comment on column rec_unionpay_consumesucess.merchantcode is '商户编号'
+/
+comment on column rec_unionpay_consumesucess.unioncstaccfc is '银联流水'
+/
+comment on column rec_unionpay_consumesucess.ticketcharge is '票价'
+/
+comment on column rec_unionpay_consumesucess.recordtype is '记录类型 0：统一票价记录 1：分段计费记录'
+/
+comment on column rec_unionpay_consumesucess.flag is '分段计费-逃票标价：0-无逃票 1-逃票记录（如果是逃票记录，司机id是逃票车辆的司机信息）'
+/
+comment on column rec_unionpay_consumesucess.freeposcode is '分段计费-逃票设备唯一编号（此处指代的逃票的车辆编号）'
+/
+comment on column rec_unionpay_consumesucess.upstopid is '分段计费-上车站点编号'
+/
+comment on column rec_unionpay_consumesucess.downstopid is '分段计费-下车站点编号'
+/
+comment on column rec_unionpay_consumesucess.customerunitcode is '客户法人'
+/
+comment on column rec_unionpay_consumesucess.termthridseqno is '银联对账终端序列号'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONPOUNDAGE_BUS" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"POUNDAGEAMT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"BALANCEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	"NOMBERTXN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unionpoundage_bus is '车辆手续费汇总表'
+/
+comment on column rec_unionpoundage_bus.cstaccfc is '流水号'
+/
+comment on column rec_unionpoundage_bus.busid is '车辆编号'
+/
+comment on column rec_unionpoundage_bus.uploaddate is '上传时间'
+/
+comment on column rec_unionpoundage_bus.poundageamt is '手续费总金额'
+/
+comment on column rec_unionpoundage_bus.balancedate is '清算日期'
+/
+comment on column rec_unionpoundage_bus.merchantcode is '商户号'
+/
+comment on column rec_unionpoundage_bus.nombertxn is '车辆交易次数'
+/
+comment on column rec_unionpoundage_bus.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONPOUNDAGE_DETAIL" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"THIRDCARDNO" VARCHAR2(50) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"POUNDAGE" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"BALANCEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"FILENAME" VARCHAR2(50) NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unionpoundage_detail is '银联手续费明细表'
+/
+comment on column rec_unionpoundage_detail.cstaccfc is '流水号'
+/
+comment on column rec_unionpoundage_detail.thirdcardno is '第三方系统卡号'
+/
+comment on column rec_unionpoundage_detail.opdt is '交易时间'
+/
+comment on column rec_unionpoundage_detail.opfare is '交易金额'
+/
+comment on column rec_unionpoundage_detail.uploaddate is '上传时间'
+/
+comment on column rec_unionpoundage_detail.poundage is '手续费金额'
+/
+comment on column rec_unionpoundage_detail.balancedate is '清算日期'
+/
+comment on column rec_unionpoundage_detail.merchantcode is '商户号'
+/
+comment on column rec_unionpoundage_detail.status is '账目状态，0初始状态，1已更新'
+/
+comment on column rec_unionpoundage_detail.filename is '银联文件名'
+/
+comment on column rec_unionpoundage_detail.flag is ''
+/
+
+
+  CREATE TABLE "CCENSE"."REC_UNIONPOUNDAGE_TOTAL" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"POUNDAGEAMT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"BALANCEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	"NOMBERTXN" NUMBER DEFAULT 0 NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_unionpoundage_total is '银联手续费汇总表'
+/
+comment on column rec_unionpoundage_total.cstaccfc is '流水号'
+/
+comment on column rec_unionpoundage_total.uploaddate is '上传时间'
+/
+comment on column rec_unionpoundage_total.poundageamt is '手续费总金额'
+/
+comment on column rec_unionpoundage_total.balancedate is '清算日期'
+/
+comment on column rec_unionpoundage_total.merchantcode is '商户号'
+/
+comment on column rec_unionpoundage_total.nombertxn is '终端交易总次数'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CASH" 
+   (	"CASHACCFC" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER, 
+	"SAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16) NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_VICECARD_CASH" PRIMARY KEY ("CASHACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_VICECARD_CAH" UNIQUE ("CUSTOMERID", "CARDNO", "VICESAVEOPCOUNT", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_VICECARD_CASH_PLD" UNIQUE ("PLANID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("OPDT") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_vicecard_cash is '次卡钱包充值记录明细表'
+/
+comment on column rec_vicecard_cash.cashaccfc is '交易流水号'
+/
+comment on column rec_vicecard_cash.opdt is '交易时间'
+/
+comment on column rec_vicecard_cash.customerid is '账号'
+/
+comment on column rec_vicecard_cash.cardno is '卡号'
+/
+comment on column rec_vicecard_cash.cardsn is '卡序号'
+/
+comment on column rec_vicecard_cash.cardtypedetailid is '卡类别小类'
+/
+comment on column rec_vicecard_cash.cardkind is '卡类型 1m1 2cpu'
+/
+comment on column rec_vicecard_cash.viceopcount is '次卡钱包消费操作计数'
+/
+comment on column rec_vicecard_cash.vicesaveopcount is '次卡钱包充值交易计数'
+/
+comment on column rec_vicecard_cash.viceoddfare is '次卡钱包卡余额'
+/
+comment on column rec_vicecard_cash.viceoddfarepre is '次卡钱包前期卡余额'
+/
+comment on column rec_vicecard_cash.vicedummyopfare is '次卡钱包虚充金额'
+/
+comment on column rec_vicecard_cash.viceopfare is '次卡钱包交易金额'
+/
+comment on column rec_vicecard_cash.acccode is '交易科目'
+/
+comment on column rec_vicecard_cash.dscrp is '交易科目描述'
+/
+comment on column rec_vicecard_cash.poscode is '交易终端设备唯一编号'
+/
+comment on column rec_vicecard_cash.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_vicecard_cash.samcardno is 'sam卡号'
+/
+comment on column rec_vicecard_cash.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_vicecard_cash.planid is '充值申请流水'
+/
+comment on column rec_vicecard_cash.uploaddate is '上传时间'
+/
+comment on column rec_vicecard_cash.empid is '职员id'
+/
+comment on column rec_vicecard_cash.wallettype is '钱包类型:3-电子钱包'
+/
+comment on column rec_vicecard_cash.tac is 'tac码'
+/
+comment on column rec_vicecard_cash.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_vicecard_cash.customerunitcode is '客户代码'
+/
+comment on column rec_vicecard_cash.limittimes is '单位最大消费次数（每个月最多可以消费多少次）'
+/
+comment on column rec_vicecard_cash.monthnum is '充值单位数（本次充值连充的月数个数）'
+/
+comment on column rec_vicecard_cash.validtimestart is '有效启日'
+/
+comment on column rec_vicecard_cash.validtimeend is '有效止日'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CASH_PLAN" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AREAID" NUMBER, 
+	"VER" NUMBER DEFAULT 0, 
+	"REPEALEMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"OLDPLANID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_VICE_CASH_PLAN" PRIMARY KEY ("PLANID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_vicecard_cash_plan is '次卡钱包领款计划申请表'
+/
+comment on column rec_vicecard_cash_plan.planid is '申请流水'
+/
+comment on column rec_vicecard_cash_plan.customerid is '帐号'
+/
+comment on column rec_vicecard_cash_plan.cardno is '卡号'
+/
+comment on column rec_vicecard_cash_plan.cardsn is '持卡序号'
+/
+comment on column rec_vicecard_cash_plan.cardtypedetailid is '卡类型'
+/
+comment on column rec_vicecard_cash_plan.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_vicecard_cash_plan.viceoddfare is '充值后次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan.viceoddfarepre is '充值前次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan.vicedummyopfare is '次卡钱包虚充金额'
+/
+comment on column rec_vicecard_cash_plan.viceopfare is '次卡钱包交易金额'
+/
+comment on column rec_vicecard_cash_plan.vicesaveopcount is '次卡钱包充值后交易计数'
+/
+comment on column rec_vicecard_cash_plan.viceopcount is '次卡钱包消费交易计数'
+/
+comment on column rec_vicecard_cash_plan.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_vicecard_cash_plan.acccode is '科目代码'
+/
+comment on column rec_vicecard_cash_plan.opdt is '操作时间'
+/
+comment on column rec_vicecard_cash_plan.description is '科目描述'
+/
+comment on column rec_vicecard_cash_plan.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_vicecard_cash_plan.poscode is '设备运营唯一编号'
+/
+comment on column rec_vicecard_cash_plan.psamcardno is 'psam卡号'
+/
+comment on column rec_vicecard_cash_plan.empid is '职员帐号'
+/
+comment on column rec_vicecard_cash_plan.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_vicecard_cash_plan.wallettype is '钱包类型'
+/
+comment on column rec_vicecard_cash_plan.tac is 'tac码'
+/
+comment on column rec_vicecard_cash_plan.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_vicecard_cash_plan.areaid is '分区id'
+/
+comment on column rec_vicecard_cash_plan.ver is '记录版本'
+/
+comment on column rec_vicecard_cash_plan.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_vicecard_cash_plan.customerunitcode is '客户代码'
+/
+comment on column rec_vicecard_cash_plan.validtimestart is '有效启日'
+/
+comment on column rec_vicecard_cash_plan.validtimeend is '有效止日'
+/
+comment on column rec_vicecard_cash_plan.oldplanid is '原充值planid(充值申请时产生)'
+/
+comment on column rec_vicecard_cash_plan.limittimes is '单位最大消费次数'
+/
+comment on column rec_vicecard_cash_plan.monthnum is '充值单位数'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CASH_PLAN_BAD" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER, 
+	"CUSTOMERID" NUMBER, 
+	"CARDNO" NUMBER DEFAULT 0, 
+	"CARDSN" NUMBER DEFAULT 0, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0, 
+	"STATUS" NUMBER DEFAULT 0, 
+	"ACCCODE" NUMBER, 
+	"OPDT" DATE DEFAULT SYSDATE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0, 
+	"POSCODE" NUMBER DEFAULT 0, 
+	"PSAMCARDNO" NUMBER DEFAULT 0, 
+	"EMPID" NUMBER DEFAULT 0, 
+	"DEALTYPE" NUMBER DEFAULT 0, 
+	"WALLETTYPE" NUMBER DEFAULT 0, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0, 
+	"BADCODE" NUMBER, 
+	"BADDESC" VARCHAR2(300), 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12), 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_VICECARD_CASH_PLAN_BAD" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_vicecard_cash_plan_bad is '次卡钱包提交失败记录表'
+/
+comment on column rec_vicecard_cash_plan_bad.id is '流水号'
+/
+comment on column rec_vicecard_cash_plan_bad.planid is '提交申请流水'
+/
+comment on column rec_vicecard_cash_plan_bad.customerid is '提交帐号'
+/
+comment on column rec_vicecard_cash_plan_bad.cardno is '提交卡号'
+/
+comment on column rec_vicecard_cash_plan_bad.cardsn is '持卡序号'
+/
+comment on column rec_vicecard_cash_plan_bad.cardtypedetailid is '提交卡类型'
+/
+comment on column rec_vicecard_cash_plan_bad.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_vicecard_cash_plan_bad.viceoddfare is '提交充值后次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan_bad.viceoddfarepre is '提交充值前次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan_bad.vicedummyopfare is '提交次卡钱包虚充金额'
+/
+comment on column rec_vicecard_cash_plan_bad.viceopfare is '提交次卡钱包交易金额'
+/
+comment on column rec_vicecard_cash_plan_bad.vicesaveopcount is '提交次卡钱包充值后交易计数'
+/
+comment on column rec_vicecard_cash_plan_bad.viceopcount is '提交次卡钱包消费交易计数'
+/
+comment on column rec_vicecard_cash_plan_bad.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_vicecard_cash_plan_bad.acccode is '提交科目代码'
+/
+comment on column rec_vicecard_cash_plan_bad.opdt is '操作时间'
+/
+comment on column rec_vicecard_cash_plan_bad.description is '交易科目描述'
+/
+comment on column rec_vicecard_cash_plan_bad.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_vicecard_cash_plan_bad.poscode is '设备运营唯一编号'
+/
+comment on column rec_vicecard_cash_plan_bad.psamcardno is 'psam卡号'
+/
+comment on column rec_vicecard_cash_plan_bad.empid is '职员帐号'
+/
+comment on column rec_vicecard_cash_plan_bad.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_vicecard_cash_plan_bad.wallettype is '钱包类型'
+/
+comment on column rec_vicecard_cash_plan_bad.tac is 'tac码'
+/
+comment on column rec_vicecard_cash_plan_bad.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_vicecard_cash_plan_bad.badcode is '坏账编号'
+/
+comment on column rec_vicecard_cash_plan_bad.baddesc is '坏账描述'
+/
+comment on column rec_vicecard_cash_plan_bad.ver is '记录版本'
+/
+comment on column rec_vicecard_cash_plan_bad.createdt is '记录形成时间'
+/
+comment on column rec_vicecard_cash_plan_bad.customerunitcode is '客户代码'
+/
+comment on column rec_vicecard_cash_plan_bad.limittimes is '单位最大消费次数'
+/
+comment on column rec_vicecard_cash_plan_bad.monthnum is '充值单位数'
+/
+comment on column rec_vicecard_cash_plan_bad.validtimestart is '有效启日'
+/
+comment on column rec_vicecard_cash_plan_bad.validtimeend is '有效止日'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CASH_PLAN_LOG" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_vicecard_cash_plan_log is '次卡钱包领款计划申请日志表'
+/
+comment on column rec_vicecard_cash_plan_log.planid is '申请流水'
+/
+comment on column rec_vicecard_cash_plan_log.customerid is '帐号'
+/
+comment on column rec_vicecard_cash_plan_log.cardno is '卡号'
+/
+comment on column rec_vicecard_cash_plan_log.cardsn is '持卡序号'
+/
+comment on column rec_vicecard_cash_plan_log.cardtypedetailid is '卡类型'
+/
+comment on column rec_vicecard_cash_plan_log.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_vicecard_cash_plan_log.viceoddfare is '充值后次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan_log.viceoddfarepre is '充值前次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan_log.vicedummyopfare is '次卡钱包虚冲余额'
+/
+comment on column rec_vicecard_cash_plan_log.viceopfare is '次卡钱包交易金额'
+/
+comment on column rec_vicecard_cash_plan_log.vicesaveopcount is '次卡钱包充值后交易计数'
+/
+comment on column rec_vicecard_cash_plan_log.viceopcount is '次卡钱包消费交易计数'
+/
+comment on column rec_vicecard_cash_plan_log.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_vicecard_cash_plan_log.acccode is '科目代码'
+/
+comment on column rec_vicecard_cash_plan_log.opdt is '操作时间'
+/
+comment on column rec_vicecard_cash_plan_log.description is '描述(补助,零散补助,稿费)'
+/
+comment on column rec_vicecard_cash_plan_log.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_vicecard_cash_plan_log.poscode is '设备运营唯一编号'
+/
+comment on column rec_vicecard_cash_plan_log.psamcardno is 'psam卡号'
+/
+comment on column rec_vicecard_cash_plan_log.empid is '职员帐号'
+/
+comment on column rec_vicecard_cash_plan_log.dealtype is '记录类型'
+/
+comment on column rec_vicecard_cash_plan_log.wallettype is '钱包类型'
+/
+comment on column rec_vicecard_cash_plan_log.tac is 'tac码'
+/
+comment on column rec_vicecard_cash_plan_log.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_vicecard_cash_plan_log.ver is '记录版本'
+/
+comment on column rec_vicecard_cash_plan_log.createdt is '记录形成时间'
+/
+comment on column rec_vicecard_cash_plan_log.customerunitcode is '客户代码'
+/
+comment on column rec_vicecard_cash_plan_log.limittimes is '单位最大消费次数'
+/
+comment on column rec_vicecard_cash_plan_log.monthnum is '充值单位数'
+/
+comment on column rec_vicecard_cash_plan_log.validtimestart is '有效启日'
+/
+comment on column rec_vicecard_cash_plan_log.validtimeend is '有效止日'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CASH_PLAN_PUTOUT" 
+   (	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDSN" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPEDETAILID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEODDFAREPRE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEDUMMYOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICESAVEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VICEOPCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"STATUS" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(50), 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"EMPID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" VARCHAR2(16), 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"AREAID" NUMBER, 
+	"VER" NUMBER DEFAULT 0, 
+	"CREATEDT" DATE DEFAULT SYSDATE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"LIMITTIMES" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MONTHNUM" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VALIDTIMESTART" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"VALIDTIMEEND" DATE DEFAULT SYSDATE NOT NULL ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("OPDT") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_vicecard_cash_plan_putout is '次卡钱包领款发放表'
+/
+comment on column rec_vicecard_cash_plan_putout.planid is '申请流水'
+/
+comment on column rec_vicecard_cash_plan_putout.customerid is '帐号'
+/
+comment on column rec_vicecard_cash_plan_putout.cardno is '卡号'
+/
+comment on column rec_vicecard_cash_plan_putout.cardsn is '持卡序号'
+/
+comment on column rec_vicecard_cash_plan_putout.cardtypedetailid is '卡类型'
+/
+comment on column rec_vicecard_cash_plan_putout.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_vicecard_cash_plan_putout.viceoddfare is '充值后次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan_putout.viceoddfarepre is '充值前次卡钱包余额'
+/
+comment on column rec_vicecard_cash_plan_putout.vicedummyopfare is '次卡钱包虚充金额'
+/
+comment on column rec_vicecard_cash_plan_putout.viceopfare is '次卡钱包交易金额(含虚充)'
+/
+comment on column rec_vicecard_cash_plan_putout.vicesaveopcount is '次卡钱包充值后交易计数'
+/
+comment on column rec_vicecard_cash_plan_putout.viceopcount is '次卡钱包消费交易计数'
+/
+comment on column rec_vicecard_cash_plan_putout.status is '记录状态（0默认 1 申请，2 提交，3 回滚）'
+/
+comment on column rec_vicecard_cash_plan_putout.acccode is '科目代码'
+/
+comment on column rec_vicecard_cash_plan_putout.opdt is '操作时间'
+/
+comment on column rec_vicecard_cash_plan_putout.description is '描述(补助,零散补助,稿费)'
+/
+comment on column rec_vicecard_cash_plan_putout.cardkind is '当前账户使用的卡类型 = 1是m1,=2 cpu卡 其他异常'
+/
+comment on column rec_vicecard_cash_plan_putout.poscode is '设备运营唯一编号'
+/
+comment on column rec_vicecard_cash_plan_putout.psamcardno is 'psam卡号'
+/
+comment on column rec_vicecard_cash_plan_putout.empid is '职员帐号'
+/
+comment on column rec_vicecard_cash_plan_putout.dealtype is '交易类型'
+/
+comment on column rec_vicecard_cash_plan_putout.wallettype is '钱包类型'
+/
+comment on column rec_vicecard_cash_plan_putout.tac is 'tac码'
+/
+comment on column rec_vicecard_cash_plan_putout.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_vicecard_cash_plan_putout.areaid is '分区id'
+/
+comment on column rec_vicecard_cash_plan_putout.ver is '记录版本'
+/
+comment on column rec_vicecard_cash_plan_putout.createdt is '记录形成时间'
+/
+comment on column rec_vicecard_cash_plan_putout.customerunitcode is '客户代码'
+/
+comment on column rec_vicecard_cash_plan_putout.limittimes is '单位最大消费次数'
+/
+comment on column rec_vicecard_cash_plan_putout.monthnum is '充值单位数'
+/
+comment on column rec_vicecard_cash_plan_putout.validtimestart is '有效启日'
+/
+comment on column rec_vicecard_cash_plan_putout.validtimeend is '有效止日'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CASH1" 
+   (	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"PLANID" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_vicecard_cash1 is '月票钱包充值红冲记录'
+/
+comment on column rec_vicecard_cash1.customerid is '客户编号'
+/
+comment on column rec_vicecard_cash1.planid is '红冲流水号'
+/
+comment on column rec_vicecard_cash1.customerunitcode is '人员客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECARD_CONSUME" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"VICEDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_VICECARD_CONSUME" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_VICECARD_CONSUME" UNIQUE ("CUSTOMERID", "CARDSN", "OPCOUNT", "CARDASN", "TRADERECNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("UPLOADDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table rec_vicecard_consume is '次卡钱包消费明细表'
+/
+comment on column rec_vicecard_consume.cstaccfc is '流水号'
+/
+comment on column rec_vicecard_consume.customerid is '账号'
+/
+comment on column rec_vicecard_consume.cardno is '卡号'
+/
+comment on column rec_vicecard_consume.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_vicecard_consume.opdt is '交易时间'
+/
+comment on column rec_vicecard_consume.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_vicecard_consume.viceonoddfare is '次卡钱包卡余额'
+/
+comment on column rec_vicecard_consume.viceonopfare is '次卡钱包交易金额'
+/
+comment on column rec_vicecard_consume.acccode is '交易科目'
+/
+comment on column rec_vicecard_consume.dscrp is '科目描述'
+/
+comment on column rec_vicecard_consume.cardsn is '卡序号'
+/
+comment on column rec_vicecard_consume.opcount is '卡操作计数'
+/
+comment on column rec_vicecard_consume.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_vicecard_consume.collectdt is '采集时间'
+/
+comment on column rec_vicecard_consume.uploaddate is '上传时间'
+/
+comment on column rec_vicecard_consume.busid is '车辆id'
+/
+comment on column rec_vicecard_consume.driverid is '司机id'
+/
+comment on column rec_vicecard_consume.poscode is '设备运营唯一编号'
+/
+comment on column rec_vicecard_consume.samcardno is 'sam卡号'
+/
+comment on column rec_vicecard_consume.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_vicecard_consume.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_vicecard_consume.tac is 'tac验证码'
+/
+comment on column rec_vicecard_consume.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_vicecard_consume.buslineid is '线路编号'
+/
+comment on column rec_vicecard_consume.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_vicecard_consume.discount is '打折金额'
+/
+comment on column rec_vicecard_consume.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值 3：次卡钱包'
+/
+comment on column rec_vicecard_consume.linedept is '线路所属部门'
+/
+comment on column rec_vicecard_consume.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_vicecard_consume.vicedummyopfare is '次卡钱包虚冲撤销金额'
+/
+comment on column rec_vicecard_consume.cardasn is '卡应用序列号'
+/
+comment on column rec_vicecard_consume.tradecitycode is '交易地城市代码'
+/
+comment on column rec_vicecard_consume.ownercitycode is '所属地城市代码'
+/
+comment on column rec_vicecard_consume.maincardtype is '主卡类型'
+/
+comment on column rec_vicecard_consume.assocardtype is '子卡类型'
+/
+comment on column rec_vicecard_consume.cardversion is '卡内版本'
+/
+comment on column rec_vicecard_consume.tradekind is '交易性质'
+/
+comment on column rec_vicecard_consume.testflag is '测试标记'
+/
+comment on column rec_vicecard_consume.operatorpoint is '营运单位编号'
+/
+comment on column rec_vicecard_consume.collectpoint is '采集点编号'
+/
+comment on column rec_vicecard_consume.accountdate is '清算日期'
+/
+comment on column rec_vicecard_consume.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."REC_VICECONSUME_INACCURATE" 
+   (	"CSTACCFC" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER NOT NULL ENABLE, 
+	"CARDNO" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"SUMVICEADDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONODDFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEONOPFARE" NUMBER(10,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DSCRP" VARCHAR2(20), 
+	"CARDSN" NUMBER NOT NULL ENABLE, 
+	"OPCOUNT" NUMBER NOT NULL ENABLE, 
+	"DEALTYPE" NUMBER NOT NULL ENABLE, 
+	"COLLECTDT" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"UPLOADDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMCARDNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADERECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TAC" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"SAMTRADENO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"TOTALRECNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNT" NUMBER(10,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADETYPE" NUMBER NOT NULL ENABLE, 
+	"LINEDEPT" VARCHAR2(9) NOT NULL ENABLE, 
+	"REPEALEMPID" NUMBER, 
+	"VICEDUMMYOPFARE" NUMBER, 
+	"CARDASN" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"TRADECITYCODE" VARCHAR2(8), 
+	"OWNERCITYCODE" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ASSOCARDTYPE" NUMBER DEFAULT 0, 
+	"CARDVERSION" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TRADEKIND" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER, 
+	"OPERATORPOINT" VARCHAR2(8), 
+	"COLLECTPOINT" VARCHAR2(8), 
+	"ACCOUNTDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"TRCFLG" NUMBER NOT NULL ENABLE, 
+	"DISFLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_REC_VICECONSUME_INACCURATE" PRIMARY KEY ("CSTACCFC")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_REC_VICECONSUME_INACCURATE" UNIQUE ("CUSTOMERID", "CARDSN", "OPCOUNT", "CARDNO", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table rec_viceconsume_inaccurate is '次卡钱包消费明细灰色记录表'
+/
+comment on column rec_viceconsume_inaccurate.cstaccfc is '流水号'
+/
+comment on column rec_viceconsume_inaccurate.customerid is '账号'
+/
+comment on column rec_viceconsume_inaccurate.cardno is '卡号'
+/
+comment on column rec_viceconsume_inaccurate.cardtype is '当前卡卡类别，普通卡，月卡，老年卡等'
+/
+comment on column rec_viceconsume_inaccurate.opdt is '交易时间'
+/
+comment on column rec_viceconsume_inaccurate.sumviceaddfare is '次卡钱包总加款额系统值'
+/
+comment on column rec_viceconsume_inaccurate.viceonoddfare is '次卡钱包卡余额'
+/
+comment on column rec_viceconsume_inaccurate.viceonopfare is '次卡钱包交易金额'
+/
+comment on column rec_viceconsume_inaccurate.acccode is '交易科目'
+/
+comment on column rec_viceconsume_inaccurate.dscrp is '科目描述'
+/
+comment on column rec_viceconsume_inaccurate.cardsn is '卡序号'
+/
+comment on column rec_viceconsume_inaccurate.opcount is '卡操作计数'
+/
+comment on column rec_viceconsume_inaccurate.dealtype is '记录类型 1：正常 0：灰色 2：mac错误...'
+/
+comment on column rec_viceconsume_inaccurate.collectdt is '采集时间'
+/
+comment on column rec_viceconsume_inaccurate.uploaddate is '上传时间'
+/
+comment on column rec_viceconsume_inaccurate.busid is '车辆id'
+/
+comment on column rec_viceconsume_inaccurate.driverid is '司机id'
+/
+comment on column rec_viceconsume_inaccurate.poscode is '设备运营唯一编号'
+/
+comment on column rec_viceconsume_inaccurate.samcardno is 'sam卡号'
+/
+comment on column rec_viceconsume_inaccurate.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column rec_viceconsume_inaccurate.traderecno is 'pos交易流水号（交易记录）'
+/
+comment on column rec_viceconsume_inaccurate.tac is 'tac验证码'
+/
+comment on column rec_viceconsume_inaccurate.samtradeno is 'sam卡交易流水号'
+/
+comment on column rec_viceconsume_inaccurate.buslineid is '线路编号'
+/
+comment on column rec_viceconsume_inaccurate.totalrecno is '总流水，包含交易流水和日志流水'
+/
+comment on column rec_viceconsume_inaccurate.discount is '打折金额'
+/
+comment on column rec_viceconsume_inaccurate.tradetype is '交易应用类型 1：电子钱包充值 2：月票充值 3：次卡钱包'
+/
+comment on column rec_viceconsume_inaccurate.linedept is '线路所属部门'
+/
+comment on column rec_viceconsume_inaccurate.repealempid is '对应充值职员编号(不是存款红冲默认为0)'
+/
+comment on column rec_viceconsume_inaccurate.vicedummyopfare is '次卡钱包虚冲撤销金额'
+/
+comment on column rec_viceconsume_inaccurate.cardasn is '卡应用序列号'
+/
+comment on column rec_viceconsume_inaccurate.tradecitycode is '交易地城市代码'
+/
+comment on column rec_viceconsume_inaccurate.ownercitycode is '所属地城市代码'
+/
+comment on column rec_viceconsume_inaccurate.maincardtype is '主卡类型'
+/
+comment on column rec_viceconsume_inaccurate.assocardtype is '子卡类型'
+/
+comment on column rec_viceconsume_inaccurate.cardversion is '卡内版本'
+/
+comment on column rec_viceconsume_inaccurate.tradekind is '交易性质'
+/
+comment on column rec_viceconsume_inaccurate.testflag is '测试标记'
+/
+comment on column rec_viceconsume_inaccurate.operatorpoint is '营运单位编号'
+/
+comment on column rec_viceconsume_inaccurate.collectpoint is '采集点编号'
+/
+comment on column rec_viceconsume_inaccurate.accountdate is '清算日期'
+/
+comment on column rec_viceconsume_inaccurate.customerunitcode is '客户代码'
+/
+comment on column rec_viceconsume_inaccurate.trcflg is '灰色记录类型（和base_rec_bad_type表对应）'
+/
+comment on column rec_viceconsume_inaccurate.disflag is '处理标志 0：未处理；1：已处理（有可能处理成功也有可能再次形成未决账目） 2：处理未坏账'
+/
+
+
+  CREATE TABLE "CCENSE"."SQLN_EXPLAIN_PLAN" 
+   (	"STATEMENT_ID" VARCHAR2(30), 
+	"TIMESTAMP" DATE, 
+	"REMARKS" VARCHAR2(80), 
+	"OPERATION" VARCHAR2(30), 
+	"OPTIONS" VARCHAR2(30), 
+	"OBJECT_NODE" VARCHAR2(128), 
+	"OBJECT_OWNER" VARCHAR2(30), 
+	"OBJECT_NAME" VARCHAR2(30), 
+	"OBJECT_INSTANCE" NUMBER(*,0), 
+	"OBJECT_TYPE" VARCHAR2(30), 
+	"OPTIMIZER" VARCHAR2(255), 
+	"SEARCH_COLUMNS" NUMBER(*,0), 
+	"ID" NUMBER(*,0), 
+	"PARENT_ID" NUMBER(*,0), 
+	"POSITION" NUMBER(*,0), 
+	"COST" NUMBER(*,0), 
+	"CARDINALITY" NUMBER(*,0), 
+	"BYTES" NUMBER(*,0), 
+	"OTHER_TAG" VARCHAR2(255), 
+	"PARTITION_START" VARCHAR2(255), 
+	"PARTITION_STOP" VARCHAR2(255), 
+	"PARTITION_ID" NUMBER(*,0), 
+	"OTHER" LONG, 
+	"DISTRIBUTION" VARCHAR2(30)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table sqln_explain_plan is ''
+/
+comment on column sqln_explain_plan.statement_id is ''
+/
+comment on column sqln_explain_plan.timestamp is ''
+/
+comment on column sqln_explain_plan.remarks is ''
+/
+comment on column sqln_explain_plan.operation is ''
+/
+comment on column sqln_explain_plan.options is ''
+/
+comment on column sqln_explain_plan.object_node is ''
+/
+comment on column sqln_explain_plan.object_owner is ''
+/
+comment on column sqln_explain_plan.object_name is ''
+/
+comment on column sqln_explain_plan.object_instance is ''
+/
+comment on column sqln_explain_plan.object_type is ''
+/
+comment on column sqln_explain_plan.optimizer is ''
+/
+comment on column sqln_explain_plan.search_columns is ''
+/
+comment on column sqln_explain_plan.id is ''
+/
+comment on column sqln_explain_plan.parent_id is ''
+/
+comment on column sqln_explain_plan.position is ''
+/
+comment on column sqln_explain_plan.cost is ''
+/
+comment on column sqln_explain_plan.cardinality is ''
+/
+comment on column sqln_explain_plan.bytes is ''
+/
+comment on column sqln_explain_plan.other_tag is ''
+/
+comment on column sqln_explain_plan.partition_start is ''
+/
+comment on column sqln_explain_plan.partition_stop is ''
+/
+comment on column sqln_explain_plan.partition_id is ''
+/
+comment on column sqln_explain_plan.other is ''
+/
+comment on column sqln_explain_plan.distribution is ''
+/
+
+
+  CREATE TABLE "CCENSE"."ST_ACCOUNT_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"SUBCODE" NUMBER NOT NULL ENABLE, 
+	"SUBDSCRP" VARCHAR2(100), 
+	"OPERNO" NUMBER NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"DIR" NUMBER NOT NULL ENABLE, 
+	"ACCDATE" DATE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_ACCOUNT_ACC" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_ST_ACCCOUNT_ACC" UNIQUE ("STATDATE", "SUBCODE", "SUBDSCRP", "DIR", "ACCDATE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 196608 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_account_acc is '会计账目-即时统计表'
+/
+comment on column st_account_acc.id is '编号'
+/
+comment on column st_account_acc.statdate is '统计时间'
+/
+comment on column st_account_acc.subcode is '会计科目'
+/
+comment on column st_account_acc.subdscrp is '会计科目描述'
+/
+comment on column st_account_acc.operno is '交易次数'
+/
+comment on column st_account_acc.opermn is '交易金额'
+/
+comment on column st_account_acc.dir is '借贷方向 1-借 -1贷'
+/
+comment on column st_account_acc.accdate is '实际交易日期（即账目发生日期）格式：yyyy-mm-dd'
+/
+comment on column st_account_acc.ver is '记录版本'
+/
+comment on column st_account_acc.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_ACCOUNT_ACC_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"SUBCODE" NUMBER NOT NULL ENABLE, 
+	"SUBDSCRP" VARCHAR2(100), 
+	"OPERNO" NUMBER NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"DIR" NUMBER NOT NULL ENABLE, 
+	"BALANCEDATE" DATE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STID" NUMBER, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_ST_ACCOUNT_ACC_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_ST_ACCOUNT_ACC_DAY" UNIQUE ("STATDATE", "SUBCODE", "SUBDSCRP", "DIR", "BALANCEDATE", "CUSTOMERUNITCODE", "STID", "ACCDATE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("BALANCEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_account_acc_day is '会计日统计表'
+/
+comment on column st_account_acc_day.id is '编号'
+/
+comment on column st_account_acc_day.statdate is '统计时间'
+/
+comment on column st_account_acc_day.subcode is '会计科目'
+/
+comment on column st_account_acc_day.subdscrp is '会计科目描述'
+/
+comment on column st_account_acc_day.operno is '交易次数'
+/
+comment on column st_account_acc_day.opermn is '交易金额'
+/
+comment on column st_account_acc_day.dir is '借贷方向 1 借 -1贷'
+/
+comment on column st_account_acc_day.balancedate is '日结日期'
+/
+comment on column st_account_acc_day.ver is '记录版本'
+/
+comment on column st_account_acc_day.customerunitcode is '客户代码'
+/
+comment on column st_account_acc_day.stid is '及时统计表id'
+/
+comment on column st_account_acc_day.accdate is '实际交易日期（即账目发生日期）格式：yyyy-mm-dd'
+/
+comment on column st_account_acc_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_ACCOUNT_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"OPERATORID" NUMBER NOT NULL ENABLE, 
+	"BEGINTIME" DATE NOT NULL ENABLE, 
+	"ENDTIME" DATE NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER NOT NULL ENABLE, 
+	"RESULTS" NUMBER NOT NULL ENABLE, 
+	"DESCRIPTION" VARCHAR2(300) NOT NULL ENABLE, 
+	"ISMANUAL" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_ACCOUNT_LOG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_account_log is '日/月/年结日志表'
+/
+comment on column st_account_log.id is 'id'
+/
+comment on column st_account_log.accountdate is '日结日期/月结月份/年结年份'
+/
+comment on column st_account_log.operatorid is '操作员账号'
+/
+comment on column st_account_log.begintime is '日结/月结/年结开始时间'
+/
+comment on column st_account_log.endtime is '日结/月结/年结结束时间'
+/
+comment on column st_account_log.accounttype is '结算类型　月结:0 年结:1 日结:9'
+/
+comment on column st_account_log.results is '结算结果  -1:失败 100:成功'
+/
+comment on column st_account_log.description is '描述'
+/
+comment on column st_account_log.ismanual is '是否手工结算 0：自动 1：手工'
+/
+comment on column st_account_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_ASSETS_DEBTS_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"SUBCODE" NUMBER NOT NULL ENABLE, 
+	"SUBDSCRP" VARCHAR2(100), 
+	"SUMOPFAREPRE" NUMBER(20,2) NOT NULL ENABLE, 
+	"SUMOPFARE" NUMBER(20,2) NOT NULL ENABLE, 
+	"OPFARE" NUMBER(20,2), 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_ST_ASSETS_DEBTS_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "AK_ST_ASSETS_DEBTS_DAY" UNIQUE ("STATDATE", "SUBCODE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("STATDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_assets_debts_day is '资产负债日结表'
+/
+comment on column st_assets_debts_day.id is '编号'
+/
+comment on column st_assets_debts_day.statdate is '统计（平衡）日期'
+/
+comment on column st_assets_debts_day.subcode is '会计科目'
+/
+comment on column st_assets_debts_day.subdscrp is '会计科目描述'
+/
+comment on column st_assets_debts_day.sumopfarepre is '前期交易金额（截止到上个结算日期的交易金额）'
+/
+comment on column st_assets_debts_day.sumopfare is '期末交易金额（截止到本期的交易金额）= 前期交易金额 + 本期交易金额'
+/
+comment on column st_assets_debts_day.opfare is '本期交易金额'
+/
+comment on column st_assets_debts_day.customerunitcode is '客户代码'
+/
+comment on column st_assets_debts_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_BALANCE_AREA" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"ACCGROUPID" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) DEFAULT 0 NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_BALANCE_AREA" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_balance_area is '系统日结表-日平衡明细表。按大类存储统计结果。由账目日结获取数据'
+/
+comment on column st_balance_area.id is 'id，主键'
+/
+comment on column st_balance_area.balancedate is '账目平衡日期'
+/
+comment on column st_balance_area.accgroupid is '科目大类'
+/
+comment on column st_balance_area.operno is '操作次数'
+/
+comment on column st_balance_area.opermn is '操作金额'
+/
+comment on column st_balance_area.discountmn is '打折优惠金额'
+/
+comment on column st_balance_area.createdate is '记录形成时间'
+/
+comment on column st_balance_area.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_BALANCE_AREA_TOTAL" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"ODDFAREPRE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"CARDODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ACCODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"INCOME" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"PAYOUT" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TOTALINCOME" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TOTALPAYOUT" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ELECODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"MONODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ELECACCODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"MONACCODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"LOGOUTELECACCODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"LOGOUTMONACCODDFARE" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ELECFREEZEMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"MONFREEZEMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"NOCARDMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TOTALNOCARDMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"PAPERINCOME" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"CREATEDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"TOTALPAPERINCOME" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TOTALDISCOUNTMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"VICEODDFARE" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEACCODDFARE" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"LOGOUTVICEACCODDFARE" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"VICEFREEZEMN" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_BALANCE_AREA_TOTAL" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_balance_area_total is '系统日结表-日平衡汇总表-合计金额。由账目日结获取数据。'
+/
+comment on column st_balance_area_total.id is 'id，主键'
+/
+comment on column st_balance_area_total.balancedate is '结算日期'
+/
+comment on column st_balance_area_total.oddfarepre is '前期余额＝上个结算日oddfare（当前余额）'
+/
+comment on column st_balance_area_total.oddfare is '当前余额＝前期余额(oddfarepre)+本期收入(income)－本期支出(payout)'
+/
+comment on column st_balance_area_total.cardoddfare is '当前卡余额=电子钱包卡余额+月票卡余额+次卡钱包卡余额+未领冻结金额'
+/
+comment on column st_balance_area_total.accoddfare is '系统余额=电子钱包系统余额+月票钱包系统余额+次卡钱包系统余额'
+/
+comment on column st_balance_area_total.income is '本期收入'
+/
+comment on column st_balance_area_total.payout is '本期支出'
+/
+comment on column st_balance_area_total.totalincome is '累计收入=至结算日本期收入的合计'
+/
+comment on column st_balance_area_total.totalpayout is '累计支出=至结算日本期支出的合计'
+/
+comment on column st_balance_area_total.elecoddfare is '电子钱包卡余额'
+/
+comment on column st_balance_area_total.monoddfare is '月票钱包卡余额'
+/
+comment on column st_balance_area_total.elecaccoddfare is '账本信息电子钱包系统余额'
+/
+comment on column st_balance_area_total.monaccoddfare is '账本信息月票钱包系统余额'
+/
+comment on column st_balance_area_total.logoutelecaccoddfare is '注销账户电子钱包系统余额'
+/
+comment on column st_balance_area_total.logoutmonaccoddfare is '注销账户月票钱包系统余额'
+/
+comment on column st_balance_area_total.elecfreezemn is '电子钱包未领冻结金额'
+/
+comment on column st_balance_area_total.monfreezemn is '月票钱包未领冻结金额'
+/
+comment on column st_balance_area_total.nocardmn is '与卡无关金额（折旧费＋卡套费等）'
+/
+comment on column st_balance_area_total.totalnocardmn is '与卡无关金额累计＝上个结算日与卡无关金额累计+本期与卡无关金额'
+/
+comment on column st_balance_area_total.paperincome is '纸币收入'
+/
+comment on column st_balance_area_total.createdate is '记录形成时间'
+/
+comment on column st_balance_area_total.totalpaperincome is '累计投币收入'
+/
+comment on column st_balance_area_total.discountmn is '打折金额'
+/
+comment on column st_balance_area_total.totaldiscountmn is '累计打折金额'
+/
+comment on column st_balance_area_total.viceoddfare is '次卡钱包卡余额'
+/
+comment on column st_balance_area_total.viceaccoddfare is '账本信息次卡钱包系统余额'
+/
+comment on column st_balance_area_total.logoutviceaccoddfare is '注销账户次卡钱包系统余额'
+/
+comment on column st_balance_area_total.vicefreezemn is '次卡钱包未领冻结金额'
+/
+comment on column st_balance_area_total.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_DEPT_PAYMENT_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"ISMON" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	"SETTLEMENTDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_DEPT_PAYMENT_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_dept_payment_day is '司机或者充值员交易数据统计表'
+/
+comment on column st_dept_payment_day.id is '编号'
+/
+comment on column st_dept_payment_day.statdate is '即时统计日期'
+/
+comment on column st_dept_payment_day.empid is '司机id或者充值员id'
+/
+comment on column st_dept_payment_day.accdate is '交易日期'
+/
+comment on column st_dept_payment_day.dptcode is '职员所属部门'
+/
+comment on column st_dept_payment_day.acccode is '交易科目'
+/
+comment on column st_dept_payment_day.operno is '交易计数累计'
+/
+comment on column st_dept_payment_day.opermn is '交易金额合计'
+/
+comment on column st_dept_payment_day.discountmn is '打折金额合计'
+/
+comment on column st_dept_payment_day.ismon is '是否月结，0未月结 1已月结'
+/
+comment on column st_dept_payment_day.balancedate is '日结日期'
+/
+comment on column st_dept_payment_day.customerunitcode is '客户代码'
+/
+comment on column st_dept_payment_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+comment on column st_dept_payment_day.maincardtype is '主卡类型'
+/
+comment on column st_dept_payment_day.accountdate is '结算日期yyyy-mm-dd'
+/
+comment on column st_dept_payment_day.settlementdate is '清算日期yyyy-mm-dd'
+/
+comment on column st_dept_payment_day.filecreatedate is '文件创建日期yyyy-mm-dd'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_EMP_TRADE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDT" DATE NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PSAMCARDNO" NUMBER NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"ACCDT" DATE NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"DEPTCODE" VARCHAR2(30) NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_EMP_TRADE" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_emp_trade is '职员操作统计表-统计职员操作数据，无金额，包含职员发卡，售卡统计数据，目前仅次数，与金额无关'
+/
+comment on column st_emp_trade.id is '流水号，自增长'
+/
+comment on column st_emp_trade.statdt is '统计日期（精确到日）'
+/
+comment on column st_emp_trade.empid is '职员代码'
+/
+comment on column st_emp_trade.poscode is '终端唯一编号'
+/
+comment on column st_emp_trade.psamcardno is 'psam卡号'
+/
+comment on column st_emp_trade.acccode is '科目代码：售卡、补卡、挂失、解挂、退卡'
+/
+comment on column st_emp_trade.operno is '操作次数'
+/
+comment on column st_emp_trade.opermn is '操作金额'
+/
+comment on column st_emp_trade.accdt is '记录操作日期'
+/
+comment on column st_emp_trade.cardkind is '交易卡类型1：m1卡 2：cpu卡'
+/
+comment on column st_emp_trade.cardtype is '卡类别,普通卡，月票卡，老人卡，不确定为0'
+/
+comment on column st_emp_trade.deptcode is '业务部门代码'
+/
+comment on column st_emp_trade.ver is '记录版本'
+/
+comment on column st_emp_trade.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_INCOME_BALANCE_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"CODEID" VARCHAR2(50) NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER(*,0), 
+	"ACCOUNTTYPE" NUMBER(*,0), 
+	"INCOMEPRE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"PAYOUTPRE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"INCOME" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"PAYOUT" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ODDFAREPRE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_INCOME_BALANCE_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "AK_ST_INCOME_BALANCE_DAY" UNIQUE ("STATDATE", "CODEID", "WALLETTYPE", "ACCOUNTTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("STATDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_income_balance_day is '个人账户-日平衡汇总表'
+/
+comment on column st_income_balance_day.id is '编号'
+/
+comment on column st_income_balance_day.statdate is '统计（平衡）日期'
+/
+comment on column st_income_balance_day.codeid is '账户编号'
+/
+comment on column st_income_balance_day.wallettype is '钱包类型'
+/
+comment on column st_income_balance_day.accounttype is '账户类型（5-客户 6-商户 其他值暂无定义）'
+/
+comment on column st_income_balance_day.incomepre is '累积收入总额=至结算日本期收入的合计'
+/
+comment on column st_income_balance_day.payoutpre is '累积支出总额=至结算日本期支出的合计'
+/
+comment on column st_income_balance_day.income is '本期收入总额'
+/
+comment on column st_income_balance_day.payout is '本期支出总额'
+/
+comment on column st_income_balance_day.oddfarepre is '前期账户余额 = 上个结算日oddfare（当前余额）'
+/
+comment on column st_income_balance_day.oddfare is '本期账户余额 = 前期账户余额+本期收支-本期支出'
+/
+comment on column st_income_balance_day.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_INCOME_OUTPAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"OPERNO" NUMBER, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DIR" NUMBER NOT NULL ENABLE, 
+	"CUSTOMERID" NUMBER, 
+	"WALLETTYPE" NUMBER, 
+	"ACCOUNTTYPE" NUMBER, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_INCOME_OUTPAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_income_outpay is '个人账户-客户收支即时统计表'
+/
+comment on column st_income_outpay.id is '编号'
+/
+comment on column st_income_outpay.statdate is '统计时间'
+/
+comment on column st_income_outpay.operno is '交易次数'
+/
+comment on column st_income_outpay.opermn is '交易金额'
+/
+comment on column st_income_outpay.accdate is '实际交易日期（即账目发生日期）格式：yyyy-mm-dd'
+/
+comment on column st_income_outpay.acccode is '业务小类'
+/
+comment on column st_income_outpay.dir is '收支方向  1-收入 -1 支出'
+/
+comment on column st_income_outpay.customerid is '账户编号 （统计类型为客户统计时，默认值0，统计系统中所有客户的合计数据）'
+/
+comment on column st_income_outpay.wallettype is '钱包类型 1 电子钱包 2 月票钱包 3 次卡钱包'
+/
+comment on column st_income_outpay.accounttype is '账户统计类型（5-客户 6-商户 其他值暂无定义）'
+/
+comment on column st_income_outpay.ver is '记录版本'
+/
+comment on column st_income_outpay.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_INCOME_OUTPAY_DAY" 
+   (	"ID" NUMBER, 
+	"STATDATE" DATE, 
+	"OPERNO" NUMBER, 
+	"OPERMN" NUMBER(20,2), 
+	"ACCDATE" DATE, 
+	"ACCCODE" NUMBER, 
+	"DIR" NUMBER, 
+	"CUSTOMERID" NUMBER, 
+	"WALLETTYPE" NUMBER, 
+	"ACCOUNTTYPE" NUMBER, 
+	"BALANCEDATE" DATE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STID" NUMBER, 
+	"FLAG" NUMBER DEFAULT 0
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("BALANCEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_income_outpay_day is '个人账户-客户收支日统计表'
+/
+comment on column st_income_outpay_day.id is '编号'
+/
+comment on column st_income_outpay_day.statdate is '统计时间'
+/
+comment on column st_income_outpay_day.operno is '交易次数'
+/
+comment on column st_income_outpay_day.opermn is '交易金额'
+/
+comment on column st_income_outpay_day.accdate is '交易时间'
+/
+comment on column st_income_outpay_day.acccode is '业务小类'
+/
+comment on column st_income_outpay_day.dir is '收支方向  1-收入 -1 支出'
+/
+comment on column st_income_outpay_day.customerid is '账户编号 （统计类型为客户统计时，默认值0，统计系统中所有客户的合计数据）'
+/
+comment on column st_income_outpay_day.wallettype is '钱包类型 1电子钱包 2 月票钱包 3 次卡钱包'
+/
+comment on column st_income_outpay_day.accounttype is '账户统计类型（5-客户 6-商户 其他值暂无定义）'
+/
+comment on column st_income_outpay_day.balancedate is '日结日期'
+/
+comment on column st_income_outpay_day.ver is '记录版本'
+/
+comment on column st_income_outpay_day.customerunitcode is '客户代码'
+/
+comment on column st_income_outpay_day.stid is '及时统计表中id'
+/
+comment on column st_income_outpay_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_MINCOME_OUTPAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(12), 
+	"POSCODE" NUMBER, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"OPERNO" NUMBER, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DIR" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_mincome_outpay is '个人账户-商户收支即时统计表'
+/
+comment on column st_mincome_outpay.id is '编号'
+/
+comment on column st_mincome_outpay.merchantcode is '商户代码（部门编号）'
+/
+comment on column st_mincome_outpay.poscode is '设备唯一编号'
+/
+comment on column st_mincome_outpay.statdate is '统计时间'
+/
+comment on column st_mincome_outpay.operno is '交易次数'
+/
+comment on column st_mincome_outpay.opermn is '交易金额'
+/
+comment on column st_mincome_outpay.accdate is '实际交易日期（即账目发生日期）格式：yyyy-mm-dd'
+/
+comment on column st_mincome_outpay.acccode is '业务小类'
+/
+comment on column st_mincome_outpay.dir is '收支方向  1-收入 -1 支出'
+/
+comment on column st_mincome_outpay.accounttype is '账户统计类型（5-客户 6-商户 其他值暂无定义）'
+/
+comment on column st_mincome_outpay.ver is '记录版本'
+/
+comment on column st_mincome_outpay.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_MINCOME_OUTPAY_DAY" 
+   (	"ID" NUMBER, 
+	"MERCHANTCODE" VARCHAR2(12), 
+	"POSCODE" NUMBER, 
+	"STATDATE" DATE, 
+	"OPERNO" NUMBER, 
+	"OPERMN" NUMBER(20,2), 
+	"ACCDATE" DATE, 
+	"ACCCODE" NUMBER, 
+	"DIR" NUMBER, 
+	"ACCOUNTTYPE" NUMBER, 
+	"BALANCEDATE" DATE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STID" NUMBER, 
+	"FLAG" NUMBER DEFAULT 0
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("BALANCEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_mincome_outpay_day is '个人账户-商户收支日统计表'
+/
+comment on column st_mincome_outpay_day.id is '编号'
+/
+comment on column st_mincome_outpay_day.merchantcode is '商户代码（部门编号）'
+/
+comment on column st_mincome_outpay_day.poscode is '设备唯一编号'
+/
+comment on column st_mincome_outpay_day.statdate is '统计时间'
+/
+comment on column st_mincome_outpay_day.operno is '交易次数'
+/
+comment on column st_mincome_outpay_day.opermn is '交易金额'
+/
+comment on column st_mincome_outpay_day.accdate is '交易时间'
+/
+comment on column st_mincome_outpay_day.acccode is '业务小类'
+/
+comment on column st_mincome_outpay_day.dir is '收支方向  1-收入 -1 支出'
+/
+comment on column st_mincome_outpay_day.accounttype is '账户统计类型（5-客户 6-商户 其他值暂无定义）'
+/
+comment on column st_mincome_outpay_day.balancedate is '日结日期'
+/
+comment on column st_mincome_outpay_day.ver is '记录版本'
+/
+comment on column st_mincome_outpay_day.customerunitcode is '客户代码'
+/
+comment on column st_mincome_outpay_day.stid is '及时统计表中id'
+/
+comment on column st_mincome_outpay_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PASMCARDNO" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT TRUNC(SYSDATE, 'dd') NOT NULL ENABLE, 
+	"SETTLEMENTDATE" DATE DEFAULT TRUNC(SYSDATE, 'dd') NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE DEFAULT TRUNC(SYSDATE, 'dd') NOT NULL ENABLE, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_PAYMENT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 131072 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_payment is '即时统计数据表-数据上传时统计入此表，包含消费和收入，按终端id，司机id，线路id，卡类别，车辆id，路队汇总'
+/
+comment on column st_payment.id is '编号'
+/
+comment on column st_payment.statdate is '即时统计日期yyyy-mm-dd'
+/
+comment on column st_payment.poscode is '终端唯一运营编号'
+/
+comment on column st_payment.pasmcardno is 'pasm卡号'
+/
+comment on column st_payment.busid is '车辆id'
+/
+comment on column st_payment.buslineid is '线路id'
+/
+comment on column st_payment.empid is '司机id或者充值员id'
+/
+comment on column st_payment.wallettype is '钱包类型（1电子钱包 2月票 3：次卡钱包 0 其他，如投币，卡套费用）'
+/
+comment on column st_payment.cardtype is '卡类别,a/b/c卡或者投币'
+/
+comment on column st_payment.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column st_payment.accdate is '交易日期yyyy-mm-dd'
+/
+comment on column st_payment.dptcode is '线路对应的营业部门'
+/
+comment on column st_payment.acccode is '交易科目'
+/
+comment on column st_payment.operno is '交易计数累计'
+/
+comment on column st_payment.opermn is '交易金额合计'
+/
+comment on column st_payment.discountmn is '打折金额合计'
+/
+comment on column st_payment.customerunitcode is '客户代码'
+/
+comment on column st_payment.accountdate is '结算日期yyyy-mm-dd'
+/
+comment on column st_payment.settlementdate is '清算日期yyyy-mm-dd'
+/
+comment on column st_payment.filecreatedate is '文件创建日期yyyy-mm-dd'
+/
+comment on column st_payment.maincardtype is ''
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT_CASH_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	 CONSTRAINT "UK_ST_PAYMENT_CASH_DAY" UNIQUE ("CARDTYPE", "EMPID", "POSCODE", "STATDATE", "BALANCEDATE", "CUSTOMERUNITCODE", "ACCCODE", "FLAG", "ACCDATE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "PK_ST_PAYMENT_CASH_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("BALANCEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_payment_cash_day is '充值员结算数据'
+/
+comment on column st_payment_cash_day.id is 'id 自增长'
+/
+comment on column st_payment_cash_day.cardtype is '卡类型 老年卡，学生卡等'
+/
+comment on column st_payment_cash_day.empid is '充值员编号'
+/
+comment on column st_payment_cash_day.poscode is '终端唯一编号'
+/
+comment on column st_payment_cash_day.statdate is '即时统计日期'
+/
+comment on column st_payment_cash_day.balancedate is '日结日期'
+/
+comment on column st_payment_cash_day.customerunitcode is '客户代码'
+/
+comment on column st_payment_cash_day.acccode is '交易科目'
+/
+comment on column st_payment_cash_day.operno is '交易次数'
+/
+comment on column st_payment_cash_day.opermn is '交易金额'
+/
+comment on column st_payment_cash_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+comment on column st_payment_cash_day.accdate is '交易日期yyyy-mm-dd'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT_CONSUM_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"DRIVERID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9), 
+	"ELECFAILNO" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"ELECFAILMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT '000000000000000', 
+	"UNIONTERMID" VARCHAR2(8), 
+	"ELECDISCOUNTMN" NUMBER(20,2) DEFAULT 0.00, 
+	"MONDISCOUNTMN" NUMBER(20,2) DEFAULT 0.00, 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	"SETTLEMENTDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_PAYMENT_CONSUM_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_ST_PAYMENT_CONSUME_DAY" UNIQUE ("STATDATE", "ACCDATE", "BUSID", "BUSLINEID", "DRIVERID", "CARDTYPE", "DPTCODE", "ACCCODE", "BALANCEDATE", "MERCHANTCODE", "UNIONTERMID", "CUSTOMERUNITCODE", "MAINCARDTYPE", "ACCOUNTDATE", "SETTLEMENTDATE", "FILECREATEDATE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("BALANCEDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_payment_consum_day is '消费结算数据'
+/
+comment on column st_payment_consum_day.id is 'id 自增长'
+/
+comment on column st_payment_consum_day.buslineid is '线路编号'
+/
+comment on column st_payment_consum_day.busid is '车辆编号'
+/
+comment on column st_payment_consum_day.driverid is '司机编号'
+/
+comment on column st_payment_consum_day.statdate is '即时统计日期'
+/
+comment on column st_payment_consum_day.balancedate is '结算日期'
+/
+comment on column st_payment_consum_day.cardtype is '卡类型：普通卡、学生卡、老人卡、员工卡等'
+/
+comment on column st_payment_consum_day.discountmn is '打折金额合计'
+/
+comment on column st_payment_consum_day.customerunitcode is '客户代码'
+/
+comment on column st_payment_consum_day.acccode is '交易科目'
+/
+comment on column st_payment_consum_day.operno is '交易次数'
+/
+comment on column st_payment_consum_day.opermn is '交易金额'
+/
+comment on column st_payment_consum_day.accdate is '交易日期'
+/
+comment on column st_payment_consum_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+comment on column st_payment_consum_day.dptcode is '营业部门'
+/
+comment on column st_payment_consum_day.elecfailno is '失败笔数'
+/
+comment on column st_payment_consum_day.elecfailmn is '失败金额'
+/
+comment on column st_payment_consum_day.merchantcode is '商户编号'
+/
+comment on column st_payment_consum_day.uniontermid is '银联终端编号'
+/
+comment on column st_payment_consum_day.elecdiscountmn is '电子现金打折金额'
+/
+comment on column st_payment_consum_day.mondiscountmn is '月票钱包打折金额'
+/
+comment on column st_payment_consum_day.maincardtype is '主卡类型'
+/
+comment on column st_payment_consum_day.accountdate is '结算日期yyyy-mm-dd'
+/
+comment on column st_payment_consum_day.settlementdate is '清算日期yyyy-mm-dd'
+/
+comment on column st_payment_consum_day.filecreatedate is '文件创建日期yyyy-mm-dd'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PASMCARDNO" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"ISMON" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"STID" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"FLAG" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT '000000000000000', 
+	"UNIONTERMID" VARCHAR2(8), 
+	"MAINCARDTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	"SETTLEMENTDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	"FILECREATEDATE" DATE DEFAULT TRUNC (SYSDATE, 'dd') NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_PAYMENT_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_ST_PAYMENT_DAY" UNIQUE ("STATDATE", "POSCODE", "PASMCARDNO", "BUSID", "BUSLINEID", "EMPID", "WALLETTYPE", "CARDTYPE", "CARDKIND", "ACCDATE", "DPTCODE", "ACCCODE", "BALANCEDATE", "STID", "CUSTOMERUNITCODE", "MERCHANTCODE", "UNIONTERMID", "MAINCARDTYPE", "ACCOUNTDATE", "SETTLEMENTDATE", "FILECREATEDATE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_payment_day is '日结数据，包含消费和收入，按终端id，司机id，线路id，卡类别，车辆id，分公司汇总'
+/
+comment on column st_payment_day.id is '编号'
+/
+comment on column st_payment_day.statdate is '即时统计日期yyyy-mm-dd'
+/
+comment on column st_payment_day.poscode is '终端唯一运营编号'
+/
+comment on column st_payment_day.pasmcardno is 'pasm卡号'
+/
+comment on column st_payment_day.busid is '车辆id'
+/
+comment on column st_payment_day.buslineid is '线路id'
+/
+comment on column st_payment_day.empid is '司机id或者充值员id'
+/
+comment on column st_payment_day.wallettype is '钱包类型（1电子钱包 2月票 3：次卡钱包 0 其他，如投币，卡套费用）'
+/
+comment on column st_payment_day.cardtype is '卡类别,a/b/c卡或者投币'
+/
+comment on column st_payment_day.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column st_payment_day.accdate is '交易日期'
+/
+comment on column st_payment_day.dptcode is '线路所属营业部门'
+/
+comment on column st_payment_day.acccode is '交易科目'
+/
+comment on column st_payment_day.operno is '交易计数累计'
+/
+comment on column st_payment_day.opermn is '交易金额合计'
+/
+comment on column st_payment_day.discountmn is '打折金额合计'
+/
+comment on column st_payment_day.ismon is '是否月结，0未月结 1已月结'
+/
+comment on column st_payment_day.balancedate is '日结日期yyyy-mm-dd'
+/
+comment on column st_payment_day.stid is '即时统计表id'
+/
+comment on column st_payment_day.customerunitcode is '客户代码'
+/
+comment on column st_payment_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+comment on column st_payment_day.merchantcode is '商户编号'
+/
+comment on column st_payment_day.uniontermid is '银联终端编号'
+/
+comment on column st_payment_day.maincardtype is '主卡类型'
+/
+comment on column st_payment_day.accountdate is '结算日期yyyy-mm-dd'
+/
+comment on column st_payment_day.settlementdate is '清算日期yyyy-mm-dd'
+/
+comment on column st_payment_day.filecreatedate is '文件创建日期yyyy-mm-dd'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT_MONTH" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATMONTH" DATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PASMCARDNO" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"TOTALOPERMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"TOTALDISCOUNTMN" NUMBER(18,2) DEFAULT 0 NOT NULL ENABLE, 
+	"ISYEAR" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_PAYMENT_MONTH" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_payment_month is '月结数据，从日结数据汇总'
+/
+comment on column st_payment_month.id is 'id'
+/
+comment on column st_payment_month.statmonth is '月份'
+/
+comment on column st_payment_month.poscode is '终端编号'
+/
+comment on column st_payment_month.pasmcardno is 'psam卡号'
+/
+comment on column st_payment_month.busid is '车辆id'
+/
+comment on column st_payment_month.buslineid is '线路id'
+/
+comment on column st_payment_month.empid is '司机编号或者充值员编号'
+/
+comment on column st_payment_month.wallettype is '钱包类型'
+/
+comment on column st_payment_month.cardtype is '卡类型'
+/
+comment on column st_payment_month.cardkind is '卡种类'
+/
+comment on column st_payment_month.dptcode is '线路部门编码'
+/
+comment on column st_payment_month.acccode is '科目代码'
+/
+comment on column st_payment_month.operno is '笔数'
+/
+comment on column st_payment_month.opermn is '金额'
+/
+comment on column st_payment_month.discountmn is '打折金额'
+/
+comment on column st_payment_month.totalopermn is '当年累计'
+/
+comment on column st_payment_month.totaldiscountmn is '当年累计'
+/
+comment on column st_payment_month.isyear is '是否年结'
+/
+comment on column st_payment_month.ver is '版本号'
+/
+comment on column st_payment_month.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT_THIRD_UNSETTLE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PASMCARDNO" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"MERCHANTCODE" VARCHAR2(15) DEFAULT '000000000000000', 
+	"UNIONTERMID" VARCHAR2(8), 
+	 CONSTRAINT "UK_PAYMENU_THIRD_UNSETTLE" UNIQUE ("STATDATE", "ACCDATE", "POSCODE", "PASMCARDNO", "BUSID", "BUSLINEID", "EMPID", "WALLETTYPE", "CARDTYPE", "CARDKIND", "DPTCODE", "ACCCODE", "BALANCEDATE", "MERCHANTCODE", "UNIONTERMID", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_payment_third_unsettle is '银联对账异常记录日结数据，包含消费和收入，按终端id，司机id，线路id，卡类别，车辆id，分公司汇总'
+/
+comment on column st_payment_third_unsettle.id is '编号'
+/
+comment on column st_payment_third_unsettle.statdate is '即时统计日期yyyy-mm-dd'
+/
+comment on column st_payment_third_unsettle.poscode is '终端唯一运营编号'
+/
+comment on column st_payment_third_unsettle.pasmcardno is 'pasm卡号'
+/
+comment on column st_payment_third_unsettle.busid is '车辆id'
+/
+comment on column st_payment_third_unsettle.buslineid is '线路id'
+/
+comment on column st_payment_third_unsettle.empid is '司机id或者充值员id'
+/
+comment on column st_payment_third_unsettle.wallettype is '钱包类型（4：电子现金）'
+/
+comment on column st_payment_third_unsettle.cardtype is '卡类别,a/b/c卡或者投币'
+/
+comment on column st_payment_third_unsettle.cardkind is '卡种类1m1卡， 2 cpu卡'
+/
+comment on column st_payment_third_unsettle.accdate is '交易日期'
+/
+comment on column st_payment_third_unsettle.dptcode is '线路所属营业部门'
+/
+comment on column st_payment_third_unsettle.acccode is '交易科目'
+/
+comment on column st_payment_third_unsettle.operno is '交易计数累计'
+/
+comment on column st_payment_third_unsettle.opermn is '交易金额合计'
+/
+comment on column st_payment_third_unsettle.discountmn is '打折金额合计'
+/
+comment on column st_payment_third_unsettle.balancedate is '日结日期yyyy-mm-dd'
+/
+comment on column st_payment_third_unsettle.customerunitcode is '客户代码'
+/
+comment on column st_payment_third_unsettle.merchantcode is '商户编号'
+/
+comment on column st_payment_third_unsettle.uniontermid is '银联终端编号'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_PAYMENT_YEAR" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATYEAR" DATE NOT NULL ENABLE, 
+	"POSCODE" NUMBER NOT NULL ENABLE, 
+	"PASMCARDNO" NUMBER NOT NULL ENABLE, 
+	"BUSID" NUMBER NOT NULL ENABLE, 
+	"BUSLINEID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"WALLETTYPE" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"CARDTYPE" NUMBER NOT NULL ENABLE, 
+	"CARDKIND" NUMBER NOT NULL ENABLE, 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"OPERNO" NUMBER(18,0) NOT NULL ENABLE, 
+	"OPERMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"DISCOUNTMN" NUMBER(18,2) NOT NULL ENABLE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_PAYMENT_YEAR" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 524288 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_payment_year is '年结数据，从月结数据汇总'
+/
+comment on column st_payment_year.id is 'id'
+/
+comment on column st_payment_year.statyear is '年份'
+/
+comment on column st_payment_year.poscode is '终端编号'
+/
+comment on column st_payment_year.pasmcardno is 'psam卡号'
+/
+comment on column st_payment_year.busid is '车辆编号'
+/
+comment on column st_payment_year.buslineid is '线路编号'
+/
+comment on column st_payment_year.empid is '司机编号或者充值员编号'
+/
+comment on column st_payment_year.wallettype is '钱包类型'
+/
+comment on column st_payment_year.cardtype is '卡类别'
+/
+comment on column st_payment_year.cardkind is '卡种类'
+/
+comment on column st_payment_year.dptcode is '线路部门编号'
+/
+comment on column st_payment_year.acccode is '科目'
+/
+comment on column st_payment_year.operno is '笔数'
+/
+comment on column st_payment_year.opermn is '金额'
+/
+comment on column st_payment_year.discountmn is '打折金额'
+/
+comment on column st_payment_year.ver is '版本号'
+/
+comment on column st_payment_year.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_SETTLEMENT_ACC" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"ACQUIRERCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"RECEIVECODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"ACCCODE" VARCHAR2(4) NOT NULL ENABLE, 
+	"DIR" NUMBER(*,0) NOT NULL ENABLE, 
+	"OPERNO" NUMBER NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"TRANSPOUNDAGE" NUMBER(20,2) NOT NULL ENABLE, 
+	"POUNDAGE" NUMBER(20,2), 
+	"CARDPOUNDAGE" NUMBER(20,2) NOT NULL ENABLE, 
+	"CASIPOUNDAGE" NUMBER(20,2) NOT NULL ENABLE, 
+	"TESTFLAG" NUMBER(*,0) NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"ERRORCODE" VARCHAR2(6) NOT NULL ENABLE, 
+	"ERRORDESCRIBE" VARCHAR2(40), 
+	"RESERVEDDOMAIN" VARCHAR2(20), 
+	"FILEINFO" VARCHAR2(1000)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_settlement_acc is ''
+/
+comment on column st_settlement_acc.id is '字增长id'
+/
+comment on column st_settlement_acc.accountdate is '清算日期'
+/
+comment on column st_settlement_acc.acquirercode is '收单机构标识'
+/
+comment on column st_settlement_acc.receivecode is '清分结算机构标识'
+/
+comment on column st_settlement_acc.acccode is '业务类型'
+/
+comment on column st_settlement_acc.dir is '差错调整标识 0-非差错交易 ，正常上送 1-贷方调整（发卡机构付款） 2-借方调整（发卡机构收款）'
+/
+comment on column st_settlement_acc.operno is '消费交易笔数'
+/
+comment on column st_settlement_acc.opermn is '消费交易金额'
+/
+comment on column st_settlement_acc.transpoundage is '手续费1（交易地手续费）'
+/
+comment on column st_settlement_acc.poundage is '手续费2（预留）'
+/
+comment on column st_settlement_acc.cardpoundage is '清分结算机构交易手续费1（卡属地手续费）'
+/
+comment on column st_settlement_acc.casipoundage is '清分结算机构交易手续费2（清分结算机构手续费）'
+/
+comment on column st_settlement_acc.testflag is '测试标志  0-正式数据  1-测试数据'
+/
+comment on column st_settlement_acc.statdate is '系统日期'
+/
+comment on column st_settlement_acc.errorcode is '错误代码'
+/
+comment on column st_settlement_acc.errordescribe is '错误描述'
+/
+comment on column st_settlement_acc.reserveddomain is '保留域'
+/
+comment on column st_settlement_acc.fileinfo is '原始文件信息'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_SYS_CASI_BALANCE" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"ACCOUNTDATE" DATE NOT NULL ENABLE, 
+	"ACCEPTCODE" VARCHAR2(11) NOT NULL ENABLE, 
+	"TOTALINCOME" NUMBER(16,2) NOT NULL ENABLE, 
+	"TOTALPAYOUT" NUMBER(16,2) NOT NULL ENABLE, 
+	"TESTTOTALINCOME" NUMBER(16,2) NOT NULL ENABLE, 
+	"TESTTOTALPAYOUT" NUMBER(16,2) NOT NULL ENABLE, 
+	"CASHDEPOSITCHANGESUM" NUMBER(16,2) NOT NULL ENABLE, 
+	"SUMSIGNBIT" VARCHAR2(10), 
+	"STATDATE" DATE DEFAULT sysdate NOT NULL ENABLE, 
+	"RESERVEDDOMAIN" VARCHAR2(80), 
+	"FILEINFO" VARCHAR2(1000), 
+	 CONSTRAINT "UK_ST_SYS_CASI_BALANCE" UNIQUE ("ACCOUNTDATE", "ACCEPTCODE", "FILEINFO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_sys_casi_balance is '交通部互联互通收支平衡数据表'
+/
+comment on column st_sys_casi_balance.id is '自增长id'
+/
+comment on column st_sys_casi_balance.accountdate is '清算日期'
+/
+comment on column st_sys_casi_balance.acceptcode is '接收机构代码'
+/
+comment on column st_sys_casi_balance.totalincome is '收入总金额'
+/
+comment on column st_sys_casi_balance.totalpayout is '支出总金额'
+/
+comment on column st_sys_casi_balance.testtotalincome is '测试收入总金额'
+/
+comment on column st_sys_casi_balance.testtotalpayout is '测试支出总金额'
+/
+comment on column st_sys_casi_balance.cashdepositchangesum is '保证金账户变动金额'
+/
+comment on column st_sys_casi_balance.sumsignbit is '金额符号位'
+/
+comment on column st_sys_casi_balance.statdate is '系统日期'
+/
+comment on column st_sys_casi_balance.reserveddomain is '保留域'
+/
+comment on column st_sys_casi_balance.fileinfo is '原始文件信息'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_SYS_INCOME_BALANCE_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"CODEID" VARCHAR2(50) NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER(*,0), 
+	"INCOMEPRE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"PAYOUTPRE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"INCOME" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"PAYOUT" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ODDFAREPRE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"ODDFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(20) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_SYS_INCOME_BALANCE_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "AK_ST_SYS_INCOME_BALANCE_DAY" UNIQUE ("STATDATE", "CODEID", "ACCOUNTTYPE", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("STATDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_sys_income_balance_day is '系统账户-日平衡汇总表'
+/
+comment on column st_sys_income_balance_day.id is '编号'
+/
+comment on column st_sys_income_balance_day.statdate is '统计（平衡）日期'
+/
+comment on column st_sys_income_balance_day.codeid is '账户编号（出纳、银行、现金）'
+/
+comment on column st_sys_income_balance_day.accounttype is '账户统计类型（账户类别 1-现金存款 2-银行存款 3-出纳 4-银行）'
+/
+comment on column st_sys_income_balance_day.incomepre is '累积收入总额=至结算日本期收入的合计'
+/
+comment on column st_sys_income_balance_day.payoutpre is '累积支出总额=至结算日本期支出的合计'
+/
+comment on column st_sys_income_balance_day.income is '本期收入总额'
+/
+comment on column st_sys_income_balance_day.payout is '本期支出总额'
+/
+comment on column st_sys_income_balance_day.oddfarepre is '前期账户余额 = 上个结算日oddfare（当前余额）'
+/
+comment on column st_sys_income_balance_day.oddfare is '本期账户余额 = 前期账户余额+本期收支-本期支出'
+/
+comment on column st_sys_income_balance_day.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_SYS_INCOME_OUTPAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"OPERNO" NUMBER NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DIR" NUMBER NOT NULL ENABLE, 
+	"CODEID" VARCHAR2(50) NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_SYS_INCOME_OUTPAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_sys_income_outpay is '系统账户-收支即时统计表'
+/
+comment on column st_sys_income_outpay.id is '编号'
+/
+comment on column st_sys_income_outpay.statdate is '统计时间'
+/
+comment on column st_sys_income_outpay.operno is '交易次数'
+/
+comment on column st_sys_income_outpay.opermn is '交易金额'
+/
+comment on column st_sys_income_outpay.accdate is '实际交易日期（即账目发生日期）格式：yyyy-mm-dd'
+/
+comment on column st_sys_income_outpay.acccode is '业务小类'
+/
+comment on column st_sys_income_outpay.dir is '收支方向  1-收入 -1 支出'
+/
+comment on column st_sys_income_outpay.codeid is '编号（出纳、银行、现金）'
+/
+comment on column st_sys_income_outpay.accounttype is '账户统计类型（账户类别 1-现金存款 2-银行存款 3-出纳 4-银行）'
+/
+comment on column st_sys_income_outpay.ver is '记录版本'
+/
+comment on column st_sys_income_outpay.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_SYS_INCOME_OUTPAY_DAY" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"STATDATE" DATE NOT NULL ENABLE, 
+	"OPERNO" NUMBER NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) NOT NULL ENABLE, 
+	"ACCDATE" DATE NOT NULL ENABLE, 
+	"ACCCODE" NUMBER NOT NULL ENABLE, 
+	"DIR" NUMBER NOT NULL ENABLE, 
+	"CODEID" VARCHAR2(50) NOT NULL ENABLE, 
+	"ACCOUNTTYPE" NUMBER NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"VER" NUMBER DEFAULT 0, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	"STID" NUMBER, 
+	"FLAG" NUMBER DEFAULT 0, 
+	 CONSTRAINT "PK_ST_SYS_INCOME_OUTPAY_DAY" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+  PARTITION BY RANGE ("STATDATE") 
+  SUBPARTITION BY LIST ("CUSTOMERUNITCODE") 
+ (PARTITION "PART2016"  VALUES LESS THAN (TO_DATE(' 2017-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2016"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2016"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2017"  VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2017"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2017"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2017"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2017"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2017"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2017"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2017"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2017"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2018"  VALUES LESS THAN (TO_DATE(' 2019-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2018"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2018"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2018"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2018"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2018"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2018"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2018"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2018"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2018"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2018"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2018"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) , 
+ PARTITION "PART2019"  VALUES LESS THAN (TO_DATE(' 2020-01-01 00:00:00', 'SYYYY-MM-DD HH24:MI:SS', 'NLS_CALENDAR=GREGORIAN')) 
+PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+  STORAGE(
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ ( SUBPARTITION "PART08600000000_SUB2019"  VALUES ('08600000000') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000001_SUB2019"  VALUES ('08600000001') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000002_SUB2019"  VALUES ('08600000002') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000003_SUB2019"  VALUES ('08600000003') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000004_SUB2019"  VALUES ('08600000004') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000005_SUB2019"  VALUES ('08600000005') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000006_SUB2019"  VALUES ('08600000006') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000007_SUB2019"  VALUES ('08600000007') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000008_SUB2019"  VALUES ('08600000008') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000009_SUB2019"  VALUES ('08600000009') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS , 
+  SUBPARTITION "PART08600000010_SUB2019"  VALUES ('08600000010') 
+   TABLESPACE "TBS_PAR1" NOCOMPRESS ) ) 
+ 
+/
+comment on table st_sys_income_outpay_day is '系统账户-收支日统计表'
+/
+comment on column st_sys_income_outpay_day.id is '编号'
+/
+comment on column st_sys_income_outpay_day.statdate is '统计时间'
+/
+comment on column st_sys_income_outpay_day.operno is '交易次数'
+/
+comment on column st_sys_income_outpay_day.opermn is '交易金额'
+/
+comment on column st_sys_income_outpay_day.accdate is '交易时间'
+/
+comment on column st_sys_income_outpay_day.acccode is '业务小类'
+/
+comment on column st_sys_income_outpay_day.dir is '收支方向  1-收入 -1 支出'
+/
+comment on column st_sys_income_outpay_day.codeid is '编号（出纳、银行、现金）'
+/
+comment on column st_sys_income_outpay_day.accounttype is '账户统计类型（账户类别 1-现金存款 2-银行存款 3-出纳 4-银行）'
+/
+comment on column st_sys_income_outpay_day.balancedate is '日结日期'
+/
+comment on column st_sys_income_outpay_day.ver is '记录版本'
+/
+comment on column st_sys_income_outpay_day.customerunitcode is '客户代码'
+/
+comment on column st_sys_income_outpay_day.stid is '及时统计表id'
+/
+comment on column st_sys_income_outpay_day.flag is '划账标记 0：初始值 1：已划拨'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_TRANACCOUNT" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"BUSINESSBANKNO" VARCHAR2(30), 
+	"BUSINESSBANKNAME" VARCHAR2(30), 
+	"DPTCODE" VARCHAR2(9) NOT NULL ENABLE, 
+	"OPERNO" NUMBER(20,0) DEFAULT 0 NOT NULL ENABLE, 
+	"OPERMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CITYAGENCYMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"BANKTRANMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"REALTRANMN" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"DPTBANKNO" VARCHAR2(30) NOT NULL ENABLE, 
+	"DPTBANKOWNER" VARCHAR2(50), 
+	"ISACCOUNT" NUMBER DEFAULT 0 NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_ST_TRANACCOUNT" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 589824 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_tranaccount is '商户实际结算信息表（提供给银行或者线下商户结算的账目数据展示）'
+/
+comment on column st_tranaccount.id is '编号'
+/
+comment on column st_tranaccount.businessbankno is '运营商开户行账号'
+/
+comment on column st_tranaccount.businessbankname is '运营商开户行名称'
+/
+comment on column st_tranaccount.dptcode is '商户编号（结算部门）'
+/
+comment on column st_tranaccount.operno is '结算笔数'
+/
+comment on column st_tranaccount.opermn is '结算金额'
+/
+comment on column st_tranaccount.cityagencymn is '运营商公司代理费'
+/
+comment on column st_tranaccount.banktranmn is '银行转账费用：（结算金额-市民卡公司代理费）*银行转账费率'
+/
+comment on column st_tranaccount.realtranmn is '实际转账金额：结算金额-市民卡公司代理费-银行转账费用'
+/
+comment on column st_tranaccount.dptbankno is '商户开户行账号'
+/
+comment on column st_tranaccount.dptbankowner is '商户转账卡所属人'
+/
+comment on column st_tranaccount.isaccount is '是否发送对账 0未发送对账 1开始发送对账 2对账发送成功  3 对账结果未确认 4对账结果已确认 5：银行资金已划拨（结合银行时使用此状态） 6：线下操作资金已经划拨（手工处理时使用，只有0和6状态）'
+/
+comment on column st_tranaccount.balancedate is '日结日期'
+/
+comment on column st_tranaccount.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."ST_TRANACCOUNT_LOG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"EMPID" NUMBER NOT NULL ENABLE, 
+	"OPERATIONTYPE" NUMBER NOT NULL ENABLE, 
+	"BALANCEDATE" DATE NOT NULL ENABLE, 
+	"ACCOUNTSTR" VARCHAR2(2000) NOT NULL ENABLE, 
+	"CODEID" VARCHAR2(100) NOT NULL ENABLE, 
+	"OPDT" DATE NOT NULL ENABLE, 
+	"OPFARE" NUMBER(20,2) DEFAULT 0.00 NOT NULL ENABLE, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 589824 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table st_tranaccount_log is '账目划拨操作记录'
+/
+comment on column st_tranaccount_log.id is '编号'
+/
+comment on column st_tranaccount_log.empid is '操作员编号（执行划拨动作的操作员）'
+/
+comment on column st_tranaccount_log.operationtype is '操作类型 0 出纳交款 2 商户结算'
+/
+comment on column st_tranaccount_log.balancedate is '划拨账目的结算日期'
+/
+comment on column st_tranaccount_log.accountstr is '划拨账目对应的流水（和结算报表上面的数据对应），格式以1,2,3'
+/
+comment on column st_tranaccount_log.codeid is '编号（出纳员编号或者商户编号）'
+/
+comment on column st_tranaccount_log.opdt is '划拨日期'
+/
+comment on column st_tranaccount_log.opfare is '划拨金额'
+/
+comment on column st_tranaccount_log.customerunitcode is '客户代码'
+/
+
+
+  CREATE TABLE "CCENSE"."TMP_INFO" 
+   (	"INFO" VARCHAR2(3), 
+	"MEMO" VARCHAR2(60), 
+	"NAME" VARCHAR2(30)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table tmp_info is ''
+/
+comment on column tmp_info.info is ''
+/
+comment on column tmp_info.memo is ''
+/
+comment on column tmp_info.name is ''
+/
+
+
+  CREATE TABLE "CCENSE"."UPLOAD_FLAG" 
+   (	"ID" NUMBER NOT NULL ENABLE, 
+	"TABLENAME" VARCHAR2(200) NOT NULL ENABLE, 
+	"VER" NUMBER, 
+	"CUSTOMERUNITCODE" VARCHAR2(12) NOT NULL ENABLE, 
+	 CONSTRAINT "PK_UPLOAD_FLAG" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE, 
+	 CONSTRAINT "UK_UPLOAD_FLAG" UNIQUE ("TABLENAME", "CUSTOMERUNITCODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN"  ENABLE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "CCEN" 
+ 
+/
+comment on table upload_flag is '数据交换上传标识'
+/
+comment on column upload_flag.id is '流水号，自动增长'
+/
+comment on column upload_flag.tablename is '表名称'
+/
+comment on column upload_flag.ver is '上传记录版本号'
+/
+comment on column upload_flag.customerunitcode is '客户法人'
+/
+
