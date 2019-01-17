@@ -8,3 +8,13 @@ F:\Testing\Mshan.DataImport\TextImportUser163\obj\x86\Debug\TextImportUser163.pd
 F:\Testing\Mshan.DataImport\TextImportUser163\bin\Debug\TextImportUser163.exe.config
 F:\Testing\Mshan.DataImport\TextImportUser163\obj\x86\Debug\TextImportUser163.FrmRegex.resources
 F:\Testing\Mshan.DataImport\TextImportUser163\obj\x86\Debug\TextImportUser163.csprojResolveAssemblyReference.cache
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\bin\Debug\TextImportUser163.exe.config
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\bin\Debug\TextImportUser163.exe
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\bin\Debug\TextImportUser163.pdb
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.csprojResolveAssemblyReference.cache
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.Form1.resources
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.FrmRegex.resources
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.Properties.Resources.resources
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.csproj.GenerateResource.Cache
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.exe
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Debug\TextImportUser163.pdb

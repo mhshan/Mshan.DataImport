@@ -18,8 +18,6 @@ F:\Testing\Mshan.DataImport\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.D
 F:\Testing\Mshan.DataImport\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.FrmXmlTest.resources
 F:\Testing\Mshan.DataImport\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.FrmException.resources
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\bin\Debug\Mshan.Document.WinFormDatabase.exe.config
-F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.exe
-F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.pdb
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\bin\Debug\Mshan.Document.WinFormDatabase.exe
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\bin\Debug\Mshan.Document.WinFormDatabase.pdb
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\bin\Debug\Mshan.Document.Database.dll
@@ -36,3 +34,5 @@ F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.Properties.Resources.resources
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.FrmLanguageTool.resources
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.csproj.GenerateResource.Cache
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.exe
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Debug\Mshan.Document.WinFormDatabase.pdb

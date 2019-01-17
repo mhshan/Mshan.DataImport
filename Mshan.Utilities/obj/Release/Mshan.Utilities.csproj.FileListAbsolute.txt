@@ -11,6 +11,5 @@ F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Release\Microsoft.Office.Interop.Word.dll
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Release\office.dll
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Release\Microsoft.Vbe.Interop.dll
-F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\obj\Release\Mshan.Utilities.csprojResolveAssemblyReference.cache
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\obj\Release\Mshan.Utilities.dll
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\obj\Release\Mshan.Utilities.pdb
