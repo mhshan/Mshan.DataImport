@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnSecret = new System.Windows.Forms.Button();
             this.txtSecret = new System.Windows.Forms.TextBox();
             this.txtSource = new System.Windows.Forms.TextBox();
@@ -63,9 +64,7 @@
             this.txtSource.Name = "txtSource";
             this.txtSource.Size = new System.Drawing.Size(1034, 154);
             this.txtSource.TabIndex = 2;
-            this.txtSource.Text = "MERFLAG=1&MERCHANTID=105000000000000&POSID=000000000&TERMNO1=&TERMNO2=&BRANCHID=1" +
-                "10000000&ORDERID=105000000000000123456&QRCODE=CCB9991234567&AMOUNT=0.01&TXCODE=P" +
-                "AY100";
+            this.txtSource.Text = resources.GetString("txtSource.Text");
             // 
             // txtKey
             // 
@@ -73,7 +72,7 @@
             this.txtKey.Name = "txtKey";
             this.txtKey.Size = new System.Drawing.Size(788, 21);
             this.txtKey.TabIndex = 3;
-            this.txtKey.Text = "Er@9f7DE";
+            this.txtKey.Text = resources.GetString("txtKey.Text");
             // 
             // label1
             // 

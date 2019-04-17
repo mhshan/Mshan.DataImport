@@ -99,20 +99,34 @@ namespace Mshan.BankSecret
 
         private void btnVerifySigature_Click(object sender, EventArgs e)
         {
-            NetPaySocketUtil payUitl = new NetPaySocketUtil();
-            string signRet = payUitl.exeSign("127.0.0.1", 55533, txtSource.Text);
-            txtSecret.Text = signRet;
            
+            //X509Certificate2 pub = new X509Certificate2();
+            //NetPaySocketUtil payUitl = new NetPaySocketUtil();
+            //string signRet = payUitl.exeSign("127.0.0.1", 55533, txtSource.Text);
+            //txtSecret.Text = signRet;
+            //return;
             string[] source = System.Text.RegularExpressions.Regex.Split(txtSource.Text, "&SIGN=");
             ISigner signer = SignerUtilities.GetSigner("MD5withRSA");
+            //AsymmetricKeyParameter publicKey = new AsymmetricKeyParameter();
             byte[] keyArray=HexStrToBytes(txtKey.Text);
-            ICipherParameters cipherParameters = new Org.BouncyCastle.Crypto.Parameters.RsaKeyParameters(false, Org.BouncyCastle.Math.BigInteger.One, Org.BouncyCastle.Math.BigInteger.One);
-            signer.Init(false, cipherParameters);
+            //RsaKeyParameters cipherParameters = new Org.BouncyCastle.Crypto.Parameters.RsaKeyParameters(false, Org.BouncyCastle.Math.BigInteger.One, Org.BouncyCastle.Math.BigInteger.One);
+            AsymmetricKeyParameter keyPair = (AsymmetricKeyParameter)PublicKeyFactory.CreateKey(keyArray);
+            signer.Init(false, keyPair);
             byte[] sourceArray = Encoding.ASCII.GetBytes(source[0]);
-            signer.BlockUpdate(sourceArray,0,sourceArray.Length);
-            bool result = signer.VerifySignature(HexStrToBytes(source[1]));
+            byte[] sign = Encoding.ASCII.GetBytes(source[1]);
+            signer.BlockUpdate(sourceArray, 0, sourceArray.Length);
+            bool result = signer.VerifySignature(sign);
             txtSecret.Text += "\r\n" + result;
-            //MD5WithRSA.VerifyData(txtKey.Text,string.Empty,source[0],source[1]);
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            rsa.PersistKeyInCsp = false;
+            string sPublicKeyPEM = "-----BEGIN PUBLIC KEY-----\r\n";
+            sPublicKeyPEM += txtKey.Text;
+            sPublicKeyPEM += "-----END PUBLIC KEY-----\r\n\r\n";
+            Aop.Api.Util.RSACryptoServiceProviderExtension.LoadPublicKeyPEM(rsa, sPublicKeyPEM);
+            bool bVerifyResultOriginal = rsa.VerifyData(sourceArray, "MD5", sign);
+
+            //txtSecret.Text += "\r\n"+ rsa.VerifyData(sourceArray, new MD5CryptoServiceProvider(), sign);
+            MD5WithRSA.VerifyData(txtKey.Text,string.Empty,source[0],source[1]);
         }
         private static char[] bcdLookup = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
         /// <summary>

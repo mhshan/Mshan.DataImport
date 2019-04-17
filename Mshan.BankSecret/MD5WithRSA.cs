@@ -43,6 +43,8 @@ namespace Mshan.BankSecret
             if (string.IsNullOrWhiteSpace(password))
             {
                 objx5092 = new X509Certificate2(HexStrToBytes(publicKey));
+                 
+                
             }
             else
             {
