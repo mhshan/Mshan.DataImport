@@ -43,6 +43,8 @@ namespace Mshan.Utilities
                 object missing = System.Reflection.Missing.Value;
                 wordDoc = wordApp.Documents.Add(
                ref missing, ref missing, ref missing, ref missing);
+                wordDoc.SpellingChecked = false;//关闭拼写检查
+                wordDoc.ShowSpellingErrors = false;//关闭显示拼写错误提示框
         }
 
         public void OpenDocument(string fullFileName)
