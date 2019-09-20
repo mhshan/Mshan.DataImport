@@ -7,8 +7,6 @@ F:\Testing\Mshan.DataImport\Mshan.Utilities\obj\Debug\Mshan.Utilities.dll
 F:\Testing\Mshan.DataImport\Mshan.Utilities\obj\Debug\Mshan.Utilities.pdb
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Debug\Mshan.Utilities.dll
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Debug\Mshan.Utilities.pdb
-F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Debug\Microsoft.Office.Interop.Word.dll
-F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Debug\office.dll
-F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\bin\Debug\Microsoft.Vbe.Interop.dll
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\obj\Debug\Mshan.Utilities.dll
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\obj\Debug\Mshan.Utilities.pdb
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities\obj\Debug\Mshan.Utilities.csprojResolveAssemblyReference.cache

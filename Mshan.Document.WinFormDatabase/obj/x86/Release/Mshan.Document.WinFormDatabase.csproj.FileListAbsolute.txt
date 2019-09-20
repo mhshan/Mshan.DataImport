@@ -36,3 +36,4 @@ F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Release\Mshan.Document.WinFormDatabase.csproj.GenerateResource.Cache
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Release\Mshan.Document.WinFormDatabase.exe
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Release\Mshan.Document.WinFormDatabase.pdb
+F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Document.WinFormDatabase\obj\x86\Release\Mshan.Document.WinFormDatabase.FrmRegexcs.resources
