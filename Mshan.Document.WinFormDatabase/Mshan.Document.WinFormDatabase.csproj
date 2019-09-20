@@ -74,6 +74,12 @@
     <Compile Include="FrmRegexcs.Designer.cs">
       <DependentUpon>FrmRegexcs.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmUnLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUnLanguage.Designer.cs">
+      <DependentUpon>FrmUnLanguage.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmXmlTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegexcs.resx">
       <DependentUpon>FrmRegexcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUnLanguage.resx">
+      <DependentUpon>FrmUnLanguage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmXmlTest.resx">
       <DependentUpon>FrmXmlTest.cs</DependentUpon>

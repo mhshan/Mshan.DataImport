@@ -18,3 +18,6 @@ F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser1
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Release\TextImportUser163.FrmRegex.resources
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Release\TextImportUser163.Properties.Resources.resources
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Release\TextImportUser163.csproj.GenerateResource.Cache
+E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\bin\Release\TextImportUser163.exe.config
+E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Release\TextImportUser163.exe
+E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\TextImportUser163\obj\x86\Release\TextImportUser163.pdb
