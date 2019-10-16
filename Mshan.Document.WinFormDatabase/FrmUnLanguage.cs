@@ -31,7 +31,7 @@ namespace Mshan.Document.WinFormDatabase
             }
             //MessageBox.Show("加载成功", "提示");
         }
-        public string[] __exclude = new string[] { "bin", "obj", "Properties" };
+        public string[] __exclude = new string[] { "bin", "obj"};
         public List<string> GetFileList(string path)
         {
             List<string> list = new List<string>();
@@ -39,8 +39,11 @@ namespace Mshan.Document.WinFormDatabase
             string[] fileName = System.IO.Directory.GetFiles(path);
             for (int i = 0; i < dir.Length; i++)
             {
-                if (ExcludeDir(dir[i]))
-                    continue;
+                if (!cbAll.Checked)
+                {
+                    if (ExcludeDir(dir[i]))
+                        continue;
+                }
                 list.AddRange(GetFileList(dir[i]));
             }
             for (int i = 0; i < fileName.Length; i++)
@@ -220,7 +223,7 @@ namespace Mshan.Document.WinFormDatabase
             } 
             if (proc != null)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(100);
                 // 调用 API, 传递数据
                 while (proc.MainWindowHandle == IntPtr.Zero)
                 {
@@ -294,9 +297,86 @@ namespace Mshan.Document.WinFormDatabase
                 if (s.EndsWith(SourceExtension, true, System.Globalization.CultureInfo.CurrentCulture))
                 {
                     string newFile = s.Substring(0, s.Length - SourceExtension.Length);
+                    if (System.IO.File.Exists(newFile))
+                        System.IO.File.Delete(newFile);
                     System.IO.File.Move(s, newFile);
                 }
             }
+            MessageBox.Show(this, "成功！", "提示");
+        }
+        public List<string> GetAllFileList(string path)
+        {
+            List<string> list = new List<string>();
+            string[] dir = System.IO.Directory.GetDirectories(path);
+            string[] fileName = System.IO.Directory.GetFiles(path);
+            for (int i = 0; i < dir.Length; i++)
+            {
+                list.AddRange(GetAllFileList(dir[i]));
+            }
+            for (int i = 0; i < fileName.Length; i++)
+            {
+                if (System.Text.RegularExpressions.Regex.IsMatch(fileName[i], "^.*\\" + SourceExtension + "$"))
+                    list.Add(fileName[i]);
+            }
+            return list;
+        }
+        public bool ChangeFileExtension(string source, string dest)
+        {
+            System.Diagnostics.Process proc;
+            try
+            {
+                proc = new System.Diagnostics.Process();
+                proc.StartInfo.UseShellExecute = false;
+                proc.StartInfo.RedirectStandardInput = true;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.Arguments = string.Format(" /c ren \"{0}\" \"{1}\"", source, dest);
+                proc.StartInfo.FileName = "cmd.exe";
+                proc.Start();
+                //WriteControl(string.Format("cmd.exe /c ren \"{0}\" \"{1}\"", source, dest));
+
+                proc.Start();
+                System.Threading.Thread.Sleep(20);
+                proc.CloseMainWindow();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+        private void btnReName_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(__path))
+            {
+                MessageBox.Show(this, "请输入新的路径", "提示");
+                return;
+            }
+            List<string> allFileList = this.GetFileList(this.__path);
+            foreach (string fullName in allFileList)
+            {
+                if (fullName.EndsWith(this.SourceExtension, true, System.Globalization.CultureInfo.CurrentCulture))
+                {
+                    string fileName = fullName.Substring(fullName.LastIndexOf('\\') + 1);
+                    this.ChangeFileExtension(fullName, fileName.Substring(0, fileName.Length - this.SourceExtension.Length) + this.DestExtension);
+                }
+            }
+
+        }
+
+        private void FrmUnLanguage_Load(object sender, EventArgs e)
+        {
+            if (System.Configuration.ConfigurationSettings.AppSettings["DefaultPath"] != null)
+            {
+                if (System.IO.Directory.Exists(System.Configuration.ConfigurationSettings.AppSettings["DefaultPath"]))
+                    __path = System.Configuration.ConfigurationSettings.AppSettings["DefaultPath"];
+            }
+        }
+
+        private void btnCurrentPath_Click(object sender, EventArgs e)
+        {
+            txtPath.Text = __path;
         }
 
 

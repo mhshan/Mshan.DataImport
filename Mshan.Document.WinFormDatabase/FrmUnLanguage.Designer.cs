@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbAll = new System.Windows.Forms.CheckBox();
+            this.btnReName = new System.Windows.Forms.Button();
+            this.cbxDestExtension = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxExtension = new System.Windows.Forms.ComboBox();
             this.txtPath = new System.Windows.Forms.TextBox();
@@ -42,14 +46,16 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbxDestExtension = new System.Windows.Forms.ComboBox();
+            this.btnCurrentPath = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnCurrentPath);
+            this.groupBox1.Controls.Add(this.cbAll);
+            this.groupBox1.Controls.Add(this.btnReName);
             this.groupBox1.Controls.Add(this.cbxDestExtension);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -66,6 +72,49 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "提  示";
             // 
+            // cbAll
+            // 
+            this.cbAll.AutoSize = true;
+            this.cbAll.Location = new System.Drawing.Point(771, 391);
+            this.cbAll.Name = "cbAll";
+            this.cbAll.Size = new System.Drawing.Size(83, 20);
+            this.cbAll.TabIndex = 8;
+            this.cbAll.Text = "全  选 ";
+            this.cbAll.UseVisualStyleBackColor = true;
+            // 
+            // btnReName
+            // 
+            this.btnReName.Location = new System.Drawing.Point(860, 379);
+            this.btnReName.Name = "btnReName";
+            this.btnReName.Size = new System.Drawing.Size(120, 36);
+            this.btnReName.TabIndex = 7;
+            this.btnReName.Text = "重命名";
+            this.btnReName.UseVisualStyleBackColor = true;
+            this.btnReName.Click += new System.EventHandler(this.btnReName_Click);
+            // 
+            // cbxDestExtension
+            // 
+            this.cbxDestExtension.FormattingEnabled = true;
+            this.cbxDestExtension.Items.AddRange(new object[] {
+            ".cs",
+            ".txt",
+            ".cpp",
+            ".c",
+            ".java"});
+            this.cbxDestExtension.Location = new System.Drawing.Point(537, 386);
+            this.cbxDestExtension.Name = "cbxDestExtension";
+            this.cbxDestExtension.Size = new System.Drawing.Size(222, 24);
+            this.cbxDestExtension.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(411, 394);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 16);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "目标扩展类型：";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -77,7 +126,6 @@
             // 
             // cbxExtension
             // 
-            this.cbxExtension.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxExtension.FormattingEnabled = true;
             this.cbxExtension.Items.AddRange(new object[] {
             ".cs",
@@ -94,7 +142,7 @@
             // 
             this.txtPath.Location = new System.Drawing.Point(82, 344);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(927, 26);
+            this.txtPath.Size = new System.Drawing.Size(772, 26);
             this.txtPath.TabIndex = 2;
             // 
             // label1
@@ -204,29 +252,15 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // label3
+            // btnCurrentPath
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(411, 394);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 16);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "目标扩展类型：";
-            // 
-            // cbxDestExtension
-            // 
-            this.cbxDestExtension.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxDestExtension.FormattingEnabled = true;
-            this.cbxDestExtension.Items.AddRange(new object[] {
-            ".cs",
-            ".txt",
-            ".cpp",
-            ".c",
-            ".java"});
-            this.cbxDestExtension.Location = new System.Drawing.Point(537, 386);
-            this.cbxDestExtension.Name = "cbxDestExtension";
-            this.cbxDestExtension.Size = new System.Drawing.Size(222, 24);
-            this.cbxDestExtension.TabIndex = 6;
+            this.btnCurrentPath.Location = new System.Drawing.Point(860, 337);
+            this.btnCurrentPath.Name = "btnCurrentPath";
+            this.btnCurrentPath.Size = new System.Drawing.Size(120, 36);
+            this.btnCurrentPath.TabIndex = 9;
+            this.btnCurrentPath.Text = "当前路径";
+            this.btnCurrentPath.UseVisualStyleBackColor = true;
+            this.btnCurrentPath.Click += new System.EventHandler(this.btnCurrentPath_Click);
             // 
             // FrmUnLanguage
             // 
@@ -239,6 +273,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmUnLanguage";
             this.Text = "FrmUnLanguage";
+            this.Load += new System.EventHandler(this.FrmUnLanguage_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -264,5 +299,8 @@
         private System.Windows.Forms.ComboBox cbxExtension;
         private System.Windows.Forms.ComboBox cbxDestExtension;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnReName;
+        private System.Windows.Forms.CheckBox cbAll;
+        private System.Windows.Forms.Button btnCurrentPath;
     }
 }

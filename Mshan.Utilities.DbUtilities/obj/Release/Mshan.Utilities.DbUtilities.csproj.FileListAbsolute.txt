@@ -10,6 +10,6 @@ F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities
 F:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Release\Mshan.Utilities.DbUtilities.pdb
 E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\bin\Release\Mshan.Utilities.DbUtilities.dll
 E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\bin\Release\Mshan.Utilities.DbUtilities.pdb
-E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Release\Mshan.Utilities.DbUtilities.csprojResolveAssemblyReference.cache
 E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Release\Mshan.Utilities.DbUtilities.dll
 E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Release\Mshan.Utilities.DbUtilities.pdb
+E:\Testing\Mshan.DataImport\数据库备份、文档生成源码\Mshan.Utilities.DbUtilities\obj\Release\Mshan.Utilities.DbUtilities.csprojResolveAssemblyReference.cache
