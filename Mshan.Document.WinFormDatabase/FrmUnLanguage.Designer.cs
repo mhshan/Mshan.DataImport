@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCurrentPath = new System.Windows.Forms.Button();
             this.cbAll = new System.Windows.Forms.CheckBox();
-            this.btnReName = new System.Windows.Forms.Button();
             this.cbxDestExtension = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -38,6 +38,7 @@
             this.txtPath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNotice = new System.Windows.Forms.TextBox();
+            this.btnReName = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnUnExtension = new System.Windows.Forms.Button();
             this.btnExtension = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
-            this.btnCurrentPath = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +55,6 @@
             // 
             this.groupBox1.Controls.Add(this.btnCurrentPath);
             this.groupBox1.Controls.Add(this.cbAll);
-            this.groupBox1.Controls.Add(this.btnReName);
             this.groupBox1.Controls.Add(this.cbxDestExtension);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -67,30 +66,30 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1018, 422);
+            this.groupBox1.Size = new System.Drawing.Size(1201, 422);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "提  示";
             // 
+            // btnCurrentPath
+            // 
+            this.btnCurrentPath.Location = new System.Drawing.Point(1071, 339);
+            this.btnCurrentPath.Name = "btnCurrentPath";
+            this.btnCurrentPath.Size = new System.Drawing.Size(120, 36);
+            this.btnCurrentPath.TabIndex = 9;
+            this.btnCurrentPath.Text = "当前路径";
+            this.btnCurrentPath.UseVisualStyleBackColor = true;
+            this.btnCurrentPath.Click += new System.EventHandler(this.btnCurrentPath_Click);
+            // 
             // cbAll
             // 
             this.cbAll.AutoSize = true;
-            this.cbAll.Location = new System.Drawing.Point(771, 391);
+            this.cbAll.Location = new System.Drawing.Point(943, 393);
             this.cbAll.Name = "cbAll";
             this.cbAll.Size = new System.Drawing.Size(83, 20);
             this.cbAll.TabIndex = 8;
             this.cbAll.Text = "全  选 ";
             this.cbAll.UseVisualStyleBackColor = true;
-            // 
-            // btnReName
-            // 
-            this.btnReName.Location = new System.Drawing.Point(860, 379);
-            this.btnReName.Name = "btnReName";
-            this.btnReName.Size = new System.Drawing.Size(120, 36);
-            this.btnReName.TabIndex = 7;
-            this.btnReName.Text = "重命名";
-            this.btnReName.UseVisualStyleBackColor = true;
-            this.btnReName.Click += new System.EventHandler(this.btnReName_Click);
             // 
             // cbxDestExtension
             // 
@@ -101,15 +100,15 @@
             ".cpp",
             ".c",
             ".java"});
-            this.cbxDestExtension.Location = new System.Drawing.Point(537, 386);
+            this.cbxDestExtension.Location = new System.Drawing.Point(625, 389);
             this.cbxDestExtension.Name = "cbxDestExtension";
-            this.cbxDestExtension.Size = new System.Drawing.Size(222, 24);
+            this.cbxDestExtension.Size = new System.Drawing.Size(287, 24);
             this.cbxDestExtension.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(411, 394);
+            this.label3.Location = new System.Drawing.Point(499, 393);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 16);
             this.label3.TabIndex = 5;
@@ -135,14 +134,14 @@
             ".java"});
             this.cbxExtension.Location = new System.Drawing.Point(127, 389);
             this.cbxExtension.Name = "cbxExtension";
-            this.cbxExtension.Size = new System.Drawing.Size(222, 24);
+            this.cbxExtension.Size = new System.Drawing.Size(278, 24);
             this.cbxExtension.TabIndex = 3;
             // 
             // txtPath
             // 
             this.txtPath.Location = new System.Drawing.Point(82, 344);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(772, 26);
+            this.txtPath.Size = new System.Drawing.Size(975, 26);
             this.txtPath.TabIndex = 2;
             // 
             // label1
@@ -156,18 +155,29 @@
             // 
             // txtNotice
             // 
-            this.txtNotice.Location = new System.Drawing.Point(23, 25);
+            this.txtNotice.Location = new System.Drawing.Point(10, 25);
             this.txtNotice.Multiline = true;
             this.txtNotice.Name = "txtNotice";
             this.txtNotice.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNotice.Size = new System.Drawing.Size(986, 306);
+            this.txtNotice.Size = new System.Drawing.Size(1184, 306);
             this.txtNotice.TabIndex = 0;
             this.txtNotice.WordWrap = false;
+            // 
+            // btnReName
+            // 
+            this.btnReName.Location = new System.Drawing.Point(708, 28);
+            this.btnReName.Name = "btnReName";
+            this.btnReName.Size = new System.Drawing.Size(120, 36);
+            this.btnReName.TabIndex = 7;
+            this.btnReName.Text = "重命名";
+            this.btnReName.UseVisualStyleBackColor = true;
+            this.btnReName.Click += new System.EventHandler(this.btnReName_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnUnExtension);
             this.groupBox2.Controls.Add(this.btnExtension);
+            this.groupBox2.Controls.Add(this.btnReName);
             this.groupBox2.Controls.Add(this.btnClear);
             this.groupBox2.Controls.Add(this.btnLanguage);
             this.groupBox2.Controls.Add(this.btnClose);
@@ -177,7 +187,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1009, 76);
+            this.groupBox2.Size = new System.Drawing.Size(1201, 76);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "操  作";
@@ -204,7 +214,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(706, 26);
+            this.btnClear.Location = new System.Drawing.Point(859, 28);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(120, 36);
             this.btnClear.TabIndex = 4;
@@ -224,7 +234,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(846, 26);
+            this.btnClose.Location = new System.Drawing.Point(999, 28);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 36);
             this.btnClose.TabIndex = 2;
@@ -252,21 +262,11 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // btnCurrentPath
-            // 
-            this.btnCurrentPath.Location = new System.Drawing.Point(860, 337);
-            this.btnCurrentPath.Name = "btnCurrentPath";
-            this.btnCurrentPath.Size = new System.Drawing.Size(120, 36);
-            this.btnCurrentPath.TabIndex = 9;
-            this.btnCurrentPath.Text = "当前路径";
-            this.btnCurrentPath.UseVisualStyleBackColor = true;
-            this.btnCurrentPath.Click += new System.EventHandler(this.btnCurrentPath_Click);
-            // 
             // FrmUnLanguage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 532);
+            this.ClientSize = new System.Drawing.Size(1230, 532);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));

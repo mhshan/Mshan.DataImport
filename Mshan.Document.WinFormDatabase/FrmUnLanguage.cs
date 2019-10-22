@@ -223,10 +223,11 @@ namespace Mshan.Document.WinFormDatabase
             } 
             if (proc != null)
             {
-                System.Threading.Thread.Sleep(100);
+                
                 // 调用 API, 传递数据
                 while (proc.MainWindowHandle == IntPtr.Zero)
                 {
+                    System.Threading.Thread.Sleep(5);
                     proc.Refresh();
                 }
                 Int32 length = 1024 * 4000;
@@ -258,6 +259,7 @@ namespace Mshan.Document.WinFormDatabase
             }
             if (!string.IsNullOrEmpty(__path) && System.IO.Directory.Exists(__path))
             {
+                DateTime beginTime = DateTime.Now;
                 List<string> list = GetFileList(__path);
                 foreach (string s in list)
                 {
@@ -267,9 +269,13 @@ namespace Mshan.Document.WinFormDatabase
                     {
                         System.IO.Directory.CreateDirectory(newDir);
                     }
+                    if (!IsFileSerect(s))
+                        continue;
                     string text = ChangeExtension(s);
                     WriterFile(newPath + relativePath + DestExtension, text);
                 }
+                DateTime endTime = DateTime.Now;
+                WriteControl(string.Format("共处理文件：{0}用时：{1}", list.Count, (endTime - beginTime)));
             }
         }
         public string SourceExtension 
@@ -303,6 +309,15 @@ namespace Mshan.Document.WinFormDatabase
                 }
             }
             MessageBox.Show(this, "成功！", "提示");
+        }
+        public bool IsFileSerect(string path)
+        {
+           IEnumerable<string> line = System.IO.File.ReadLines(path);
+           foreach (string s in line)
+           {
+               return System.Text.RegularExpressions.Regex.IsMatch(s, "E-SafeNet\0\0\0LOCK");
+           }
+           return false;
         }
         public List<string> GetAllFileList(string path)
         {
