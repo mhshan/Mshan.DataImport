@@ -47,7 +47,7 @@ namespace Mshan.Document.WinFormDatabase
             WordHelper wordHelper = new WordHelper();
             wordHelper.OpenDocument(fullFileName);
             WriteControl(string.Format("{1}开始生成表,共{0}个………………", userDataTable.Rows.Count, DateTime.Now.ToString("HH:mm:ss")));
-            wordHelper.SetFont(14f);
+            wordHelper.SetFont(11f);
             for (int i = 1; i <= userDataTable.Rows.Count; i++)
             {
                 Table userTable = DocumentLoad.GetTableEntityByDataRow(userDataTable.Rows[i - 1]);
@@ -63,7 +63,7 @@ namespace Mshan.Document.WinFormDatabase
         }
         public void CreateWordTables(Table userTable, WordHelper wordHelper)
         {
-            wordHelper.SetFont(11f);
+            //wordHelper.SetFont(11f);
             Microsoft.Office.Interop.Word.Table wordTable = wordHelper.InsertTable(3, 4, 500);
             SetColumnWidth(wordTable);
             int pointer = 1;
