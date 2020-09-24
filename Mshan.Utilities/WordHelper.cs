@@ -44,7 +44,7 @@ namespace Mshan.Utilities
                 wordDoc = wordApp.Documents.Add(
                ref missing, ref missing, ref missing, ref missing);
                 wordDoc.SpellingChecked = false;//关闭拼写检查
-                wordDoc.ShowSpellingErrors = false;//关闭显示拼写错误提示框
+                wordDoc.ShowSpellingErrors = false;//关闭显示拼写错误提示框 
         }
 
         public void OpenDocument(string fullFileName)
@@ -53,6 +53,8 @@ namespace Mshan.Utilities
             wordApp.DisplayAlerts = WdAlertLevel.wdAlertsNone;
             wordApp.Visible = false;
             wordDoc = wordApp.Documents.Open(fullFileName);
+            wordDoc.SpellingChecked = false;//关闭拼写检查
+            wordDoc.ShowSpellingErrors = false;//关闭显示拼写错误提示框 
         }
 
         // 保存新文件
@@ -66,7 +68,17 @@ namespace Mshan.Utilities
 
             wordApp.Quit();//释放Word进程
         }
+        // 保存新文件
+        public void SaveAndQuitDocument(string filePath)
+        {
+            wordApp.Visible = false; //不可见直接保存
 
+            wordDoc.SaveAs(filePath);//保存
+
+            wordDoc.Close(true);//关闭
+
+            wordApp.Quit();//释放Word进程
+        }
         // 在书签处插入值
         public bool InsertValue(string bookmark, string value)
         {
@@ -264,14 +276,6 @@ namespace Mshan.Utilities
             Object label = WdCaptionLabelID.wdCaptionFigure;
             wordDoc.Paragraphs.Last.Format.OutlineLevel = outlineLevel;
             wordDoc.Paragraphs.Last.Range.Text = text+"\n";
-            //wordDoc.Paragraphs.Last.Range.InsertCaption(ref label);
-            //Object  title = "标题";
-            //int number=14;
-            //wordDoc.Paragraphs.Last.Range.Document.Styles.Add();
-            //wordDoc.Paragraphs.Last.Range.Text = text + "\n";
-            //Object autoText = false;
-            //wordDoc.Paragraphs.Last.Range.Bookmarks.Add(text+"\n");
-            
         }
         public void SetFont(float fontSize)
         {

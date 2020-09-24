@@ -47,13 +47,11 @@ namespace Mshan.Document.WinFormDatabase
             WordHelper wordHelper = new WordHelper();
             wordHelper.OpenDocument(fullFileName);
             WriteControl(string.Format("{1}开始生成表,共{0}个………………", userDataTable.Rows.Count, DateTime.Now.ToString("HH:mm:ss")));
-         
+            wordHelper.SetFont(14f);
             for (int i = 1; i <= userDataTable.Rows.Count; i++)
             {
                 Table userTable = DocumentLoad.GetTableEntityByDataRow(userDataTable.Rows[i - 1]);
-                WriteControl(string.Format("{2} 第{0}个,{1}表………………", i, userTable.TableName, DateTime.Now.ToString("HH:mm:ss")));
-                wordHelper.SetFont(14f);
-
+                WriteControl(string.Format("{2} 第{0}个,{1}({3})表………………", i, userTable.TableName, DateTime.Now.ToString("HH:mm:ss"),userTable.Comments));
                 wordHelper.InsertTitle(string.Format("{0}、{1}({2})", i, userTable.TableName, userTable.Comments),Microsoft.Office.Interop.Word.WdOutlineLevel.wdOutlineLevel1);
                 CreateWordTables(userTable, wordHelper);
                 WriteControl(string.Format("{1} {0}表生成成功！", userTable.TableName, DateTime.Now.ToString("HH:mm:ss")));
@@ -329,7 +327,10 @@ namespace Mshan.Document.WinFormDatabase
 
             foreach (DataRow dataRow in dtTable.DefaultView.ToTable().Rows)
             {//+ ":" + dataRow["comments"].ToString()
-                WriteControl(dataRow["table_name"].ToString() );
+                if (cbComment.Checked)
+                    WriteControl(dataRow["table_name"].ToString()+ ":" + dataRow["comments"].ToString());
+                else
+                    WriteControl(dataRow["table_name"].ToString());
             }
         }
     }

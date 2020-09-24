@@ -39,6 +39,7 @@
             this.btnCopy = new System.Windows.Forms.Button();
             this.btnSearchTable = new System.Windows.Forms.Button();
             this.cbIsAllTable = new System.Windows.Forms.CheckBox();
+            this.cbComment = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtNotice
@@ -149,11 +150,22 @@
             this.cbIsAllTable.Text = "生成全部表";
             this.cbIsAllTable.UseVisualStyleBackColor = true;
             // 
+            // cbComment
+            // 
+            this.cbComment.AutoSize = true;
+            this.cbComment.Location = new System.Drawing.Point(980, 235);
+            this.cbComment.Name = "cbComment";
+            this.cbComment.Size = new System.Drawing.Size(84, 16);
+            this.cbComment.TabIndex = 11;
+            this.cbComment.Text = "显示表注释";
+            this.cbComment.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1065, 450);
+            this.Controls.Add(this.cbComment);
             this.Controls.Add(this.cbIsAllTable);
             this.Controls.Add(this.btnSearchTable);
             this.Controls.Add(this.btnCopy);
@@ -186,6 +198,7 @@
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.Button btnSearchTable;
         private System.Windows.Forms.CheckBox cbIsAllTable;
+        private System.Windows.Forms.CheckBox cbComment;
     }
 }
 
