@@ -42,6 +42,23 @@ namespace Mshan.Document.WinFormDatabase
             //MessageBox.Show("加载成功", "提示");
         }
         public string[] __exclude = new string[] { "bin", "obj"};
+        public string[] __programExtension
+        {
+            get {
+                string[] extension = txtProgramExtension.Text.Split(',');
+                return extension;
+            }
+        }
+        public bool IsProgramExtension(string fileName)
+        {
+            string[] extension=__programExtension;
+            foreach (string e in extension)
+            {
+                if (fileName.EndsWith(e, true, System.Globalization.CultureInfo.CurrentCulture))
+                    return true;
+            }
+            return false;
+        }
         public List<string> GetFileList(string path)
         {
             List<string> list = new List<string>();
@@ -58,7 +75,8 @@ namespace Mshan.Document.WinFormDatabase
             }
             for (int i = 0; i < fileName.Length; i++)
             {
-                if (System.Text.RegularExpressions.Regex.IsMatch(fileName[i], "^.*\\" + SourceExtension + "$"))
+
+                if (IsProgramExtension(fileName[i])||System.Text.RegularExpressions.Regex.IsMatch(fileName[i], "^.*\\" + SourceExtension + "$"))
                     list.Add(fileName[i]);
             }
             return list;
@@ -187,7 +205,8 @@ namespace Mshan.Document.WinFormDatabase
         [DllImport("user32.dll")]
         public static extern int EnumChildWindows(IntPtr hWndParent, CallBack lpfn, int lParam);
         public const uint WM_SETTEXT = 0x000C;
-        public static int WM_GETTEXT = 0x000D;
+        public const int WM_GETTEXT = 0x000D;
+        public const int WM_QUIT = 0x12;   
         /// <summary>
         /// 子窗口回调处理函数
         /// </summary>
@@ -233,20 +252,30 @@ namespace Mshan.Document.WinFormDatabase
             } 
             if (proc != null)
             {
-                System.Threading.Thread.Sleep(500);
                 // 调用 API, 传递数据
                 while (proc.MainWindowHandle == IntPtr.Zero)
                 {
-                    System.Threading.Thread.Sleep(50);
+                    System.Threading.Thread.Sleep(10);
                     proc.Refresh();
                 }
                 Int32 length = 1024 * 4000;
                 StringBuilder text = new StringBuilder(length);
-                IntPtr vHandle = FindWindowEx(proc.MainWindowHandle, IntPtr.Zero, null, null);
+                IntPtr vHandle =IntPtr.Zero;
+                while (vHandle == IntPtr.Zero)
+                {
+                    vHandle=FindWindowEx(proc.MainWindowHandle, IntPtr.Zero, null, null);
+                    System.Threading.Thread.Sleep(10);
+                }
                 // 传递数据给记事本
-                SendMessage(vHandle, WM_GETTEXT, length, text);
+                while (string.IsNullOrEmpty(text.ToString()))
+                {
+                    SendMessage(vHandle, WM_GETTEXT, length, text);
+                    System.Threading.Thread.Sleep(10);
+                }
                 //txtNotice.AppendText(text.ToString());
-                proc.CloseMainWindow();
+                //proc.CloseMainWindow();
+                SendMessage(vHandle, WM_QUIT, length, text);
+                proc.Kill();
                 return text.ToString();
             }
             return string.Empty; 
@@ -280,11 +309,19 @@ namespace Mshan.Document.WinFormDatabase
                     {
                         System.IO.Directory.CreateDirectory(newDir);
                     }
-                    if (!IsFileSerect(s))
-                        continue;
-                    ++index;
-                    string text = ChangeExtension(s);
-                    WriterFile(newPath + relativePath + DestExtension, text);
+                    if (IsProgramExtension(s))
+                    {
+                        System.IO.File.Copy(s, newPath + relativePath,true);
+                        ++index;
+                    }
+                    else
+                    {
+                        if (!cbAll.Checked&&!IsFileSerect(s))
+                            continue;
+                        ++index;
+                        string text = ChangeExtension(s);
+                        WriterFile(newPath + relativePath + DestExtension, text);
+                    }
                 }
                 DateTime endTime = DateTime.Now;
                 WriteControl(string.Format("共处理文件：{0},处理：{1}用时：{2}", list.Count, index, (endTime - beginTime)));
@@ -312,9 +349,9 @@ namespace Mshan.Document.WinFormDatabase
             List<string> list = GetFileList(__path);
             foreach (string s in list)
             {
-                if (s.EndsWith(SourceExtension, true, System.Globalization.CultureInfo.CurrentCulture))
+                if (s.EndsWith(DestExtension+SourceExtension, true, System.Globalization.CultureInfo.CurrentCulture))
                 {
-                    string newFile = s.Substring(0, s.Length - SourceExtension.Length);
+                    string newFile =s.Remove(s.Length - SourceExtension.Length);
                     if (System.IO.File.Exists(newFile))
                         System.IO.File.Delete(newFile);
                     System.IO.File.Move(s, newFile);
@@ -327,7 +364,7 @@ namespace Mshan.Document.WinFormDatabase
            IEnumerable<string> line = System.IO.File.ReadLines(path);
            foreach (string s in line)
            {
-               return System.Text.RegularExpressions.Regex.IsMatch(s, "E-SafeNet\0"/*\0\0LOCK"*/);
+               return System.Text.RegularExpressions.Regex.IsMatch(s, "E-SafeNet"/*\0\0LOCK"*/);
            }
            return false;
         }

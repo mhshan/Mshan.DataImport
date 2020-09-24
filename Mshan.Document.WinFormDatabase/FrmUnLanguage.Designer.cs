@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtProgramExtension = new System.Windows.Forms.TextBox();
             this.btnCurrentPath = new System.Windows.Forms.Button();
             this.cbAll = new System.Windows.Forms.CheckBox();
             this.cbxDestExtension = new System.Windows.Forms.ComboBox();
@@ -53,6 +55,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtProgramExtension);
             this.groupBox1.Controls.Add(this.btnCurrentPath);
             this.groupBox1.Controls.Add(this.cbAll);
             this.groupBox1.Controls.Add(this.cbxDestExtension);
@@ -66,10 +70,28 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1201, 422);
+            this.groupBox1.Size = new System.Drawing.Size(1201, 460);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "提  示";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(35, 425);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 16);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "项目文件：";
+            // 
+            // txtProgramExtension
+            // 
+            this.txtProgramExtension.Location = new System.Drawing.Point(127, 418);
+            this.txtProgramExtension.Name = "txtProgramExtension";
+            this.txtProgramExtension.Size = new System.Drawing.Size(785, 26);
+            this.txtProgramExtension.TabIndex = 11;
+            this.txtProgramExtension.Text = ".sln,.vdproj,.csproj,.config,.resx,.aspx,.js,.css,.ashx,.asmx,.dll,.ico,.jpg,.gif" +
+    ",.png,.xml";
             // 
             // btnCurrentPath
             // 
@@ -183,7 +205,7 @@
             this.groupBox2.Controls.Add(this.btnClose);
             this.groupBox2.Controls.Add(this.btnStart);
             this.groupBox2.Controls.Add(this.btnLoad);
-            this.groupBox2.Location = new System.Drawing.Point(16, 446);
+            this.groupBox2.Location = new System.Drawing.Point(16, 484);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -266,7 +288,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1230, 532);
+            this.ClientSize = new System.Drawing.Size(1230, 562);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -302,5 +324,7 @@
         private System.Windows.Forms.Button btnReName;
         private System.Windows.Forms.CheckBox cbAll;
         private System.Windows.Forms.Button btnCurrentPath;
+        private System.Windows.Forms.TextBox txtProgramExtension;
+        private System.Windows.Forms.Label label4;
     }
 }
