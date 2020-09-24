@@ -21,13 +21,23 @@ namespace Mshan.Document.WinFormDatabase
             FolderBrowserDialog browerDialog = new FolderBrowserDialog();
             if (!string.IsNullOrEmpty(__path))
                 browerDialog.SelectedPath = __path;
-            browerDialog.ShowDialog(this);
-            __path = browerDialog.SelectedPath;
-            if (!string.IsNullOrEmpty(__path) && System.IO.Directory.Exists(__path))
+            DialogResult result = browerDialog.ShowDialog(this);
+            if(result==DialogResult.OK)
             {
-                List<string> list = GetFileList(__path);
-                foreach (string s in list)
-                    WriteControl(s);
+                __path = browerDialog.SelectedPath;
+                if (!string.IsNullOrEmpty(__path) && System.IO.Directory.Exists(__path))
+                {
+                    List<string> list = GetFileList(__path);
+                    foreach (string s in list)
+                    {
+                        if (!cbAll.Checked)
+                        {
+                            if (!IsFileSerect(s))
+                                continue;
+                        }
+                        WriteControl(s);
+                    }
+                }
             }
             //MessageBox.Show("加载成功", "提示");
         }
@@ -223,11 +233,11 @@ namespace Mshan.Document.WinFormDatabase
             } 
             if (proc != null)
             {
-                
+                System.Threading.Thread.Sleep(500);
                 // 调用 API, 传递数据
                 while (proc.MainWindowHandle == IntPtr.Zero)
                 {
-                    System.Threading.Thread.Sleep(5);
+                    System.Threading.Thread.Sleep(50);
                     proc.Refresh();
                 }
                 Int32 length = 1024 * 4000;
@@ -261,6 +271,7 @@ namespace Mshan.Document.WinFormDatabase
             {
                 DateTime beginTime = DateTime.Now;
                 List<string> list = GetFileList(__path);
+                int index=0;
                 foreach (string s in list)
                 {
                     string relativePath = s.Substring(__path.Length);
@@ -271,11 +282,12 @@ namespace Mshan.Document.WinFormDatabase
                     }
                     if (!IsFileSerect(s))
                         continue;
+                    ++index;
                     string text = ChangeExtension(s);
                     WriterFile(newPath + relativePath + DestExtension, text);
                 }
                 DateTime endTime = DateTime.Now;
-                WriteControl(string.Format("共处理文件：{0}用时：{1}", list.Count, (endTime - beginTime)));
+                WriteControl(string.Format("共处理文件：{0},处理：{1}用时：{2}", list.Count, index, (endTime - beginTime)));
             }
         }
         public string SourceExtension 
@@ -315,7 +327,7 @@ namespace Mshan.Document.WinFormDatabase
            IEnumerable<string> line = System.IO.File.ReadLines(path);
            foreach (string s in line)
            {
-               return System.Text.RegularExpressions.Regex.IsMatch(s, "E-SafeNet\0\0\0LOCK");
+               return System.Text.RegularExpressions.Regex.IsMatch(s, "E-SafeNet\0"/*\0\0LOCK"*/);
            }
            return false;
         }

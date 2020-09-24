@@ -253,6 +253,24 @@ namespace Mshan.Utilities
         public void InsertText(string text)
         {
             wordDoc.Paragraphs.Last.Range.Text = text+"\n";
+            //Object label = WdCaptionLabelID.wdCaptionFigure;
+            //Object  title = "标题";
+            //wordDoc.Paragraphs.Last.Range.InsertCaption(ref label,ref title);
+        }
+
+        // 插入一段文字,text为文字内容
+        public void InsertTitle(string text,WdOutlineLevel outlineLevel)
+        {
+            Object label = WdCaptionLabelID.wdCaptionFigure;
+            wordDoc.Paragraphs.Last.Format.OutlineLevel = outlineLevel;
+            wordDoc.Paragraphs.Last.Range.Text = text+"\n";
+            //wordDoc.Paragraphs.Last.Range.InsertCaption(ref label);
+            //Object  title = "标题";
+            //int number=14;
+            //wordDoc.Paragraphs.Last.Range.Document.Styles.Add();
+            //wordDoc.Paragraphs.Last.Range.Text = text + "\n";
+            //Object autoText = false;
+            //wordDoc.Paragraphs.Last.Range.Bookmarks.Add(text+"\n");
             
         }
         public void SetFont(float fontSize)

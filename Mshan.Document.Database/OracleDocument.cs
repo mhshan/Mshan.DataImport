@@ -37,7 +37,8 @@ namespace Mshan.Document.Database
         }
         public static DataTable GetTablesByUser(string user)
         {
-            return DbHelper.Fill(string.Format("select * from dba_tables where lower(owner)='{0}'", user.ToLower()));
+            //return DbHelper.Fill(string.Format("select a.*,b.comments from user_tables a left join user_tab_comments b on a.table_name=b.table_name where lower(a.owner)='{0}'", user.ToLower()));
+            return DbHelper.Fill(string.Format("select a.*,b.comments from dba_tables a left join dba_tab_comments b  on a.table_name=b.table_name where lower(a.owner)='{0}' and lower(a.table_name) like 'shuttle_%'", user.ToLower()));
         }
         public static DataTable GetAllUserTable()
         {

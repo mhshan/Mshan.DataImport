@@ -1,9 +1,0 @@
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\bin\Mshan.DatabaseDocument.dll
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\bin\Mshan.DatabaseDocument.pdb
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\bin\Mshan.Utilities.DbUtilities.dll
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\bin\Mshan.Utilities.DbUtilities.pdb
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\obj\Debug\Mshan.DatabaseDocument.csprojResolveAssemblyReference.cache
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\obj\Debug\Mshan.DatabaseDocument.dll
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\obj\Debug\Mshan.DatabaseDocument.pdb
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\bin\Mshan.Document.Database.dll
-F:\Testing\Mshan.DataImport\Mshan.DatabaseDocument\bin\Mshan.Document.Database.pdb
