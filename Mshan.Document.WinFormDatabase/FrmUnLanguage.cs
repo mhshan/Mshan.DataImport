@@ -266,14 +266,18 @@ namespace Mshan.Document.WinFormDatabase
                     vHandle=FindWindowEx(proc.MainWindowHandle, IntPtr.Zero, null, null);
                     System.Threading.Thread.Sleep(10);
                 }
+                Int32 Counter = 0;
                 // 传递数据给记事本
                 while (string.IsNullOrEmpty(text.ToString()))
                 {
                     SendMessage(vHandle, WM_GETTEXT, length, text);
                     System.Threading.Thread.Sleep(10);
+                    if (Counter++ > 50)
+                    {
+                        WriteControl(string.Format("检测到空文件{0}", path));
+                        break;
+                    }
                 }
-                //txtNotice.AppendText(text.ToString());
-                //proc.CloseMainWindow();
                 SendMessage(vHandle, WM_QUIT, length, text);
                 proc.Kill();
                 return text.ToString();
