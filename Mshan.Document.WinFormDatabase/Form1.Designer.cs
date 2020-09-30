@@ -40,6 +40,9 @@
             this.btnSearchTable = new System.Windows.Forms.Button();
             this.cbIsAllTable = new System.Windows.Forms.CheckBox();
             this.cbComment = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtNotice
@@ -53,7 +56,7 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(114, 335);
+            this.btnCreate.Location = new System.Drawing.Point(114, 388);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(90, 30);
             this.btnCreate.TabIndex = 1;
@@ -63,14 +66,14 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(12, 295);
+            this.txtPath.Location = new System.Drawing.Point(79, 348);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(949, 21);
+            this.txtPath.Size = new System.Drawing.Size(872, 21);
             this.txtPath.TabIndex = 2;
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(224, 335);
+            this.btnClose.Location = new System.Drawing.Point(224, 388);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(90, 30);
             this.btnClose.TabIndex = 3;
@@ -80,7 +83,7 @@
             // 
             // btnTableSpace
             // 
-            this.btnTableSpace.Location = new System.Drawing.Point(336, 335);
+            this.btnTableSpace.Location = new System.Drawing.Point(336, 388);
             this.btnTableSpace.Name = "btnTableSpace";
             this.btnTableSpace.Size = new System.Drawing.Size(90, 30);
             this.btnTableSpace.TabIndex = 4;
@@ -90,7 +93,7 @@
             // 
             // btnPartition
             // 
-            this.btnPartition.Location = new System.Drawing.Point(556, 335);
+            this.btnPartition.Location = new System.Drawing.Point(556, 388);
             this.btnPartition.Name = "btnPartition";
             this.btnPartition.Size = new System.Drawing.Size(90, 30);
             this.btnPartition.TabIndex = 5;
@@ -100,7 +103,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(782, 335);
+            this.btnClear.Location = new System.Drawing.Point(782, 388);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(90, 30);
             this.btnClear.TabIndex = 6;
@@ -110,7 +113,7 @@
             // 
             // btnTablePartition
             // 
-            this.btnTablePartition.Location = new System.Drawing.Point(449, 335);
+            this.btnTablePartition.Location = new System.Drawing.Point(449, 388);
             this.btnTablePartition.Name = "btnTablePartition";
             this.btnTablePartition.Size = new System.Drawing.Size(90, 30);
             this.btnTablePartition.TabIndex = 7;
@@ -120,7 +123,7 @@
             // 
             // btnCopy
             // 
-            this.btnCopy.Location = new System.Drawing.Point(668, 335);
+            this.btnCopy.Location = new System.Drawing.Point(668, 388);
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(90, 30);
             this.btnCopy.TabIndex = 8;
@@ -130,7 +133,7 @@
             // 
             // btnSearchTable
             // 
-            this.btnSearchTable.Location = new System.Drawing.Point(12, 335);
+            this.btnSearchTable.Location = new System.Drawing.Point(12, 388);
             this.btnSearchTable.Name = "btnSearchTable";
             this.btnSearchTable.Size = new System.Drawing.Size(90, 30);
             this.btnSearchTable.TabIndex = 9;
@@ -160,11 +163,40 @@
             this.cbComment.Text = "显示表注释";
             this.cbComment.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 351);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "文档路径：";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 310);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "文档名称：";
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(79, 307);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(872, 21);
+            this.txtTitle.TabIndex = 13;
+            this.txtTitle.Text = "公交表结构文档";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1065, 450);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtTitle);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cbComment);
             this.Controls.Add(this.cbIsAllTable);
             this.Controls.Add(this.btnSearchTable);
@@ -199,6 +231,9 @@
         private System.Windows.Forms.Button btnSearchTable;
         private System.Windows.Forms.CheckBox cbIsAllTable;
         private System.Windows.Forms.CheckBox cbComment;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtTitle;
     }
 }
 

@@ -35,8 +35,9 @@ namespace Mshan.Document.WinFormDatabase
         public void Process()
         {
             string fullFileName = txtPath.Text;
+            string title = string.Empty;
             string table = string.Format("'{0}'", txtNotice.Text.Replace("\r\n", "','"));
-            CreateWord(fullFileName);
+            CreateWord(fullFileName,title);
             WriteControl(string.Format("创建{0}成功！", fullFileName));
             System.Data.DataTable userDataTable = OracleDocument.GetAllUserTable();
             if (!cbIsAllTable.Checked)
@@ -73,7 +74,7 @@ namespace Mshan.Document.WinFormDatabase
             pointer = TableIndexes(userTable.Indexes, pointer, wordTable);
             pointer = TableTrigger(userTable.Triggeres, pointer, wordTable);
         }
-        public void CreateWord(string fullFileName)
+        public void CreateWord(string fullFileName,string title)
         {
             WordHelper wordHelper = new WordHelper();
             wordHelper.killWinWordProcess();
@@ -81,8 +82,7 @@ namespace Mshan.Document.WinFormDatabase
                 System.IO.File.Delete(fullFileName);
             wordHelper.CreateNewDocument();
             wordHelper.SetFont(20f, Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter);
-            wordHelper.InsertText("公交表结构文档");
-
+            wordHelper.InsertText(title);
             wordHelper.SaveDocument(fullFileName);
         }
         public void SetColumnWidth(Microsoft.Office.Interop.Word.Table wordTable)
