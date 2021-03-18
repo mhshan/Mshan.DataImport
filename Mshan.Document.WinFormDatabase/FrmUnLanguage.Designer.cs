@@ -91,7 +91,7 @@
             this.txtProgramExtension.Size = new System.Drawing.Size(785, 26);
             this.txtProgramExtension.TabIndex = 11;
             this.txtProgramExtension.Text = ".sln,.vdproj,.csproj,.config,.resx,.aspx,.js,.css,.ashx,.asmx,.dll,.ico,.jpg,.gif" +
-    ",.png,.xml,.rtf,.txt";
+    ",.png,.xml,.rtf,.txt,.cd,asax";
             // 
             // btnCurrentPath
             // 

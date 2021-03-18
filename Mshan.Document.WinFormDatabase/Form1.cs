@@ -23,7 +23,7 @@ namespace Mshan.Document.WinFormDatabase
             get;
             set;
         }
-        public string UserName = "CCENSE";
+        public string UserName = "ccense";
         System.Threading.Thread thread = null;
         private void btnCreate_Click(object sender, EventArgs e)
         {

@@ -86,7 +86,27 @@ namespace Mshan.Document.WinFormDatabase
             WriteControl("表结构生成完成……………………………………\r\n");
 
         }
-         
+        public void CreateTables_MySql(object obj)
+        {
+            string path = txtPath.Text + "\\Table.sql";
+            if (System.IO.File.Exists(path))
+                System.IO.File.Delete(path);
+            DataTable dtTable = OracleDocument.GetTablesByUser(UserName);
+            dtTable.DefaultView.Sort = "table_name asc";
+            foreach (DataRow dataRow in dtTable.DefaultView.ToTable().Rows)
+            {
+                WriteControl(string.Format("正在生成{0}表结构……………………\r\n", dataRow["table_name"].ToString().ToLower()));
+                DataTable dtDdl = OracleDocument.GetDdlByObject("Table".ToUpper(), dataRow["table_name"].ToString(), UserName);
+                WriterFile(dtDdl.Rows[0][0].ToString() + "\r\n/", path);
+                //WriterFile("/", path);
+                //CreateIndexes(dataRow["table_name"].ToString());
+                CreateComments(dataRow["table_name"].ToString());
+                CreateTrigger(dataRow["table_name"].ToString());
+                WriteControl(string.Format("{0}表结构生成完成……………………\r\n", dataRow["table_name"].ToString().ToLower()));
+            }
+            WriteControl("表结构生成完成……………………………………\r\n");
+
+        }
         public void CreateIndexes(object obj)
         {
             string path = txtPath.Text + "\\Table.sql";

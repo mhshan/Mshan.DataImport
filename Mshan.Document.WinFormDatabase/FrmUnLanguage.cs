@@ -261,9 +261,14 @@ namespace Mshan.Document.WinFormDatabase
                 Int32 length = 1024 * 4000;
                 StringBuilder text = new StringBuilder(length);
                 IntPtr vHandle =IntPtr.Zero;
+                int counter = 0;
                 while (vHandle == IntPtr.Zero)
                 {
+                    
                     vHandle=FindWindowEx(proc.MainWindowHandle, IntPtr.Zero, null, null);
+                    counter++;
+                    if (counter > 100)
+                        break;
                     System.Threading.Thread.Sleep(10);
                 }
                 Int32 Counter = 0;
