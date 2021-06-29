@@ -252,11 +252,13 @@ namespace Mshan.Document.WinFormDatabase
             using (OracleConnection connection = new OracleConnection(connectionString))
             {
                 string SQLString = string.Format("select * from {0} where rownum=0", insertTable.TableName);
+                OracleTransaction transaction = null;
                 using (OracleCommand cmd = new OracleCommand(SQLString, connection))
                 {
                     try
                     {
                         connection.Open();
+                        transaction= connection.BeginTransaction();
                         OracleDataAdapter myDataAdapter = new OracleDataAdapter();
                         myDataAdapter.UpdateBatchSize = 1;
                         myDataAdapter.SelectCommand = new OracleCommand(SQLString, connection);
@@ -266,13 +268,20 @@ namespace Mshan.Document.WinFormDatabase
                         myDataAdapter.Update(insertTable);
                         insertTable.AcceptChanges();
                         myDataAdapter.Dispose();
+                        transaction.Commit();
                     }
                     catch (System.Data.OracleClient.OracleException ex)
                     {
                         connection.Close();
-                       DialogResult result= MessageBox.Show("入库异常是否继续？"+ex.Message,"询问",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                       DialogResult result= MessageBox.Show("入库异常是否提交？"+ex.Message,"询问",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
                        if (result == DialogResult.No)
+                       {
+                           transaction.Rollback();
                            throw ex;
+                       }
+                       else
+                           transaction.Commit();
+
                     }
                 }
             }
@@ -369,7 +378,10 @@ end;
         {
             return DbHelper.Fill(txtDestinationConnection.Text,string.Format("select a.table_name,a.trigger_name,a.table_owner,a.triggering_event,a.trigger_body,a.column_name  from user_triggers a where LOWER(a.Table_Name)='{0}'", tableName.ToLower()));
         }
-
+        public DataTable GetIndexesByTableName(string tableName)
+        {
+            return DbHelper.Fill(txtDestinationConnection.Text, string.Format("select a.table_name,a.trigger_name,a.table_owner,a.triggering_event,a.trigger_body,a.column_name  from user_triggers a where LOWER(a.Table_Name)='{0}'", tableName.ToLower()));
+        }
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtNotice.Clear();
@@ -435,6 +447,43 @@ end;
             fileDialog.ShowDialog();
             if (!string.IsNullOrEmpty(fileDialog.FileName))
             WriteControl(System.IO.File.ReadAllText(fileDialog.FileName)); 
+        }
+
+        private void btnImportIndex_Click(object sender, EventArgs e)
+        {
+            DataTable dtTable = DbHelper.Fill(txtSourceConnection.Text, "select  a.table_name, a.tablespace_name, a.status, a.table_lock,b.comments  from user_tables a left join user_tab_comments b on a.table_name=b.table_name  order by a.table_name asc");
+            foreach (DataRow tableNameDataRow in dtTable.Rows)
+            {
+                //DataTable dtColumns = DbHelper.Fill(txtSourceConnection.Text, string.Format("select   a.data_precision,a.data_scale,a.table_name,a.column_name,a.data_type,a.data_length,a.NULLABLE,a.column_id,a.data_default,b.comments  from user_tab_columns a left join user_col_comments b on a.table_name=b.table_name and a.COLUMN_NAME=b.column_name  where LOWER(a.Table_Name)='{0}' order by a.column_id asc", tableName.ToLower()));
+
+                DataTable dtIndex = DbHelper.Fill(txtSourceConnection.Text, string.Format("select a.index_name,table_owner,a.table_name,a.uniqueness,a.tablespace_name,b.constraint_type from user_indexes a left join  user_constraints b on a.index_name=b.index_name where LOWER(a.table_name)='{0}'", tableNameDataRow["table_name"].ToString().ToLower()));
+                foreach (DataRow dataRow in dtIndex.Rows)
+                {
+                    //if (dataRow["index_name"].ToString().StartsWith("BIN$"))
+                    //    continue;
+                    DataTable dtIndexColumns = DbHelper.Fill(txtSourceConnection.Text, string.Format("select index_name,table_name,column_name,column_position, descend from user_ind_columns where LOWER(index_name)='{0}' order by column_position asc", dataRow["index_name"].ToString().ToLower()));
+                    string columns=string.Empty;
+                    foreach (DataRow drcloumns in dtIndexColumns.Rows)
+                    {
+                        columns+=drcloumns["column_name"].ToString()+",";
+                    }
+                    if (dataRow["constraint_type"] == DBNull.Value || dataRow["constraint_type"].ToString() != "P") 
+                    {
+                        string text = string.Format("call sp_dropindex('{0}','{1}');"
+                                                                ,dataRow["table_name"].ToString()
+                                                                ,dataRow["index_name"].ToString());
+                        WriteControl(text);
+                        text = string.Format("CREATE {0} INDEX `{1}` ON {2}({3});"
+                                , dataRow["uniqueness"].ToString() == "UNIQUE" ? "UNIQUE" : string.Empty
+                                , dataRow["index_name"].ToString()
+                                , dataRow["table_name"].ToString()
+                                , columns.TrimEnd(',')); 
+                        WriteControl(text);
+                    }
+
+                }
+            }
+             
         }
     }
 }

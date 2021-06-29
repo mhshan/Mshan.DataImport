@@ -48,6 +48,7 @@
             this.txtPathTrigge = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnRuleFile = new System.Windows.Forms.Button();
+            this.btnImportIndex = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -67,7 +68,7 @@
             this.txtSourceConnection.Name = "txtSourceConnection";
             this.txtSourceConnection.Size = new System.Drawing.Size(500, 26);
             this.txtSourceConnection.TabIndex = 1;
-            this.txtSourceConnection.Text = "Password=ccense;User ID=ccense;Data Source=TongShanV1";
+            this.txtSourceConnection.Text = "Password=CCENSE;User ID=ccense;Data Source=HuBei";
             // 
             // txtDestinationConnection
             // 
@@ -174,7 +175,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(838, 586);
+            this.btnImport.Location = new System.Drawing.Point(979, 586);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(120, 42);
             this.btnImport.TabIndex = 13;
@@ -194,7 +195,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(986, 586);
+            this.btnClear.Location = new System.Drawing.Point(1127, 586);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(120, 42);
             this.btnClear.TabIndex = 14;
@@ -250,11 +251,22 @@
             this.btnRuleFile.UseVisualStyleBackColor = true;
             this.btnRuleFile.Click += new System.EventHandler(this.btnRuleFile_Click);
             // 
+            // btnImportIndex
+            // 
+            this.btnImportIndex.Location = new System.Drawing.Point(837, 586);
+            this.btnImportIndex.Name = "btnImportIndex";
+            this.btnImportIndex.Size = new System.Drawing.Size(120, 42);
+            this.btnImportIndex.TabIndex = 20;
+            this.btnImportIndex.Text = "导出索引";
+            this.btnImportIndex.UseVisualStyleBackColor = true;
+            this.btnImportIndex.Click += new System.EventHandler(this.btnImportIndex_Click);
+            // 
             // FrmImportDb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 640);
+            this.Controls.Add(this.btnImportIndex);
             this.Controls.Add(this.btnRuleFile);
             this.Controls.Add(this.txtPathTrigge);
             this.Controls.Add(this.label6);
@@ -307,5 +319,6 @@
         private System.Windows.Forms.TextBox txtPathTrigge;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnRuleFile;
+        private System.Windows.Forms.Button btnImportIndex;
     }
 }
