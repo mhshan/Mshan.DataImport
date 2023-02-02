@@ -48,6 +48,7 @@
             this.txtPathTrigge = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnRuleFile = new System.Windows.Forms.Button();
+            this.txtWhere = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -250,11 +251,22 @@
             this.btnRuleFile.UseVisualStyleBackColor = true;
             this.btnRuleFile.Click += new System.EventHandler(this.btnRuleFile_Click);
             // 
+            // txtWhere
+            // 
+            this.txtWhere.Location = new System.Drawing.Point(640, 430);
+            this.txtWhere.Multiline = true;
+            this.txtWhere.Name = "txtWhere";
+            this.txtWhere.Size = new System.Drawing.Size(172, 81);
+            this.txtWhere.TabIndex = 20;
+            this.txtWhere.Text = "执行条件,表单独使用cardfc<10000";
+            this.txtWhere.Click += new System.EventHandler(this.txtWhere_Click);
+            // 
             // FrmImportDb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1331, 640);
+            this.Controls.Add(this.txtWhere);
             this.Controls.Add(this.btnRuleFile);
             this.Controls.Add(this.txtPathTrigge);
             this.Controls.Add(this.label6);
@@ -307,5 +319,6 @@
         private System.Windows.Forms.TextBox txtPathTrigge;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnRuleFile;
+        private System.Windows.Forms.TextBox txtWhere;
     }
 }

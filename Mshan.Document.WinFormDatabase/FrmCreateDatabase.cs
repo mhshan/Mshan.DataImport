@@ -20,6 +20,8 @@ namespace Mshan.Document.WinFormDatabase
         public string UserName = "CCENSE";
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            string testPath = Application.StartupPath + "\\pkg_base_abnormal_log.pck";
+            string test=System.IO.File.ReadAllText(testPath,System.Text.Encoding.Default);
             if (!System.IO.Directory.Exists(txtPath.Text))
                 System.IO.Directory.CreateDirectory(txtPath.Text);
             System.Threading.ThreadPool.SetMaxThreads(10,5);
@@ -135,16 +137,19 @@ namespace Mshan.Document.WinFormDatabase
         }
         public void CreateViews(object obj)
         {
+            
             string path = txtPath.Text + "\\View.sql";
             if (System.IO.File.Exists(path))
             System.IO.File.Delete(path);
             DataTable dtView = OracleDocument.GetViewBySchema(UserName);
+            WriteControl("视图生成开始——————————————————————————————");
             foreach (DataRow dataRow in dtView.Rows)
             {
                 DataTable dtDdl = OracleDocument.GetDdlByObject("View".ToUpper(), dataRow["view_name"].ToString(), UserName);
                 WriterFile(dtDdl.Rows[0][0].ToString(), path);
                 WriterFile("/\n", path);
             }
+            WriteControl("视图生成生成结束——————————————————————————————");
         }
         public void CreateTrigger(object obj)
         {
@@ -213,6 +218,7 @@ namespace Mshan.Document.WinFormDatabase
             System.IO.File.Delete(path);
 
             System.Data.DataTable procedureList = OracleDocument.GetAllProcedure();
+            WriteControl("包体开始生成——————————————————————————————");
             foreach (System.Data.DataRow dr in procedureList.Rows)
             {
                 StringBuilder sb = new StringBuilder();
@@ -230,9 +236,10 @@ namespace Mshan.Document.WinFormDatabase
                 sb.Append("/");
                 WriterFile(sb.ToString(),path);
             }
+            WriteControl("包体生成结束——————————————————————————————");
         }
         public void CreateSequences(object obj)
-        {
+        { 
             string path = txtPath.Text + "\\Sequences.sql";
             if (System.IO.File.Exists(path))
             System.IO.File.Delete(path);

@@ -49,6 +49,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.btnGetFile = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -187,7 +188,7 @@
             // 
             // btnReName
             // 
-            this.btnReName.Location = new System.Drawing.Point(708, 28);
+            this.btnReName.Location = new System.Drawing.Point(646, 28);
             this.btnReName.Name = "btnReName";
             this.btnReName.Size = new System.Drawing.Size(120, 36);
             this.btnReName.TabIndex = 7;
@@ -197,6 +198,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnGetFile);
             this.groupBox2.Controls.Add(this.btnUnExtension);
             this.groupBox2.Controls.Add(this.btnExtension);
             this.groupBox2.Controls.Add(this.btnReName);
@@ -216,7 +218,7 @@
             // 
             // btnUnExtension
             // 
-            this.btnUnExtension.Location = new System.Drawing.Point(430, 28);
+            this.btnUnExtension.Location = new System.Drawing.Point(394, 28);
             this.btnUnExtension.Name = "btnUnExtension";
             this.btnUnExtension.Size = new System.Drawing.Size(120, 36);
             this.btnUnExtension.TabIndex = 6;
@@ -226,7 +228,7 @@
             // 
             // btnExtension
             // 
-            this.btnExtension.Location = new System.Drawing.Point(296, 28);
+            this.btnExtension.Location = new System.Drawing.Point(266, 28);
             this.btnExtension.Name = "btnExtension";
             this.btnExtension.Size = new System.Drawing.Size(120, 36);
             this.btnExtension.TabIndex = 5;
@@ -236,7 +238,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(859, 28);
+            this.btnClear.Location = new System.Drawing.Point(772, 28);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(120, 36);
             this.btnClear.TabIndex = 4;
@@ -246,7 +248,7 @@
             // 
             // btnLanguage
             // 
-            this.btnLanguage.Location = new System.Drawing.Point(162, 28);
+            this.btnLanguage.Location = new System.Drawing.Point(138, 28);
             this.btnLanguage.Name = "btnLanguage";
             this.btnLanguage.Size = new System.Drawing.Size(120, 36);
             this.btnLanguage.TabIndex = 3;
@@ -256,7 +258,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(999, 28);
+            this.btnClose.Location = new System.Drawing.Point(1043, 26);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 36);
             this.btnClose.TabIndex = 2;
@@ -266,7 +268,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(563, 28);
+            this.btnStart.Location = new System.Drawing.Point(520, 28);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(120, 36);
             this.btnStart.TabIndex = 1;
@@ -276,13 +278,23 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(20, 28);
+            this.btnLoad.Location = new System.Drawing.Point(12, 28);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(120, 36);
             this.btnLoad.TabIndex = 0;
             this.btnLoad.Text = "加  载 ";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // btnGetFile
+            // 
+            this.btnGetFile.Location = new System.Drawing.Point(906, 28);
+            this.btnGetFile.Name = "btnGetFile";
+            this.btnGetFile.Size = new System.Drawing.Size(120, 36);
+            this.btnGetFile.TabIndex = 8;
+            this.btnGetFile.Text = "获取文件";
+            this.btnGetFile.UseVisualStyleBackColor = true;
+            this.btnGetFile.Click += new System.EventHandler(this.btnGetFile_Click);
             // 
             // FrmUnLanguage
             // 
@@ -326,5 +338,6 @@
         private System.Windows.Forms.Button btnCurrentPath;
         private System.Windows.Forms.TextBox txtProgramExtension;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnGetFile;
     }
 }

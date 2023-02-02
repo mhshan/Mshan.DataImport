@@ -35,9 +35,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(28, 444);
+            this.button1.Location = new System.Drawing.Point(39, 580);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 30);
+            this.button1.Size = new System.Drawing.Size(120, 40);
             this.button1.TabIndex = 0;
             this.button1.Text = " 退  出 ";
             this.button1.UseVisualStyleBackColor = true;
@@ -45,9 +46,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(144, 444);
+            this.button2.Location = new System.Drawing.Point(194, 580);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 30);
+            this.button2.Size = new System.Drawing.Size(120, 40);
             this.button2.TabIndex = 1;
             this.button2.Text = "重新启动";
             this.button2.UseVisualStyleBackColor = true;
@@ -55,22 +57,25 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 23);
-            this.textBox1.MinimumSize = new System.Drawing.Size(800, 400);
+            this.textBox1.Location = new System.Drawing.Point(15, 31);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.MinimumSize = new System.Drawing.Size(1065, 532);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(800, 400);
+            this.textBox1.Size = new System.Drawing.Size(1065, 532);
             this.textBox1.TabIndex = 2;
             // 
             // FrmException
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 504);
+            this.ClientSize = new System.Drawing.Size(1097, 635);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmException";
             this.Text = "FrmException";
             this.ResumeLayout(false);

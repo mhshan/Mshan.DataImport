@@ -67,7 +67,7 @@ namespace Mshan.Document.WinFormDatabase
             {
                 if (__isImport)
                 {
-                    WriteControl("数据正在导入");
+                    WriteControl("数据正在导入…………………………………………");
                     return;
                 }
                 else
@@ -84,8 +84,8 @@ namespace Mshan.Document.WinFormDatabase
                         {
                             //string tableNameD = tableNameD[i];
                             DateTime beginTime = DateTime.Now;
-                            WriteControl("开始导入" + tableNameD[i]);
-                            string sourceQuery = string.Format("select * from {0}", tableNameS[i]);
+                            WriteControl("开始导入" + tableNameD[i] + string.Format("………………{0}…………", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+                            string sourceQuery = string.Format("select * from {0} where {1}", tableNameS[i],txtWhere);
                             DataTable dtS = DbHelper.Fill(txtSourceConnection.Text, sourceQuery);
                             string desQuery = string.Format("select * from {0} where 1=0", tableNameD[i]);
                             DataTable dtD = DbHelper.Fill(txtDestinationConnection.Text, desQuery);
@@ -435,6 +435,12 @@ end;
             fileDialog.ShowDialog();
             if (!string.IsNullOrEmpty(fileDialog.FileName))
             WriteControl(System.IO.File.ReadAllText(fileDialog.FileName)); 
+        }
+
+        private void txtWhere_Click(object sender, EventArgs e)
+        {
+            if (txtWhere.Text.StartsWith("执行条件,表单独使用"))
+                txtWhere.Text = string.Empty;
         }
     }
 }

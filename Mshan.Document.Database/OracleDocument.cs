@@ -117,11 +117,13 @@ namespace Mshan.Document.Database
 
         public static DataTable GetAllTypeBySchema(string type,string schema)
         {
-            return DbHelper.Fill(string.Format("SELECT DISTINCT name FROM USER_SOURCE where  lower(type)='{0}'   order by name asc",type.ToLower()));
+            //return DbHelper.Fill(string.Format("SELECT DISTINCT name FROM USER_SOURCE where  lower(name)='{0}'  and owner='ccense'  order by name asc", "TRG_ST_EMP_TRADE".ToLower()));
+            return DbHelper.Fill(string.Format("SELECT DISTINCT name FROM dba_source where  lower(type)='{0}'  and lower(owner)='ccense'   order by name asc", type.ToLower()));
         }
+
         public static DataTable GetProcedureByName(string procedureName, string type)
         {
-            return DbHelper.Fill(string.Format("SELECT * FROM USER_SOURCE where  name='{0}' and upper(type)='{1}' order by line asc", procedureName, type.ToUpper()));
+            return DbHelper.Fill(string.Format("SELECT * FROM dba_SOURCE where  name='{0}' and upper(type)='{1}' and lower(owner)='ccense'   order by line asc", procedureName, type.ToUpper()));
         }
         public static Int32 UpdateProcedureLine(string procedureName, string type,Int32 line,string text)
         {
@@ -155,6 +157,10 @@ namespace Mshan.Document.Database
         public static DataTable GetSequenceBySchema(string schema)
         {
             return DbHelper.Fill(string.Format("select * from dba_sequences where upper(sequence_owner)='{0}'", schema.ToUpper()));
+        }
+        public static DataTable GetSequenceByName(string name)
+        {
+            return DbHelper.Fill(string.Format("select * from dba_sequences where upper(sequence_name)='{0}'", name.ToUpper()));
         }
         public static DataTable GetViewBySchema(string schema)
         {

@@ -30,10 +30,13 @@ namespace Mshan.Document.WinFormDatabase
                     List<string> list = GetFileList(__path);
                     foreach (string s in list)
                     {
-                        if (!cbAll.Checked)
+                        if (s.EndsWith(SourceExtension,true,System.Globalization.CultureInfo.CurrentCulture))
                         {
-                            if (!IsFileSerect(s))
-                                continue;
+                            if (!cbAll.Checked)
+                            {
+                                if (!IsFileSerect(s))
+                                    continue;
+                            }
                         }
                         WriteControl(s);
                     }
@@ -264,7 +267,6 @@ namespace Mshan.Document.WinFormDatabase
                 int counter = 0;
                 while (vHandle == IntPtr.Zero)
                 {
-                    
                     vHandle=FindWindowEx(proc.MainWindowHandle, IntPtr.Zero, null, null);
                     counter++;
                     if (counter > 100)
@@ -275,13 +277,15 @@ namespace Mshan.Document.WinFormDatabase
                 // 传递数据给记事本
                 while (string.IsNullOrEmpty(text.ToString()))
                 {
-                    SendMessage(vHandle, WM_GETTEXT, length, text);
-                    System.Threading.Thread.Sleep(10);
                     if (Counter++ > 50)
                     {
-                        WriteControl(string.Format("检测到空文件{0}", path));
+                         WriteControl(string.Format("检测到空文件{0}", path));
                         break;
                     }
+                    text = new StringBuilder(length);
+                    SendMessage(vHandle, WM_GETTEXT, length, text);
+                    System.Threading.Thread.Sleep(10);
+                    
                 }
                 SendMessage(vHandle, WM_QUIT, length, text);
                 proc.Kill();
@@ -328,7 +332,20 @@ namespace Mshan.Document.WinFormDatabase
                         if (!cbAll.Checked&&!IsFileSerect(s))
                             continue;
                         ++index;
-                        string text = ChangeExtension(s);
+                        int number = 0;
+                        string text=string.Empty;
+                        while (true)
+                        {
+                            if (number++ > 5) 
+                                break; 
+                            text = ChangeExtension(s);
+                            if (!IsTextSerect(text))
+                                break;
+                        }
+                        if (IsTextSerect(text))
+                        {
+                            WriteControl(string.Format("检测加密文件{0}", s));
+                        }
                         WriterFile(newPath + relativePath + DestExtension, text);
                     }
                 }
@@ -376,6 +393,10 @@ namespace Mshan.Document.WinFormDatabase
                return System.Text.RegularExpressions.Regex.IsMatch(s, "E-SafeNet"/*\0\0LOCK"*/);
            }
            return false;
+        }
+        public bool IsTextSerect(string text)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(text, "E-SafeNet"/*\0\0LOCK"*/);
         }
         public List<string> GetAllFileList(string path)
         {
@@ -452,7 +473,40 @@ namespace Mshan.Document.WinFormDatabase
             txtPath.Text = __path;
         }
 
+        private void btnGetFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FrmFileInfo frmFileInfo = new FrmFileInfo();
+                frmFileInfo.ShowDialog(this);
+                if (frmFileInfo.IsOk)
+                {
+                    List<string> list = GetFileList(frmFileInfo.PathSource);
 
+                    foreach (string fileName in list)
+                    {
+                        System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+                        if (fileInfo.LastWriteTime >= frmFileInfo.UpdateTime)
+                        {
+                            string destName = frmFileInfo.PathDest + fileName.Substring(frmFileInfo.PathSource.Length);
+                            string newDir = destName.Substring(0, destName.LastIndexOf('\\'));
+                            if (!System.IO.Directory.Exists(newDir))
+                            {
+                                System.IO.Directory.CreateDirectory(newDir);
+                            }
+                            WriteControl(fileInfo.FullName + "——" + fileInfo.LastWriteTime);
+                            System.IO.File.Copy(fileName, destName, true);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteControl(ex.Message);
+                WriteControl(ex.StackTrace);
+            }
+        }
 
+         
     }
 }
