@@ -231,63 +231,10 @@ namespace Mshan.Document.WinFormDatabase
             EnumChildWindows(hwnd, new CallBack(ChildWindowProcess), 0);
             return true;
         }
-        private string ChangeExtension(string path)
+        private void ChangeExtension(string path,string dst)
         {
-            System.Diagnostics.Process proc;
-            try
-            {
-                // 启动记事本
-                proc = new System.Diagnostics.Process();
-                proc.StartInfo.UseShellExecute = false;
-                proc.StartInfo.RedirectStandardInput = true;
-                proc.StartInfo.RedirectStandardOutput = true;
-                proc.StartInfo.Arguments = path;
-                proc.StartInfo.FileName = "notepad.exe";
-                proc.Start();
-            }
-            catch (Exception ex)
-            {
-                proc = null;
-
-            } 
-            if (proc != null)
-            {
-                // 调用 API, 传递数据
-                while (proc.MainWindowHandle == IntPtr.Zero)
-                {
-                    System.Threading.Thread.Sleep(10);
-                    proc.Refresh();
-                }
-                Int32 length = 1024 * 4000;
-                StringBuilder text = new StringBuilder(length);
-                IntPtr vHandle =IntPtr.Zero;
-                int counter = 0;
-                while (vHandle == IntPtr.Zero)
-                {
-                    
-                    vHandle=FindWindowEx(proc.MainWindowHandle, IntPtr.Zero, null, null);
-                    counter++;
-                    if (counter > 100)
-                        break;
-                    System.Threading.Thread.Sleep(10);
-                }
-                Int32 Counter = 0;
-                // 传递数据给记事本
-                while (string.IsNullOrEmpty(text.ToString()))
-                {
-                    SendMessage(vHandle, WM_GETTEXT, length, text);
-                    System.Threading.Thread.Sleep(10);
-                    if (Counter++ > 50)
-                    {
-                        WriteControl(string.Format("检测到空文件{0}", path));
-                        break;
-                    }
-                }
-                SendMessage(vHandle, WM_QUIT, length, text);
-                proc.Kill();
-                return text.ToString();
-            }
-            return string.Empty; 
+            System.Diagnostics.Process.Start("type " + path + " " + dst);
+            return;
         }
         public static void WriterFile(string path, string text)
         {
@@ -328,8 +275,9 @@ namespace Mshan.Document.WinFormDatabase
                         if (!cbAll.Checked&&!IsFileSerect(s))
                             continue;
                         ++index;
-                        string text = ChangeExtension(s);
-                        WriterFile(newPath + relativePath + DestExtension, text);
+                        string dst = newPath + relativePath + DestExtension;
+                        ChangeExtension(s, dst);
+                        //WriterFile(newPath + relativePath + DestExtension, text);
                     }
                 }
                 DateTime endTime = DateTime.Now;

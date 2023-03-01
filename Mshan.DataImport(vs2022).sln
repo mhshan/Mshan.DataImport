@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mshan.Document.Database", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mshan.Document.WinFormDatabase", "Mshan.Document.WinFormDatabase\Mshan.Document.WinFormDatabase.csproj", "{A2647156-C11A-43C1-B56F-97EC0A9A73FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mshan.Document.FwForm", "Mshan.Document.FwForm\Mshan.Document.FwForm.csproj", "{935BA9E0-0A98-4916-9EB8-496326AD3C03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{A2647156-C11A-43C1-B56F-97EC0A9A73FD}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A2647156-C11A-43C1-B56F-97EC0A9A73FD}.Release|x86.ActiveCfg = Release|x86
 		{A2647156-C11A-43C1-B56F-97EC0A9A73FD}.Release|x86.Build.0 = Release|x86
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Debug|x86.Build.0 = Debug|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Release|x86.ActiveCfg = Release|Any CPU
+		{935BA9E0-0A98-4916-9EB8-496326AD3C03}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
